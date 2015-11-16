@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class PlayerContoller : MonoBehaviour {
+public class PlayerContoller : NetworkBehaviour {
 
 	public float speed;
 	public float jump;
@@ -11,8 +12,11 @@ public class PlayerContoller : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 	}
-
+	
 	void FixedUpdate () {
+		if (!isLocalPlayer) { //Check if this is the player corresponding with the local client if not return
+			return;
+		}
 		if (rb == null)
 			return;
 		float moveHorizontal = Input.GetAxis ("Horizontal");
