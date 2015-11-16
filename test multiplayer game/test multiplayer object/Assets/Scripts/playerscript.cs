@@ -5,6 +5,8 @@ public class playerscript : NetworkBehaviour {
 	
 	public float acceleration; //acceleration of ball
 
+	public GameObject boxprefab;
+
 	//Server movement vector
 	Vector3 movement;
 
@@ -13,8 +15,8 @@ public class playerscript : NetworkBehaviour {
 
 	//Initalization
 	void Start () {
-		if (!NetworkServer.active) {
-			//GetComponent<Rigidbody>().isKinematic = true;
+		if (isLocalPlayer) {
+			this.GetComponent<Renderer>().material.color = Color.green;
 		}
 	}
 
@@ -34,9 +36,20 @@ public class playerscript : NetworkBehaviour {
 			return;
 		}
 		//Process control inputs for local player
+		handleMovement();
+
+		//Process other input for local player
+		if(Input.GetKeyDown("space")){
+			CmdCreateBox();
+		}
+
+	}
+	
+	//Handle movement of the player
+	void handleMovement(){
 		float ver =  Input.GetAxis("Vertical");
 		float hor = Input.GetAxis("Horizontal");
-
+		
 		if (ver > 0) { ver = 1; }
 		if (ver < 0) { ver = -1; }
 		if (hor > 0) { hor = 1; }
@@ -44,22 +57,25 @@ public class playerscript : NetworkBehaviour {
 		
 		Vector3 movForce = new Vector3 (hor, 0, ver);
 		
-		//CmdMove (movForce);
 		GetComponent<Rigidbody> ().AddForce (movForce*acceleration);
 
 	}
 
+
 	//Update function for client
 	void UpdateServer()
 	{
-	//	GetComponent<Rigidbody> ().AddForce (this.movement*acceleration);
+		
 	}
 
 	//Set movement of ball on server
 	[Command]
-	void CmdMove(Vector3 movForce)
+	void CmdCreateBox()
 	{
-	//	this.movement = movForce;
+		Quaternion rotation = Quaternion.identity;
+		rotation.eulerAngles = Vector3.zero;
+		GameObject box = (GameObject)Instantiate (boxprefab, new Vector3 (0, 0, 0), rotation);
+		NetworkServer.Spawn (box);
 	}
 
 }

@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 3
+  boxprefab: {fileID: 103614, guid: 5a04a5e4a9428444881d7194b8d21928, type: 2}
 --- !u!114 &11489382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,6 +204,10 @@ Prefab:
       propertyPath: m_MovementTheshold
       value: .00100000005
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: boxprefab
+      value: 
+      objectReference: {fileID: 103614, guid: 5a04a5e4a9428444881d7194b8d21928, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 163268}
