@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fastspeed: 10
-  fastjump: 11
+  fastjump: 13
   slowspeed: 5
   slowjump: 7
 --- !u!114 &11425262
@@ -295,7 +295,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: fastjump
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: slowspeed
