@@ -11,6 +11,7 @@ public class PlayerContoller : NetworkBehaviour {
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();
+		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 	}
 	
 	void FixedUpdate () {
@@ -37,6 +38,10 @@ public class PlayerContoller : NetworkBehaviour {
 
 	void OnCollisionExit(Collision c) {
 		isGrounded = false;
+	}
+
+	void OnDestroy(){
+		Eventmanager.Instance.triggerPlayerRemoved (this.gameObject);
 	}
 
 	/**
