@@ -44,9 +44,4 @@ public class PlayerContoller : NetworkBehaviour {
 		Eventmanager.Instance.triggerPlayerRemoved (this.gameObject);
 	}
 
-	/**
-	bool isGrounded() {
-		return Physics.Raycast (rb.transform.position, -Vector3.up, 0.1f);
-	}
-	*/
 }

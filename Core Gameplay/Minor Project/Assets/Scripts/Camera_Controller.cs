@@ -8,10 +8,18 @@ public class Camera_Controller : MonoBehaviour {
 
 	public float minzoom;
 	public float maxzoom;
+	public float windowx;
+	public float windowy;
+
+	private Vector2 windowCenter;
+	private Vector2 previousCenter;
 
 	// Use this for initialization
 	void Start () {
 		players = new List<GameObject>();
+		windowCenter.x = this.GetComponent<Transform> ().position.x;
+		windowCenter.y = this.GetComponent<Transform> ().position.y;
+		previousCenter = windowCenter;
 	}
 
 	void OnEnable(){
@@ -25,7 +33,9 @@ public class Camera_Controller : MonoBehaviour {
 	}
 
 	void Update(){
-		updateCameraLocation ();
+		if (players.Count > 0) {
+			updateCameraLocation ();
+		}
 	}
 
 	void addplayer(GameObject player){	//Add new player to list of player objects
@@ -37,13 +47,20 @@ public class Camera_Controller : MonoBehaviour {
 	}
 
 	void updateCameraLocation(){
-		Vector3 newLocation = Vector3.zero;
+		Vector3 center = Vector3.zero;
 		foreach (GameObject player in players) {
-			newLocation += player.GetComponent<Transform>().position;
+			center += player.GetComponent<Transform>().position;
 		}
-		newLocation /= (float)players.Count;
-		newLocation.z = -40.0f;
+		center /= (float)players.Count;
+		//newLocation.z = -40.0f;
+		if (Mathf.Abs (center.x - windowCenter.x) > windowx) {
+			windowCenter.x += center.x-previousCenter.x;
+		}
+		if (Mathf.Abs (center.y - windowCenter.y) > windowy) {
+			windowCenter.y += center.y+-previousCenter.y;
+		}
+		Vector3 newLocation = new Vector3 (windowCenter.x, windowCenter.y+5.0f, -40.0f);
+		previousCenter = new Vector2(center.x,center.y);
 		this.GetComponent<Transform> ().position = newLocation;
-		Debug.Log (newLocation);
 	}
 }
