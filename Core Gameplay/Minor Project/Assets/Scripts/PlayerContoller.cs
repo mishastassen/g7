@@ -10,6 +10,12 @@ public class PlayerContoller : NetworkBehaviour {
 	private bool inRange;
 	private Rigidbody rb;
 
+	public float fastspeed;
+	public float fastjump;
+
+	public float slowspeed;
+	public float slowjump;
+
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
@@ -27,11 +33,11 @@ public class PlayerContoller : NetworkBehaviour {
 		float yVelocity = rb.velocity.y;
 
 		if (hasPackage) {
-			speed = 3;
-			jump = 5;
+			speed = slowspeed;
+			jump = slowjump;
 		} else {
-			speed = 5;
-			jump = 7;
+			speed = fastspeed;
+			jump = fastjump;
 		}
 
 		if (Input.GetButton("Jump") && (isGroundedToe() || isGroundedHeel())) {

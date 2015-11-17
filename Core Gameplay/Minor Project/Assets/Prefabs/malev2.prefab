@@ -121,8 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24cf3b11a60384d42af900fd48489b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 9
-  jump: 12
+  fastspeed: 10
+  fastjump: 11
+  slowspeed: 5
+  slowjump: 7
 --- !u!114 &11425262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,6 +289,22 @@ Prefab:
       value: 
       objectReference: {fileID: 13400000, guid: f49aa261128e76747937eaedbde96c6d,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: fastspeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fastjump
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: slowspeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: slowjump
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 155050}
