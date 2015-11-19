@@ -6,7 +6,10 @@ public class PlayerContoller : NetworkBehaviour {
 
 	private float speed;
 	private float jump;
+
+	[SyncVar]
 	private bool hasPackage;
+
 	private bool inRange;
 	private Rigidbody rb;
 
@@ -51,6 +54,7 @@ public class PlayerContoller : NetworkBehaviour {
 		if (Input.GetKeyDown (KeyCode.R) && hasPackage) {
 			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
 			transform.DetachChildren();
+			CmdDropPackage();
 			hasPackage = false;
 		}
 
@@ -73,13 +77,31 @@ public class PlayerContoller : NetworkBehaviour {
     }
 
 	void OnTriggerStay(Collider other) {
-		if(Input.GetKeyDown(KeyCode.E) && other.tag == "PickUp" && !hasPackage)
+		if(Input.GetKeyDown(KeyCode.E) && other.tag == "PickUp1" && !hasPackage)
 		{	
 			other.transform.parent.SetParent(rb.transform);
 			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
 			other.transform.parent.localPosition = new Vector3(1,-2,4);
+			CmdPickupPackage("PickUp1");
 			hasPackage = true;
 		}
 	}
+
+	[Command]
+	void CmdPickupPackage(string tag){
+		GameObject other = GameObject.FindWithTag(tag);
+		other.transform.parent.SetParent(rb.transform);
+		other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
+		other.transform.parent.localPosition = new Vector3(1,-2,4);
+	}
+
+
+
+	[Command]
+	void CmdDropPackage(){
+		transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+		transform.DetachChildren();
+	}
+
 
 }

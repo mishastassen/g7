@@ -15,13 +15,12 @@ Loading D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\test1
 Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\test1_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\test1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\test1_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.118 seconds
+- Completed reload, in  0.164 seconds
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\test1_Data\Managed\System.dll (this message is harmless)
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 42f0 -> priority: 1 
-  Thread -> id: 2c40 -> priority: 1 
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:52524}
+  Thread -> id: 49bc -> priority: 1 
+  Thread -> id: 5554 -> priority: 1 
