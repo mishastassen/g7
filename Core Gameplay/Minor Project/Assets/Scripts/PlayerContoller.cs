@@ -13,6 +13,11 @@ public class PlayerContoller : NetworkBehaviour {
 	private bool inRange;
 	private Rigidbody rb;
 
+	private string horizontalAxis = "Horizontal_P1";
+	private string jumpButton = "Jump_P1";
+	private string interact1Button = "Interact1_P1";
+	private string interact2Button = "Interact2_P1";
+
 	public float fastspeed;
 	public float fastjump;
 
@@ -23,6 +28,12 @@ public class PlayerContoller : NetworkBehaviour {
 		rb = GetComponent<Rigidbody>();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
+		if (GetComponent<NetworkIdentity>().playerControllerId == 2){
+			horizontalAxis = "Horizontal_P2";
+			jumpButton = "Jump_P2";
+			interact1Button = "Interact1_P2";
+			interact2Button = "Interact2_P2";
+		}
 	}
 	
 	void FixedUpdate () {
@@ -32,7 +43,7 @@ public class PlayerContoller : NetworkBehaviour {
 		if (rb == null)
 			return;
 
-		float moveHorizontal = Input.GetAxis ("Horizontal");
+		float moveHorizontal = Input.GetAxis (horizontalAxis);
 		float yVelocity = rb.velocity.y;
 
 		if (hasPackage) {
@@ -43,7 +54,7 @@ public class PlayerContoller : NetworkBehaviour {
 			jump = fastjump;
 		}
 
-		if (Input.GetButton("Jump") && (isGroundedToe() || isGroundedHeel())) {
+		if (Input.GetButton(jumpButton) && (isGroundedToe() || isGroundedHeel())) {
 			yVelocity = jump;
 		}
 
@@ -51,11 +62,11 @@ public class PlayerContoller : NetworkBehaviour {
 
 		rb.velocity = movement;
 
-		if (Input.GetKeyDown (KeyCode.R) && hasPackage) {
+		if (Input.GetButton(interact2Button) && hasPackage) {
 			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
 			transform.DetachChildren();
-			CmdDropPackage();
 			hasPackage = false;
+			CmdDropPackage();
 		}
 
 	}
@@ -77,7 +88,7 @@ public class PlayerContoller : NetworkBehaviour {
     }
 
 	void OnTriggerStay(Collider other) {
-		if(Input.GetKeyDown(KeyCode.E) && other.tag == "PickUp1" && !hasPackage)
+		if(Input.GetButton(interact1Button) && other.tag == "PickUp1" && !hasPackage)
 		{	
 			other.transform.parent.SetParent(rb.transform);
 			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
