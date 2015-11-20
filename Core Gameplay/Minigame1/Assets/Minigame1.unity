@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cirkel_rechts: {fileID: 954928042}
   pijl_rechts: {fileID: 217891883}
-  speed: 150
+  speed: -150
   scoreText: {fileID: 1468532988}
   finished_right: 0
 --- !u!65 &217891885
