@@ -12,8 +12,15 @@ public class PlayerContoller : NetworkBehaviour {
 	[SyncVar]
 	private bool hasPackage;
 
+	private bool inRange;
 	private Rigidbody rb;
 	private Animator anim;
+
+	private string horizontalAxis = "Horizontal_P1";
+	private string jumpButton = "Jump_P1";
+	private string interact1Button = "Interact1_P1";
+	private string interact2Button = "Interact2_P1";
+	private string throwButton = "Throw_P1";
 
 	private float fastspeed;
 	private float fastjump;
@@ -26,10 +33,18 @@ public class PlayerContoller : NetworkBehaviour {
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
 		fastspeed = 10;
-		fastjump = 20;
+		fastjump = 21;
 		slowspeed = 6;
 		slowjump = 15;
 		runThreshold = 0.5f;
+
+		if (GetComponent<NetworkIdentity>().playerControllerId == 2){
+			horizontalAxis = "Horizontal_P2";
+			jumpButton = "Jump_P2";
+			interact1Button = "Interact1_P2";
+			interact2Button = "Interact2_P2";
+			throwButton = "Throw_P2";
+		}
 	}
 	
 	void FixedUpdate () {
@@ -40,7 +55,7 @@ public class PlayerContoller : NetworkBehaviour {
 			return;
 
 		// move player based on user input
-		float moveHorizontal = Input.GetAxis ("Horizontal");
+		float moveHorizontal = Input.GetAxis (horizontalAxis);
 		float yVelocity = rb.velocity.y;
 
 		// set speed and jumppower
@@ -53,7 +68,7 @@ public class PlayerContoller : NetworkBehaviour {
 		}
 
 		// jump based on user input
-		if (Input.GetButton("Jump") && (isGroundedToe() || isGroundedHeel())) {
+		if (Input.GetButton(jumpButton) && (isGroundedToe() || isGroundedHeel())) {
 			yVelocity = jump;
 		}
 
@@ -68,7 +83,7 @@ public class PlayerContoller : NetworkBehaviour {
 		ManageAnimation (moveHorizontal);
 
 		// drop the package
-		if (Input.GetKeyDown (KeyCode.R) && hasPackage) {
+		if (Input.GetButton(interact2Button) && hasPackage) {
 			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
 			transform.DetachChildren();
 			hasPackage = false;
@@ -76,7 +91,7 @@ public class PlayerContoller : NetworkBehaviour {
 		}
 
 		// throw a package
-		if (Input.GetKeyDown (KeyCode.T) && hasPackage) {
+		if (Input.GetButtonDown (throwButton) && hasPackage) {
 			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
 			transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
 			transform.DetachChildren();			
@@ -98,7 +113,6 @@ public class PlayerContoller : NetworkBehaviour {
 		return Physics.Raycast (heelPosition, -Vector3.up, 0.1f);
 	}
 
-
 	void Flip()	{
 		facingRight = !facingRight;
 		Vector3 theScale = transform.localScale;
@@ -111,14 +125,14 @@ public class PlayerContoller : NetworkBehaviour {
 		anim.SetBool("isRunning", isRunning);
 	}
 	
-	void OnDestroy()
+    void OnDestroy()
     {
         Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
     }
 
 	// pick up or catch a package
 	void OnTriggerStay(Collider other) {
-		if(Input.GetKeyDown(KeyCode.E) && other.tag == "PickUp1" && !hasPackage)
+		if(Input.GetButton(interact1Button) && other.tag == "PickUp1" && !hasPackage)
 		{	
 			other.transform.parent.SetParent(rb.transform);
 			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
@@ -136,6 +150,8 @@ public class PlayerContoller : NetworkBehaviour {
 		other.transform.parent.localPosition = new Vector3(0,3,2);
 	}
 
+
+
 	[Command]
 	void CmdDropPackage(){
 		transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
@@ -148,5 +164,6 @@ public class PlayerContoller : NetworkBehaviour {
 		transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
 		transform.DetachChildren();
 	}
+
 
 }
