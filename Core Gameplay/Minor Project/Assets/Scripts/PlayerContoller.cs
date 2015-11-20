@@ -4,13 +4,16 @@ using System.Collections;
 
 public class PlayerContoller : NetworkBehaviour {
 
+	[HideInInspector] public bool facingRight = true;
 	private float speed;
 	private float jump;
+	public float runThreshold;
 
 	[SyncVar]
 	private bool hasPackage;
 
 	private Rigidbody rb;
+	private Animator anim;
 
 	private float fastspeed;
 	private float fastjump;
@@ -19,12 +22,14 @@ public class PlayerContoller : NetworkBehaviour {
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();
+		anim = GetComponent<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
 		fastspeed = 10;
 		fastjump = 20;
 		slowspeed = 6;
 		slowjump = 15;
+		runThreshold = 0.5f;
 	}
 	
 	void FixedUpdate () {
@@ -55,6 +60,12 @@ public class PlayerContoller : NetworkBehaviour {
 		// move player
 		Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
 		rb.velocity = movement;
+
+		if (moveHorizontal < 0 && facingRight)
+			Flip ();
+		else if (moveHorizontal > 0 && !facingRight)
+			Flip ();
+		ManageAnimation (moveHorizontal);
 
 		// drop the package
 		if (Input.GetKeyDown (KeyCode.R) && hasPackage) {
@@ -88,7 +99,19 @@ public class PlayerContoller : NetworkBehaviour {
 	}
 
 
-    void OnDestroy()
+	void Flip()	{
+		facingRight = !facingRight;
+		Vector3 theScale = transform.localScale;
+		theScale.z *= -1;
+		transform.localScale = theScale;
+	}
+	
+	void ManageAnimation(float moveHorizontal) {
+		bool isRunning = Mathf.Abs (speed * moveHorizontal) > runThreshold;
+		anim.SetBool("isRunning", isRunning);
+	}
+	
+	void OnDestroy()
     {
         Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
     }
@@ -99,7 +122,7 @@ public class PlayerContoller : NetworkBehaviour {
 		{	
 			other.transform.parent.SetParent(rb.transform);
 			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-			other.transform.parent.localPosition = new Vector3(1,-2,4);
+			other.transform.parent.localPosition = new Vector3(0,3,2);
 			CmdPickupPackage("PickUp1");
 			hasPackage = true;
 		}
@@ -110,7 +133,7 @@ public class PlayerContoller : NetworkBehaviour {
 		GameObject other = GameObject.FindWithTag(tag);
 		other.transform.parent.SetParent(rb.transform);
 		other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-		other.transform.parent.localPosition = new Vector3(1,-2,4);
+		other.transform.parent.localPosition = new Vector3(0,3,2);
 	}
 
 	[Command]

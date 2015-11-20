@@ -71,7 +71,7 @@ MonoBehaviour:
   m_OfflineScene: 
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 112656, guid: 52526eea13fe5bb4a934072c5dac7443, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   m_CustomConfig: 0
   m_MaxConnections: 4
@@ -95,7 +95,6 @@ MonoBehaviour:
     m_IsAcksLong: 0
     m_Channels: []
   m_Channels: 
-  m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
