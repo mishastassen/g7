@@ -8,9 +8,10 @@ public class PlayerContoller : NetworkBehaviour {
 	private float jump;
 
 	[SyncVar]
-	private bool hasPackage;
+	private bool hasPackage, walking;
 
 	private bool inRange;
+	private bool PlayWalingSoundrunning;
 	private Rigidbody rb;
 
 	private string horizontalAxis = "Horizontal_P1";
@@ -23,6 +24,9 @@ public class PlayerContoller : NetworkBehaviour {
 	private float fastjump;
 	private float slowspeed;
 	private float slowjump;
+	
+	private int footstep = 1;
+	
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();
@@ -52,6 +56,13 @@ public class PlayerContoller : NetworkBehaviour {
 		float moveHorizontal = Input.GetAxis (horizontalAxis);
 		float yVelocity = rb.velocity.y;
 
+		//Sync if players are walking
+		if (Mathf.Abs (moveHorizontal) > 0.1) {
+			walking = true;
+		} else {
+			walking = false;
+		}
+
 		// set speed and jumppower
 		if (hasPackage) {
 			speed = slowspeed;
@@ -69,6 +80,11 @@ public class PlayerContoller : NetworkBehaviour {
 		// move player
 		Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
 		rb.velocity = movement;
+
+		//Play walking sound if player is ont the ground
+		if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalingSoundrunning) {
+			StartCoroutine (PlayWalkingSound ());
+		}
 
 		// drop the package
 		if (Input.GetButton(interact2Button) && hasPackage) {
@@ -101,6 +117,7 @@ public class PlayerContoller : NetworkBehaviour {
 		return Physics.Raycast (heelPosition, -Vector3.up, 0.1f);
 	}
 
+	//Trigger player removed event
     void OnDestroy()
     {
         Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
@@ -118,6 +135,27 @@ public class PlayerContoller : NetworkBehaviour {
 		}
 	}
 
+	//Play walking sound
+	IEnumerator PlayWalkingSound(){
+		PlayWalingSoundrunning = true;
+		GetComponent<PlayerAudioManager> ().audioFootstepWood1.Play ();
+		Debug.Log (rb.velocity.magnitude);
+		float delay = (10.0f-rb.velocity.magnitude)*0.1f;
+		if (delay > 0.5){
+			delay = 0.5f;
+		}
+		yield return new WaitForSeconds (GetComponent<PlayerAudioManager> ().clipFootstepWood1.length + delay);
+		if (walking == true && (isGroundedToe () || isGroundedHeel ())) {
+			GetComponent<PlayerAudioManager> ().audioFootstepWood2.Play ();
+			delay = (10.0f-rb.velocity.magnitude)*0.1f;
+			if (delay > 0.5){
+				delay = 0.5f;
+			}
+			yield return new WaitForSeconds (GetComponent<PlayerAudioManager> ().clipFootstepWood2.length + delay);
+		}
+		PlayWalingSoundrunning = false;
+	}
+
 	[Command]
 	void CmdPickupPackage(string tag){
 		GameObject other = GameObject.FindWithTag(tag);
@@ -125,9 +163,7 @@ public class PlayerContoller : NetworkBehaviour {
 		other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
 		other.transform.parent.localPosition = new Vector3(1,-2,4);
 	}
-
-
-
+	
 	[Command]
 	void CmdDropPackage(){
 		transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
@@ -140,6 +176,7 @@ public class PlayerContoller : NetworkBehaviour {
 		transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
 		transform.DetachChildren();
 	}
+	
 
 
 }
