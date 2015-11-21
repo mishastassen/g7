@@ -5,60 +5,76 @@ public class PlayerController : MonoBehaviour {
 
 	public Rigidbody rb;
 
-	public float speed;
+	// walkspeed, windspeed, rotatespeed, blowdir, severity
+	public float walkspeed;
 	public float windspeed;
 	public int rotatespeed;
+	private float blowdir;
+	private float severity;
 
+	// is the wind blowing?
 	private bool windBlowing;
-	private bool windBlowLong;
 
 	int frame_count;
-	int count;
+	int wind_count;
 
-	// Use this for initialization
+	// set important values
 	void Start () {
-		count = 0;
+		windBlowing = false;
+		frame_count = 0;
+		wind_count = 0;
 		rb.GetComponent<Rigidbody> ();
+		blowdir = getWindDirection();
+		severity = 1.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		frame_count++;
-		windBlowing = false;
-		if (frame_count % 200 == 0) {
+
+		if (frame_count % 100 == 0) {
 			windBlowing = true;
 		}
 
 		if (windBlowing) {
-			windBlowLong = true;
-		}
 
-		if (windBlowLong){
-			//var windway = Random(-1,1);
-			count ++;
-			rb.AddForce(Vector3.left * windspeed);
-			Debug.Log ( "Adding wind");
-			
+			wind_count ++;
 
-			if (count > 60){
-				windBlowLong = false;
-				count = 0;
+			// add the force due to the wind
+			rb.AddForce (Vector3.left * windspeed * blowdir * severity);
+
+			if (wind_count > 40) {
+				windBlowing = false;
+				wind_count = 0;
+				blowdir = getWindDirection();
 			}
 		}
+
+		// increase the severity of the wind if one progresses
+		if (transform.position.z > 5) {
+			severity = 1.25f;
+		}
+
+		if (transform.position.z > 10) {
+			severity = 1.5f;
+		}
+
+		if (transform.position.z > 15) {
+			severity = 2.0f;
+		}
+
 	}
 
+
+	// the controls
 	void FixedUpdate()
 	{
-		
 		if (Input.GetKey (KeyCode.UpArrow)) {
-			transform.Translate (Vector3.forward * speed * Time.deltaTime);
-			
+			transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
 		}
 		
-		
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			transform.Translate (-Vector3.forward * speed * Time.deltaTime);
-			
+			transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime);
 		}
 
 		if (Input.GetKey (KeyCode.LeftArrow)) {
@@ -70,5 +86,15 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	// returns the blowdirection of the wind. Random, as you can see
+	float getWindDirection(){
+		blowdir = Random.Range (-1.0f, 1.0f);
 
+		if (blowdir < 0) {
+			blowdir = -1;
+		} else {
+			blowdir = 1;
+		}
+		return blowdir;
+		}
 }
