@@ -87,7 +87,7 @@ public class PlayerContoller : NetworkBehaviour {
 		}
 
 		// drop the package
-		if (Input.GetButton(interact2Button) && hasPackage) {
+		if (Input.GetButtonDown(interact1Button) && hasPackage) {
 			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
 			transform.DetachChildren();
 			hasPackage = false;
@@ -95,7 +95,7 @@ public class PlayerContoller : NetworkBehaviour {
 		}
 
 		// throw a package
-		if (Input.GetButtonDown (throwButton) && hasPackage) {
+		if (Input.GetButtonDown(throwButton) && hasPackage) {
 			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
 			transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
 			transform.DetachChildren();			
@@ -123,15 +123,21 @@ public class PlayerContoller : NetworkBehaviour {
         Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
     }
 
-	// pick up or catch a package
 	void OnTriggerStay(Collider other) {
-		if(Input.GetButton(interact1Button) && other.tag == "PickUp1" && !hasPackage)
+		// pick up or catch a package
+		if(Input.GetButtonDown(interact1Button) && other.tag == "PickUp1" && !hasPackage)
 		{	
 			other.transform.parent.SetParent(rb.transform);
 			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
 			other.transform.parent.localPosition = new Vector3(1,-2,4);
 			CmdPickupPackage("PickUp1");
 			hasPackage = true;
+		}
+
+		// pull a switch
+		if (Input.GetButtonDown(interact1Button) && other.tag == "Switch") {
+			Eventmanager.Instance.triggerSwitchPulled();
+			Debug.Log("Switch");
 		}
 	}
 

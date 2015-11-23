@@ -14,6 +14,10 @@ public class Eventmanager : MonoBehaviour {
 	public delegate void PlayerRemoved(GameObject player);
 	public static event PlayerRemoved onPlayerRemoved;
 
+	//SwitchPulled event
+	public delegate void SwitchPulled();
+	public static event SwitchPulled onSwitchPulled;
+
 	//Function to call this object
 	public static Eventmanager Instance{
 		get{
@@ -38,5 +42,10 @@ public class Eventmanager : MonoBehaviour {
 		}
 	}
 
-
+	//Trigger SwitchPulled event
+	public void triggerSwitchPulled(){
+		if (onSwitchPulled != null) {	//Don't execute if noone is listening to event
+			onSwitchPulled();
+		}
+	}
 }
