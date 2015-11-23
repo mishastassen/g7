@@ -11,7 +11,7 @@ public class PlayerContoller : NetworkBehaviour {
 	private bool hasPackage, walking;
 
 	private bool inRange;
-	private bool PlayWalingSoundrunning;
+	private bool PlayWalkingSoundrunning;
 	private Rigidbody rb;
 
 	private string horizontalAxis = "Horizontal_P1";
@@ -82,7 +82,7 @@ public class PlayerContoller : NetworkBehaviour {
 		rb.velocity = movement;
 
 		//Play walking sound if player is ont the ground
-		if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalingSoundrunning) {
+		if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
 			StartCoroutine (PlayWalkingSound ());
 		}
 
@@ -143,7 +143,7 @@ public class PlayerContoller : NetworkBehaviour {
 
 	//Play walking sound
 	IEnumerator PlayWalkingSound(){
-		PlayWalingSoundrunning = true;
+		PlayWalkingSoundrunning = true;
 		GetComponent<PlayerAudioManager> ().audioFootstepWood1.Play ();
 		Debug.Log (rb.velocity.magnitude);
 		float delay = (10.0f-rb.velocity.magnitude)*0.1f;
@@ -159,7 +159,7 @@ public class PlayerContoller : NetworkBehaviour {
 			}
 			yield return new WaitForSeconds (GetComponent<PlayerAudioManager> ().clipFootstepWood2.length + delay);
 		}
-		PlayWalingSoundrunning = false;
+		PlayWalkingSoundrunning = false;
 	}
 
 	[Command]
