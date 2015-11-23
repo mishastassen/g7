@@ -4,13 +4,14 @@ using System.Collections;
 
 public class PlayerContoller : NetworkBehaviour {
 
-	[HideInInspector] public bool facingRight = true;
+	[HideInInspector] [SyncVar] public bool facingRight = true;
 	private float speed;
 	private float jump;
 	public float runThreshold;
 
 	[SyncVar]
 	private bool hasPackage;
+	private Transform carriedPackage;
 
 	private bool inRange;
 	private Rigidbody rb;
@@ -32,6 +33,7 @@ public class PlayerContoller : NetworkBehaviour {
 		anim = GetComponent<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
+		carriedPackage = null;
 		fastspeed = 10;
 		fastjump = 21;
 		slowspeed = 6;
@@ -84,9 +86,13 @@ public class PlayerContoller : NetworkBehaviour {
 
 		// drop the package
 		if (Input.GetButton(interact2Button) && hasPackage) {
-			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-			transform.DetachChildren();
+			carriedPackage.GetComponent<Rigidbody>().isKinematic = false;
+			carriedPackage.parent = null;
+
+			//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+			//transform.DetachChildren();
 			hasPackage = false;
+			//carriedPackage = null;
 			CmdDropPackage();
 		}
 
@@ -118,11 +124,13 @@ public class PlayerContoller : NetworkBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.z *= -1;
 		transform.localScale = theScale;
+		CmdFlip ();
 	}
 	
 	void ManageAnimation(float moveHorizontal) {
 		bool isRunning = Mathf.Abs (speed * moveHorizontal) > runThreshold;
 		anim.SetBool("isRunning", isRunning);
+		CmdManageAnimation (moveHorizontal);
 	}
 	
     void OnDestroy()
@@ -139,6 +147,8 @@ public class PlayerContoller : NetworkBehaviour {
 			other.transform.parent.localPosition = new Vector3(0,3,2);
 			CmdPickupPackage("PickUp1");
 			hasPackage = true;
+			carriedPackage = other.transform.parent;
+			Debug.Log ("Picked up: "+carriedPackage.name);
 		}
 	}
 
@@ -154,8 +164,10 @@ public class PlayerContoller : NetworkBehaviour {
 
 	[Command]
 	void CmdDropPackage(){
-		transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-		transform.DetachChildren();
+		carriedPackage.GetComponent<Rigidbody>().isKinematic = false;
+		carriedPackage = null;
+		//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+		//transform.DetachChildren();
 	}
 
 	[Command]
@@ -165,5 +177,20 @@ public class PlayerContoller : NetworkBehaviour {
 		transform.DetachChildren();
 	}
 
+	[Command]
+	void CmdFlip()	{
+		if (Network.isServer)
+			return;
+		facingRight = !facingRight;
+		Vector3 theScale = transform.localScale;
+		theScale.z *= -1;
+		transform.localScale = theScale;
+	}
+
+	[Command]
+	void CmdManageAnimation(float moveHorizontal) {
+		bool isRunning = Mathf.Abs (speed * moveHorizontal) > runThreshold;
+		anim.SetBool("isRunning", isRunning);
+	}
 
 }
