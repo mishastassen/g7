@@ -137,7 +137,6 @@ public class PlayerContoller : NetworkBehaviour {
 		// pull a switch
 		if (Input.GetButtonDown(interact1Button) && other.tag == "Switch") {
 			Eventmanager.Instance.triggerSwitchPulled();
-			Debug.Log("Switch");
 		}
 	}
 
