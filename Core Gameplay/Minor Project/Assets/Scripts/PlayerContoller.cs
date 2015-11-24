@@ -3,23 +3,26 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class PlayerContoller : NetworkBehaviour {
-
+	
 	private float speed;
 	private float jump;
-
+	public float runThreshold;
+	
 	[SyncVar]
 	private bool hasPackage, walking;
-
+	private Transform carriedPackage;
+	
 	private bool inRange;
 	private bool PlayWalkingSoundrunning;
 	private Rigidbody rb;
-
+	private Animator anim;
+	
 	private string horizontalAxis = "Horizontal_P1";
 	private string jumpButton = "Jump_P1";
 	private string interact1Button = "Interact1_P1";
 	private string interact2Button = "Interact2_P1";
 	private string throwButton = "Throw_P1";
-
+	
 	private float fastspeed;
 	private float fastjump;
 	private float slowspeed;
@@ -27,15 +30,19 @@ public class PlayerContoller : NetworkBehaviour {
 	
 	private int footstep = 1;
 	
-
+	
 	void Start () {
 		rb = GetComponent<Rigidbody>();
+		anim = GetComponent<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
+		carriedPackage = null;
 		fastspeed = 10;
 		fastjump = 21;
 		slowspeed = 6;
 		slowjump = 15;
+		runThreshold = 0.5f;
+		
 		if (GetComponent<NetworkIdentity>().playerControllerId == 2){
 			horizontalAxis = "Horizontal_P2";
 			jumpButton = "Jump_P2";
@@ -46,105 +53,129 @@ public class PlayerContoller : NetworkBehaviour {
 	}
 	
 	void FixedUpdate () {
-		if (!isLocalPlayer) { //Check if this is the player corresponding with the local client if not return
-			return;
+		if (isLocalPlayer) { //Check if this is the player corresponding with the local client if not return
+			if (rb == null)
+				return;
+			
+			// move player based on user input
+			float moveHorizontal = Input.GetAxis (horizontalAxis);
+			float yVelocity = rb.velocity.y;
+			
+			//Sync if players are walking
+			if (Mathf.Abs (moveHorizontal) > 0.1) {
+				walking = true;
+			} else {
+				walking = false;
+			}
+			
+			// set speed and jumppower
+			if (hasPackage) {
+				speed = slowspeed;
+				jump = slowjump;
+			} else {
+				speed = fastspeed;
+				jump = fastjump;
+			}
+			
+			// jump based on user input
+			if (Input.GetButton (jumpButton) && (isGroundedToe () || isGroundedHeel ())) {
+				yVelocity = jump;
+			}
+			
+			// move player
+			Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
+			rb.velocity = movement;
+			
+			/*
+			if (movement.x < 0 && facingRight)
+				Flip ();
+			else if (moveHorizontal > 0 && !facingRight)
+				Flip ();
+			*/
+			
+			//Play walking sound if player is ont the ground
+			if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
+				StartCoroutine (PlayWalkingSound ());
+			}
+			
+			// drop the package
+			if (Input.GetButton (interact2Button) && hasPackage) {
+				Debug.Log ("player "+playerControllerId+" drops package.");
+				carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
+				carriedPackage.parent = null;
+				
+				//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+				//transform.DetachChildren();
+				hasPackage = false;
+				//carriedPackage = null;
+				CmdDropPackage ();
+			}
+			
+			// throw a package
+			if (Input.GetButtonDown (throwButton) && hasPackage) {
+				transform.GetChild (0).GetComponent<Rigidbody> ().isKinematic = false;
+				transform.GetChild (0).GetComponent<Rigidbody> ().AddForce (new Vector3 (5000, 5000, 0));
+				transform.DetachChildren ();			
+				hasPackage = false;
+				CmdThrowPackage ();
+			}
 		}
-		if (rb == null)
-			return;
-
-		// move player based on user input
-		float moveHorizontal = Input.GetAxis (horizontalAxis);
-		float yVelocity = rb.velocity.y;
-
-		//Sync if players are walking
-		if (Mathf.Abs (moveHorizontal) > 0.1) {
-			walking = true;
-		} else {
-			walking = false;
-		}
-
-		// set speed and jumppower
-		if (hasPackage) {
-			speed = slowspeed;
-			jump = slowjump;
-		} else {
-			speed = fastspeed;
-			jump = fastjump;
-		}
-
-		// jump based on user input
-		if (Input.GetButton(jumpButton) && (isGroundedToe() || isGroundedHeel())) {
-			yVelocity = jump;
-		}
-
-		// move player
-		Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
-		rb.velocity = movement;
-
-		//Play walking sound if player is ont the ground
-		if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
-			StartCoroutine (PlayWalkingSound ());
-		}
-
-		// drop the package
-		if (Input.GetButtonDown(interact1Button) && hasPackage) {
-			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-			transform.DetachChildren();
-			hasPackage = false;
-			CmdDropPackage();
-		}
-
-		// throw a package
-		if (Input.GetButtonDown(throwButton) && hasPackage) {
-			transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-			transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
-			transform.DetachChildren();			
-			hasPackage = false;
-			CmdThrowPackage();
-		}
-
+		ManageAnimation ();
+		Flip ();
 	}
-
+	
 	// checks whether the front of the player is on a platform
 	bool isGroundedToe() {
 		Vector3 toePosition = new Vector3(rb.transform.position.x + 0.5f, rb.transform.position.y, rb.transform.position.z);
 		return Physics.Raycast (toePosition, -Vector3.up, 0.1f);
 	}
-
+	
 	// checks whether the back of the player is on a platform
 	bool isGroundedHeel() {
 		Vector3 heelPosition = new Vector3(rb.transform.position.x - 0.5f, rb.transform.position.y, rb.transform.position.z);
 		return Physics.Raycast (heelPosition, -Vector3.up, 0.1f);
 	}
-
-	//Trigger player removed event
-    void OnDestroy()
-    {
-        Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
-    }
-
-	void OnTriggerStay(Collider other) {
-		// pick up or catch a package
-		if(Input.GetButtonDown(interact1Button) && other.tag == "PickUp1" && !hasPackage)
-		{	
-			other.transform.parent.SetParent(rb.transform);
-			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-			other.transform.parent.localPosition = new Vector3(1,-2,4);
-			CmdPickupPackage("PickUp1");
-			hasPackage = true;
-		}
-
-		// pull a switch
-		if (Input.GetButtonDown(interact1Button) && other.tag == "Switch") {
-			Eventmanager.Instance.triggerSwitchPulled();
+	
+	void Flip()	{
+		Vector3 theScale = transform.localScale;
+		if ((rb.velocity.x < 0 && theScale.z > 0) || (rb.velocity.x > 0 && theScale.z < 0)){
+			theScale.z *= -1;
+			transform.localScale = theScale;
 		}
 	}
-
+	
+	void ManageAnimation() {
+		if (Mathf.Abs (rb.velocity.x) > runThreshold) {
+			anim.SetBool ("isRunning", true);
+		} else {
+			anim.SetBool ("isRunning", false);
+		}
+	}
+	
+	//Trigger player removed event
+	void OnDestroy()
+	{
+		Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
+	}
+	
+	// pick up or catch a package
+	void OnTriggerStay(Collider other) {
+		if(Input.GetButton(interact1Button) && other.tag == "PickUp1" && !hasPackage)
+		{	
+			Debug.Log ("player "+playerControllerId+" picks up package.");
+			other.transform.parent.SetParent(rb.transform);
+			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
+			other.transform.parent.localPosition = new Vector3(0,3,2);
+			CmdPickupPackage("PickUp1");
+			hasPackage = true;
+			carriedPackage = other.transform.parent;
+		}
+	}
+	
 	//Play walking sound
 	IEnumerator PlayWalkingSound(){
 		PlayWalkingSoundrunning = true;
 		GetComponent<PlayerAudioManager> ().audioFootstepWood1.Play ();
-		Debug.Log (rb.velocity.magnitude);
 		float delay = (10.0f-rb.velocity.magnitude)*0.1f;
 		if (delay > 0.5){
 			delay = 0.5f;
@@ -160,21 +191,26 @@ public class PlayerContoller : NetworkBehaviour {
 		}
 		PlayWalkingSoundrunning = false;
 	}
-
+	
 	[Command]
 	void CmdPickupPackage(string tag){
+		Debug.Log ("[Command] player "+playerControllerId+" picks up package.");
 		GameObject other = GameObject.FindWithTag(tag);
 		other.transform.parent.SetParent(rb.transform);
 		other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-		other.transform.parent.localPosition = new Vector3(1,-2,4);
+		other.transform.parent.localPosition = new Vector3(0,3,2);
+		carriedPackage = other.transform.parent;
 	}
 	
 	[Command]
 	void CmdDropPackage(){
-		transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-		transform.DetachChildren();
+		Debug.Log ("[Command] player "+playerControllerId+" drops package.");
+		carriedPackage.GetComponent<Rigidbody>().isKinematic = false;
+		carriedPackage = null;
+		//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+		//transform.DetachChildren();
 	}
-
+	
 	[Command]
 	void CmdThrowPackage() {
 		transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
@@ -182,6 +218,4 @@ public class PlayerContoller : NetworkBehaviour {
 		transform.DetachChildren();
 	}
 	
-
-
 }
