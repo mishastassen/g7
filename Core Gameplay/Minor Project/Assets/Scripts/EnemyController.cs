@@ -22,11 +22,14 @@ public class EnemyController : NetworkBehaviour {
 			walkNormal ();
 		} else {
 			flip ();
-			Debug.Log ("Flipped at " + distance);
+
 			walkNormal ();
 			walkNormal ();
 			walkNormal ();
 		}
+
+		Debug.Log ("Toe  " + isGroundedToe ());
+		Debug.Log ("Heel " + isGroundedHeel ());
 	}
 
 	void walkNormal (){
@@ -36,13 +39,13 @@ public class EnemyController : NetworkBehaviour {
 	// checks whether the front of the enemy is on a platform
 	bool isGroundedToe() {
 		Vector3 toePosition = new Vector3 (enemy.transform.position.x , enemy.transform.position.y, enemy.transform.position.z);
-		return Physics.Raycast (toePosition, Vector3.up, 1.0f);
+		return Physics.Raycast (toePosition, Vector3.up, 3.0f);
 	}
 
 	// checks whether the back of the enemy is on a platform
 	bool isGroundedHeel() {
 		Vector3 heelPosition= new Vector3 (enemy.transform.position.x , enemy.transform.position.y, enemy.transform.position.z);
-		return Physics.Raycast (heelPosition, Vector3.up, 1.0f);
+		return Physics.Raycast (heelPosition, Vector3.up, 3.0f);
 	}
 
 	void flip () {
