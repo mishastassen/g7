@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: ed4262431e421df419f7f0e15c41bda8, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -807,7 +807,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1087,10 +1089,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
-      propertyPath: m_SpawnPrefabs.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 445038, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1123,30 +1121,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
-      propertyPath: m_OnlineScene
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
-      propertyPath: m_DontDestroyOnLoad
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
-      propertyPath: m_SpawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 109070, guid: 52526eea13fe5bb4a934072c5dac7443, type: 2}
-    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
-      propertyPath: m_SpawnPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 158542, guid: 440941c88ca77f24b8fccd45c94c543a, type: 2}
-    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
-      propertyPath: m_SpawnPrefabs.Array.data[2]
-      value: 
-      objectReference: {fileID: 178754, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
-    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
-      propertyPath: m_PlayerPrefab
-      value: 
-      objectReference: {fileID: 116052, guid: 90a2ecc9721925a42adc8834b4283d02, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
   m_IsPrefabParent: 0
