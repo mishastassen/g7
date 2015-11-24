@@ -160,7 +160,7 @@ public class PlayerContoller : NetworkBehaviour {
 	
 	// pick up or catch a package
 	void OnTriggerStay(Collider other) {
-		if(Input.GetButtonDown(interact1Button) && other.tag == "PickUp1" && !hasPackage)
+		if(Input.GetButtonDown(interact1Button) && other.tag == "PickUp1" && !hasPackage && isLocalPlayer)
 		{	
 			Debug.Log ("player "+playerControllerId+" picks up package.");
 			other.transform.parent.SetParent(rb.transform);
@@ -171,7 +171,7 @@ public class PlayerContoller : NetworkBehaviour {
 			carriedPackage = other.transform.parent;
 		}
 
-		if (Input.GetButtonDown (interact1Button) && other.tag == "Switch") {
+		if (Input.GetButtonDown (interact1Button) && other.tag == "Switch" && isLocalPlayer) {
 			Eventmanager.Instance.triggerSwitchPulled();
 		}
 
