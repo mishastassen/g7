@@ -160,7 +160,7 @@ public class PlayerContoller : NetworkBehaviour {
 	
 	// pick up or catch a package
 	void OnTriggerStay(Collider other) {
-		if(Input.GetButtonDown(interact1Button) && other.tag == "PickUp1" && !hasPackage)
+		if(Input.GetButtonDown(interact1Button) && other.tag == "PickUp1" && !hasPackage && isLocalPlayer)
 		{	
 			Debug.Log ("player "+playerControllerId+" picks up package.");
 			other.transform.parent.SetParent(rb.transform);
@@ -171,7 +171,7 @@ public class PlayerContoller : NetworkBehaviour {
 			carriedPackage = other.transform.parent;
 		}
 
-		if (Input.GetButtonDown (interact1Button) && other.tag == "Switch") {
+		if (Input.GetButtonDown (interact1Button) && other.tag == "Switch" && isLocalPlayer) {
 			Eventmanager.Instance.triggerSwitchPulled();
 		}
 
@@ -182,17 +182,17 @@ public class PlayerContoller : NetworkBehaviour {
 		PlayWalkingSoundrunning = true;
 		GetComponent<PlayerAudioManager> ().audioFootstepWood1.Play ();
 		float delay = (10.0f-rb.velocity.magnitude)*0.1f;
-		if (delay > 0.5){
-			delay = 0.5f;
+		if (delay > 0.15){
+			delay = 0.15f;
 		}
-		yield return new WaitForSeconds (GetComponent<PlayerAudioManager> ().clipFootstepWood1.length + delay);
+		yield return new WaitForSeconds (0.323f + delay);
 		if (walking == true && (isGroundedToe () || isGroundedHeel ())) {
 			GetComponent<PlayerAudioManager> ().audioFootstepWood2.Play ();
 			delay = (10.0f-rb.velocity.magnitude)*0.1f;
-			if (delay > 0.5){
-				delay = 0.5f;
+			if (delay > 0.15){
+				delay = 0.15f;
 			}
-			yield return new WaitForSeconds (GetComponent<PlayerAudioManager> ().clipFootstepWood2.length + delay);
+			yield return new WaitForSeconds (0.323f + delay);
 		}
 		PlayWalkingSoundrunning = false;
 	}

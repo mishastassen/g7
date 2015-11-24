@@ -3,25 +3,23 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class main : MonoBehaviour {
-
-	// initialize the 2 game objects
-	public GameObject linker;
-	public GameObject rechter;
-
+	
 	// the 2 scripts
-	private rotate_links left;
-	private rotate_rechts right;
+	public rotate left;
+	public rotate right;
 
 	// text and time and succes
 	public Text winText;
 	public Text loseText;
 	public Text timeText;
-	private float timeLeft = 20.0f;
+	private float timeLeft;
 	private double time;
 	bool succes;
 
 	// Use this for initialization
 	void Start () {
+		timeLeft = 20.0f;
+		time = timeLeft;
 		winText.enabled = false;
 		loseText.enabled = false;
 		succes = false;
@@ -30,12 +28,11 @@ public class main : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// get the scripts
-		left = linker.GetComponent<rotate_links> ();
-		right = rechter.GetComponent<rotate_rechts> ();
-
+		if(left == null || right == null){
+			return;
+		}
 		// if finished!
-		if (left.finished_left && right.finished_right) {
+		if (left.finished && right.finished) {
 			winText.enabled= true;
 			succes = true;
 			Time.timeScale = 0.0f;
@@ -60,7 +57,6 @@ public class main : MonoBehaviour {
 
 	void setTimeText(){
 		timeText.text = time.ToString ();
-
 		if (time % 1 == 0) {
 			timeText.text = time.ToString() + ".0";
 		}

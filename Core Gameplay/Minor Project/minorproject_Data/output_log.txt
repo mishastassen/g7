@@ -2,9 +2,9 @@ Mono path[0] = 'C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Pro
 Mono path[1] = 'C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/minorproject_Data/Mono'
 Mono config path = 'C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/minorproject_Data/Mono/etc'
 PlayerConnection initialized from C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/minorproject_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55098
-Multi-casting "[IP] 192.168.56.1 [Port] 55098 [Flags] 2 [Guid] 3033966901 [EditorId] 2140121827 [Version] 1048832 [Id] WindowsPlayer(Misha-HP) [Debug] 0" to [225.0.0.222:54997]...
-PlayerConnection already initialized - listening to [192.168.56.1:55098]
+PlayerConnection initialized network socket : 0.0.0.0 55071
+Multi-casting "[IP] 192.168.56.1 [Port] 55071 [Flags] 2 [Guid] 3691617655 [EditorId] 3526174350 [Version] 1048832 [Id] WindowsPlayer(Misha-HP) [Debug] 0" to [225.0.0.222:54997]...
+PlayerConnection already initialized - listening to [192.168.56.1:55071]
 Initialize engine version: 5.2.3f1 (f3d16a1fa2dd)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -22,29 +22,20 @@ Loading C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\min
 Platform assembly: C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\minorproject_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\minorproject_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\minorproject_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.079 seconds
+- Completed reload, in  0.076 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\minorproject_Data\Managed\System.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 910 -> priority: 1 
+  Thread -> id: a90 -> priority: 1 
 player 0 picks up package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
 PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:165)
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 165)
-
-[Command] player 0 picks up package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdPickupPackage(String) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:197)
-PlayerContoller:CallCmdPickupPackage(String)
-PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:169)
- 
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 197)
 
 player 0 drops package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
@@ -53,30 +44,12 @@ PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core 
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 103)
 
-[Command] player 0 drops package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdDropPackage() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:207)
-PlayerContoller:CallCmdDropPackage()
-PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:111)
- 
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 207)
-
 player 0 picks up package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
 PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:165)
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 165)
-
-[Command] player 0 picks up package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdPickupPackage(String) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:197)
-PlayerContoller:CallCmdPickupPackage(String)
-PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:169)
- 
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 197)
 
 player 0 drops package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
@@ -85,30 +58,12 @@ PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core 
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 103)
 
-[Command] player 0 drops package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdDropPackage() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:207)
-PlayerContoller:CallCmdDropPackage()
-PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:111)
- 
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 207)
-
 player 0 picks up package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
 PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:165)
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 165)
-
-[Command] player 0 picks up package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdPickupPackage(String) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:197)
-PlayerContoller:CallCmdPickupPackage(String)
-PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:169)
- 
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 197)
 
 player 0 drops package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
@@ -117,30 +72,12 @@ PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core 
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 103)
 
-[Command] player 0 drops package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdDropPackage() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:207)
-PlayerContoller:CallCmdDropPackage()
-PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:111)
- 
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 207)
-
 player 0 picks up package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
 PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:165)
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 165)
-
-[Command] player 0 picks up package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdPickupPackage(String) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:197)
-PlayerContoller:CallCmdPickupPackage(String)
-PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:169)
- 
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 197)
 
 player 0 drops package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
@@ -149,49 +86,27 @@ PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core 
  
 (Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 103)
 
-[Command] player 0 drops package.
+player 0 picks up package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdDropPackage() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:207)
-PlayerContoller:CallCmdDropPackage()
-PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:111)
+PlayerContoller:OnTriggerStay(Collider) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:165)
  
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 207)
+(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 165)
 
-[Command] player 0 picks up package.
+player 0 drops package.
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdPickupPackage(String) (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:197)
-PlayerContoller:InvokeCmdCmdPickupPackage(NetworkBehaviour, NetworkReader)
-UnityEngine.Networking.NetworkBehaviour:InvokeCommandDelegate(Int32, NetworkReader) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkBehaviour.cs:303)
-UnityEngine.Networking.NetworkBehaviour:InvokeCommand(Int32, NetworkReader) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkBehaviour.cs:81)
-UnityEngine.Networking.NetworkIdentity:HandleCommand(Int32, NetworkReader) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkIdentity.cs:497)
-UnityEngine.Networking.NetworkServer:OnCommandMessage(NetworkMessage) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:1332)
-UnityEngine.Networking.NetworkConnection:HandleReader(NetworkReader, Int32, Int32) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:421)
-UnityEngine.Networking.NetworkConnection:HandleBytes(Byte[], Int32, Int32) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:377)
-UnityEngine.Networking.NetworkConnection:TransportRecieve(Byte[], Int32, Int32) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:527)
-UnityEngine.Networking.NetworkServer:InternalUpdate() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:723)
-UnityEngine.Networking.NetworkServer:Update() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:585)
-UnityEngine.Networking.NetworkIdentity:UNetStaticUpdate() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkIdentity.cs:915)
+PlayerContoller:FixedUpdate() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:103)
  
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 197)
+(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 103)
 
-[Command] player 0 drops package.
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-PlayerContoller:CmdDropPackage() (at C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:207)
-PlayerContoller:InvokeCmdCmdDropPackage(NetworkBehaviour, NetworkReader)
-UnityEngine.Networking.NetworkBehaviour:InvokeCommandDelegate(Int32, NetworkReader) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkBehaviour.cs:303)
-UnityEngine.Networking.NetworkBehaviour:InvokeCommand(Int32, NetworkReader) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkBehaviour.cs:81)
-UnityEngine.Networking.NetworkIdentity:HandleCommand(Int32, NetworkReader) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkIdentity.cs:497)
-UnityEngine.Networking.NetworkServer:OnCommandMessage(NetworkMessage) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:1332)
-UnityEngine.Networking.NetworkConnection:HandleReader(NetworkReader, Int32, Int32) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:421)
-UnityEngine.Networking.NetworkConnection:HandleBytes(Byte[], Int32, Int32) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:377)
-UnityEngine.Networking.NetworkConnection:TransportRecieve(Byte[], Int32, Int32) (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkConnection.cs:527)
-UnityEngine.Networking.NetworkServer:InternalUpdate() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:723)
-UnityEngine.Networking.NetworkServer:Update() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkServer.cs:585)
-UnityEngine.Networking.NetworkIdentity:UNetStaticUpdate() (at C:\buildslave\unity\build\Extensions\Networking\Runtime\NetworkIdentity.cs:915)
+NullReferenceException: Object reference not set to an instance of an object
+  at PlayerContoller.OnDestroy () [0x00000] in C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:158 
  
-(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 207)
+(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 158)
 
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:51389}
+NullReferenceException: Object reference not set to an instance of an object
+  at PlayerContoller.OnDestroy () [0x00000] in C:\Users\Misha\Desktop\studie\project\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerContoller.cs:158 
+ 
+(Filename: C:/Users/Misha/Desktop/studie/project/g7/Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs Line: 158)
+
