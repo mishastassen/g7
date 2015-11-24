@@ -15,23 +15,39 @@ Loading C:\Users\Rick\Documents\Unity\Minor Project\Testbuilds\test2_Data\Manage
 Platform assembly: C:\Users\Rick\Documents\Unity\Minor Project\Testbuilds\test2_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Rick\Documents\Unity\Minor Project\Testbuilds\test2_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Rick\Documents\Unity\Minor Project\Testbuilds\test2_Data\Managed\System.Core.dll (this message is harmless)
-- Completed reload, in  0.063 seconds
+- Completed reload, in  0.083 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
 Platform assembly: C:\Users\Rick\Documents\Unity\Minor Project\Testbuilds\test2_Data\Managed\System.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2054 -> priority: 1 
-1.488643
+  Thread -> id: 1fb4 -> priority: 1 
+RPC Function RpcDoorClose called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-8.529121
+player 0 picks up package.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-1.009372
+player 0 drops package.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+RPC Function RpcDoorOpen called on client.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+RPC Function RpcDoorClose called on client.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+player 0 picks up package.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+player 0 drops package.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
@@ -55,88 +71,47 @@ RPC Function RpcDoorOpen called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
+player 0 picks up package.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
+player 0 drops package.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
+
 RPC Function RpcDoorClose called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-1.001702
+RPC Function RpcDoorOpen called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-7.957586
+player 0 picks up package.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Object has non-zero netId 1 for platforminbetween (UnityEngine.GameObject) !!1
+player 0 drops package.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Object has non-zero netId 2 for platform1 (4) (UnityEngine.GameObject) !!1
+RPC Function RpcDoorClose called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Object has non-zero netId 3 for platform1 (2) (UnityEngine.GameObject) !!1
+RPC Function RpcDoorOpen called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Object has non-zero netId 4 for platforminbetween (2) (UnityEngine.GameObject) !!1
+player 0 picks up package.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Object has non-zero netId 5 for platforminbetween (1) (UnityEngine.GameObject) !!1
+player 0 drops package.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Object has non-zero netId 6 for platform1 (6) (UnityEngine.GameObject) !!1
+RPC Function RpcDoorClose called on client.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
 
-Object has non-zero netId 7 for platform1 (3) (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 8 for Package (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 9 for platform1 (7) (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 10 for Door (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 11 for platform1 (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 12 for platform1 (5) (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 13 for platforminbetween (3) (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 14 for platform1 (1) (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 15 for switch (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Object has non-zero netId 16 for Start location (UnityEngine.GameObject) !!1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1.485979
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-1.002558
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 64)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:63917}

@@ -99,7 +99,7 @@ public class PlayerContoller : NetworkBehaviour {
 			}
 			
 			// drop the package
-			if (Input.GetButton (interact2Button) && hasPackage) {
+			if (Input.GetButtonDown (interact1Button) && hasPackage) {
 				Debug.Log ("player "+playerControllerId+" drops package.");
 				carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
 				carriedPackage.parent = null;
@@ -160,7 +160,7 @@ public class PlayerContoller : NetworkBehaviour {
 	
 	// pick up or catch a package
 	void OnTriggerStay(Collider other) {
-		if(Input.GetButton(interact1Button) && other.tag == "PickUp1" && !hasPackage)
+		if(Input.GetButtonDown(interact1Button) && other.tag == "PickUp1" && !hasPackage)
 		{	
 			Debug.Log ("player "+playerControllerId+" picks up package.");
 			other.transform.parent.SetParent(rb.transform);
@@ -170,6 +170,11 @@ public class PlayerContoller : NetworkBehaviour {
 			hasPackage = true;
 			carriedPackage = other.transform.parent;
 		}
+
+		if (Input.GetButtonDown (interact1Button) && other.tag == "Switch") {
+			Eventmanager.Instance.triggerSwitchPulled();
+		}
+
 	}
 	
 	//Play walking sound
