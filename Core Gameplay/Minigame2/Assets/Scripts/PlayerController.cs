@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
+	AudioSource geluid;
+	public AudioClip wind;
+
 	public Rigidbody rb;
 
 	// walkspeed, windspeed, rotatespeed, blowdir, severity
@@ -24,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 		frame_count = 0;
 		wind_count = 0;
 		rb.GetComponent<Rigidbody> ();
+		geluid = GetComponent<AudioSource>();
 		blowdir = getWindDirection();
 		severity = 1.0f;
 	}
@@ -38,6 +42,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (windBlowing) {
 
+			geluid.PlayOneShot(wind,1.0f);
 			wind_count ++;
 
 			// add the force due to the wind
@@ -47,6 +52,7 @@ public class PlayerController : MonoBehaviour {
 				windBlowing = false;
 				wind_count = 0;
 				blowdir = getWindDirection();
+				geluid.Stop();
 			}
 		}
 
@@ -62,9 +68,7 @@ public class PlayerController : MonoBehaviour {
 		if (transform.position.z > 15) {
 			severity = 2.0f;
 		}
-
 	}
-
 
 	// the controls
 	void FixedUpdate()
@@ -92,8 +96,10 @@ public class PlayerController : MonoBehaviour {
 
 		if (blowdir < 0) {
 			blowdir = -1;
-		} else {
+		} else if (blowdir > 0) {
 			blowdir = 1;
+		} else {
+			blowdir = getWindDirection();
 		}
 		return blowdir;
 		}
