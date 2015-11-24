@@ -31,11 +31,16 @@ public class DoorController : NetworkBehaviour {
 			door.transform.position = new Vector3 (-9.0f, 4.1f, 0.0f);
 			doorOpen = false;
 			RpcDoorClose();
-		}		
+		}
 	}
 
 	[ClientRpc]
 	void RpcDoorOpen() {
+		door.transform.position = new Vector3 (-9.0f, 16.0f, 0.0f);
+	}
+
+	[Command]
+	void CmdDoorOpen() {
 		door.transform.position = new Vector3 (-9.0f, 16.0f, 0.0f);
 	}
 
@@ -44,4 +49,8 @@ public class DoorController : NetworkBehaviour {
 		door.transform.position = new Vector3 (-9.0f, 4.1f, 0.0f);
 	}
 
+	[Command]
+	void CmdDoorClose() {
+		door.transform.position = new Vector3 (-9.0f, 4.1f, 0.0f);
+	}
 }

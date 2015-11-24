@@ -71,8 +71,9 @@ MonoBehaviour:
   m_OfflineScene: Start scene
   m_OnlineScene: BasisLevel
   m_SpawnPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 109070, guid: 52526eea13fe5bb4a934072c5dac7443, type: 2}
+  - {fileID: 158542, guid: 440941c88ca77f24b8fccd45c94c543a, type: 2}
+  - {fileID: 178754, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
