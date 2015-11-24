@@ -182,17 +182,17 @@ public class PlayerContoller : NetworkBehaviour {
 		PlayWalkingSoundrunning = true;
 		GetComponent<PlayerAudioManager> ().audioFootstepWood1.Play ();
 		float delay = (10.0f-rb.velocity.magnitude)*0.1f;
-		if (delay > 0.5){
-			delay = 0.5f;
+		if (delay > 0.15){
+			delay = 0.15f;
 		}
-		yield return new WaitForSeconds (GetComponent<PlayerAudioManager> ().clipFootstepWood1.length + delay);
+		yield return new WaitForSeconds (0.323f + delay);
 		if (walking == true && (isGroundedToe () || isGroundedHeel ())) {
 			GetComponent<PlayerAudioManager> ().audioFootstepWood2.Play ();
 			delay = (10.0f-rb.velocity.magnitude)*0.1f;
-			if (delay > 0.5){
-				delay = 0.5f;
+			if (delay > 0.15){
+				delay = 0.15f;
 			}
-			yield return new WaitForSeconds (GetComponent<PlayerAudioManager> ().clipFootstepWood2.length + delay);
+			yield return new WaitForSeconds (0.323f + delay);
 		}
 		PlayWalkingSoundrunning = false;
 	}
