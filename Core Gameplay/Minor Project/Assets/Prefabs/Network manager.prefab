@@ -24,7 +24,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.54108429, y: .762063026, z: -4.07451153}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -65,11 +65,11 @@ MonoBehaviour:
   m_SendPeerInfo: 0
   m_MaxDelay: .00999999978
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 155050, guid: 94cd99f912c21f64fa80b8bf9860aaff, type: 2}
+  m_PlayerPrefab: {fileID: 116052, guid: 90a2ecc9721925a42adc8834b4283d02, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: 
-  m_OnlineScene: 
+  m_OfflineScene: Start scene
+  m_OnlineScene: BasisLevel
   m_SpawnPrefabs:
   - {fileID: 0}
   - {fileID: 0}
@@ -116,6 +116,10 @@ Prefab:
       propertyPath: m_PlayerPrefab
       value: 
       objectReference: {fileID: 155050, guid: 94cd99f912c21f64fa80b8bf9860aaff, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_AutoCreatePlayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119466}
