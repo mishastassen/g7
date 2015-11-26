@@ -5,17 +5,17 @@ using System.Collections;
 public class DoorControllerServer : NetworkBehaviour {
 
 	void OnEnable() {
-		Eventmanager.onSwitchPulled += CmdSwitchPulled;
+		//Eventmanager.onSwitchPulled += CmdSwitchPulled;
 	}
 	
 	void OnDisable() {
-		Eventmanager.onSwitchPulled -= CmdSwitchPulled;
+		//Eventmanager.onSwitchPulled -= CmdSwitchPulled;
 	}
 
 	[Command]
 	void CmdSwitchPulled() {
 		if (!isServer) {
-			Eventmanager.Instance.triggerSwitchPulled ();
+			//Eventmanager.Instance.triggerSwitchPulled ();
 		}
 	}
 }

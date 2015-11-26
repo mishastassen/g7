@@ -177,7 +177,13 @@ public class PlayerContoller : NetworkBehaviour {
 		}
 
 		if (Input.GetButtonDown (interact1Button) && other.tag == "Switch" && isLocalPlayer) {
-			Eventmanager.Instance.triggerSwitchPulled();
+			if(!isServer){
+				Eventmanager.Instance.triggerSwitchPulled();
+				CmdTriggerSwitch ();
+			}
+			else{
+				RpcTriggerSwitch();
+			}
 		}
 
 	}
@@ -217,8 +223,6 @@ public class PlayerContoller : NetworkBehaviour {
 		Debug.Log ("[Command] player "+playerControllerId+" drops package.");
 		carriedPackage.GetComponent<Rigidbody>().isKinematic = false;
 		carriedPackage = null;
-		//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-		//transform.DetachChildren();
 	}
 	
 	[Command]
@@ -226,9 +230,16 @@ public class PlayerContoller : NetworkBehaviour {
 		carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
 		carriedPackage.GetComponent<Rigidbody> ().AddForce (new Vector3 (facingRight * 500, 500, 0));
 		carriedPackage.parent = null;
-		//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-		//transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
-		//transform.DetachChildren();
+	}
+
+	[Command]
+	void CmdTriggerSwitch(){
+		Eventmanager.Instance.triggerSwitchPulled();
+	}
+
+	[ClientRpc]
+	void RpcTriggerSwitch(){
+		Eventmanager.Instance.triggerSwitchPulled();
 	}
 	
 }

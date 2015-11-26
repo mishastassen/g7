@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Eventmanager : MonoBehaviour {
+public class Eventmanager : NetworkBehaviour {
 	
 	private static Eventmanager static_instance = null;
 
@@ -16,7 +17,7 @@ public class Eventmanager : MonoBehaviour {
 
 	//SwitchPulled event
 	public delegate void SwitchPulled();
-	public static event SwitchPulled onSwitchPulled;
+	public event SwitchPulled EventonSwitchPulled;
 
 	//Function to call this object
 	public static Eventmanager Instance{
@@ -41,11 +42,11 @@ public class Eventmanager : MonoBehaviour {
 			onPlayerRemoved(player);
 		}
 	}
-
+	
 	//Trigger SwitchPulled event
 	public void triggerSwitchPulled(){
-		if (onSwitchPulled != null) {	//Don't execute if noone is listening to event
-			onSwitchPulled();
+		if (EventonSwitchPulled != null) {	//Don't execute if noone is listening to event
+			EventonSwitchPulled();
 		}
 	}
 }
