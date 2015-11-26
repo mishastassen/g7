@@ -116,13 +116,13 @@ public class rotate : NetworkBehaviour {
 	// random turn function
 	void RandomTurn (){
 		int move = Random.Range (0, 360);
-		gameObject.transform.RotateAround (pos_cirkel, Vector3.forward, move );
+		GameObject.Find (redgreen).transform.RotateAround (pos_cirkel, Vector3.forward, move );
 		CmdRandomTurn (move);
 	}
 
 	[Command]
 	void CmdRandomTurn(int move){
-		gameObject.transform.RotateAround (pos_cirkel, Vector3.forward, move);
+		GameObject.Find(redgreen).transform.RotateAround (pos_cirkel, Vector3.forward, move);
 	}
 
 	void setScoreText(){

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.UI;
 
-public class main : MonoBehaviour {
+public class main : NetworkBehaviour {
 	
 	// the 2 scripts
 	public rotate left;
