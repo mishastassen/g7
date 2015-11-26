@@ -4,45 +4,56 @@ using System.Collections;
 
 public class EnemyController : NetworkBehaviour {
 
-	private Rigidbody enemy;
+	public Rigidbody enemy;
 	private float speed;
+
+	Vector3 middle;
+	float distance;
 
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
-		speed = 5;
+		speed = 4;
+		middle = enemy.transform.position;
 	}
 
-	void FixedUpdate () {		
-		if (isGroundedToe() && isGroundedHeel()) {
-			float yVelocity = enemy.velocity.y;
-			Vector3 movement = new Vector3 (speed, yVelocity, 0.0f); 
-			enemy.velocity = movement;
+	void Update () {
+		distance = Vector3.Distance (middle, enemy.transform.position);
+		if (distance < 9.5f) {
+			walkNormal ();
 		} else {
-			Flip ();
+			flip ();
+
+			walkNormal ();
+			walkNormal ();
+			walkNormal ();
 		}
+
+		Debug.Log ("Toe  " + isGroundedToe ());
+		Debug.Log ("Heel " + isGroundedHeel ());
+	}
+
+	void walkNormal (){
+		enemy.transform.Translate (Vector3.down * speed * Time.deltaTime);
 	}
 
 	// checks whether the front of the enemy is on a platform
 	bool isGroundedToe() {
-		Vector3 toePosition = new Vector3(enemy.transform.position.x + 2.0f, enemy.transform.position.y, enemy.transform.position.z);
-		return Physics.Raycast (toePosition, -Vector3.up, 0.1f);
+		Vector3 toePosition = new Vector3 (enemy.transform.position.x , enemy.transform.position.y, enemy.transform.position.z);
+		return Physics.Raycast (toePosition, Vector3.up, 3.0f);
 	}
 
 	// checks whether the back of the enemy is on a platform
 	bool isGroundedHeel() {
-		Vector3 heelPosition = new Vector3(enemy.transform.position.x - 2.0f, enemy.transform.position.y, enemy.transform.position.z);
-		return Physics.Raycast (heelPosition, -Vector3.up, 0.1f);
+		Vector3 heelPosition= new Vector3 (enemy.transform.position.x , enemy.transform.position.y, enemy.transform.position.z);
+		return Physics.Raycast (heelPosition, Vector3.up, 3.0f);
 	}
 
-	void Flip() {		
-		enemy.transform.Translate(new Vector3(0,1,0));
+	void flip () {
 		float yRotation = enemy.transform.eulerAngles.y;
 		if (yRotation == 90) {
 			yRotation = 270;
-			speed = -5;
 		} else {
 			yRotation = 90;
-			speed = 5;
 		}		
 		enemy.transform.eulerAngles = new Vector3 (270, yRotation, 0);
 	}

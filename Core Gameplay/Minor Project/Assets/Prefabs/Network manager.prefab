@@ -68,8 +68,8 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 116052, guid: 90a2ecc9721925a42adc8834b4283d02, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
-  m_OfflineScene: 
-  m_OnlineScene: 
+  m_OfflineScene: Start scene
+  m_OnlineScene: BasisLevel
   m_SpawnPrefabs:
   - {fileID: 109070, guid: 52526eea13fe5bb4a934072c5dac7443, type: 2}
   - {fileID: 158542, guid: 440941c88ca77f24b8fccd45c94c543a, type: 2}
@@ -117,6 +117,10 @@ Prefab:
       propertyPath: m_PlayerPrefab
       value: 
       objectReference: {fileID: 155050, guid: 94cd99f912c21f64fa80b8bf9860aaff, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_AutoCreatePlayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 119466}
