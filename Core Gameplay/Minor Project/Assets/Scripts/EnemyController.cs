@@ -28,8 +28,8 @@ public class EnemyController : NetworkBehaviour {
 			walkNormal ();
 		}
 
-		Debug.Log ("Toe  " + isGroundedToe ());
-		Debug.Log ("Heel " + isGroundedHeel ());
+		//Debug.Log ("Toe  " + isGroundedToe ());
+		//Debug.Log ("Heel " + isGroundedHeel ());
 	}
 
 	void walkNormal (){

@@ -24,13 +24,13 @@ public class DoorController : NetworkBehaviour {
 	
 	void switchPulled() {
 		if (!doorOpen) {
-			door.transform.position = new Vector3 (-9.0f, 16.0f, 0.0f);
+			//door.transform.position = new Vector3 (-9.0f, 16.0f, 0.0f);
 			doorOpen = true;
-			RpcDoorOpen();
+			CmdDoorOpen();
 		} else {
-			door.transform.position = new Vector3 (-9.0f, 4.1f, 0.0f);
+			//door.transform.position = new Vector3 (-9.0f, 4.1f, 0.0f);
 			doorOpen = false;
-			RpcDoorClose();
+			CmdDoorClose();
 		}
 	}
 

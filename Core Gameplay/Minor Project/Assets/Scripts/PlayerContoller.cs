@@ -12,7 +12,7 @@ public class PlayerContoller : NetworkBehaviour {
 	private bool hasPackage, walking;
 	private Transform carriedPackage;
 	
-	private bool inRange;
+	private float facingRight;
 	private bool PlayWalkingSoundrunning;
 	private Rigidbody rb;
 	private Animator anim;
@@ -42,6 +42,7 @@ public class PlayerContoller : NetworkBehaviour {
 		slowspeed = 6;
 		slowjump = 15;
 		runThreshold = 0.5f;
+		facingRight = 1;
 		
 		if (GetComponent<NetworkIdentity>().playerControllerId == 2){
 			horizontalAxis = "Horizontal_P2";
@@ -113,9 +114,12 @@ public class PlayerContoller : NetworkBehaviour {
 			
 			// throw a package
 			if (Input.GetButtonDown (throwButton) && hasPackage) {
-				transform.GetChild (0).GetComponent<Rigidbody> ().isKinematic = false;
-				transform.GetChild (0).GetComponent<Rigidbody> ().AddForce (new Vector3 (5000, 5000, 0));
-				transform.DetachChildren ();			
+				carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
+				carriedPackage.GetComponent<Rigidbody> ().AddForce (new Vector3 (facingRight * 500, 500, 0));
+				carriedPackage.parent = null;
+				//transform.GetChild (0).GetComponent<Rigidbody> ().isKinematic = false;
+				//transform.GetChild (0).GetComponent<Rigidbody> ().AddForce (new Vector3 (5000, 5000, 0));
+				//transform.DetachChildren ();			
 				hasPackage = false;
 				CmdThrowPackage ();
 			}
@@ -141,6 +145,7 @@ public class PlayerContoller : NetworkBehaviour {
 		if ((rb.velocity.x < 0 && theScale.z > 0) || (rb.velocity.x > 0 && theScale.z < 0)){
 			theScale.z *= -1;
 			transform.localScale = theScale;
+			facingRight *= -1;
 		}
 	}
 	
@@ -218,9 +223,12 @@ public class PlayerContoller : NetworkBehaviour {
 	
 	[Command]
 	void CmdThrowPackage() {
-		transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-		transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
-		transform.DetachChildren();
+		carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
+		carriedPackage.GetComponent<Rigidbody> ().AddForce (new Vector3 (facingRight * 500, 500, 0));
+		carriedPackage.parent = null;
+		//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+		//transform.GetChild(0).GetComponent<Rigidbody>().AddForce(new Vector3(5000,5000,0));
+		//transform.DetachChildren();
 	}
 	
 }
