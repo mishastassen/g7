@@ -8,7 +8,10 @@ public class Gamemanager : NetworkBehaviour {
 	private static int singleton_count;
 
 	public bool localmultiplayer; 
-	private NetworkManager networkmanager;
+
+	//Game vars
+	public bool packageheld;
+	public int packageholder;
 
 	//Function to call this object
 	public static Gamemanager Instance{
@@ -28,7 +31,6 @@ public class Gamemanager : NetworkBehaviour {
 			return;
 		}
 		DontDestroyOnLoad(transform.gameObject);
-		networkmanager = GameObject.Find("Network manager").GetComponent<NetworkManager>();
 	}
 	
 	void Start () {
@@ -44,4 +46,5 @@ public class Gamemanager : NetworkBehaviour {
 	void OnDestroy(){
 		singleton_count--;
 	}
+	
 }

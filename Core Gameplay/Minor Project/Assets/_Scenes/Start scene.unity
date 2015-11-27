@@ -173,6 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localmultiplayer: 0
+  packageheld: 0
+  packageholder: 0
 --- !u!4 &1699226741
 Transform:
   m_ObjectHideFlags: 0

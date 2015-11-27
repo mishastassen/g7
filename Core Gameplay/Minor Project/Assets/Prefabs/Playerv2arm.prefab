@@ -76,6 +76,7 @@ GameObject:
   - 114: {fileID: 11475758}
   - 114: {fileID: 11434676}
   - 114: {fileID: 11486040}
+  - 114: {fileID: 11471358}
   m_Layer: 0
   m_Name: Playerv2arm
   m_TagString: Untagged
@@ -555,6 +556,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runThreshold: .5
+  hasPackage: 0
+  walking: 0
+  carriedPackage: {fileID: 0}
+  facingRight: 0
+  TriggerList: []
 --- !u!114 &11461286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -587,6 +593,17 @@ MonoBehaviour:
     i15: 2
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &11471358
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd38a3680786f849aeb630f61fafb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11475758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -655,7 +672,9 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}

@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 478648}
   - 114: {fileID: 11492702}
+  - 114: {fileID: 11419396}
   m_Layer: 0
   m_Name: Eventmanager
   m_TagString: Untagged
@@ -23,11 +24,43 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.982729, y: -3.06108761, z: .678398132}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11419396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 164
+    i1: 27
+    i2: 127
+    i3: 117
+    i4: 170
+    i5: 241
+    i6: 154
+    i7: 116
+    i8: 27
+    i9: 163
+    i10: 48
+    i11: 146
+    i12: 58
+    i13: 38
+    i14: 48
+    i15: 19
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11492702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,6 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9ffeb00425f674ebd770ac405d1284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  packageheld: 0
+  packageholder: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

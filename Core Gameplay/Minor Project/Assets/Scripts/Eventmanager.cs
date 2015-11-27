@@ -17,7 +17,27 @@ public class Eventmanager : NetworkBehaviour {
 
 	//SwitchPulled event
 	public delegate void SwitchPulled();
+	[SyncEvent]
 	public event SwitchPulled EventonSwitchPulled;
+
+	//Package pickup event
+	public delegate void PackagePickup(NetworkInstanceId netId,string tag);
+	[SyncEvent]
+	public event PackagePickup EventonPackagePickup;
+
+	//Package drop event
+	public delegate void PackageDrop(NetworkInstanceId netId);
+	[SyncEvent]
+	public event PackageDrop EventonPackageDrop;
+
+	//Package throw event
+	public delegate void PackageThrow(NetworkInstanceId netId);
+	[SyncEvent]
+	public event PackageThrow EventonPackageThrow;
+
+	//GameVars:
+	public bool packageheld;
+	public NetworkInstanceId packageholder;
 
 	//Function to call this object
 	public static Eventmanager Instance{
@@ -47,6 +67,28 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerSwitchPulled(){
 		if (EventonSwitchPulled != null) {	//Don't execute if noone is listening to event
 			EventonSwitchPulled();
+		}
+	}
+
+	public void packagePickup(GameObject player,string tag){
+		if (!packageheld) {
+			packageheld = true;
+			packageholder = player.GetComponent<NetworkIdentity> ().netId;
+			EventonPackagePickup (packageholder,tag);
+		}
+	}
+
+	public void packageDrop(GameObject player){
+		if (packageholder == player.GetComponent<NetworkIdentity> ().netId) {
+			packageheld = false;
+			EventonPackageDrop (packageholder);
+		}
+	}
+
+	public void packageThrow(GameObject player){
+		if (packageholder == player.GetComponent<NetworkIdentity> ().netId) {
+			packageheld = false;
+			EventonPackageThrow (packageholder);
 		}
 	}
 }
