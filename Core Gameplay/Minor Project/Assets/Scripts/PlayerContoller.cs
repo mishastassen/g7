@@ -11,7 +11,8 @@ public class PlayerContoller : NetworkBehaviour {
 	[SyncVar]
 	private bool hasPackage, walking;
 	private Transform carriedPackage;
-	
+
+	[SyncVar(hook="OnFacingChange")]
 	private float facingRight;
 	private bool PlayWalkingSoundrunning;
 	private Rigidbody rb;
@@ -87,13 +88,6 @@ public class PlayerContoller : NetworkBehaviour {
 			Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
 			rb.velocity = movement;
 			
-			/*
-			if (movement.x < 0 && facingRight)
-				Flip ();
-			else if (moveHorizontal > 0 && !facingRight)
-				Flip ();
-			*/
-			
 			//Play walking sound if player is ont the ground
 			if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
 				StartCoroutine (PlayWalkingSound ());
@@ -123,9 +117,9 @@ public class PlayerContoller : NetworkBehaviour {
 				hasPackage = false;
 				CmdThrowPackage ();
 			}
+			CmdCheckFacing (moveHorizontal);
 		}
 		ManageAnimation ();
-		Flip ();
 	}
 	
 	// checks whether the front of the player is on a platform
@@ -139,16 +133,23 @@ public class PlayerContoller : NetworkBehaviour {
 		Vector3 heelPosition = new Vector3(rb.transform.position.x - 0.5f, rb.transform.position.y, rb.transform.position.z);
 		return Physics.Raycast (heelPosition, -Vector3.up, 0.1f);
 	}
-	
-	void Flip()	{
-		Vector3 theScale = transform.localScale;
-		if ((rb.velocity.x < 0 && theScale.z > 0) || (rb.velocity.x > 0 && theScale.z < 0)){
-			theScale.z *= -1;
-			transform.localScale = theScale;
-			facingRight *= -1;
-		}
+
+
+	[Command]
+	void CmdCheckFacing(float moveHorizontal) {
+		if (moveHorizontal < 0)
+			facingRight = -1;
+		if (moveHorizontal > 0)
+			facingRight = 1;
 	}
-	
+
+	void OnFacingChange(float facingRight) {
+		Vector3 theScale = transform.localScale;
+		theScale.z = facingRight;
+		transform.localScale = theScale;
+	}
+
+
 	void ManageAnimation() {
 		if (Mathf.Abs (rb.velocity.x) > runThreshold) {
 			anim.SetBool ("isRunning", true);
