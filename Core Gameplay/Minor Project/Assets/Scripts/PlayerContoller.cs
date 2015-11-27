@@ -38,9 +38,9 @@ public class PlayerContoller : NetworkBehaviour {
 		hasPackage = false;
 		carriedPackage = null;
 		fastspeed = 10;
-		fastjump = 21;
+		fastjump = 25;
 		slowspeed = 6;
-		slowjump = 15;
+		slowjump = 20;
 		runThreshold = 0.5f;
 		facingRight = 1;
 		
