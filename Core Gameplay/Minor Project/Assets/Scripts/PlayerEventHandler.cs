@@ -53,7 +53,6 @@ public class PlayerEventHandler : MonoBehaviour {
 			//Remove package from collider list
 			if(pc.TriggerList.Contains(pc.carriedPackage.gameObject.GetComponentsInChildren<Collider>()[1]))
 			{
-				Debug.Log ("removed");
 				//remove it from the list
 				pc.TriggerList.Remove(pc.carriedPackage.gameObject.GetComponentsInChildren<Collider>()[1]);
 			}

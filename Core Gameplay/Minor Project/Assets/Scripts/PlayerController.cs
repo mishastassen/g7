@@ -10,20 +10,14 @@ public class PlayerController : NetworkBehaviour {
 	public float runThreshold;
 	
 	[SyncVar]
-<<<<<<< HEAD:Core Gameplay/Minor Project/Assets/Scripts/PlayerController.cs
 	public bool hasPackage, walking;
 	public Transform carriedPackage;
-	
-	public float facingRight;
-=======
-	private bool hasPackage, walking;
-	private Transform carriedPackage;
 
 	[SyncVar(hook="OnFacingChange")]
-	private float facingRight;
+	public float facingRight;
+
 	[SyncVar(hook="OnAnimationChange")]
 	private bool isRunning;
->>>>>>> 96d444e9f6ebf4a60ff074b879d364c1ee22f133:Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs
 	private bool PlayWalkingSoundrunning;
 	private bool doJump = false;
 	private Rigidbody rb;
@@ -55,7 +49,7 @@ public class PlayerController : NetworkBehaviour {
 		fastspeed = 10;
 		fastjump = 25;
 		slowspeed = 6;
-		slowjump = 20;
+		slowjump = 18;
 		runThreshold = 0.5f;
 		facingRight = 1;
 		
@@ -118,46 +112,14 @@ public class PlayerController : NetworkBehaviour {
 			// move player
 			Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
 			rb.velocity = movement;
-<<<<<<< HEAD:Core Gameplay/Minor Project/Assets/Scripts/PlayerController.cs
 
-			//Play walking sound if player is on the ground
-			if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
-				StartCoroutine (PlayWalkingSound ());
-			}
-=======
-			
 			//Play walking sound if player is ont the ground
 			if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
 				StartCoroutine (PlayWalkingSound ());
 			}
-			
-			// drop the package
-			if (Input.GetButtonDown (interact1Button) && hasPackage) {
-				Debug.Log ("player "+playerControllerId+" drops package.");
-				carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
-				carriedPackage.parent = null;
-				
-				//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
-				//transform.DetachChildren();
-				hasPackage = false;
-				//carriedPackage = null;
-				CmdDropPackage ();
-			}
-			
-			// throw a package
-			if (Input.GetButtonDown (throwButton) && hasPackage) {
-				carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
-				carriedPackage.GetComponent<Rigidbody> ().AddForce (new Vector3 (facingRight * 500, 500, 0));
-				carriedPackage.parent = null;
-				//transform.GetChild (0).GetComponent<Rigidbody> ().isKinematic = false;
-				//transform.GetChild (0).GetComponent<Rigidbody> ().AddForce (new Vector3 (5000, 5000, 0));
-				//transform.DetachChildren ();			
-				hasPackage = false;
-				CmdThrowPackage ();
-			}
+
 			CmdCheckFacing (moveHorizontal);
 			CmdCheckAnimation (moveHorizontal);
->>>>>>> 96d444e9f6ebf4a60ff074b879d364c1ee22f133:Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs
 		}
 	}
 	
