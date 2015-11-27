@@ -14,6 +14,8 @@ public class PlayerContoller : NetworkBehaviour {
 
 	[SyncVar(hook="OnFacingChange")]
 	private float facingRight;
+	[SyncVar(hook="OnAnimationChange")]
+	private bool isRunning;
 	private bool PlayWalkingSoundrunning;
 	private Rigidbody rb;
 	private Animator anim;
@@ -118,8 +120,8 @@ public class PlayerContoller : NetworkBehaviour {
 				CmdThrowPackage ();
 			}
 			CmdCheckFacing (moveHorizontal);
+			CmdCheckAnimation (moveHorizontal);
 		}
-		ManageAnimation ();
 	}
 	
 	// checks whether the front of the player is on a platform
@@ -149,15 +151,18 @@ public class PlayerContoller : NetworkBehaviour {
 		transform.localScale = theScale;
 	}
 
-
-	void ManageAnimation() {
-		if (Mathf.Abs (rb.velocity.x) > runThreshold) {
-			anim.SetBool ("isRunning", true);
-		} else {
-			anim.SetBool ("isRunning", false);
-		}
+	[Command]
+	void CmdCheckAnimation(float moveHorizontal) {
+		if (moveHorizontal == 0)
+			isRunning = false;
+		else
+			isRunning = true;
 	}
-	
+
+	void OnAnimationChange(bool isRunning) {
+		anim.SetBool ("isRunning", isRunning);
+	}
+
 	//Trigger player removed event
 	void OnDestroy()
 	{
