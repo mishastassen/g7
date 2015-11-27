@@ -10,10 +10,20 @@ public class PlayerController : NetworkBehaviour {
 	public float runThreshold;
 	
 	[SyncVar]
+<<<<<<< HEAD:Core Gameplay/Minor Project/Assets/Scripts/PlayerController.cs
 	public bool hasPackage, walking;
 	public Transform carriedPackage;
 	
 	public float facingRight;
+=======
+	private bool hasPackage, walking;
+	private Transform carriedPackage;
+
+	[SyncVar(hook="OnFacingChange")]
+	private float facingRight;
+	[SyncVar(hook="OnAnimationChange")]
+	private bool isRunning;
+>>>>>>> 96d444e9f6ebf4a60ff074b879d364c1ee22f133:Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs
 	private bool PlayWalkingSoundrunning;
 	private bool doJump = false;
 	private Rigidbody rb;
@@ -43,9 +53,9 @@ public class PlayerController : NetworkBehaviour {
 		hasPackage = false;
 		carriedPackage = null;
 		fastspeed = 10;
-		fastjump = 21;
+		fastjump = 25;
 		slowspeed = 6;
-		slowjump = 15;
+		slowjump = 20;
 		runThreshold = 0.5f;
 		facingRight = 1;
 		
@@ -108,14 +118,47 @@ public class PlayerController : NetworkBehaviour {
 			// move player
 			Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
 			rb.velocity = movement;
+<<<<<<< HEAD:Core Gameplay/Minor Project/Assets/Scripts/PlayerController.cs
 
 			//Play walking sound if player is on the ground
 			if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
 				StartCoroutine (PlayWalkingSound ());
 			}
+=======
+			
+			//Play walking sound if player is ont the ground
+			if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
+				StartCoroutine (PlayWalkingSound ());
+			}
+			
+			// drop the package
+			if (Input.GetButtonDown (interact1Button) && hasPackage) {
+				Debug.Log ("player "+playerControllerId+" drops package.");
+				carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
+				carriedPackage.parent = null;
+				
+				//transform.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+				//transform.DetachChildren();
+				hasPackage = false;
+				//carriedPackage = null;
+				CmdDropPackage ();
+			}
+			
+			// throw a package
+			if (Input.GetButtonDown (throwButton) && hasPackage) {
+				carriedPackage.GetComponent<Rigidbody> ().isKinematic = false;
+				carriedPackage.GetComponent<Rigidbody> ().AddForce (new Vector3 (facingRight * 500, 500, 0));
+				carriedPackage.parent = null;
+				//transform.GetChild (0).GetComponent<Rigidbody> ().isKinematic = false;
+				//transform.GetChild (0).GetComponent<Rigidbody> ().AddForce (new Vector3 (5000, 5000, 0));
+				//transform.DetachChildren ();			
+				hasPackage = false;
+				CmdThrowPackage ();
+			}
+			CmdCheckFacing (moveHorizontal);
+			CmdCheckAnimation (moveHorizontal);
+>>>>>>> 96d444e9f6ebf4a60ff074b879d364c1ee22f133:Core Gameplay/Minor Project/Assets/Scripts/PlayerContoller.cs
 		}
-		ManageAnimation ();
-		Flip ();
 	}
 	
 	// checks whether the front of the player is on a platform
@@ -129,24 +172,34 @@ public class PlayerController : NetworkBehaviour {
 		Vector3 heelPosition = new Vector3(rb.transform.position.x - 0.5f, rb.transform.position.y, rb.transform.position.z);
 		return Physics.Raycast (heelPosition, -Vector3.up, 0.1f);
 	}
-	
-	void Flip()	{
+
+
+	[Command]
+	void CmdCheckFacing(float moveHorizontal) {
+		if (moveHorizontal < 0)
+			facingRight = -1;
+		if (moveHorizontal > 0)
+			facingRight = 1;
+	}
+
+	void OnFacingChange(float facingRight) {
 		Vector3 theScale = transform.localScale;
-		if ((rb.velocity.x < 0 && theScale.z > 0) || (rb.velocity.x > 0 && theScale.z < 0)){
-			theScale.z *= -1;
-			transform.localScale = theScale;
-			facingRight *= -1;
-		}
+		theScale.z = facingRight;
+		transform.localScale = theScale;
 	}
-	
-	void ManageAnimation() {
-		if (Mathf.Abs (rb.velocity.x) > runThreshold) {
-			anim.SetBool ("isRunning", true);
-		} else {
-			anim.SetBool ("isRunning", false);
-		}
+
+	[Command]
+	void CmdCheckAnimation(float moveHorizontal) {
+		if (moveHorizontal == 0)
+			isRunning = false;
+		else
+			isRunning = true;
 	}
-	
+
+	void OnAnimationChange(bool isRunning) {
+		anim.SetBool ("isRunning", isRunning);
+	}
+
 	//Trigger player removed event
 	void OnDestroy()
 	{

@@ -20,3 +20,7 @@
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
 */output_log.txt
+
+# Unity3D executables from build and its datafolder if it's called minorproject.exe
+*.exe
+**/minorproject_Data/
