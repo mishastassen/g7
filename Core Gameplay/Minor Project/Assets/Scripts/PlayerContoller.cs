@@ -160,7 +160,7 @@ public class PlayerContoller : NetworkBehaviour {
 	//Trigger player removed event
 	void OnDestroy()
 	{
-		Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
+		//Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
 	}
 	
 	// pick up or catch a package

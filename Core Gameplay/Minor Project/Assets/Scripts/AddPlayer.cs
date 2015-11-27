@@ -16,9 +16,8 @@ public class AddPlayer : NetworkBehaviour {
 
 	public void OnButtonClick(){
 		if(NetworkServer.active){
-			if(ClientScene.localPlayers.Count == 1){
-				ClientScene.AddPlayer(2);
-			}
+			ClientScene.AddPlayer(2);
+			Gamemanager.Instance.localmultiplayer = true;
 		}
 	}
 }
