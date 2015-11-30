@@ -5,7 +5,6 @@ using System.Collections;
 public class Eventmanager : NetworkBehaviour {
 	
 	private static Eventmanager static_instance = null;
-	private static int singleton_count;
 
 	//Events:
 	//Playeradded event
@@ -60,17 +59,7 @@ public class Eventmanager : NetworkBehaviour {
 			return static_instance;
 		}
 	}
-
-	void Awake() {
-		singleton_count++;
-		if (singleton_count > 1)
-		{
-			DestroyImmediate(this.gameObject);
-			return;
-		}
-		DontDestroyOnLoad(transform.gameObject);
-	}
-
+	
 	//Trigger PlayerAdded event
 	public void triggerPlayerAdded(GameObject player){
 		if (onPlayerAdded != null) {	//Don't execute if noone is listening to event

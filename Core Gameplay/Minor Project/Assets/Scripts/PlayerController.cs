@@ -40,14 +40,14 @@ public class PlayerController : NetworkBehaviour {
 	public List<Collider> TriggerList= new List<Collider>();
 	
 	
-	void Start () {
+	void Start() {
 		rb = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
 		carriedPackage = null;
 		fastspeed = 12;
-		fastjump = 20;
+		fastjump = 22;
 		slowspeed = 8;
 		slowjump = 18;
 		runThreshold = 0.5f;

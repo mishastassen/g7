@@ -25,7 +25,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 
 	[Server]
 	void HandleEventonPlayerDeath (GameObject player)
-	{
+	{	
 		NetworkConnection conn = player.GetComponent<NetworkIdentity> ().connectionToClient;
 		short playerControllerId = player.GetComponent<NetworkIdentity> ().playerControllerId;
 		Transform transform = GameObject.FindWithTag ("SpawnLocation").transform;
