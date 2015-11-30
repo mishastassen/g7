@@ -60,7 +60,7 @@ public class PlayerEventHandler : MonoBehaviour {
 			//Throw package
 			Transform carriedPackage = pc.carriedPackage;
 			carriedPackage.GetComponent<Rigidbody>().isKinematic = false;
-			carriedPackage.GetComponent<Rigidbody> ().AddForce (new Vector3 (pc.facingRight * 500, 500, 0));
+			carriedPackage.GetComponent<Rigidbody> ().AddForce (new Vector3 (pc.facingRight * 750, 750, 0));
 			carriedPackage.parent = null;
 			carriedPackage = null;
 			this.GetComponent<PlayerController>().hasPackage = false;

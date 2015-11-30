@@ -46,9 +46,9 @@ public class PlayerController : NetworkBehaviour {
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
 		carriedPackage = null;
-		fastspeed = 10;
-		fastjump = 25;
-		slowspeed = 6;
+		fastspeed = 12;
+		fastjump = 20;
+		slowspeed = 8;
 		slowjump = 18;
 		runThreshold = 0.5f;
 		facingRight = 1;
