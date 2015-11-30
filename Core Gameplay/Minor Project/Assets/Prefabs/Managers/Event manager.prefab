@@ -1,45 +1,78 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &110314
+--- !u!1 &158734
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 410652}
-  - 114: {fileID: 11402942}
+  - 4: {fileID: 465156}
+  - 114: {fileID: 11445008}
+  - 114: {fileID: 11407596}
   m_Layer: 0
-  m_Name: Game manager
+  m_Name: Event manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &410652
+--- !u!4 &465156
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110314}
+  m_GameObject: {fileID: 158734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11402942
+--- !u!114 &11407596
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 110314}
+  m_GameObject: {fileID: 158734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a6b5898b406724e827c5ec3475bb26, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d9ffeb00425f674ebd770ac405d1284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localmultiplayer: 0
+  packageheld: 0
+--- !u!114 &11445008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 93
+    i1: 121
+    i2: 168
+    i3: 79
+    i4: 23
+    i5: 32
+    i6: 178
+    i7: 212
+    i8: 120
+    i9: 205
+    i10: 173
+    i11: 228
+    i12: 64
+    i13: 205
+    i14: 92
+    i15: 149
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -49,5 +82,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 110314}
+  m_RootGameObject: {fileID: 158734}
   m_IsPrefabParent: 1

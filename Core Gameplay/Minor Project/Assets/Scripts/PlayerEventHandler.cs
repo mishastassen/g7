@@ -14,9 +14,11 @@ public class PlayerEventHandler : MonoBehaviour {
 		pc = this.GetComponent<PlayerController> ();
 	}
 
-	// Update is called once per frame
-	void Update () {
-	
+	void OnDestroy(){
+		Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
+		Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
+		Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
+		pc = null;
 	}
 
 	void HandleEventonPackagePickup(NetworkInstanceId netID, string tag){
@@ -66,4 +68,5 @@ public class PlayerEventHandler : MonoBehaviour {
 			this.GetComponent<PlayerController>().hasPackage = false;
 		}
 	}
+	
 }

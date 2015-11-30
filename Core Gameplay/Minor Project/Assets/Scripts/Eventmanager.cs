@@ -5,6 +5,7 @@ using System.Collections;
 public class Eventmanager : NetworkBehaviour {
 	
 	private static Eventmanager static_instance = null;
+	private static int singleton_count;
 
 	//Events:
 	//Playeradded event
@@ -35,8 +36,19 @@ public class Eventmanager : NetworkBehaviour {
 	[SyncEvent]
 	public event PackageThrow EventonPackageThrow;
 
+	//Player death event
+	public delegate void PlayerDeath(GameObject player);
+	public event PlayerDeath EventonPlayerDeath;
+
+	//Package destroyed event
+	public delegate void PackageDestroyed();
+	[SyncEvent]
+	public event PackageDestroyed EventonPackageDestroyed;
+
 	//GameVars:
+	[SyncVar]
 	public bool packageheld;
+	[SyncVar]
 	public NetworkInstanceId packageholder;
 
 	//Function to call this object
@@ -47,6 +59,16 @@ public class Eventmanager : NetworkBehaviour {
 			}
 			return static_instance;
 		}
+	}
+
+	void Awake() {
+		singleton_count++;
+		if (singleton_count > 1)
+		{
+			DestroyImmediate(this.gameObject);
+			return;
+		}
+		DontDestroyOnLoad(transform.gameObject);
 	}
 
 	//Trigger PlayerAdded event
@@ -70,6 +92,7 @@ public class Eventmanager : NetworkBehaviour {
 		}
 	}
 
+	//Trigger when player tries to pick up package
 	public void packagePickup(GameObject player,string tag){
 		if (!packageheld) {
 			packageheld = true;
@@ -78,6 +101,7 @@ public class Eventmanager : NetworkBehaviour {
 		}
 	}
 
+	//Trigger when player tries to drop package
 	public void packageDrop(GameObject player){
 		if (packageholder == player.GetComponent<NetworkIdentity> ().netId) {
 			packageheld = false;
@@ -85,10 +109,25 @@ public class Eventmanager : NetworkBehaviour {
 		}
 	}
 
+	//Trigger when player tries to thorw package
 	public void packageThrow(GameObject player){
 		if (packageholder == player.GetComponent<NetworkIdentity> ().netId) {
 			packageheld = false;
 			EventonPackageThrow (packageholder);
 		}
+	}
+
+	//Trigger when player dies
+	public void triggerPlayerDeath(GameObject player){
+		if (packageholder == player.GetComponent<NetworkIdentity> ().netId && packageheld == true) {
+			triggerPackageDestroyed ();
+		}
+		EventonPlayerDeath (player);
+	}
+
+	//Trigger when player is destroyed
+	public void triggerPackageDestroyed(){
+		packageheld = false;
+		EventonPackageDestroyed ();
 	}
 }
