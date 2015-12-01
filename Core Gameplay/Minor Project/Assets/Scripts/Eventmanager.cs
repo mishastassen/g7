@@ -5,6 +5,7 @@ using System.Collections;
 public class Eventmanager : NetworkBehaviour {
 	
 	private static Eventmanager static_instance = null;
+	private static object _lock = new object ();
 
 	//Events:
 	//Playeradded event
@@ -44,22 +45,53 @@ public class Eventmanager : NetworkBehaviour {
 	[SyncEvent]
 	public event PackageDestroyed EventonPackageDestroyed;
 
-	//GameVars:
-	[SyncVar]
-	public bool packageheld;
-	[SyncVar]
-	public NetworkInstanceId packageholder;
+	//Level finished
+	public delegate void LevelFinished(string nextLevel);
+	public event LevelFinished EventonLevelFinished;
+
+	//Chest activated
+	public delegate void ChestActivated();
+	public event ChestActivated EventonChestActivated;
 
 	//Function to call this object
 	public static Eventmanager Instance{
 		get{
-			if(static_instance == null){
-				static_instance = GameObject.FindObjectOfType(typeof(Eventmanager)) as Eventmanager;
+			if (applicationIsQuitting) {
+				return null;
+			}
+			lock(_lock)
+			{
+				static_instance = (Eventmanager) FindObjectOfType(typeof(Eventmanager));
+
+				if ( FindObjectsOfType(typeof(Eventmanager)).Length > 1 )
+				{
+					return static_instance;
+				}
+
+				if(static_instance == null){
+					GameObject singleton = new GameObject();
+					static_instance = singleton.AddComponent<Eventmanager>();
+					singleton.name = "(singleton) "+ typeof(Eventmanager).ToString();
+					
+					DontDestroyOnLoad(singleton);
+				}
+				else {
+				}
 			}
 			return static_instance;
 		}
 	}
-	
+
+	private static bool applicationIsQuitting = false;
+
+	public void Awake(){
+		DontDestroyOnLoad (this.gameObject);
+	}
+
+	public void OnDestroy () {
+		applicationIsQuitting = true;
+	}
+
 	//Trigger PlayerAdded event
 	public void triggerPlayerAdded(GameObject player){
 		if (onPlayerAdded != null) {	//Don't execute if noone is listening to event
@@ -83,32 +115,32 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Trigger when player tries to pick up package
 	public void packagePickup(GameObject player,string tag){
-		if (!packageheld) {
-			packageheld = true;
-			packageholder = player.GetComponent<NetworkIdentity> ().netId;
-			EventonPackagePickup (packageholder,tag);
+		if (!Gamemanager.Instance.packageheld) {
+			Gamemanager.Instance.packageheld = true;
+			Gamemanager.Instance.packageholder = player.GetComponent<NetworkIdentity> ().netId;
+			EventonPackagePickup (Gamemanager.Instance.packageholder,tag);
 		}
 	}
 
 	//Trigger when player tries to drop package
 	public void packageDrop(GameObject player){
-		if (packageholder == player.GetComponent<NetworkIdentity> ().netId) {
-			packageheld = false;
-			EventonPackageDrop (packageholder);
+		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {
+			Gamemanager.Instance.packageheld = false;
+			EventonPackageDrop (Gamemanager.Instance.packageholder);
 		}
 	}
 
 	//Trigger when player tries to thorw package
 	public void packageThrow(GameObject player){
-		if (packageholder == player.GetComponent<NetworkIdentity> ().netId) {
-			packageheld = false;
-			EventonPackageThrow (packageholder);
+		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {
+			Gamemanager.Instance.packageheld = false;
+			EventonPackageThrow (Gamemanager.Instance.packageholder);
 		}
 	}
 
 	//Trigger when player dies
 	public void triggerPlayerDeath(GameObject player){
-		if (packageholder == player.GetComponent<NetworkIdentity> ().netId && packageheld == true) {
+		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId && Gamemanager.Instance.packageheld == true) {
 			triggerPackageDestroyed ();
 		}
 		EventonPlayerDeath (player);
@@ -116,7 +148,22 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Trigger when player is destroyed
 	public void triggerPackageDestroyed(){
-		packageheld = false;
-		EventonPackageDestroyed ();
+		Gamemanager.Instance.packageheld = false;
+		if (EventonPackageDestroyed != null) { //Don't execute if noone is listening to event
+			EventonPackageDestroyed ();
+		}
+	}
+
+	//Trigger when level is finished(){
+	public void triggerLevelFinished(string nextLevel){
+		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
+			EventonLevelFinished(nextLevel);
+		}
+	}
+
+	public void triggerChestActivated(){
+		if (EventonChestActivated != null) { //Don't execute if noone is listening to event
+			EventonChestActivated();
+		}
 	}
 }

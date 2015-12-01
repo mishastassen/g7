@@ -211,6 +211,10 @@ public class PlayerController : NetworkBehaviour {
 			if (TriggerList.Exists (x => x.tag == "Switch")) {
 				CmdTriggerSwitch ();
 			}
+
+			if(TriggerList.Exists (x => x.tag == "Chest")){
+				CmdTriggerChest();
+			}
 		}
 	}
 
@@ -218,14 +222,14 @@ public class PlayerController : NetworkBehaviour {
 	IEnumerator PlayWalkingSound(){
 		PlayWalkingSoundrunning = true;
 		GetComponent<PlayerAudioManager> ().audioFootstepWood1.Play ();
-		float delay = (10.0f-rb.velocity.magnitude)*0.1f;
+		float delay = (11.0f-rb.velocity.magnitude)*0.1f;
 		if (delay > 0.15){
 			delay = 0.15f;
 		}
 		yield return new WaitForSeconds (0.323f + delay);
 		if (walking == true && (isGroundedToe () || isGroundedHeel ())) {
 			GetComponent<PlayerAudioManager> ().audioFootstepWood2.Play ();
-			delay = (10.0f-rb.velocity.magnitude)*0.1f;
+			delay = (11.0f-rb.velocity.magnitude)*0.1f;
 			if (delay > 0.15){
 				delay = 0.15f;
 			}
@@ -255,7 +259,13 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	[Command]
+	void CmdTriggerChest(){
+		Eventmanager.Instance.triggerChestActivated ();
+	}
+
+	[Command]
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
 	}
+
 }
