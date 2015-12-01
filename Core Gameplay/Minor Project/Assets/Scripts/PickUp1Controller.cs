@@ -17,9 +17,15 @@ public class PickUp1Controller : NetworkBehaviour {
 		}
 	}
 
+	[ServerCallback]
 	void OnTriggerEnter(Collider other)
-	{
-		if (isServer && other.tag == "DeathZone" && !isDestroyed) {
+	{	
+		if (other.tag == "DeliveryZone") {
+			string nextlevel = other.GetComponent<DeliveryZoneController>().nextLevel;
+			Eventmanager.Instance.triggerLevelFinished(nextlevel);
+		}
+
+		if ( other.tag == "DeathZone" && !isDestroyed) {
 			isDestroyed = true;
 			Eventmanager.Instance.triggerPackageDestroyed();
 		}
