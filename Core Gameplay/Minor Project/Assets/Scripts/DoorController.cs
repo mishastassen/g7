@@ -5,6 +5,7 @@ using System.Collections;
 public class DoorController : NetworkBehaviour {
 
 	private Rigidbody door;
+	private Animator anim;
 
 	[SyncVar]
 	private bool doorOpen;
@@ -12,6 +13,7 @@ public class DoorController : NetworkBehaviour {
 
 	void Start () {
 		door = GetComponent<Rigidbody>();
+		anim = GetComponent<Animator> ();
 		doorOpen = false;
 		Eventmanager.Instance.EventonSwitchPulled += switchPulled;
 	}
@@ -19,10 +21,10 @@ public class DoorController : NetworkBehaviour {
 	void switchPulled() {
 		if (!doorOpen) {
 			doorOpen = true;
-			door.transform.position = new Vector3 (-9.0f, 16.0f, 0.0f);
+			anim.SetBool ("isOpen", true);
 		} else {
 			doorOpen = false;
-			door.transform.position = new Vector3 (-9.0f, 4.1f, 0.0f);
+			anim.SetBool ("isOpen", false);
 		}
 	}
 	
