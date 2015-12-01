@@ -53,6 +53,10 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void ChestActivated();
 	public event ChestActivated EventonChestActivated;
 
+	//Chest completed succesfully
+	public delegate void ChestCompleted();
+	public event ChestActivated EventonChestCompleted;
+
 	//Function to call this object
 	public static Eventmanager Instance{
 		get{
@@ -163,6 +167,12 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerChestActivated(){
 		if (EventonChestActivated != null) { //Don't execute if noone is listening to event
 			EventonChestActivated();
+		}
+	}
+
+	public void triggerChestCompleted(){
+		if (EventonChestCompleted != null) { //Don't execute if noone is listening to event
+			EventonChestCompleted();
 		}
 	}
 }

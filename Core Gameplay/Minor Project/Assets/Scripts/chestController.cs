@@ -13,8 +13,14 @@ public class chestController : NetworkBehaviour {
 
 	[Server]
 	void HandleEventonChestActivated(){
+		Gamemanager.Instance.onNextLevelLoad = returnLevel;
 		NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		Manager.playerPrefab = minigame1Prefab;
 		Manager.ServerChangeScene ("Minigame1");
+	}
+
+	void returnLevel(){
+		main main = (main)GameObject.FindObjectOfType (typeof(main));
+		main.nextlevel = ("BasisLevel");
 	}
 }

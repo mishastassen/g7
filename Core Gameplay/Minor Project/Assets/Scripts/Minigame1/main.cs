@@ -9,6 +9,9 @@ public class main : NetworkBehaviour {
 	public rotate left;
 	public rotate right;
 
+	//normal player prefab
+	public GameObject prefab;
+
 	// text and time and succes
 	public Text winText;
 	public Text loseText;
@@ -16,7 +19,11 @@ public class main : NetworkBehaviour {
 	private float timeLeft;
 	private double time;
 	bool succes;
+	bool finished;
 
+	//Level to go back too
+	public string nextlevel;
+	
 	// Use this for initialization
 	void Start () {
 		timeLeft = 20.0f;
@@ -24,6 +31,7 @@ public class main : NetworkBehaviour {
 		winText.enabled = false;
 		loseText.enabled = false;
 		succes = false;
+		finished = false;
 		setTimeText ();
 	}
 	
@@ -36,7 +44,11 @@ public class main : NetworkBehaviour {
 		if (left.finished && right.finished) {
 			winText.enabled= true;
 			succes = true;
+			finished = true;
 			Time.timeScale = 0.0f;
+			if(isServer){
+				Gamemanager.Instance.onNextLevelLoad += triggerWin;	//Tigger chest completed event when previous level is loaded
+			}
 		}
 
 		updateTime ();
@@ -47,6 +59,13 @@ public class main : NetworkBehaviour {
 			loseText.enabled = true;
 			succes = false;
 			Time.timeScale = 0.0f;
+			finished = true;
+		}
+
+		if (isServer && finished && Input.GetButtonDown("Interact1_P1")) {
+			NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
+			Manager.playerPrefab = prefab;
+			Manager.ServerChangeScene (nextlevel);
 		}
 	}
 
@@ -61,5 +80,9 @@ public class main : NetworkBehaviour {
 		if (time % 1 == 0) {
 			timeText.text = time.ToString() + ".0";
 		}
+	}
+
+	void triggerWin(){
+		Eventmanager.Instance.triggerChestCompleted ();
 	}
 }
