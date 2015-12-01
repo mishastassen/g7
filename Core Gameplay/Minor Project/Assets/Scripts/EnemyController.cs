@@ -4,57 +4,68 @@ using System.Collections;
 
 public class EnemyController : NetworkBehaviour {
 
-	public Rigidbody enemy;
+	private Rigidbody enemy;
 	private float speed;
-
-	Vector3 middle;
-	float distance;
+	private bool facingRight;
 
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
-		middle = enemy.transform.position;
+		facingRight = true;
 	}
 
-	void Update () {
-		distance = Vector3.Distance (middle, enemy.transform.position);
-		if (distance < 9.5f) {
-			walkNormal ();
-		} else {
-			flip ();
-
-			walkNormal ();
-			walkNormal ();
-			walkNormal ();
+	void FixedUpdate() {
+		bool groundedRight = isGroundedRight ();
+		bool groundedLeft = isGroundedLeft ();
+		if (groundedRight && groundedLeft) {
+			// keep walking
+		} else if (groundedRight) {
+			if (!facingRight) {
+				flip ();
+			}
+			facingRight = true;
+		} else if (groundedLeft) {
+			if (facingRight) {
+				flip ();
+			}
+			facingRight = false;
 		}
-
-		//Debug.Log ("Toe  " + isGroundedToe ());
-		//Debug.Log ("Heel " + isGroundedHeel ());
+		if (facingRight) {
+			walkRight ();
+		} else {
+			walkLeft ();
+		}
 	}
 
-	void walkNormal (){
-		enemy.transform.Translate (Vector3.down * speed * Time.deltaTime);
+	// checks whether the rigth of the enemy is on a platform
+	bool isGroundedRight() {
+		Vector3 rightPosition = new Vector3 (enemy.transform.position.x + 0.5f, enemy.transform.position.y + 1, enemy.transform.position.z);
+		Debug.DrawRay (rightPosition, Vector3.down, Color.red);
+		return Physics.Raycast (rightPosition, Vector3.down, 2);
 	}
 
-	// checks whether the front of the enemy is on a platform
-	bool isGroundedToe() {
-		Vector3 toePosition = new Vector3 (enemy.transform.position.x , enemy.transform.position.y, enemy.transform.position.z);
-		return Physics.Raycast (toePosition, Vector3.up, 3.0f);
+	// checks whether the left of the enemy is on a platform
+	bool isGroundedLeft() {
+		Vector3 leftPosition= new Vector3 (enemy.transform.position.x - 0.5f, enemy.transform.position.y + 1, enemy.transform.position.z);
+		Debug.DrawRay (leftPosition, Vector3.down, Color.blue);
+		return Physics.Raycast (leftPosition, Vector3.down, 2);
+	}	
+	
+	void walkRight() {
+		float yVelocity = enemy.velocity.y;
+		Vector3 movement = new Vector3 (speed, yVelocity, 0.0f);
+		enemy.velocity = movement;
 	}
-
-	// checks whether the back of the enemy is on a platform
-	bool isGroundedHeel() {
-		Vector3 heelPosition= new Vector3 (enemy.transform.position.x , enemy.transform.position.y, enemy.transform.position.z);
-		return Physics.Raycast (heelPosition, Vector3.up, 3.0f);
+	
+	void walkLeft() {
+		float yVelocity = enemy.velocity.y;
+		Vector3 movement = new Vector3 (speed * -1, yVelocity, 0.0f);
+		enemy.velocity = movement;
 	}
 
 	void flip () {
-		float yRotation = enemy.transform.eulerAngles.y;
-		if (yRotation == 90) {
-			yRotation = 270;
-		} else {
-			yRotation = 90;
-		}		
-		enemy.transform.eulerAngles = new Vector3 (270, yRotation, 0);
+		Vector3 theScale = transform.localScale;
+		theScale.y *= -1;
+		transform.localScale = theScale;
 	}
 }
