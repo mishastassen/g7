@@ -70,12 +70,11 @@ public class Eventmanager : NetworkBehaviour {
 
 				if(static_instance == null){
 					GameObject singleton = new GameObject();
+					singleton.AddComponent<NetworkIdentity>();
 					static_instance = singleton.AddComponent<Eventmanager>();
 					singleton.name = "(singleton) "+ typeof(Eventmanager).ToString();
-					
 					DontDestroyOnLoad(singleton);
-				}
-				else {
+					NetworkServer.Spawn (singleton);
 				}
 			}
 			return static_instance;
