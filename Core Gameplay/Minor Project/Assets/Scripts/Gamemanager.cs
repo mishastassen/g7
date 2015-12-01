@@ -30,15 +30,13 @@ public class Gamemanager : NetworkBehaviour {
 				{
 					return static_instance;
 				}
-				
 				if(static_instance == null){
 					GameObject singleton = new GameObject();
+					singleton.AddComponent<NetworkIdentity>();
 					static_instance = singleton.AddComponent<Gamemanager>();
 					singleton.name = "(singleton) "+ typeof(Gamemanager).ToString();
-					
 					DontDestroyOnLoad(singleton);
-				}
-				else {
+					NetworkServer.Spawn (singleton);
 				}
 			}
 			return static_instance;
