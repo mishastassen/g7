@@ -211,6 +211,10 @@ public class PlayerController : NetworkBehaviour {
 			if (TriggerList.Exists (x => x.tag == "Switch")) {
 				CmdTriggerSwitch ();
 			}
+
+			if(TriggerList.Exists (x => x.tag == "Chest")){
+				CmdTriggerChest();
+			}
 		}
 	}
 
@@ -255,7 +259,13 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	[Command]
+	void CmdTriggerChest(){
+		Eventmanager.Instance.triggerChestActivated ();
+	}
+
+	[Command]
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
 	}
+
 }

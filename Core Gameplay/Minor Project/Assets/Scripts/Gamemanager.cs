@@ -5,32 +5,46 @@ using System.Collections;
 public class Gamemanager : NetworkBehaviour {
 
 	private static Gamemanager static_instance = null;
-	private static int singleton_count;
-
-	public bool localmultiplayer; 
+	private static object _lock = new object ();
+	private static bool applicationIsQuitting = false;
 
 	//Game vars
+	[SyncVar]
 	public bool packageheld;
-	public int packageholder;
+	[SyncVar]
+	public NetworkInstanceId packageholder;
+	[SyncVar]
+	public bool localmultiplayer; 
 
 	//Function to call this object
 	public static Gamemanager Instance{
 		get{
-			if(static_instance == null){
-				static_instance = GameObject.FindObjectOfType(typeof(Gamemanager)) as Gamemanager;
+			if (applicationIsQuitting) {
+				return null;
+			}
+			lock(_lock)
+			{
+				static_instance = (Gamemanager) FindObjectOfType(typeof(Gamemanager));
+				
+				if ( FindObjectsOfType(typeof(Gamemanager)).Length > 1 )
+				{
+					return static_instance;
+				}
+				if(static_instance == null){
+					GameObject singleton = new GameObject();
+					singleton.AddComponent<NetworkIdentity>();
+					static_instance = singleton.AddComponent<Gamemanager>();
+					singleton.name = "(singleton) "+ typeof(Gamemanager).ToString();
+					DontDestroyOnLoad(singleton);
+					NetworkServer.Spawn (singleton);
+				}
 			}
 			return static_instance;
 		}
 	}
 
 	void Awake() {
-		singleton_count++;
-		if (singleton_count > 1)
-		{
-			DestroyImmediate(this.gameObject);
-			return;
-		}
-		DontDestroyOnLoad(transform.gameObject);
+		DontDestroyOnLoad(this.gameObject);
 	}
 	
 	void Start () {
@@ -43,8 +57,8 @@ public class Gamemanager : NetworkBehaviour {
 		}
 	}
 
-	void OnDestroy(){
-		singleton_count--;
+	public void OnDestroy () {
+		applicationIsQuitting = true;
 	}
 	
 }

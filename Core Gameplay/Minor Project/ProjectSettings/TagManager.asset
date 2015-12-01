@@ -10,6 +10,8 @@ TagManager:
   - DeathZone
   - SpawnLocation
   - Package1
+  - DeliveryZone
+  - Chest
   layers:
   - Default
   - TransparentFX
