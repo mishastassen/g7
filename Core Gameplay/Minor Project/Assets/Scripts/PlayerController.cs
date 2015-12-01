@@ -36,19 +36,19 @@ public class PlayerController : NetworkBehaviour {
 	
 	private int footstep = 1;
 
-	//The list of triggers currently inside the player
+	//The list of triggers the player is currently in
 	public List<Collider> TriggerList= new List<Collider>();
 	
 	
-	void Start () {
+	void Start() {
 		rb = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
 		carriedPackage = null;
-		fastspeed = 10;
-		fastjump = 25;
-		slowspeed = 6;
+		fastspeed = 12;
+		fastjump = 22;
+		slowspeed = 8;
 		slowjump = 18;
 		runThreshold = 0.5f;
 		facingRight = 1;
@@ -171,18 +171,21 @@ public class PlayerController : NetworkBehaviour {
 	//Add triggers to trigger list
 	void OnTriggerEnter(Collider other)
 	{
-		//if the object is not already in the list
-		if(!TriggerList.Contains(other))
-		{
-			//add the object to the list
-			TriggerList.Add(other);
+		if (other.tag == "DeathZone" && isServer) {
+			CmdDeath ();
+		} else { //Add collider to list of triggers player is standing in
+			//if the object is not already in the list
+			if (!TriggerList.Contains (other)) {
+				//add the object to the list
+				TriggerList.Add (other);
+			}
 		}
 	}
 
 	//Remove triggers from trigger list
 	void OnTriggerExit(Collider other)
 	{
-		//if the object is in the list
+		//if the object is in the list of triggers, remove it
 		if(TriggerList.Contains(other))
 		{
 			//remove it from the list
@@ -251,4 +254,8 @@ public class PlayerController : NetworkBehaviour {
 		Eventmanager.Instance.triggerSwitchPulled();
 	}
 
+	[Command]
+	void CmdDeath(){
+		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
+	}
 }

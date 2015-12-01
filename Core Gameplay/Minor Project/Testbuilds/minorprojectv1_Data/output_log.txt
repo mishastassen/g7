@@ -1,0 +1,53 @@
+Mono path[0] = 'D:/users/geert/documents/g7/Core Gameplay/Minor Project/Testbuilds/minorprojectv1_Data/Managed'
+Mono path[1] = 'D:/users/geert/documents/g7/Core Gameplay/Minor Project/Testbuilds/minorprojectv1_Data/Mono'
+Mono config path = 'D:/users/geert/documents/g7/Core Gameplay/Minor Project/Testbuilds/minorprojectv1_Data/Mono/etc'
+PlayerConnection initialized from D:/users/geert/documents/g7/Core Gameplay/Minor Project/Testbuilds/minorprojectv1_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55245
+Multi-casting "[IP] 145.94.184.51 [Port] 55245 [Flags] 3 [Guid] 3537982046 [EditorId] 2727241629 [Version] 1048832 [Id] WindowsPlayer(GeertLaptop) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [145.94.184.51:55245]...
+PlayerConnection accepted from [145.94.184.51] handle:0x294
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56046
+PlayerConnection already initialized - listening to [145.94.184.51:55245]
+Initialize engine version: 5.2.3f1 (f3d16a1fa2dd)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4600 (ID=0x416)
+    Vendor:   Intel
+    VRAM:     128 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.140 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: D:\users\geert\documents\g7\Core Gameplay\Minor Project\Testbuilds\minorprojectv1_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 42d8 -> priority: 1 
+  Thread -> id: 3f80 -> priority: 1 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.483249 ms
+System memory in use before: 55.2 MB.
+System memory in use after: 55.2 MB.
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 550.
+Total: 0.451602 ms (FindLiveObjects: 0.026942 ms CreateObjectMapping: 0.015823 ms MarkObjects: 0.388737 ms  DeleteObjects: 0.019244 ms)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at Eventmanager.triggerPlayerDeath (UnityEngine.GameObject player) [0x0002c] in D:\users\geert\documents\g7\Core Gameplay\Minor Project\Assets\Scripts\Eventmanager.cs:114 
+  at PlayerController.CmdDeath () [0x00000] in D:\users\geert\documents\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerController.cs:259 
+  at PlayerController.CallCmdDeath () [0x00000] in <filename unknown>:0 
+  at PlayerController.OnTriggerEnter (UnityEngine.Collider other) [0x00020] in D:\users\geert\documents\g7\Core Gameplay\Minor Project\Assets\Scripts\PlayerController.cs:175 
+ 
+(Filename: D:/users/geert/documents/g7/Core Gameplay/Minor Project/Assets/Scripts/Eventmanager.cs Line: 114)
+
+Waiting for finish
