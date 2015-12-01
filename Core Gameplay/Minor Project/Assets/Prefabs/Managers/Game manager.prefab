@@ -55,8 +55,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9571f17feae7ba94e9b3f6a91edf8346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 0}
-  PickUp1Prefab: {fileID: 0}
+  playerPrefab: {fileID: 116052, guid: 90a2ecc9721925a42adc8834b4283d02, type: 2}
+  PickUp1Prefab: {fileID: 178754, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
 --- !u!114 &11493230
 MonoBehaviour:
   m_ObjectHideFlags: 1

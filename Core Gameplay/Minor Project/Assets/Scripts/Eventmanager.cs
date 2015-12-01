@@ -5,6 +5,7 @@ using System.Collections;
 public class Eventmanager : NetworkBehaviour {
 	
 	private static Eventmanager static_instance = null;
+	private static object _lock = new object ();
 
 	//Events:
 	//Playeradded event
@@ -53,13 +54,54 @@ public class Eventmanager : NetworkBehaviour {
 	//Function to call this object
 	public static Eventmanager Instance{
 		get{
-			if(static_instance == null){
-				static_instance = GameObject.FindObjectOfType(typeof(Eventmanager)) as Eventmanager;
+			if (applicationIsQuitting) {
+				Debug.LogWarning("[Singleton] Instance '"+ typeof(Eventmanager) +
+				                 "' already destroyed on application quit." +
+				                 " Won't create again - returning null.");
+				return null;
+			}
+			lock(_lock)
+			{
+				static_instance = (Eventmanager) FindObjectOfType(typeof(Eventmanager));
+
+				if ( FindObjectsOfType(typeof(Eventmanager)).Length > 1 )
+				{
+					Debug.LogError("[Singleton] Something went really wrong " +
+					               " - there should never be more than 1 singleton!" +
+					               " Reopening the scene might fix it.");
+					return static_instance;
+				}
+
+				if(static_instance == null){
+					GameObject singleton = new GameObject();
+					static_instance = singleton.AddComponent<Eventmanager>();
+					singleton.name = "(singleton) "+ typeof(Eventmanager).ToString();
+					
+					DontDestroyOnLoad(singleton);
+					
+					Debug.Log("[Singleton] An instance of " + typeof(Eventmanager) + 
+					          " is needed in the scene, so '" + singleton +
+					          "' was created with DontDestroyOnLoad.");
+				}
+				else {
+					Debug.Log("[Singleton] Using instance already created: " +
+					          static_instance.gameObject.name);
+				}
 			}
 			return static_instance;
 		}
 	}
-	
+
+	private static bool applicationIsQuitting = false;
+
+	public void Awake(){
+		DontDestroyOnLoad (this.gameObject);
+	}
+
+	public void OnDestroy () {
+		applicationIsQuitting = true;
+	}
+
 	//Trigger PlayerAdded event
 	public void triggerPlayerAdded(GameObject player){
 		if (onPlayerAdded != null) {	//Don't execute if noone is listening to event
