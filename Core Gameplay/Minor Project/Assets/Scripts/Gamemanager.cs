@@ -14,7 +14,11 @@ public class Gamemanager : NetworkBehaviour {
 	[SyncVar]
 	public NetworkInstanceId packageholder;
 	[SyncVar]
-	public bool localmultiplayer; 
+	public bool localmultiplayer;
+	
+	//Executed on the server when next level is loaded
+	public delegate void OnNextLevelLoad();
+	public OnNextLevelLoad onNextLevelLoad;
 
 	//Function to call this object
 	public static Gamemanager Instance{
@@ -46,10 +50,6 @@ public class Gamemanager : NetworkBehaviour {
 	void Awake() {
 		DontDestroyOnLoad(this.gameObject);
 	}
-	
-	void Start () {
-		
-	}
 
 	void Update () {
 		if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
@@ -57,8 +57,15 @@ public class Gamemanager : NetworkBehaviour {
 		}
 	}
 
-	public void OnDestroy () {
+	void OnDestroy () {
 		applicationIsQuitting = true;
 	}
-	
+
+	[ServerCallback]
+	void OnLevelLoad(){
+		if (onNextLevelLoad != null) {
+			onNextLevelLoad ();
+		}
+		onNextLevelLoad = null;
+	}
 }
