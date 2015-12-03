@@ -2,6 +2,8 @@
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+//using System.Linq;
 
 public class PlayerController : NetworkBehaviour {
 	
@@ -199,6 +201,12 @@ public class PlayerController : NetworkBehaviour {
 		}
 	}
 
+	int ExtractIDFromName(String name) {
+		String idPart = name.Substring (name.IndexOf ('(') + 1);
+		return Int32.Parse (idPart.Substring (0, idPart.Length - 1));
+	}
+
+
 	void doInteract1(){
 		if (hasPackage) {
 			CmdDropPackage ();
@@ -208,8 +216,12 @@ public class PlayerController : NetworkBehaviour {
 				CmdPickupPackage ("PickUp1");
 			}
 
-			if (TriggerList.Exists (x => x.tag == "Switch")) {
-				CmdTriggerSwitch ();
+			foreach( Collider c in TriggerList) {
+				if(c.tag == "Switch") {
+					int switchID = ExtractIDFromName(c.name);
+					Debug.Log ("switch collider.name: "+c.name+", ID: "+switchID);
+					CmdTriggerSwitch(switchID);
+				}
 			}
 		}
 	}
@@ -250,8 +262,8 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdTriggerSwitch(){
-		Eventmanager.Instance.triggerSwitchPulled();
+	void CmdTriggerSwitch(int id){
+		Eventmanager.Instance.triggerSwitchPulled(id);
 	}
 
 	[Command]

@@ -17,7 +17,7 @@ public class Eventmanager : NetworkBehaviour {
 	public static event PlayerRemoved onPlayerRemoved;
 
 	//SwitchPulled event
-	public delegate void SwitchPulled();
+	public delegate void SwitchPulled(int id);
 	[SyncEvent]
 	public event SwitchPulled EventonSwitchPulled;
 
@@ -117,9 +117,9 @@ public class Eventmanager : NetworkBehaviour {
 	}
 	
 	//Trigger SwitchPulled event
-	public void triggerSwitchPulled(){
+	public void triggerSwitchPulled(int id){
 		if (EventonSwitchPulled != null) {	//Don't execute if noone is listening to event
-			EventonSwitchPulled();
+			EventonSwitchPulled(id);
 		}
 	}
 
