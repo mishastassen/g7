@@ -216,7 +216,11 @@ public class PlayerController : NetworkBehaviour {
 			if (TriggerList.Exists (x => x.tag == "PickUp1")) {
 				CmdPickupPackage ("PickUp1");
 			}
-
+			/*
+			if (TriggerList.Exists (x => x.tag == "PickUpMagic")) {
+				CmdPickupMagicPackage ("PickUpMagic");
+			}
+			*/
 			foreach( Collider c in TriggerList) {
 				if(c.tag == "Switch") {
 					int switchID = ExtractIDFromName(c.name);
@@ -255,7 +259,12 @@ public class PlayerController : NetworkBehaviour {
 	void CmdPickupPackage(string tag){
 		Eventmanager.Instance.packagePickup (this.gameObject,tag);
 	}
-	
+	/*
+	[Command]
+	void CmdPickupMagicPackage(string tag){
+		Eventmanager.Instance.packagePickupMagica (this.gameObject,tag);
+	}
+	*/
 	[Command]
 	void CmdDropPackage(){
 		Eventmanager.Instance.packageDrop (this.gameObject);
