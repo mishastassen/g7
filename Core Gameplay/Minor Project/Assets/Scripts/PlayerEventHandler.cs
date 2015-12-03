@@ -7,14 +7,14 @@ public class PlayerEventHandler : MonoBehaviour {
 	private PlayerController pc;
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
 		Eventmanager.Instance.EventonPackagePickup += HandleEventonPackagePickup;
 		Eventmanager.Instance.EventonPackageDrop += HandleEventonPackageDrop;
 		Eventmanager.Instance.EventonPackageThrow += HandleEventonPackageThrow;
 		pc = this.GetComponent<PlayerController> ();
 	}
 
-	void OnDestroy(){
+	void OnDisable(){
 		Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
 		Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
 		Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;

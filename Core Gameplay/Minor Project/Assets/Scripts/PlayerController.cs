@@ -43,6 +43,7 @@ public class PlayerController : NetworkBehaviour {
 	
 	
 	void Start() {
+		Time.timeScale = 1.0f;
 		rb = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
@@ -165,7 +166,7 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	//Trigger player removed event
-	void OnDestroy()
+	void OnDisable()
 	{
 		Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
 	}

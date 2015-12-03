@@ -6,6 +6,7 @@ public class Eventmanager : NetworkBehaviour {
 	
 	private static Eventmanager static_instance = null;
 	private static object _lock = new object ();
+	private static bool applicationIsQuitting = false;
 
 	//Events:
 	//Playeradded event
@@ -69,26 +70,20 @@ public class Eventmanager : NetworkBehaviour {
 
 				if ( FindObjectsOfType(typeof(Eventmanager)).Length > 1 )
 				{
+					Debug.Log("Warning: multiple event managers");
 					return static_instance;
 				}
 
 				if(static_instance == null){
-					GameObject singleton = new GameObject();
-					singleton.AddComponent<NetworkIdentity>();
-					static_instance = singleton.AddComponent<Eventmanager>();
-					singleton.name = "(singleton) "+ typeof(Eventmanager).ToString();
-					DontDestroyOnLoad(singleton);
-					NetworkServer.Spawn (singleton);
+					Debug.Log("Error no Event manager singleton");
 				}
 			}
 			return static_instance;
 		}
 	}
 
-	private static bool applicationIsQuitting = false;
-
-	public void Awake(){
-		DontDestroyOnLoad (this.gameObject);
+	void Awake(){
+		DontDestroyOnLoad(gameObject);
 	}
 
 	public void OnDestroy () {

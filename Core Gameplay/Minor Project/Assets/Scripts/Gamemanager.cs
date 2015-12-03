@@ -32,23 +32,19 @@ public class Gamemanager : NetworkBehaviour {
 				
 				if ( FindObjectsOfType(typeof(Gamemanager)).Length > 1 )
 				{
+					Debug.Log("Warning: multiple game managers");
 					return static_instance;
 				}
 				if(static_instance == null){
-					GameObject singleton = new GameObject();
-					singleton.AddComponent<NetworkIdentity>();
-					static_instance = singleton.AddComponent<Gamemanager>();
-					singleton.name = "(singleton) "+ typeof(Gamemanager).ToString();
-					DontDestroyOnLoad(singleton);
-					NetworkServer.Spawn (singleton);
+					Debug.Log("Error no Gamemanager singleton");
 				}
 			}
 			return static_instance;
 		}
 	}
 
-	void Awake() {
-		DontDestroyOnLoad(this.gameObject);
+	void Awake () {
+		DontDestroyOnLoad (gameObject);
 	}
 
 	void Update () {
@@ -65,6 +61,10 @@ public class Gamemanager : NetworkBehaviour {
 	void OnLevelLoad(){
 		if (onNextLevelLoad != null) {
 			onNextLevelLoad ();
+		}
+		if (Application.loadedLevelName != "PreScene") {
+			client = GameObject.
+			ClientScene.AddPlayer(client.connection, 0);
 		}
 		onNextLevelLoad = null;
 	}

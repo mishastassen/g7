@@ -66,12 +66,14 @@ MonoBehaviour:
   m_MaxDelay: .00999999978
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 116052, guid: 90a2ecc9721925a42adc8834b4283d02, type: 2}
-  m_AutoCreatePlayer: 1
+  m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 1
   m_OfflineScene: Start scene
-  m_OnlineScene: BasisLevel
+  m_OnlineScene: preScene
   m_SpawnPrefabs:
   - {fileID: 178754, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
+  - {fileID: 158734, guid: 5d79a84f1720b2d478cdade440cd5c95, type: 2}
+  - {fileID: 184668, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -121,7 +123,7 @@ Prefab:
       objectReference: {fileID: 155050, guid: 94cd99f912c21f64fa80b8bf9860aaff, type: 2}
     - target: {fileID: 0}
       propertyPath: m_AutoCreatePlayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SpawnPrefabs.Array.data[0]
@@ -146,6 +148,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_CustomConfig
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OnlineScene
+      value: preScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

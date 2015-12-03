@@ -8,6 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Start scene.unity
   - enabled: 1
+    path: Assets/_Scenes/preScene.unity
+  - enabled: 1
     path: Assets/_Scenes/BasisLevel.unity
   - enabled: 1
     path: Assets/_Scenes/Minigame1.unity

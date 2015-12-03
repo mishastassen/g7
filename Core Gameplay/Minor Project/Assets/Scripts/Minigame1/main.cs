@@ -83,6 +83,8 @@ public class main : NetworkBehaviour {
 	}
 
 	void triggerWin(){
-		Eventmanager.Instance.triggerChestCompleted ();
+		//Eventmanager.Instance.triggerChestCompleted ();
+		Time.timeScale = 0.0f;
+		Debug.Log ("levelload");
 	}
 }
