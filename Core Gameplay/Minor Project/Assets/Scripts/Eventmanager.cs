@@ -25,7 +25,12 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void PackagePickup(NetworkInstanceId netId,string tag);
 	[SyncEvent]
 	public event PackagePickup EventonPackagePickup;
-
+	/*
+	//Magic Package pickup event
+	public delegate void PackagePickupMagic(NetworkInstanceId netId,string tag);
+	[SyncEvent]
+	public event PackagePickupMagic EventonPackagePickupMagic;
+	*/
 	//Package drop event
 	public delegate void PackageDrop(NetworkInstanceId netId);
 	[SyncEvent]
@@ -124,7 +129,16 @@ public class Eventmanager : NetworkBehaviour {
 			EventonPackagePickup (Gamemanager.Instance.packageholder,tag);
 		}
 	}
-
+	/*
+	//Trigger when player tries to pick up magic package
+	public void packagePickupMagic(GameObject player,string tag){
+		if (!Gamemanager.Instance.packageheld) {
+			Gamemanager.Instance.packageheld = true;
+			Gamemanager.Instance.packageholder = player.GetComponent<NetworkIdentity> ().netId;
+			EventonPackagePickupMagic (Gamemanager.Instance.packageholder,tag);
+		}
+	}
+	*/
 	//Trigger when player tries to drop package
 	public void packageDrop(GameObject player){
 		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {

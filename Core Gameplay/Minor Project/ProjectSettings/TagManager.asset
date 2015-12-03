@@ -12,6 +12,7 @@ TagManager:
   - Package1
   - DeliveryZone
   - Chest
+  - PickUpMagic
   layers:
   - Default
   - TransparentFX
