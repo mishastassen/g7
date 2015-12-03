@@ -63,8 +63,7 @@ public class Gamemanager : NetworkBehaviour {
 			onNextLevelLoad ();
 		}
 		if (Application.loadedLevelName != "PreScene") {
-			client = GameObject.
-			ClientScene.AddPlayer(client.connection, 0);
+
 		}
 		onNextLevelLoad = null;
 	}
