@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour {
 	AudioSource geluid;
 	public AudioClip wind;
 
-	public Rigidbody rb;
+	public Rigidbody left;
+	public Rigidbody right;
 
 	// walkspeed, windspeed, rotatespeed, blowdir, severity
 	public float walkspeed;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 	public int rotatespeed;
 	private float blowdir;
 	private float severity;
+	private float compensate;
 
 	// is the wind blowing?
 	private bool windBlowing;
@@ -26,10 +28,11 @@ public class PlayerController : MonoBehaviour {
 		windBlowing = false;
 		frame_count = 0;
 		wind_count = 0;
-		rb.GetComponent<Rigidbody> ();
+		left.GetComponent<Rigidbody> ();
 		geluid = GetComponent<AudioSource>();
-		blowdir = getWindDirection();
+		blowdir = getWindDirection ();
 		severity = 1.0f;
+		compensate = 1.5f;
 	}
 	
 	// Update is called once per frame
@@ -41,12 +44,18 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (windBlowing) {
+			Debug.Log("wind blowing");
 
-			geluid.PlayOneShot(wind,1.0f);
+			// geluid.PlayOneShot(wind,1.0f);
 			wind_count ++;
 
 			// add the force due to the wind
-			rb.AddForce (Vector3.left * windspeed * blowdir * severity);
+			//rb.AddForce (Vector3.left * windspeed * blowdir * severity);
+
+			Vector3 LeftPlayerPos = left.transform.position;
+			Vector3 LeftPlayerRot = LeftPlayerPos - new Vector3(0f,0.8f,0f);
+
+			left.transform.RotateAround(LeftPlayerRot,Vector3.forward,blowdir * severity * windspeed*Time.deltaTime);
 
 			if (wind_count > 40) {
 				windBlowing = false;
@@ -57,36 +66,42 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		// increase the severity of the wind if one progresses
-		if (transform.position.z > 5) {
-			severity = 1.25f;
-		}
-
 		if (transform.position.z > 10) {
-			severity = 1.5f;
+			severity = 1.25f;
+			compensate = severity * 1.4f;
 		}
 
-		if (transform.position.z > 15) {
+		if (transform.position.z > 20) {
+			severity = 1.5f;
+			compensate = severity * 1.3f;
+		}
+
+		if (transform.position.z > 30) {
 			severity = 2.0f;
+			compensate = severity * 1.1f;
 		}
 	}
 
 	// the controls
-	void FixedUpdate()
-	{
+	void FixedUpdate(){
+
+		Vector3 LeftPlayerPos = left.transform.position;
+		Vector3 LeftPlayerRot = LeftPlayerPos - new Vector3(0f,0.8f,0f);
+
 		if (Input.GetKey (KeyCode.UpArrow)) {
-			transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
+			left.transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
 		}
 		
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime);
+			left.transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime);
 		}
 
 		if (Input.GetKey (KeyCode.LeftArrow)) {
-			rb.AddForce(Vector3.left * rotatespeed);
+			left.transform.RotateAround(LeftPlayerRot,Vector3.forward, 1.5f * compensate*windspeed*Time.deltaTime);
 		}
 
 		if (Input.GetKey (KeyCode.RightArrow)) {
-			rb.AddForce(-Vector3.left * rotatespeed);
+			left.transform.RotateAround(LeftPlayerRot,Vector3.forward, -1.5f * compensate*windspeed*Time.deltaTime);
 		}
 	}
 
@@ -101,6 +116,7 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			blowdir = getWindDirection();
 		}
+		// blowdir = 0;
 		return blowdir;
 		}
 }
