@@ -24,6 +24,12 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 			handler.Disable ();
 		}
 		if (isServer) {
+			/*
+			PlayerController[] players = GameObject.FindObjectsOfType<PlayerController>();
+			foreach(PlayerController player in players){
+				Destroy(player.gameObject);
+			}
+			*/
 			Gamemanager.Instance.packageheld = false;
 			networkmanager.ServerChangeScene (nextLevel);
 		}
