@@ -7,7 +7,7 @@ public class chestController : NetworkBehaviour {
 	public GameObject minigame1Prefab;
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
 		Eventmanager.Instance.EventonChestActivated += HandleEventonChestActivated;
 	}
 
