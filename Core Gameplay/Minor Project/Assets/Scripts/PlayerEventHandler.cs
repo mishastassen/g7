@@ -16,11 +16,13 @@ public class PlayerEventHandler : MonoBehaviour {
 	}
 
 	void OnDisable(){
+		/*
 		Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
 		//Eventmanager.Instance.EventonPackagePickupMagic -= HandleEventonPackagePickupMagic;
 		Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
 		Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
 		pc = null;
+		*/
 	}
 
 	void HandleEventonPackagePickup(NetworkInstanceId netID, string tag){
@@ -33,7 +35,7 @@ public class PlayerEventHandler : MonoBehaviour {
 			this.GetComponent<PlayerController>().hasPackage = true;
 		}
 	}
-	/*
+
 	void HandleEventonPackagePickupMagic(NetworkInstanceId netID, string tag) {
 		if (netID == this.gameObject.GetComponent<NetworkIdentity> ().netId) {
 			GameObject other = GameObject.FindWithTag(tag);
@@ -44,7 +46,7 @@ public class PlayerEventHandler : MonoBehaviour {
 			this.GetComponent<PlayerController>().hasPackage = true;
 		}
 	}
-	*/
+
 	void HandleEventonPackageDrop(NetworkInstanceId netID){
 		if (netID == this.gameObject.GetComponent<NetworkIdentity> ().netId) {
 			//Remove package from collider list

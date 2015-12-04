@@ -58,12 +58,9 @@ public class Gamemanager : NetworkBehaviour {
 	}
 
 	[ServerCallback]
-	void OnLevelLoad(){
+	void OnLevelWasLoaded(int level){
 		if (onNextLevelLoad != null) {
 			onNextLevelLoad ();
-		}
-		if (Application.loadedLevelName != "PreScene") {
-
 		}
 		onNextLevelLoad = null;
 	}

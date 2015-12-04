@@ -21,6 +21,6 @@ public class chestController : NetworkBehaviour {
 
 	void returnLevel(){
 		main main = (main)GameObject.FindObjectOfType (typeof(main));
-		main.nextlevel = ("BasisLevel");
+		//main.nextlevel = ("BasisLevel");
 	}
 }
