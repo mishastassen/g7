@@ -41,24 +41,26 @@ public class main : NetworkBehaviour {
 			return;
 		}
 		// if finished!
-		if (left.finished && right.finished) {
+		if (left.finished && right.finished && !finished) {
 			winText.enabled= true;
 			succes = true;
-			if(isServer && !finished){
+			if(isServer){
 				Gamemanager.Instance.onNextLevelLoad += triggerWin;	//Tigger chest completed event when previous level is loaded
 			}
 			finished = true;
-			Time.timeScale = 0.0f;
 		}
 
-		updateTime ();
+		if (!finished) {
+			updateTime ();
+		}
 		setTimeText ();
 
 		// if out of time
-		if (timeLeft < 0) {
+		if (timeLeft < 0 && !finished) {
+			left.finished = true;
+			right.finished = true;
 			loseText.enabled = true;
 			succes = false;
-			Time.timeScale = 0.0f;
 			finished = true;
 		}
 
@@ -83,8 +85,8 @@ public class main : NetworkBehaviour {
 	}
 
 	void triggerWin(){
-		//Eventmanager.Instance.triggerChestCompleted ();
 		Time.timeScale = 1.0f;
+		Eventmanager.Instance.triggerChestCompleted ();
 		Debug.Log ("levelload");
 	}
 }

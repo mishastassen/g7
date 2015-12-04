@@ -20,6 +20,10 @@ public class Gamemanager : NetworkBehaviour {
 	public delegate void OnNextLevelLoad();
 	public OnNextLevelLoad onNextLevelLoad;
 
+	//Disable eventhandlers on level finish
+	public delegate void disableEventHandlers();
+	public disableEventHandlers onDisableEventHandlers;
+
 	//Function to call this object
 	public static Gamemanager Instance{
 		get{
@@ -63,5 +67,12 @@ public class Gamemanager : NetworkBehaviour {
 			onNextLevelLoad ();
 		}
 		onNextLevelLoad = null;
+	}
+
+	public void triggerDisableEventHandlers(){
+		if (onDisableEventHandlers != null) {
+			onDisableEventHandlers ();
+		}
+		onDisableEventHandlers = null;
 	}
 }

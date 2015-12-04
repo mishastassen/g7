@@ -169,6 +169,7 @@ public class Eventmanager : NetworkBehaviour {
 		if (EventonLevelFinished != null && isServer) { //Don't execute if noone is listening to event
 			EventonLevelFinished(nextLevel);
 		}
+		ClearAllDirtyBits ();
 	}
 
 	public void triggerChestActivated(){

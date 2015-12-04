@@ -15,6 +15,7 @@ public class PlayerEventHandler : MonoBehaviour {
 		Eventmanager.Instance.EventonPackageThrow += HandleEventonPackageThrow;
 		pc = this.GetComponent<PlayerController> ();
 		enabled = true;
+		Gamemanager.Instance.onDisableEventHandlers += Disable;
 	}
 
 	void OnDisable(){
@@ -91,5 +92,5 @@ public class PlayerEventHandler : MonoBehaviour {
 			this.GetComponent<PlayerController>().hasMagicPackage = false;
 		}
 	}
-	
+
 }
