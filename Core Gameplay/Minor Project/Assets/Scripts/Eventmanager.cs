@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
@@ -26,12 +26,7 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void PackagePickup(NetworkInstanceId netId,string tag);
 	[SyncEvent]
 	public event PackagePickup EventonPackagePickup;
-	/*
-	//Magic Package pickup event
-	public delegate void PackagePickupMagic(NetworkInstanceId netId,string tag);
-	[SyncEvent]
-	public event PackagePickupMagic EventonPackagePickupMagic;
-	*/
+
 	//Package drop event
 	public delegate void PackageDrop(NetworkInstanceId netId);
 	[SyncEvent]
