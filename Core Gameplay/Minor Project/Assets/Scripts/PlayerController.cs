@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ public class PlayerController : NetworkBehaviour {
 	public float runThreshold;
 	
 	[SyncVar]
-	public bool hasPackage, walking;
+	public bool hasPackage, hasMagicPackage, walking;
 	public Transform carriedPackage;
 
 	[SyncVar(hook="OnFacingChange")]
@@ -48,6 +48,7 @@ public class PlayerController : NetworkBehaviour {
 		anim = GetComponent<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
+		hasMagicPackage = false;
 		carriedPackage = null;
 		fastspeed = 12;
 		fastjump = 22;
@@ -110,6 +111,11 @@ public class PlayerController : NetworkBehaviour {
 			} else {
 				speed = fastspeed;
 				jump = fastjump;
+			}
+
+			// reverse walking
+			if (hasMagicPackage) {
+				moveHorizontal *= -1;
 			}
 			
 			// move player
@@ -220,11 +226,11 @@ public class PlayerController : NetworkBehaviour {
 			if (TriggerList.Exists (x => x.tag == "PickUp1")) {
 				CmdPickupPackage ("PickUp1");
 			}
-			/*
+
 			if (TriggerList.Exists (x => x.tag == "PickUpMagic")) {
-				CmdPickupMagicPackage ("PickUpMagic");
+				CmdPickupPackage ("PickUpMagic");
 			}
-			*/
+
 			foreach( Collider c in TriggerList) {
 				if(c.tag == "Switch") {
 					int switchID = ExtractIDFromName(c.name);
@@ -263,12 +269,7 @@ public class PlayerController : NetworkBehaviour {
 	void CmdPickupPackage(string tag){
 		Eventmanager.Instance.packagePickup (this.gameObject,tag);
 	}
-	/*
-	[Command]
-	void CmdPickupMagicPackage(string tag){
-		Eventmanager.Instance.packagePickupMagica (this.gameObject,tag);
-	}
-	*/
+
 	[Command]
 	void CmdDropPackage(){
 		Eventmanager.Instance.packageDrop (this.gameObject);
