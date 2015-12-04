@@ -19,8 +19,12 @@ public class DoorController : NetworkBehaviour {
 	private bool doorOpen;
 
 	int ExtractIDFromName(String name) {
-		String idPart = name.Substring (name.IndexOf ('(') + 1);
-		return Int32.Parse (idPart.Substring (0, idPart.Length - 1));
+		int from = name.IndexOf ('(')+1;
+		int to = name.IndexOf (')');
+		int res=-1;
+		if (from<to && int.TryParse(name.Substring (from,to-from), out res))
+			return res;
+		return res;
 	}
 
 	void Start () {
