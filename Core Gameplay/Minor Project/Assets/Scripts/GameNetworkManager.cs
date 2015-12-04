@@ -6,8 +6,8 @@ public class GameNetworkManager : NetworkManager {
 
 	public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
 	{
-		//if (NetworkManager.networkSceneName !="preScene") {
+		if (NetworkManager.networkSceneName !="preScene") {
 			base.OnServerAddPlayer(conn, playerControllerId);
-		//}
+		}
 	}
 }
