@@ -6,7 +6,7 @@ public class GameNetworkManager : NetworkManager {
 
 	public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
 	{
-		if (Application.loadedLevel != 1) {
+		if (NetworkManager.networkSceneName !="preScene") {
 			base.OnServerAddPlayer(conn, playerControllerId);
 		}
 	}

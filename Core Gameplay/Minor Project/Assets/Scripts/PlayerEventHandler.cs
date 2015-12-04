@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerEventHandler : MonoBehaviour {
 
 	private PlayerController pc;
+	private bool enabled;
 
 	// Use this for initialization
 	void OnEnable () {
@@ -13,15 +14,21 @@ public class PlayerEventHandler : MonoBehaviour {
 		Eventmanager.Instance.EventonPackageDrop += HandleEventonPackageDrop;
 		Eventmanager.Instance.EventonPackageThrow += HandleEventonPackageThrow;
 		pc = this.GetComponent<PlayerController> ();
+		enabled = true;
 	}
 
 	void OnDisable(){
+        Disable ();
+	}
 
-		Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
-		//Eventmanager.Instance.EventonPackagePickupMagic -= HandleEventonPackagePickupMagic;
-		Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
-		Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
-		pc = null;
+	public void Disable(){
+		if (enabled) {
+			Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
+			//Eventmanager.Instance.EventonPackagePickupMagic -= HandleEventonPackagePickupMagic;
+			Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
+			Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
+			enabled = false;
+		}
 
 	}
 

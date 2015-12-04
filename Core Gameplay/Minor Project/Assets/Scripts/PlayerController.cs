@@ -66,6 +66,10 @@ public class PlayerController : NetworkBehaviour {
 		}
 	}
 
+	void OnEnable(){
+		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
+	}
+
 	void Update(){
 		if (isLocalPlayer) {
 			//Check interact1 button
@@ -174,7 +178,9 @@ public class PlayerController : NetworkBehaviour {
 	//Trigger player removed event
 	void OnDisable()
 	{
-		Eventmanager.Instance.triggerPlayerRemoved(this.gameObject);
+		if (Eventmanager.Instance != null) {
+			Eventmanager.Instance.triggerPlayerRemoved (this.gameObject);
+		}
 	}
 
 	//Add triggers to trigger list
