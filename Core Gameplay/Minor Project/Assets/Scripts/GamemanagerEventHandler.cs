@@ -17,11 +17,16 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		networkmanager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 	}
 
-	[Server]
 	void HandleEventonLevelFinished (string nextLevel)
-	{
-		Gamemanager.Instance.packageheld = false;
-		networkmanager.ServerChangeScene (nextLevel);
+	{	
+		PlayerEventHandler[] handlers = GameObject.FindObjectsOfType<PlayerEventHandler>();
+		foreach(PlayerEventHandler handler in handlers){
+			handler.Disable ();
+		}
+		if (isServer) {
+			Gamemanager.Instance.packageheld = false;
+			networkmanager.ServerChangeScene (nextLevel);
+		}
 	}
 
 	[Server]

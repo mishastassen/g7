@@ -44,11 +44,11 @@ public class main : NetworkBehaviour {
 		if (left.finished && right.finished) {
 			winText.enabled= true;
 			succes = true;
-			finished = true;
-			Time.timeScale = 0.0f;
-			if(isServer){
+			if(isServer && !finished){
 				Gamemanager.Instance.onNextLevelLoad += triggerWin;	//Tigger chest completed event when previous level is loaded
 			}
+			finished = true;
+			Time.timeScale = 0.0f;
 		}
 
 		updateTime ();
@@ -65,7 +65,7 @@ public class main : NetworkBehaviour {
 		if (isServer && finished && Input.GetButtonDown("Interact1_P1")) {
 			NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 			Manager.playerPrefab = prefab;
-			Manager.ServerChangeScene (nextlevel);
+			Eventmanager.Instance.triggerLevelFinished(nextlevel);
 		}
 	}
 
@@ -84,7 +84,7 @@ public class main : NetworkBehaviour {
 
 	void triggerWin(){
 		//Eventmanager.Instance.triggerChestCompleted ();
-		Time.timeScale = 0.0f;
+		Time.timeScale = 1.0f;
 		Debug.Log ("levelload");
 	}
 }
