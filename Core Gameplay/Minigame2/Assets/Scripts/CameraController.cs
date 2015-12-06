@@ -19,8 +19,8 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		left = GameObject.Find ("LeftPlayer");
-		right = GameObject.Find ("RightPlayer");
+		// left = GameObject.Find ("LeftPlayer");
+		// right = GameObject.Find ("RightPlayer");
 
 		leftPos = left.transform.position;
 		rightPos = right.transform.position;

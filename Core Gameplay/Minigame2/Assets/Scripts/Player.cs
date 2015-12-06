@@ -29,33 +29,83 @@ public class Player : MonoBehaviour {
 	void Start () {
 		anim = gameObject.GetComponentInChildren<Animator> ();
 		controller = GetComponent<CharacterController> ();
+		severity = 1.0f;
+		compensate = 1.5f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("should not move forward");
-
+		Debug.Log (left.transform.eulerAngles.z);
 		Vector3 LeftPlayerPos = left.transform.position;
 		Vector3 LeftPlayerRot = LeftPlayerPos - new Vector3(0f,0.8f,0f);
+
+		frame_count++;
 		
+		if (frame_count % 100 == 0) {
+			windBlowing = true;
+		}
+		
+		if (windBlowing) {
+			// geluid.PlayOneShot(wind,1.0f);
+			wind_count ++;
+			
+			left.transform.RotateAround (LeftPlayerRot, Vector3.forward, blowdir * severity * windspeed * Time.deltaTime);
+			
+			if (wind_count > 40) {
+				windBlowing = false;
+				wind_count = 0;
+				blowdir = getWindDirection();
+				// geluid.Stop ();
+			}
+		}
+
 		if (Input.GetKey (KeyCode.UpArrow)) {
+			anim.SetBool ("WalkForward", true);
 			left.transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
-			Debug.Log("should move forward");
+		} else {
+			anim.SetBool ("WalkForward", false);
 		}
 		
 		if (Input.GetKey (KeyCode.DownArrow)) {
+			anim.SetInteger ("WalkBackwards", 1);
 			left.transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime);
-			Debug.Log("should move backward");
+		} else {
+			anim.SetInteger ("WalkBackwards", 0);
 		}
 
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			left.transform.RotateAround(LeftPlayerRot,Vector3.forward, 1.5f * compensate*windspeed*Time.deltaTime);
-			Debug.Log("should turn left");
 		}
 		
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			left.transform.RotateAround(LeftPlayerRot,Vector3.forward, -1.5f * compensate*windspeed*Time.deltaTime);
-			Debug.Log("should turn right");
+		}
+
+		// increase the severity of the wind if one progresses
+		if (transform.position.z > 10) {
+			severity = 1.25f;
+			compensate = severity * 1.4f;
+		}
+		
+		if (transform.position.z > 20) {
+			severity = 1.5f;
+			compensate = severity * 1.3f;
+		}
+		
+		if (transform.position.z > 30) {
+			severity = 2.0f;
+			compensate = severity * 1.1f;
+		}
+
+		// check to see when to fall left
+		if (left.transform.eulerAngles.z < 345 && left.transform.eulerAngles.z > 100) {
+			anim.SetBool ("FallRight" ,true);
+			left.transform.Translate( Vector3.down * 3 * Time.deltaTime);
+		}
+
+		if (left.transform.eulerAngles.z > 15 && left.transform.eulerAngles.z < 200) {
+			anim.SetBool ("FallRight" ,true);
+			left.transform.Translate( Vector3.down * 3 * Time.deltaTime);
 		}
 	}
 
