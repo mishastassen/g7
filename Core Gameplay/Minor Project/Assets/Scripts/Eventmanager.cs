@@ -41,6 +41,10 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void PlayerDeath(GameObject player);
 	public event PlayerDeath EventonPlayerDeath;
 
+	//Player spotted event
+	public delegate void PlayerSpotted();
+	public event PlayerSpotted EventonPlayerSpotted;
+
 	//Package destroyed event
 	public delegate void PackageDestroyed();
 	[SyncEvent]
@@ -58,6 +62,11 @@ public class Eventmanager : NetworkBehaviour {
 	//Chest completed succesfully
 	public delegate void ChestCompleted();
 	public event ChestActivated EventonChestCompleted;
+
+	//CheckPoint reached
+	public delegate void CheckpointReached(int checkpointNum);
+	[SyncEvent]
+	public event CheckpointReached EventonCheckpointReached;
 
 	//Function to call this object
 	public static Eventmanager Instance{
@@ -156,6 +165,13 @@ public class Eventmanager : NetworkBehaviour {
 		EventonPlayerDeath (player);
 	}
 
+	//Trigger when player is spotted
+	public void triggerPlayerSpotted(){
+		if (EventonPlayerSpotted != null) { //Don't execute if noone is listening to event
+			EventonPlayerSpotted ();
+		}
+	}
+
 	//Trigger when player is destroyed
 	public void triggerPackageDestroyed(){
 		Gamemanager.Instance.packageheld = false;
@@ -166,10 +182,9 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Trigger when level is finished(){
 	public void triggerLevelFinished(string nextLevel){
-		if (EventonLevelFinished != null && isServer) { //Don't execute if noone is listening to event
+		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
 			EventonLevelFinished(nextLevel);
 		}
-		ClearAllDirtyBits ();
 	}
 
 	public void triggerChestActivated(){
@@ -181,6 +196,12 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerChestCompleted(){
 		if (EventonChestCompleted != null) { //Don't execute if noone is listening to event
 			EventonChestCompleted();
+		}
+	}
+
+	public void triggerCheckpointReached(int checkpointNum){
+		if (EventonCheckpointReached != null) {
+			EventonCheckpointReached(checkpointNum);
 		}
 	}
 }

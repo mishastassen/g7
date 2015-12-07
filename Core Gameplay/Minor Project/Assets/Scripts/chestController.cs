@@ -17,11 +17,10 @@ public class chestController : NetworkBehaviour {
 
 	[Server]
 	void HandleEventonChestActivated(){
-		Gamemanager.Instance.onNextLevelLoad = returnLevel;
-		Gamemanager.Instance.triggerDisableEventHandlers();
+		//Gamemanager.Instance.onNextLevelLoad = returnLevel;
 		NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		Manager.playerPrefab = minigame1Prefab;
-		Manager.ServerChangeScene ("Minigame1");
+		Eventmanager.Instance.triggerLevelFinished ("Minigame1");
 	}
 
 	void returnLevel(){

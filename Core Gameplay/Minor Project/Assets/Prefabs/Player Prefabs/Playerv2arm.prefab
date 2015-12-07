@@ -79,7 +79,7 @@ GameObject:
   - 114: {fileID: 11471358}
   m_Layer: 0
   m_Name: Playerv2arm
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -557,6 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runThreshold: .5
   hasPackage: 0
+  hasMagicPackage: 0
   walking: 0
   carriedPackage: {fileID: 0}
   facingRight: 0
@@ -751,6 +752,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_MovementTheshold
       value: .000500000024
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
