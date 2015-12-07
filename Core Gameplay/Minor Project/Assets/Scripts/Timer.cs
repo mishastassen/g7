@@ -9,7 +9,6 @@ public class Timer : NetworkBehaviour {
 	private float timer;
 	private float minutes;
 	private string seconds;
-	[SyncVar]
 	private bool levelFinished;
 	
 	void Start () {

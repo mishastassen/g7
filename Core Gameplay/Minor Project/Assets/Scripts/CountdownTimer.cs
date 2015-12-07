@@ -4,10 +4,9 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class CountdownTimer : NetworkBehaviour {
-	
+
 	public Text timerText;
 	public float startTime;
-	[SyncVar]
 	private float timer;
 	private float time;
 	private float minutes;
