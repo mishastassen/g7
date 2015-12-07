@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	private Animator anim;
-	private CharacterController controller;
+	public Animator leftanim;
+	public Animator rightanim;
+	// private CharacterController controller;
 	public float walkspeed;
 
 	AudioSource geluid;
@@ -30,8 +31,9 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		anim = gameObject.GetComponentInChildren<Animator> ();
-		controller = GetComponent<CharacterController> ();
+		// leftanim = gameObject.GetComponentInChildren<Animator> ();
+		// rightanim = gameObject.GetComponentInChildren<Animator> ();
+		// controller = GetComponent<CharacterController> ();
 		severity = 1.0f;
 		compensate = 1.5f;
 		frame_count = 1;
@@ -45,6 +47,9 @@ public class Player : MonoBehaviour {
 
 		Vector3 LeftPlayerPos = left.transform.position;
 		Vector3 LeftPlayerRot = LeftPlayerPos - new Vector3(0f,0.8f,0f);
+
+		Vector3 RightPlayerPos = right.transform.position;
+		Vector3 RightPlayerRot = RightPlayerPos - new Vector3 (0f, 0.8f, 0f);
 
 		frame_count++;
 		
@@ -65,6 +70,7 @@ public class Player : MonoBehaviour {
 			}
 			
 			left.transform.RotateAround (LeftPlayerRot, Vector3.forward, blowdir * severity * windspeed * Time.deltaTime);
+			right.transform.RotateAround (RightPlayerRot, Vector3.forward, blowdir * severity * windspeed * Time.deltaTime);
 			
 			if (wind_count > 40) {
 				windBlowing = false;
@@ -76,26 +82,55 @@ public class Player : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKey (KeyCode.UpArrow)) {
-			anim.SetBool ("WalkForward", true);
+		if (Input.GetKey (KeyCode.W)) {
+			leftanim.SetBool ("WalkForward", true);
 			left.transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
 		} else {
-			anim.SetBool ("WalkForward", false);
+			leftanim.SetBool ("WalkForward", false);
 		}
 		
-		if (Input.GetKey (KeyCode.DownArrow)) {
-			anim.SetInteger ("WalkBackwards", 1);
+		if (Input.GetKey (KeyCode.S)) {
+			leftanim.SetInteger ("WalkBackwards", 1);
 			left.transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime);
 		} else {
-			anim.SetInteger ("WalkBackwards", 0);
+			leftanim.SetInteger ("WalkBackwards", 0);
 		}
 
-		if (Input.GetKey (KeyCode.LeftArrow)) {
+		if (Input.GetKey (KeyCode.A)) {
 			left.transform.RotateAround(LeftPlayerRot,Vector3.forward, 1.5f * compensate*windspeed*Time.deltaTime);
 		}
 		
-		if (Input.GetKey (KeyCode.RightArrow)) {
+		if (Input.GetKey (KeyCode.D)) {
 			left.transform.RotateAround(LeftPlayerRot,Vector3.forward, -1.5f * compensate*windspeed*Time.deltaTime);
+		}
+
+		if (Input.GetKey (KeyCode.UpArrow)) {
+			rightanim.SetBool ("WalkForward", true);
+			right.transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
+		} else {
+			rightanim.SetBool ("WalkForward", false);
+		}
+		
+		if (Input.GetKey (KeyCode.DownArrow)) {
+			rightanim.SetInteger ("WalkBackwards", 1);
+			right.transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime);
+		} else {
+			rightanim.SetInteger ("WalkBackwards", 0);
+		}
+		
+		if (Input.GetKey (KeyCode.LeftArrow)) {
+			right.transform.RotateAround(RightPlayerRot,Vector3.forward, 1.5f * compensate*windspeed*Time.deltaTime);
+		}
+
+		if (Input.GetKey (KeyCode.RightArrow)) {
+			right.transform.RotateAround(RightPlayerRot,Vector3.forward, -1.5f * compensate*windspeed*Time.deltaTime);
+		}
+
+		if (Input.GetKey (KeyCode.W) && Input.GetKey (KeyCode.UpArrow)) {
+			leftanim.SetBool ("WalkForward", true);
+			left.transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
+			rightanim.SetBool ("WalkForward", true);
+			right.transform.Translate (Vector3.forward * walkspeed * Time.deltaTime);
 		}
 
 		// increase the severity of the wind if one progresses
@@ -114,15 +149,26 @@ public class Player : MonoBehaviour {
 			compensate = severity * 1.1f;
 		}
 
-		// check to see when to fall left
+		// check to see when the left player falls
 		if (left.transform.eulerAngles.z < 345 && left.transform.eulerAngles.z > 100) {
-			anim.SetBool ("FallRight" ,true);
+			leftanim.SetBool ("FallRight" ,true);
 			left.transform.Translate( Vector3.down * 3 * Time.deltaTime);
 		}
 
 		if (left.transform.eulerAngles.z > 15 && left.transform.eulerAngles.z < 200) {
-			anim.SetBool ("FallRight" ,true);
+			leftanim.SetBool ("FallRight" ,true);
 			left.transform.Translate( Vector3.down * 3 * Time.deltaTime);
+		}
+
+		// check to see when the right player falls
+		if (right.transform.eulerAngles.z < 345 && right.transform.eulerAngles.z > 100) {
+			rightanim.SetBool ("FallRight" ,true);
+			right.transform.Translate( Vector3.down * 3 * Time.deltaTime);
+		}
+		
+		if (right.transform.eulerAngles.z > 15 && right.transform.eulerAngles.z < 200) {
+			rightanim.SetBool ("FallRight" ,true);
+			right.transform.Translate( Vector3.down * 3 * Time.deltaTime);
 		}
 	}
 
