@@ -40,14 +40,12 @@ public class EnemyController : NetworkBehaviour {
 	// checks whether the rigth of the enemy is on a platform
 	bool isGroundedRight() {
 		Vector3 rightPosition = new Vector3 (enemy.transform.position.x + 0.5f, enemy.transform.position.y + 1, enemy.transform.position.z);
-		Debug.DrawRay (rightPosition, Vector3.down, Color.red);
 		return Physics.Raycast (rightPosition, Vector3.down, 2);
 	}
 
 	// checks whether the left of the enemy is on a platform
 	bool isGroundedLeft() {
 		Vector3 leftPosition= new Vector3 (enemy.transform.position.x - 0.5f, enemy.transform.position.y + 1, enemy.transform.position.z);
-		Debug.DrawRay (leftPosition, Vector3.down, Color.blue);
 		return Physics.Raycast (leftPosition, Vector3.down, 2);
 	}	
 	

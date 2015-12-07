@@ -13,6 +13,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
 		Eventmanager.Instance.EventonPlayerDeath += HandleEventonPlayerDeath;
+		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
 		Eventmanager.Instance.EventonPackageDestroyed += HandleEventonPackageDestroyed;
 		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
 		networkmanager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
@@ -50,6 +51,10 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		NetworkServer.Spawn (newPlayer);
 		Destroy (player);
 		NetworkServer.ReplacePlayerForConnection (conn, newPlayer, playerControllerId);
+	}
+
+	void HandleEventonPlayerSpotted() {
+		Debug.Log ("Player spotted");
 	}
 
 	IEnumerator endLevel(string nextLevel){
