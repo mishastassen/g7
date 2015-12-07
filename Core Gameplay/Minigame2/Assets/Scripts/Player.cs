@@ -21,6 +21,9 @@ public class Player : MonoBehaviour {
 	
 	// is the wind blowing?
 	private bool windBlowing;
+	public ParticleSystem toleft;
+	public ParticleSystem toright;
+	// private GameObject windtoright;
 	
 	int frame_count;
 	int wind_count;
@@ -31,11 +34,15 @@ public class Player : MonoBehaviour {
 		controller = GetComponent<CharacterController> ();
 		severity = 1.0f;
 		compensate = 1.5f;
+		frame_count = 1;
+		blowdir = getWindDirection ();
+		toleft.enableEmission = false;
+		toright.enableEmission = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (left.transform.eulerAngles.z);
+
 		Vector3 LeftPlayerPos = left.transform.position;
 		Vector3 LeftPlayerRot = LeftPlayerPos - new Vector3(0f,0.8f,0f);
 
@@ -48,6 +55,14 @@ public class Player : MonoBehaviour {
 		if (windBlowing) {
 			// geluid.PlayOneShot(wind,1.0f);
 			wind_count ++;
+
+			if (blowdir > 0){
+				toleft.enableEmission = true;
+				toleft.Play();
+			} else{
+				toright.enableEmission = true;
+				toright.Play ();
+			}
 			
 			left.transform.RotateAround (LeftPlayerRot, Vector3.forward, blowdir * severity * windspeed * Time.deltaTime);
 			
@@ -56,6 +71,8 @@ public class Player : MonoBehaviour {
 				wind_count = 0;
 				blowdir = getWindDirection();
 				// geluid.Stop ();
+				toleft.enableEmission = false;
+				toright.enableEmission = false;
 			}
 		}
 
@@ -113,6 +130,7 @@ public class Player : MonoBehaviour {
 		blowdir = Random.Range (-1.0f, 1.0f);
 		
 		if (blowdir < 0) {
+			Debug.Log ("wind should be blowing");
 			blowdir = -1;
 		} else if (blowdir > 0) {
 			blowdir = 1;
