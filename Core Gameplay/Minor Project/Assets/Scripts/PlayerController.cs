@@ -8,7 +8,7 @@ using System;
 public class PlayerController : NetworkBehaviour {
 	
 	private float speed;
-	private float jump;
+	private float jump, lowjump;
 	public float runThreshold;
 	
 	[SyncVar]
@@ -22,6 +22,7 @@ public class PlayerController : NetworkBehaviour {
 	private bool isRunning;
 	private bool PlayWalkingSoundrunning;
 	private bool doJump = false;
+	private bool doJumpCancel = false;
 	private Rigidbody rb;
 	private Animator anim;
 	
@@ -32,9 +33,11 @@ public class PlayerController : NetworkBehaviour {
 	private string throwButton = "Throw_P1";
 	
 	private float fastspeed;
-	private float fastjump;
+	private float fastjump; // velocity for highest jump without package
+	private float fastjumplow; // velocity for lowest jump without package
 	private float slowspeed;
-	private float slowjump;
+	private float slowjump; // velocity for highest jump with package
+	private float slowjumplow; // velocity for lowest jump with package
 	
 	private int footstep = 1;
 
@@ -52,8 +55,10 @@ public class PlayerController : NetworkBehaviour {
 		carriedPackage = null;
 		fastspeed = 12;
 		fastjump = 22;
+		fastjumplow = 11;
 		slowspeed = 8;
 		slowjump = 18;
+		slowjumplow = 9;
 		runThreshold = 0.5f;
 		facingRight = 1;
 		
@@ -81,8 +86,11 @@ public class PlayerController : NetworkBehaviour {
 				doThrowButton();
 			}
 			// jump based on user input
-			if (Input.GetButton (jumpButton) && (isGroundedToe () || isGroundedHeel ())) {
+			if (Input.GetButtonDown (jumpButton) && (isGroundedToe () || isGroundedHeel ())) {
 				doJump = true;
+			}
+			if (Input.GetButtonUp (jumpButton)) {
+				doJumpCancel = true;
 			}
 		}
 	}
@@ -100,7 +108,12 @@ public class PlayerController : NetworkBehaviour {
 				yVelocity = jump;
 				doJump = false;
 			}
-			
+			if(doJumpCancel){
+				if(yVelocity>lowjump)
+					yVelocity = lowjump;
+				doJumpCancel = false;
+			}
+
 			//Sync if players are walking
 			if (Mathf.Abs (moveHorizontal) > 0.1) {
 				walking = true;
@@ -112,9 +125,11 @@ public class PlayerController : NetworkBehaviour {
 			if (hasPackage) {
 				speed = slowspeed;
 				jump = slowjump;
+				lowjump = slowjumplow;
 			} else {
 				speed = fastspeed;
 				jump = fastjump;
+				lowjump = fastjumplow;
 			}
 
 			// reverse walking
