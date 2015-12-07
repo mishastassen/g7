@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class PlatformController : NetworkBehaviour {
 
-	public Path path;
+	public PathDefinition path;
 	public float speed=1;
 	public float inRangeGoal = 0.1f;
 

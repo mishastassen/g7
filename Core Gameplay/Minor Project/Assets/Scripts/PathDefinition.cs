@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Path : NetworkBehaviour {
+public class PathDefinition : NetworkBehaviour {
 
 	public List<Transform> points = new List<Transform>();
 
