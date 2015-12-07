@@ -166,10 +166,9 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Trigger when level is finished(){
 	public void triggerLevelFinished(string nextLevel){
-		if (EventonLevelFinished != null && isServer) { //Don't execute if noone is listening to event
+		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
 			EventonLevelFinished(nextLevel);
 		}
-		ClearAllDirtyBits ();
 	}
 
 	public void triggerChestActivated(){
