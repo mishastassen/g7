@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
@@ -26,12 +26,7 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void PackagePickup(NetworkInstanceId netId,string tag);
 	[SyncEvent]
 	public event PackagePickup EventonPackagePickup;
-	/*
-	//Magic Package pickup event
-	public delegate void PackagePickupMagic(NetworkInstanceId netId,string tag);
-	[SyncEvent]
-	public event PackagePickupMagic EventonPackagePickupMagic;
-	*/
+
 	//Package drop event
 	public delegate void PackageDrop(NetworkInstanceId netId);
 	[SyncEvent]
@@ -53,6 +48,7 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Level finished
 	public delegate void LevelFinished(string nextLevel);
+	[SyncEvent]
 	public event LevelFinished EventonLevelFinished;
 
 	//Chest activated
@@ -121,7 +117,9 @@ public class Eventmanager : NetworkBehaviour {
 		if (!Gamemanager.Instance.packageheld) {
 			Gamemanager.Instance.packageheld = true;
 			Gamemanager.Instance.packageholder = player.GetComponent<NetworkIdentity> ().netId;
-			EventonPackagePickup (Gamemanager.Instance.packageholder,tag);
+			if(EventonPackagePickup != null){
+				EventonPackagePickup (Gamemanager.Instance.packageholder,tag);
+			}
 		}
 	}
 	/*
@@ -168,9 +166,10 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Trigger when level is finished(){
 	public void triggerLevelFinished(string nextLevel){
-		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
+		if (EventonLevelFinished != null && isServer) { //Don't execute if noone is listening to event
 			EventonLevelFinished(nextLevel);
 		}
+		ClearAllDirtyBits ();
 	}
 
 	public void triggerChestActivated(){

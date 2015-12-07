@@ -17,6 +17,7 @@ public class DoorController : NetworkBehaviour {
 
 	[SyncVar]
 	private bool doorOpen;
+	private bool eventEnabled;
 
 	int ExtractIDFromName(String name) {
 		int from = name.IndexOf ('(')+1;
@@ -34,6 +35,8 @@ public class DoorController : NetworkBehaviour {
 		doorID = ExtractIDFromName (this.name);
 		doorOpen = false;
 		Eventmanager.Instance.EventonSwitchPulled += switchPulled;
+		eventEnabled = true;
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 	}
 	
 	void switchPulled(int id) {
@@ -58,6 +61,15 @@ public class DoorController : NetworkBehaviour {
 			Vector3 size = box.size;
 			size.y=closedSizeY;
 			box.size = size;
+		}
+
+	
+	}
+	
+	void OnDisable(){
+		if (eventEnabled) {
+			Eventmanager.Instance.EventonSwitchPulled -= switchPulled;
+			eventEnabled = false;
 		}
 	}
 	

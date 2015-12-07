@@ -49,7 +49,13 @@ public class Camera_Controller : MonoBehaviour {
 	void updateCameraLocation(){
 		Vector3 center = Vector3.zero;
 		foreach (GameObject player in players) {
-			center += player.GetComponent<Transform>().position;
+			if(player == null){
+				removeplayer (player);
+				return;
+			}
+			else{
+				center += player.GetComponent<Transform>().position;
+			}
 		}
 		center /= (float)players.Count;
 		//newLocation.z = -40.0f;

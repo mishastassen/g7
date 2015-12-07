@@ -68,7 +68,10 @@ public class rotate : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// rotate the arrow every frame
-		gameObject.transform.RotateAround (pos_pijl, Vector3.forward, -speed * way * Time.deltaTime);
+		if (!finished) {
+			gameObject.transform.RotateAround (pos_pijl, Vector3.forward, -speed * way * Time.deltaTime);
+		}
+
 		if (isLocalPlayer) {
 		
 			// if pressed correctly

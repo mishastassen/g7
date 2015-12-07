@@ -6,8 +6,9 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 
 	public GameObject playerPrefab;
 	public GameObject PickUp1Prefab;
-
+	
 	private NetworkManager networkmanager;
+	private bool levelEnding = false;
 
 	// Use this for initialization
 	void Start () {
@@ -17,11 +18,16 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		networkmanager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 	}
 
-	[Server]
 	void HandleEventonLevelFinished (string nextLevel)
-	{
-		Gamemanager.Instance.packageheld = false;
-		networkmanager.ServerChangeScene (nextLevel);
+	{	
+		if (!levelEnding) {
+			levelEnding = true;
+			Gamemanager.Instance.triggerDisableEventHandlers ();
+			if (isServer) {
+				Gamemanager.Instance.packageheld = false;
+				StartCoroutine (endLevel (nextLevel));
+			}
+		}
 	}
 
 	[Server]
@@ -46,4 +52,9 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		NetworkServer.ReplacePlayerForConnection (conn, newPlayer, playerControllerId);
 	}
 
+	IEnumerator endLevel(string nextLevel){
+		yield return new WaitForSeconds(1.0f);
+		levelEnding = false;
+		networkmanager.ServerChangeScene (nextLevel);
+	}
 }

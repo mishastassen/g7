@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
 public class PlayerEventHandler : MonoBehaviour {
 
 	private PlayerController pc;
+	private bool enabled;
 
 	// Use this for initialization
 	void OnEnable () {
@@ -13,37 +14,43 @@ public class PlayerEventHandler : MonoBehaviour {
 		Eventmanager.Instance.EventonPackageDrop += HandleEventonPackageDrop;
 		Eventmanager.Instance.EventonPackageThrow += HandleEventonPackageThrow;
 		pc = this.GetComponent<PlayerController> ();
+		enabled = true;
+		Gamemanager.Instance.onDisableEventHandlers += Disable;
 	}
 
 	void OnDisable(){
-		/*
-		Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
-		//Eventmanager.Instance.EventonPackagePickupMagic -= HandleEventonPackagePickupMagic;
-		Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
-		Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
-		pc = null;
-		*/
+        Disable ();
+	}
+
+	public void Disable(){
+		if (enabled) {
+			Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
+			//Eventmanager.Instance.EventonPackagePickupMagic -= HandleEventonPackagePickupMagic;
+			Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
+			Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
+			enabled = false;
+		}
+
 	}
 
 	void HandleEventonPackagePickup(NetworkInstanceId netID, string tag){
 		if (netID == this.gameObject.GetComponent<NetworkIdentity> ().netId) {
-			GameObject other = GameObject.FindWithTag(tag);
-			other.transform.parent.SetParent(gameObject.GetComponent<Rigidbody>().transform);
-			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-			other.transform.parent.localPosition = new Vector3(0,3,2);
-			this.GetComponent<PlayerController>().carriedPackage = other.transform.parent;
-			this.GetComponent<PlayerController>().hasPackage = true;
-		}
-	}
-
-	void HandleEventonPackagePickupMagic(NetworkInstanceId netID, string tag) {
-		if (netID == this.gameObject.GetComponent<NetworkIdentity> ().netId) {
-			GameObject other = GameObject.FindWithTag(tag);
-			other.transform.parent.SetParent(gameObject.GetComponent<Rigidbody>().transform);
-			other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-			other.transform.parent.localPosition = new Vector3(0,3,2);
-			this.GetComponent<PlayerController>().carriedPackage = other.transform.parent;
-			this.GetComponent<PlayerController>().hasPackage = true;
+			if (tag == "PickUp1") {
+				GameObject other = GameObject.FindWithTag(tag);
+				other.transform.parent.SetParent(gameObject.GetComponent<Rigidbody>().transform);
+				other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
+				other.transform.parent.localPosition = new Vector3(0,3,2);
+				this.GetComponent<PlayerController>().carriedPackage = other.transform.parent;
+				this.GetComponent<PlayerController>().hasPackage = true;
+			} else if (tag == "PickUpMagic") {
+				GameObject other = GameObject.FindWithTag(tag);
+				other.transform.parent.SetParent(gameObject.GetComponent<Rigidbody>().transform);
+				other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
+				other.transform.parent.localPosition = new Vector3(0,3,2);
+				this.GetComponent<PlayerController>().carriedPackage = other.transform.parent;
+				this.GetComponent<PlayerController>().hasPackage = true;
+				this.GetComponent<PlayerController>().hasMagicPackage = true;
+			}
 		}
 	}
 
@@ -61,6 +68,7 @@ public class PlayerEventHandler : MonoBehaviour {
 			pc.carriedPackage.parent = null;
 			pc.carriedPackage = null;
 			pc.hasPackage = false;
+			pc.hasMagicPackage = false;
 		}
 	}
 
@@ -81,7 +89,8 @@ public class PlayerEventHandler : MonoBehaviour {
 			carriedPackage.parent = null;
 			carriedPackage = null;
 			this.GetComponent<PlayerController>().hasPackage = false;
+			this.GetComponent<PlayerController>().hasMagicPackage = false;
 		}
 	}
-	
+
 }

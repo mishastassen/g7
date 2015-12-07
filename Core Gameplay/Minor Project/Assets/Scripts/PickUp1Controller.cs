@@ -12,7 +12,6 @@ public class PickUp1Controller : NetworkBehaviour {
 		if (isServer) {
 			if(GameObject.FindWithTag("PickUp1Spawn") == null){
 				GameObject newSpawn = (GameObject)Instantiate (PickUp1SpawnPrefab, this.transform.position, this.transform.rotation);
-				NetworkServer.Spawn (newSpawn);
 			}
 		}
 	}
