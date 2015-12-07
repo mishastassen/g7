@@ -59,6 +59,11 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void ChestCompleted();
 	public event ChestActivated EventonChestCompleted;
 
+	//CheckPoint reached
+	public delegate void CheckpointReached(int checkpointNum);
+	[SyncEvent]
+	public event CheckpointReached EventonCheckpointReached;
+
 	//Function to call this object
 	public static Eventmanager Instance{
 		get{
@@ -180,6 +185,12 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerChestCompleted(){
 		if (EventonChestCompleted != null) { //Don't execute if noone is listening to event
 			EventonChestCompleted();
+		}
+	}
+
+	public void triggerCheckpointReached(int checkpointNum){
+		if (EventonCheckpointReached != null) {
+			EventonCheckpointReached(checkpointNum);
 		}
 	}
 }

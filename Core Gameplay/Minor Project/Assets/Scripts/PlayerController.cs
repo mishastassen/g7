@@ -188,8 +188,12 @@ public class PlayerController : NetworkBehaviour {
 	{
 		if (other.tag == "DeathZone" && isServer) {
 			CmdDeath ();
-		} else { //Add collider to list of triggers player is standing in
-			//if the object is not already in the list
+		} 
+		if (other.tag == "Checkpoint" && isServer) {
+			CmdCheckpointReached(other.GetComponent<CheckpointController>().checkpointNum);
+		}
+		else { //Add collider to list of triggers player is standing in
+				//if the object is not already in the list
 			if (!TriggerList.Contains (other)) {
 				//add the object to the list
 				TriggerList.Add (other);
@@ -299,6 +303,11 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
+	}
+
+	[Command]
+	void CmdCheckpointReached(int checkpointNum){
+		Eventmanager.Instance.triggerCheckpointReached (checkpointNum);
 	}
 
 }
