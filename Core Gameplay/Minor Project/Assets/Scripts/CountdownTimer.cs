@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections;
 
-public class CountdownTimer : MonoBehaviour {
-	
+public class CountdownTimer : NetworkBehaviour {
+
 	public Text timerText;
 	public float startTime;
 	private float timer;

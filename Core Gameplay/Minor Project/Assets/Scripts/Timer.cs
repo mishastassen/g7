@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections;
 
-public class Timer : MonoBehaviour {
+public class Timer : NetworkBehaviour {
 	
 	public Text timerText;
 	private float timer;
@@ -11,11 +12,14 @@ public class Timer : MonoBehaviour {
 	private bool levelFinished;
 	
 	void Start () {
-		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
 		timerText.text = "";
 		minutes = 0.0f;
 		seconds = "";
 		levelFinished = false;
+	}
+
+	void OnEnable() {
+		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
 	}
 	
 	void Update () {
