@@ -15,14 +15,10 @@ public class PlayerEventHandler : MonoBehaviour {
 		Eventmanager.Instance.EventonPackageThrow += HandleEventonPackageThrow;
 		pc = this.GetComponent<PlayerController> ();
 		enabled = true;
-		Gamemanager.Instance.onDisableEventHandlers += Disable;
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 	}
 
 	void OnDisable(){
-        Disable ();
-	}
-
-	public void Disable(){
 		if (enabled) {
 			Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
 			//Eventmanager.Instance.EventonPackagePickupMagic -= HandleEventonPackagePickupMagic;
@@ -30,7 +26,6 @@ public class PlayerEventHandler : MonoBehaviour {
 			Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
 			enabled = false;
 		}
-
 	}
 
 	void HandleEventonPackagePickup(NetworkInstanceId netID, string tag){

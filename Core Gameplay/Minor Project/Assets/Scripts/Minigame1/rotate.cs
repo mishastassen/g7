@@ -22,9 +22,11 @@ public class rotate : NetworkBehaviour {
 	Vector3 pos_pijl;
 	
 	// defines if the arrow goes CW or CCW
+	[SyncVar]
 	int way;
 	
 	// attributes for the score
+	[SyncVar]
 	private int count;
 	private Text scoreText;
 	public bool finished;
@@ -78,7 +80,7 @@ public class rotate : NetworkBehaviour {
 			if (erin && Input.GetButtonDown(inputButton)) {
 				way = way * -1;
 				if(!isServer){
-					CmdChangeWay();
+					CmdPressed(true);
 				}
 				RandomTurn ();
 				count = count + 1;
@@ -87,14 +89,16 @@ public class rotate : NetworkBehaviour {
 		
 			// if not pressed correctly
 			if (!erin && Input.GetButtonDown (inputButton)) {
+				CmdPressed(false);
 				count = 0;
 				setScoreText ();
 			}
-		
-			if (count > 7) {
-				way = 0;
-				finished = true;
-			}
+
+		}
+
+		if (count > 7) {
+			way = 0;
+			finished = true;
 		}
 	}
 	
@@ -140,8 +144,14 @@ public class rotate : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdChangeWay(){
-		way *= -1;
+	void CmdPressed(bool erin){
+		if (erin) {
+			count = count + 1;
+			way *= -1;
+		} else {
+			count = 0;
+		}
+		setScoreText ();
 	}
 	
 }
