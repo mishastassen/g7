@@ -41,6 +41,10 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void PlayerDeath(GameObject player);
 	public event PlayerDeath EventonPlayerDeath;
 
+	//Player spotted event
+	public delegate void PlayerSpotted();
+	public event PlayerSpotted EventonPlayerSpotted;
+
 	//Package destroyed event
 	public delegate void PackageDestroyed();
 	[SyncEvent]
@@ -159,6 +163,13 @@ public class Eventmanager : NetworkBehaviour {
 			triggerPackageDestroyed ();
 		}
 		EventonPlayerDeath (player);
+	}
+
+	//Trigger when player is spotted
+	public void triggerPlayerSpotted(){
+		if (EventonPlayerSpotted != null) { //Don't execute if noone is listening to event
+			EventonPlayerSpotted ();
+		}
 	}
 
 	//Trigger when player is destroyed
