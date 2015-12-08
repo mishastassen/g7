@@ -24,3 +24,4 @@ sysinfo.txt
 # Unity3D executables from build and its datafolder if it's called minorproject.exe
 *.exe
 **/minorproject_Data/
+Core Gameplay/Minor Project/Testbuilds/

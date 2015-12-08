@@ -21,9 +21,18 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
 		Eventmanager.Instance.EventonPackageDestroyed += HandleEventonPackageDestroyed;
 		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
+		Eventmanager.Instance.EventonCheckpointReached += HandleEventonCheckpointReached;
+
+
 		networkmanager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		NetworkServer.RegisterHandler(ClientReadyMsg, onClientReadyMsg);
 		m_client = networkmanager.client;
+	}
+
+	[Server]
+	void HandleEventonCheckpointReached (int checkpointNum)
+	{
+		Gamemanager.Instance.CheckpointReached = checkpointNum;
 	}
 
 	void HandleEventonLevelFinished (string nextLevel)
@@ -61,6 +70,14 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		NetworkConnection conn = player.GetComponent<NetworkIdentity> ().connectionToClient;
 		short playerControllerId = player.GetComponent<NetworkIdentity> ().playerControllerId;
 		Transform transform = GameObject.FindWithTag ("SpawnLocation").transform;
+		if (Gamemanager.Instance.CheckpointReached != 0) {
+			GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+			foreach(GameObject checkpoint in checkpoints){
+				if(checkpoint.GetComponent<CheckpointController>().checkpointNum == Gamemanager.Instance.CheckpointReached){
+					transform = checkpoint.GetComponent<CheckpointController>().playerSpawn;
+				}
+			}
+		}
 		GameObject newPlayer = (GameObject)Instantiate(playerPrefab, transform.position, transform.rotation);
 		NetworkServer.Spawn (newPlayer);
 		Destroy (player);
@@ -77,6 +94,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		}
 		levelEnding = false;
 		clientEndLevelReady = false;
+		Gamemanager.Instance.CheckpointReached = 0;
 		networkmanager.ServerChangeScene (nextLevel);
 	}
 
