@@ -27,16 +27,18 @@ public class GuardContoller : NetworkBehaviour {
 			facingRight = !facingRight;
 		}
 		if (facingRight) {
-			Debug.DrawRay (rayStart, Vector3.right, Color.red);
 			Physics.Raycast(rayStart, Vector3.right, out hitInfo);
 			if (hitInfo.collider.tag == "Player" && hitInfo.distance <= spottingDistance) {
 				CmdPlayerSpotted();
-			} 
+			} else {
+				CmdNoPlayerSpotted();
+			}
 		} else {
-			Debug.DrawRay (rayStart, Vector3.left, Color.blue);
 			Physics.Raycast(rayStart, spottingDistance * Vector3.left, out hitInfo);
 			if (hitInfo.collider.tag == "Player" && hitInfo.distance <= spottingDistance) {
 				CmdPlayerSpotted();
+			} else {
+				CmdNoPlayerSpotted();
 			} 
 		}
 	}
@@ -52,5 +54,10 @@ public class GuardContoller : NetworkBehaviour {
 	[Command]
 	void CmdPlayerSpotted() {
 		Eventmanager.Instance.triggerPlayerSpotted();
+	}
+
+	[Command]
+	void CmdNoPlayerSpotted() {
+		Eventmanager.Instance.triggerNoPlayerSpotted ();
 	}
 }

@@ -45,6 +45,14 @@ public class Eventmanager : NetworkBehaviour {
 	public delegate void PlayerSpotted();
 	public event PlayerSpotted EventonPlayerSpotted;
 
+	//Player not spotted event
+	public delegate void NoPlayerSpotted();
+	public event NoPlayerSpotted EventonNoPlayerSpotted;
+
+	//Update alarm event
+	public delegate void UpdateAlarm(string alarmString);
+	public event UpdateAlarm EventonUpdateAlarm;
+
 	//Package destroyed event
 	public delegate void PackageDestroyed();
 	[SyncEvent]
@@ -131,16 +139,7 @@ public class Eventmanager : NetworkBehaviour {
 			}
 		}
 	}
-	/*
-	//Trigger when player tries to pick up magic package
-	public void packagePickupMagic(GameObject player,string tag){
-		if (!Gamemanager.Instance.packageheld) {
-			Gamemanager.Instance.packageheld = true;
-			Gamemanager.Instance.packageholder = player.GetComponent<NetworkIdentity> ().netId;
-			EventonPackagePickupMagic (Gamemanager.Instance.packageholder,tag);
-		}
-	}
-	*/
+
 	//Trigger when player tries to drop package
 	public void packageDrop(GameObject player){
 		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {
@@ -169,6 +168,20 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerPlayerSpotted(){
 		if (EventonPlayerSpotted != null) { //Don't execute if noone is listening to event
 			EventonPlayerSpotted ();
+		}
+	}
+
+	//Trigger when no player is spotted
+	public void triggerNoPlayerSpotted(){
+		if (EventonNoPlayerSpotted != null) { //Don't execute if noone is listening to event
+			EventonNoPlayerSpotted ();
+		}
+	}
+
+	//Trigger when alarm has to be updated
+	public void triggerUpdateAlarm(string alarmString) {
+		if (EventonUpdateAlarm != null) { //Don't execute if noone is listening to event
+			EventonUpdateAlarm (alarmString);
 		}
 	}
 
