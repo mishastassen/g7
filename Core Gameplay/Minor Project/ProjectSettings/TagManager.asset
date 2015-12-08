@@ -15,6 +15,7 @@ TagManager:
   - PickUpMagic
   - PickUpMagicSpawn
   - Checkpoint
+  - TempNavMeshItemDestroyable
   layers:
   - Default
   - TransparentFX
