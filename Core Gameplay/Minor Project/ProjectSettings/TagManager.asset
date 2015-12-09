@@ -3,19 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - PickUp1
-  - PickUp1Spawn
-  - Switch
-  - DeathZone
-  - SpawnLocation
-  - Package1
-  - DeliveryZone
-  - Chest
-  - PickUpMagic
-  - PickUpMagicSpawn
-  - Checkpoint
-  - PlayerModel
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -25,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Enemy
+  - 
   - 
   - 
   - 
