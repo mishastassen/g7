@@ -280,7 +280,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 184668, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
@@ -1199,7 +1199,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 158734, guid: 5d79a84f1720b2d478cdade440cd5c95, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d79a84f1720b2d478cdade440cd5c95, type: 2}
@@ -1245,7 +1245,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 119466, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_OnlineScene
@@ -1702,7 +1702,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1905983910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aec037f637405b4cb7d912908a94719, type: 3}
+  m_Script: {fileID: 11500000, guid: 88e4191977f3c2b4485ca620382b031c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   points:
