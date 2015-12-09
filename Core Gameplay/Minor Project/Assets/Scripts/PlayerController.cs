@@ -20,6 +20,10 @@ public class PlayerController : NetworkBehaviour {
 
 	[SyncVar(hook="OnAnimationChange")]
 	private bool isRunning;
+	private float startTimeJump;
+	[SyncVar(hook="OnJumpingChange")]
+	private bool isJumping;
+	private bool isGrounded;
 	private bool PlayWalkingSoundrunning;
 	private bool doJump = false;
 	private bool doJumpCancel = false;
@@ -48,7 +52,7 @@ public class PlayerController : NetworkBehaviour {
 	void Start() {
 		Time.timeScale = 1.0f;
 		rb = GetComponent<Rigidbody>();
-		anim = GetComponent<Animator> ();
+		anim = GetComponentInChildren<Animator> ();
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 		hasPackage = false;
 		hasMagicPackage = false;
@@ -77,6 +81,8 @@ public class PlayerController : NetworkBehaviour {
 
 	void Update(){
 		if (isLocalPlayer) {
+			CheckGrounded();
+
 			//Check interact1 button
 			if (Input.GetButtonDown (interact1Button)) {
 				doInteract1 ();
@@ -86,7 +92,7 @@ public class PlayerController : NetworkBehaviour {
 				doThrowButton();
 			}
 			// jump based on user input
-			if (Input.GetButtonDown (jumpButton) && (isGroundedToe () || isGroundedHeel ())) {
+			if (Input.GetButtonDown (jumpButton) && isGrounded) {
 				doJump = true;
 			}
 			if (Input.GetButtonUp (jumpButton)) {
@@ -97,9 +103,8 @@ public class PlayerController : NetworkBehaviour {
 
 	void FixedUpdate () {
 		if (isLocalPlayer) { //Check if this is the player corresponding with the local client
-			if (rb == null)
-				return;
-			
+			CheckGrounded();
+
 			// move player based on user input
 			float moveHorizontal = Input.GetAxis (horizontalAxis);
 			float yVelocity = rb.velocity.y;
@@ -107,6 +112,8 @@ public class PlayerController : NetworkBehaviour {
 			if(doJump){
 				yVelocity = jump;
 				doJump = false;
+				CmdCheckJumping (true);
+				startTimeJump = Time.time;
 			}
 			if(doJumpCancel){
 				if(yVelocity>lowjump)
@@ -141,26 +148,36 @@ public class PlayerController : NetworkBehaviour {
 			Vector3 movement = new Vector3 (speed * moveHorizontal, yVelocity, 0.0f);
 			rb.velocity = movement;
 
-			//Play walking sound if player is ont the ground
-			if (walking == true && (isGroundedToe () || isGroundedHeel ()) && !PlayWalkingSoundrunning) {
+			//Play walking sound if player is on the ground
+			if (walking == true && isGrounded && !PlayWalkingSoundrunning) {
 				StartCoroutine (PlayWalkingSound ());
 			}
 
 			CmdCheckFacing (moveHorizontal);
 			CmdCheckAnimation (moveHorizontal);
+			if(isJumping && !isInStartJump() && isGrounded)
+				CmdCheckJumping (false);
 		}
 	}
-	
+
+	// invoke at start of update and fixedupdate to set bool isGrounded
+	void CheckGrounded() {
+		isGrounded = isGroundedHeel () || isGroundedToe ();
+		//Debug.Log ("isgrounded: "+isGrounded);
+	}
+
 	// checks whether the front of the player is on a platform
 	bool isGroundedToe() {
-		Vector3 toePosition = new Vector3(rb.transform.position.x + 0.5f, rb.transform.position.y, rb.transform.position.z);
-		return Physics.Raycast (toePosition, -Vector3.up, 0.1f);
+		Vector3 toePosition = new Vector3(rb.transform.position.x + 0.5f, rb.transform.position.y+0.1f, rb.transform.position.z);
+		Debug.DrawRay (toePosition, -Vector3.up, Color.red);
+		return Physics.Raycast (toePosition, -Vector3.up, 0.2f);
 	}
 	
 	// checks whether the back of the player is on a platform
 	bool isGroundedHeel() {
-		Vector3 heelPosition = new Vector3(rb.transform.position.x - 0.5f, rb.transform.position.y, rb.transform.position.z);
-		return Physics.Raycast (heelPosition, -Vector3.up, 0.1f);
+		Vector3 heelPosition = new Vector3(rb.transform.position.x - 0.5f, rb.transform.position.y+0.1f, rb.transform.position.z);
+		Debug.DrawRay (heelPosition, -Vector3.up, Color.blue);
+		return Physics.Raycast (heelPosition, -Vector3.up, 0.2f);
 	}
 
 
@@ -174,7 +191,7 @@ public class PlayerController : NetworkBehaviour {
 
 	void OnFacingChange(float facingRight) {
 		Vector3 theScale = transform.localScale;
-		theScale.z = facingRight;
+		theScale.x = facingRight;
 		transform.localScale = theScale;
 	}
 
@@ -185,9 +202,23 @@ public class PlayerController : NetworkBehaviour {
 		else
 			isRunning = true;
 	}
-
+	
 	void OnAnimationChange(bool isRunning) {
 		anim.SetBool ("isRunning", isRunning);
+	}
+
+	bool isInStartJump() {
+		//Debug.Log ("isInStartJump: "+(Time.time - startTimeJump < 0.3f));
+		return Time.time - startTimeJump < 0.3f;
+	}
+	
+	[Command]
+	void CmdCheckJumping(bool isJump) {
+		isJumping = isJump;
+	}
+
+	void OnJumpingChange(bool isJumping) {
+		anim.SetBool ("isJumping", isJumping);
 	}
 
 	//Trigger player removed event

@@ -807,11 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bde35c758742e45921000ce846cb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  levelName: Level1
-=======
-  levelName: PathfindingTest
->>>>>>> 0eabe6ff5f041d621bb0ad12fcb2634325f5b2ee
+  levelName: BasisLevel
 --- !u!1 &1937148589
 GameObject:
   m_ObjectHideFlags: 0
