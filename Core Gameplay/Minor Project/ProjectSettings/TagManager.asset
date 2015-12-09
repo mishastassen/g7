@@ -15,6 +15,7 @@ TagManager:
   - PickUpMagic
   - PickUpMagicSpawn
   - Checkpoint
+  - PlayerModel
   layers:
   - Default
   - TransparentFX

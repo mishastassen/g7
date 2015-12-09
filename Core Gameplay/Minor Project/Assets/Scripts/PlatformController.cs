@@ -21,21 +21,15 @@ public class PlatformController : NetworkBehaviour {
 		rb = GetComponent<Rigidbody>();
 		currentPoint = path.pathEnumerator();
 		currentPoint.MoveNext ();
-		Debug.Log ("path: "+path.points[0].transform);
-		Debug.Log ("1 start currentPoint.Current.position: "+currentPoint.Current.position);
 		if (currentPoint.Current==null)
 			return;
 
 		transform.position = currentPoint.Current.position;
-		Debug.Log ("start transform.position: "+transform.position);
-		Debug.Log ("start currentPoint.Current.position: "+currentPoint.Current.position);
 	}
 	
 	void FixedUpdate () {
 		if (currentPoint == null || currentPoint.Current.position == null)
 			return;
-		Debug.Log ("transform.position: "+transform.position);
-		Debug.Log ("currentPoint.Current.position: "+currentPoint.Current.position);
 		transform.position = Vector3.MoveTowards (transform.position, currentPoint.Current.position, Time.deltaTime*speed);
 		float distanceSquared = (transform.position - currentPoint.Current.position).sqrMagnitude;
 		if (distanceSquared < inRangeGoal * inRangeGoal)
