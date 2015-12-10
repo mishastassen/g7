@@ -43,10 +43,12 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Player spotted event
 	public delegate void PlayerSpotted();
+	[SyncEvent]
 	public event PlayerSpotted EventonPlayerSpotted;
 
 	//Player not spotted event
 	public delegate void NoPlayerSpotted();
+	[SyncEvent]
 	public event NoPlayerSpotted EventonNoPlayerSpotted;
 
 	//Update alarm event

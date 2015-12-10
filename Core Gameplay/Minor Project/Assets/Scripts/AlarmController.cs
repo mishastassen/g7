@@ -1,38 +1,38 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections;
 
-public class AlarmController : NetworkBehaviour {
+public class AlarmController : MonoBehaviour {
 
-	//public Text alarmText;
+	public Text alarmText;
 	private float alarmPercent;
-	private string alarm;
 	private bool finishedIncrease;
 	private bool finishedDecrease;
 
+	private bool enabled;
+
 	void Start () {
-		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
-		Eventmanager.Instance.EventonNoPlayerSpotted += HandleEventonNoPlayerSpotted;
-		//Eventmanager.Instance.EventonUpdateAlarm += HandleEventonUpdateAlarm;
-		alarmPercent = 0;
-		alarm = "Alarm: " + alarmPercent + "%";
-		//alarmText.text = "Alarm: " + alarmPercent + "%";
+		alarmPercent = 0;;
+		alarmText.text = "Alarm: " + alarmPercent + "%";
 		finishedIncrease = true;
 		finishedDecrease = true;
 	}
-	/*
-	void HandleEventonUpdateAlarm (string alarmString) {
-		alarmText.text = alarmString;
+
+	void OnEnable() {
+		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
+		Eventmanager.Instance.EventonNoPlayerSpotted += HandleEventonNoPlayerSpotted;
+		enabled = true;
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 	}
-	*/
-	void Update () {
-		alarm = "Alarm: " + alarmPercent + "%";
-		if (isServer) {
-			Eventmanager.Instance.triggerUpdateAlarm (alarm);
+
+	void OnDisable() {
+		if (enabled) {
+			Eventmanager.Instance.EventonPlayerSpotted -= HandleEventonPlayerSpotted;
+			Eventmanager.Instance.EventonNoPlayerSpotted -= HandleEventonNoPlayerSpotted;
+			enabled = false;
 		}
 	}
-	
+
 	void HandleEventonPlayerSpotted() {
 		if (finishedIncrease) {
 			StartCoroutine (increaseAlarm ());
@@ -49,12 +49,14 @@ public class AlarmController : NetworkBehaviour {
 
 	IEnumerator increaseAlarm() {
 		alarmPercent += 5;
+		alarmText.text = "Alarm: " + alarmPercent + "%";
 		yield return new WaitForSeconds (1);
 		finishedIncrease = true;
 	}
 
 	IEnumerator decreaseAlarm() {
 		alarmPercent -= 5;
+		alarmText.text = "Alarm: " + alarmPercent + "%";
 		yield return new WaitForSeconds (2);
 		finishedDecrease = true;
 	}
