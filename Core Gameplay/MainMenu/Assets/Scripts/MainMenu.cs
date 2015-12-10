@@ -12,6 +12,11 @@ public class MainMenu : MonoBehaviour {
 	public Button creditsButton;
 	public Button exitGameButton;
 
+	public Canvas play;
+	public Text playText;
+	public Button localButton;
+	public Button networkButton;
+
 	public Canvas credits;
 	public Text creditText;
 	public Button closeCreditsButton;
@@ -29,6 +34,7 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		play.enabled = false;
 		credits.enabled = false;
 		sure.enabled = false;
 		help.enabled = false;
@@ -36,7 +42,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void PressPlay (){
-
+		play.enabled = true;
+		menu.enabled = false;
 	}
 
 	public void PressHelp() {
