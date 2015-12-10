@@ -2,15 +2,20 @@
 var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
-var port = 8008;
+var port = 8088;
 var app = express();
 
-app.set('responses', __dirname + '/responses');
-
-app.use( session({secret: 'Geheim'} );
-app.use( express.json() );
-app.use( bodyParser.json() );  
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(cookieParser());
+app.use( session({cookieName: 'session', 
+				  secret: 'Geheim',
+				  resave: true,
+				  saveUninitialized: true}));
 
 var sess;
 
@@ -25,27 +30,36 @@ app.get('/',function(req,res){
 	}
 });
 
+
 app.post('/login',function(req,res){
 	console.log('User loggin in');
 	sess = req.session;
 	var username = req.body.username,
-		pass = req.body.color;
+		pass = req.body.password;
+	console.log(username + pass);
 	if (username === 'admin' && pass === 'root'){
-		sess.username = admin;
+		sess.username = "admin";
 		sess.loggedin = true;
 		console.log('Password correct');
+		res.end("you logged in!");
+	}
+	else{
+		res.end("Wrong username or password");
 	}
 });
+
 
 app.get('/response',function(req,res){
 	console.log('User asking for response');
 	sess = req.session;
+	console.log(sess.cookie);
 	if(sess.loggedin === true){
 		res.end('Logged in as' + sess.username);
 	}else{
 		res.end('Not logged in');
 	}
 });
+
 
 app.get('/logout',function(req,res){
 	req.session.destroy(function(err){
@@ -54,10 +68,14 @@ app.get('/logout',function(req,res){
 		}
 		else{
 			console.log('User logged out');
+			res.end("You logged out");
 		}
 	});
 });
 
-app.listen(port,function(){
-console.log("App Started listening on port" + port);
+
+var server = app.listen(port, function () {
+  var port = server.address().port;
+
+  console.log('Server listening at %s', port);
 });
