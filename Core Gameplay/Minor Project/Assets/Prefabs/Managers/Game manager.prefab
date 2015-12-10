@@ -41,9 +41,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a6b5898b406724e827c5ec3475bb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localmultiplayer: 0
   packageheld: 0
-  packageholder: 0
+  localmultiplayer: 0
+  CheckpointReached: 0
 --- !u!114 &11467302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9571f17feae7ba94e9b3f6a91edf8346, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 116052, guid: 90a2ecc9721925a42adc8834b4283d02, type: 2}
+  playerPrefab: {fileID: 158926, guid: 48fcbb21dbdf7234b9ffb5305c363aa3, type: 2}
   PickUp1Prefab: {fileID: 178754, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
 --- !u!114 &11493230
 MonoBehaviour:
@@ -95,7 +95,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 158926, guid: 48fcbb21dbdf7234b9ffb5305c363aa3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 184668}
