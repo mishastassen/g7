@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections;
 
-public class Timer : NetworkBehaviour {
+public class Timer : MonoBehaviour {
 	
 	public Text timerText;
 	private float timer;
 	private float minutes;
 	private string seconds;
 	private bool levelFinished;
+
+	private bool enabled;
 	
 	void Start () {
 		timerText.text = "";
@@ -20,6 +21,15 @@ public class Timer : NetworkBehaviour {
 
 	void OnEnable() {
 		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
+		enabled = true;
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
+	}
+
+	void OnDisable() {
+		if (enabled) {
+			Eventmanager.Instance.EventonLevelFinished -= HandleEventonLevelFinished;
+			enabled = false;
+		}
 	}
 	
 	void Update () {

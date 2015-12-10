@@ -12,6 +12,8 @@ public class CountdownTimer : NetworkBehaviour {
 	private float minutes;
 	private string seconds;
 	private bool levelFinished;
+
+	private bool enabled;
 	
 	void Start () {
 		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
@@ -19,6 +21,19 @@ public class CountdownTimer : NetworkBehaviour {
 		minutes = 0.0f;
 		seconds = "";
 		levelFinished = false;
+	}
+
+	void OnEnable() {
+		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
+		enabled = true;
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
+	}
+	
+	void OnDisable() {
+		if (enabled) {
+			Eventmanager.Instance.EventonLevelFinished -= HandleEventonLevelFinished;
+			enabled = false;
+		}
 	}
 	
 	void Update () {

@@ -10,7 +10,6 @@ public class PlayerEventHandler : MonoBehaviour {
 	// Use this for initialization
 	void OnEnable () {
 		Eventmanager.Instance.EventonPackagePickup += HandleEventonPackagePickup;
-		//Eventmanager.Instance.EventonPackagePickupMagic += HandleEventonPackagePickupMagic;
 		Eventmanager.Instance.EventonPackageDrop += HandleEventonPackageDrop;
 		Eventmanager.Instance.EventonPackageThrow += HandleEventonPackageThrow;
 		pc = this.GetComponent<PlayerController> ();
@@ -21,7 +20,6 @@ public class PlayerEventHandler : MonoBehaviour {
 	void OnDisable(){
 		if (enabled) {
 			Eventmanager.Instance.EventonPackagePickup -= HandleEventonPackagePickup;
-			//Eventmanager.Instance.EventonPackagePickupMagic -= HandleEventonPackagePickupMagic;
 			Eventmanager.Instance.EventonPackageDrop -= HandleEventonPackageDrop;
 			Eventmanager.Instance.EventonPackageThrow -= HandleEventonPackageThrow;
 			enabled = false;
