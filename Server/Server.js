@@ -15,7 +15,8 @@ app.use(cookieParser());
 app.use( session({cookieName: 'session', 
 				  secret: 'Geheim',
 				  resave: true,
-				  saveUninitialized: true}));
+				  saveUninitialized: true,
+				  cookie: {httpOnly: false, maxAge: 3600000}}));
 
 var sess;
 
@@ -34,6 +35,10 @@ app.get('/',function(req,res){
 app.post('/login',function(req,res){
 	console.log('User loggin in');
 	sess = req.session;
+	
+	sess.loggedin = true;
+	sess.username = "test";
+	res.end("you logged in");
 	var username = req.body.username,
 		pass = req.body.password;
 	console.log(username + pass);
@@ -52,9 +57,9 @@ app.post('/login',function(req,res){
 app.get('/response',function(req,res){
 	console.log('User asking for response');
 	sess = req.session;
-	console.log(sess.cookie);
+	console.log(req.session);
 	if(sess.loggedin === true){
-		res.end('Logged in as' + sess.username);
+		res.end('Logged in as ' + sess.username);
 	}else{
 		res.end('Not logged in');
 	}

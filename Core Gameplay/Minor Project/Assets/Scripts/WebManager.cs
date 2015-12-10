@@ -6,7 +6,7 @@ using SimpleJSON;
 public class WebManager : MonoBehaviour {
 
 	public string server = "http://drproject.twi.tudelft.nl:8088";
-	string cookie = "{ sessionId = 1}";
+	string cookie = "";
 
 	public void login(){
 		JSONClass JSON = new JSONClass();
@@ -17,12 +17,12 @@ public class WebManager : MonoBehaviour {
 	}
 
 	public void logout(){
-		WWW www = new WWW (server + "/logout");
+		WWW www = createEmpty ("/logout");
 		StartCoroutine(getWWW (www));
 	}
 
 	public void response(){
-		WWW www = new WWW (server + "/response");
+		WWW www = createEmpty ("/response");
 		StartCoroutine(getWWW (www));
 	}
 
@@ -30,17 +30,30 @@ public class WebManager : MonoBehaviour {
 		Debug.Log ("getting url");
 		yield return www;
 		Debug.Log (www.text);
-		cookie = www.responseHeaders ["Set-Cookie"];
+
+		if(www.responseHeaders.ContainsKey("SET-COOKIE")){
+			cookie = www.responseHeaders ["SET-COOKIE"];
+		}
 	}
 
 	WWW createJSON(string JSONdata, string path){
 		
 		Dictionary<string,string> headers = new Dictionary<string,string>();
 		headers.Add("Content-Type", "application/json");
-		headers.Add ("Cookie", cookie);
+		if (cookie != "") {
+			headers.Add ("cookie", cookie);
+		}
 		
 		byte[] pData = System.Text.Encoding.ASCII.GetBytes(JSONdata.ToCharArray());
 		
 		return new WWW(server + path, pData, headers);
+	}
+
+	WWW createEmpty(string path){
+		Dictionary<string,string> headers = new Dictionary<string,string>();
+		if (cookie != "") {
+			headers.Add ("cookie", cookie);
+		}
+		return new WWW(server + path, null, headers);
 	}
 }
