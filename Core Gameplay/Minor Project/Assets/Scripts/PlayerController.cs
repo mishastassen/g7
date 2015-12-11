@@ -3,10 +3,12 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 //using System.Linq;
 
 public class PlayerController : NetworkBehaviour {
-	
+
+
 	private float speed;
 	private float jump, lowjump;
 	public float runThreshold;
@@ -43,7 +45,8 @@ public class PlayerController : NetworkBehaviour {
 	private float slowjump; // velocity for highest jump with package
 	private float slowjumplow; // velocity for lowest jump with package
 	
-	private int footstep = 1;
+	public Text debugText;
+	private int playerID;
 
 	//The list of triggers the player is currently in
 	public List<Collider> TriggerList= new List<Collider>();
@@ -65,8 +68,14 @@ public class PlayerController : NetworkBehaviour {
 		slowjumplow = 9;
 		runThreshold = 0.5f;
 		facingRight = 1;
-		
+
+		GameObject debugObject = GameObject.Find ("DebugText");
+		if(debugObject!=null)
+			debugText = debugObject.GetComponent<Text>();
+
+		playerID = 1;
 		if (GetComponent<NetworkIdentity>().playerControllerId == 2){
+			playerID = 2;
 			horizontalAxis = "Horizontal_P2";
 			jumpButton = "Jump_P2";
 			interact1Button = "Interact1_P2";
@@ -155,6 +164,12 @@ public class PlayerController : NetworkBehaviour {
 
 			CmdCheckFacing (moveHorizontal);
 			CmdCheckAnimation (moveHorizontal);
+			//Debug.Log(isJumping+" "+isInStartJump()+" "+isGrounded);
+			if(debugText!=null)
+			{
+				//debugText.text = "isJumping: "+isJumping+", isInStartJump(): "+isInStartJump()+", isGrounded: "+isGrounded;
+				debugText.text = isJumping+" "+isInStartJump()+" "+isGrounded;
+			}
 			if(isJumping && !isInStartJump() && isGrounded)
 				CmdCheckJumping (false);
 		}
