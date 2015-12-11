@@ -1,3 +1,6 @@
 gebruikersnaam: ewi3620tu7
 wachtwoord: ayRoHef3
 server: drproject.twi.tudelft.nl
+
+open mysql:
+mysql -h localhost -u ewi3620tu7 -p

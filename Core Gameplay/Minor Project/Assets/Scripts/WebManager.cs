@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
@@ -8,10 +9,12 @@ public class WebManager : MonoBehaviour {
 	public string server = "http://drproject.twi.tudelft.nl:8088";
 	string cookie = "";
 
+	public GameObject loginName, loginPass, createName, createPass, responseText;
+
 	public void login(){
 		JSONClass JSON = new JSONClass();
-		JSON.Add ("username", new JSONData ("admin"));
-		JSON.Add ("password", new JSONData ("root"));
+		JSON.Add ("username", new JSONData (loginName.GetComponent<InputField>().text));
+		JSON.Add ("password", new JSONData (loginPass.GetComponent<InputField>().text));
 		WWW www = createJSON (JSON.ToString (), "/login");
 		StartCoroutine(getWWW (www));
 	}
@@ -26,10 +29,17 @@ public class WebManager : MonoBehaviour {
 		StartCoroutine(getWWW (www));
 	}
 
+	public void createAccount(){
+		JSONClass JSON = new JSONClass();
+		JSON.Add ("username", new JSONData (createName.GetComponent<InputField>().text));
+		JSON.Add ("password", new JSONData (createPass.GetComponent<InputField>().text));
+		WWW www = createJSON (JSON.ToString (), "/createAccount");
+		StartCoroutine(getWWW (www));
+	}
+
 	IEnumerator getWWW(WWW www){
-		Debug.Log ("getting url");
 		yield return www;
-		Debug.Log (www.text);
+		responseText.GetComponent<Text> ().text = www.text;
 
 		if(www.responseHeaders.ContainsKey("SET-COOKIE")){
 			cookie = www.responseHeaders ["SET-COOKIE"];
