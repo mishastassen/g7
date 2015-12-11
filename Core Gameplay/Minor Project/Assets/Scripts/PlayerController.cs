@@ -320,7 +320,7 @@ public class PlayerController : NetworkBehaviour {
 	IEnumerator PlayWalkingSound(){
 		PlayWalkingSoundrunning = true;
 		GetComponent<PlayerAudioManager> ().audioFootstepWood1.Play ();
-		float delay = (11.0f-rb.velocity.magnitude)*0.1f;
+		float delay = (12.0f-rb.velocity.magnitude)*0.1f;
 		if (delay > 0.15){
 			delay = 0.15f;
 		}
