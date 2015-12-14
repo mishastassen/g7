@@ -65,6 +65,11 @@ public class Eventmanager : NetworkBehaviour {
 	[SyncEvent]
 	public event LevelFinished EventonLevelFinished;
 
+	//Minigame started
+	public delegate void MinigameStarted(string nextLevel, string currentLevel);
+	[SyncEvent]
+	public event MinigameStarted EventonMinigameStarted;
+
 	//Chest activated
 	public delegate void ChestActivated();
 	public event ChestActivated EventonChestActivated;
@@ -199,6 +204,13 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerLevelFinished(string nextLevel){
 		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
 			EventonLevelFinished(nextLevel);
+		}
+	}
+
+	//Trigger when minigame is started
+	public void triggerMinigameStarted(string nextLevel, string currentLevel){
+		if (EventonMinigameStarted != null) { //Don't execute if noone is listening to event
+			EventonMinigameStarted(nextLevel, currentLevel);
 		}
 	}
 

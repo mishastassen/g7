@@ -20,6 +20,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		Eventmanager.Instance.EventonPlayerDeath += HandleEventonPlayerDeath;
 		Eventmanager.Instance.EventonPackageDestroyed += HandleEventonPackageDestroyed;
 		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
+		Eventmanager.Instance.EventonMinigameStarted += HandleEventonMinigameStarted;
 		Eventmanager.Instance.EventonCheckpointReached += HandleEventonCheckpointReached;
 
 
@@ -52,6 +53,11 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 			}
 		}
 	}
+
+	void HandleEventonMinigameStarted (string nextlevel, string currentLevel) {
+		Eventmanager.Instance.triggerLevelFinished (nextlevel);
+	}
+
 
 	[Server]
 	void HandleEventonPackageDestroyed ()

@@ -17,6 +17,7 @@ public class Gamemanager : NetworkBehaviour {
 	public bool localmultiplayer;
 	[SyncVar]
 	public int CheckpointReached;
+	public string currentLevel;
 	
 	//Executed on the server when next level is loaded
 	public delegate void OnNextLevelLoad();

@@ -4,7 +4,10 @@ using System.Collections;
 
 public class chestController : NetworkBehaviour {
 
+	//private Gamemanager gameManager;
+
 	public GameObject minigame1Prefab;
+	public string currentLevel;
 
 	private bool eventEnabled;
 
@@ -15,12 +18,22 @@ public class chestController : NetworkBehaviour {
 		eventEnabled = true;
 	}
 
+	void Start() {
+		Gamemanager.Instance.currentLevel = "Network manager";
+	}
+	/*
+	void Update() {
+		Debug.Log (Gamemanager.Instance.currentLevel);
+	}
+	*/
 	[Server]
 	void HandleEventonChestActivated(){
 		//Gamemanager.Instance.onNextLevelLoad = returnLevel;
 		NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		Manager.playerPrefab = minigame1Prefab;
 		Eventmanager.Instance.triggerLevelFinished ("Minigame1");
+		//Eventmanager.Instance.triggerMinigameStarted ("Minigame1", currentLevel);
+		//gameManager.currentLevel = currentLevel;
 	}
 
 	void returnLevel(){
