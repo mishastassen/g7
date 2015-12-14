@@ -491,7 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   left: {fileID: 0}
   right: {fileID: 0}
-  prefab: {fileID: 116052, guid: 90a2ecc9721925a42adc8834b4283d02, type: 2}
+  prefab: {fileID: 158926, guid: 48fcbb21dbdf7234b9ffb5305c363aa3, type: 2}
   winText: {fileID: 1966851260}
   loseText: {fileID: 258658235}
   timeText: {fileID: 969980816}
