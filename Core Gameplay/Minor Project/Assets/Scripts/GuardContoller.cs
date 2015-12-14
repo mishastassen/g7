@@ -23,7 +23,7 @@ public class GuardContoller : NetworkBehaviour {
 		finished = true;
 		facingRight = true;
 		spotted = false;
-		coneDegrees = 30;
+		coneDegrees = 45;
 	}
 	
 	void FixedUpdate () {

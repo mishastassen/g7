@@ -34,7 +34,7 @@ public class AlarmController : MonoBehaviour {
 	}
 
 	void HandleEventonPlayerSpotted() {
-		if (finishedIncrease) {
+		if (finishedIncrease && alarmPercent != 100) {
 			StartCoroutine (increaseAlarm ());
 			finishedIncrease = false;
 		}
