@@ -34,7 +34,7 @@ app.use( session({cookieName: 'session',
 var sess;
 
 /*store whose friendlists and requests have been updated*/
-var userFriendsRequestsUpdated;
+var userFriendRequestsUpdated;
 var userFriendsUpdated;
 
 /*Express urls*/
@@ -137,11 +137,39 @@ app.get('/logout',function(req,res){
 });
 
 app.get('/updateFriends',function(req,res){
-
+	console.log('User requesting friend list');
+	sess = req.session;
+	if(sess.loggedin !== true){
+		res.send('Log in first');
+	}
+	else{
+		var UserId = sess.userId;
+		if(sess.lastFriendListUpdate === null){
+			res.redirect('/getFriendlist');
+		}
+		else if(userFriendsUpdated.UserId === true){
+			res.redirect('/getFriendlist');
+			userFriendsUpdated.UserId = false;
+		}
+		else if(sess.lastFriendListUpdate - date.now() > 300000){
+			res.redirect('/getFriendlist');
+		}
+		
+		if(sess.lastFriendRequestUpdate === null){
+			res.redirect('/getFriendlist');
+		}
+		else if(userFriendRequestsUpdated.UserId === true){
+			res.redirect('/getFriendlist');
+			userFriendRequestsUpdated.UserId = false;
+		}
+		else if(sess.lastFriendRequestUpdate - date.now() > 300000){
+			res.redirect('/getFriendlist');
+		}
+	}
 });
 
 app.get('/getFriendList',function(req,res){
-	console.log('User requesting friend list');
+	console.log('Updating user friend list');
 	sess = req.session;
 	if(sess.loggedin !== true){
 		res.send('Log in first');
@@ -153,7 +181,7 @@ app.get('/getFriendList',function(req,res){
 				console.log(err);
 			}
 			else{
-				sess.FriendListUpdated = Date.now();
+				sess.lastFriendListUpdate = Date.now();
 				res.json(rows);
 			}
 		});
@@ -161,7 +189,7 @@ app.get('/getFriendList',function(req,res){
 });
 
 app.get('/getFriendRequests',function(req,res){
-	console.log('User getting friend requests');
+	console.log('Updating user friend requests');
 	sess = req.session;
 	if(sess.loggedin !== true){
 		res.send('Log in first');
@@ -173,7 +201,7 @@ app.get('/getFriendRequests',function(req,res){
 				console.log(err);
 			}
 			else{
-				sess.FriendRequestsUpdated = Date.now();
+				sess.lastFriendRequestUpdate = Date.now();
 				res.json(rows);
 			}
 		});
@@ -190,7 +218,7 @@ app.post('/sendFriendRequest',function(req,res){
 		var UserId = sess.userId;
 		var FriendId = req.body.FriendId;
 		connection.query("SELECT 1 FROM Friends WHERE (UserId_Sender = '"+ UserId +"' AND UserId_Receiver '" + FriendId + "') OR (UserId_Sender = '"+ FriendId +"' AND UserId_Receiver '" + UserId + "') AND ORDER BY UserId_Sender LIMIT 1", function (err, rows, fields) {
-			if)(err){
+			if(err){
 				console.log(err);
 			}
 			else if (rows.length  > 0){
@@ -202,7 +230,7 @@ app.post('/sendFriendRequest',function(req,res){
 						console.log(err);
 					}
 					else{
-						userFriendsRequestsUpdated.FriendId = true;
+						userFriendRequestsUpdated.FriendId = true;
 						res.send('Friend request sent');
 					}
 				});
@@ -225,13 +253,24 @@ app.post('/acceptFriendRequest',function(req,res){
 				console.log(err);
 			}
 			else{
-				userFriendsRequestsUpdated.FriendId = true;
+				userFriendRequestsUpdated.FriendId = true;
 				userFriendsUpdated.FriendId = true;
 				res.send('Friend request accepted');
 			}
 		});
 	}
 });
+
+app.get('/getOnlinePlayers'){
+	console.log('User requesting online players');
+	sess = req.session;
+	if(sess.loggedin !== true){
+		res.send('Log in first');
+	}
+	else{
+		
+	}
+}
 
 app.post('/getHigscores',function(req,res){
 	console.log('User requesting highscores');
@@ -269,6 +308,5 @@ app.post('/updateAvatar',function(req,res){
 /*Start server*/
 var server = app.listen(port, function () {
   var port = server.address().port;
-
   console.log('Server listening at %s', port);
 });

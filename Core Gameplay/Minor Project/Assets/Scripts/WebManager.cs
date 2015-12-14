@@ -20,12 +20,12 @@ public class WebManager : MonoBehaviour {
 	}
 
 	public void logout(){
-		WWW www = createEmpty ("/logout");
+		WWW www = createEmptyWWW ("/logout");
 		StartCoroutine(getWWW (www));
 	}
 
 	public void response(){
-		WWW www = createEmpty ("/response");
+		WWW www = createEmptyWWW ("/response");
 		StartCoroutine(getWWW (www));
 	}
 
@@ -34,6 +34,11 @@ public class WebManager : MonoBehaviour {
 		JSON.Add ("username", new JSONData (createName.GetComponent<InputField>().text));
 		JSON.Add ("password", new JSONData (createPass.GetComponent<InputField>().text));
 		WWW www = createJSON (JSON.ToString (), "/createAccount");
+		StartCoroutine(getWWW (www));
+	}
+
+	public void getFriendList(){
+		WWW www = createEmptyWWW ("/updateFriends");
 		StartCoroutine(getWWW (www));
 	}
 
@@ -59,7 +64,7 @@ public class WebManager : MonoBehaviour {
 		return new WWW(server + path, pData, headers);
 	}
 
-	WWW createEmpty(string path){
+	WWW createEmptyWWW(string path){
 		Dictionary<string,string> headers = new Dictionary<string,string>();
 		if (cookie != "") {
 			headers.Add ("cookie", cookie);
