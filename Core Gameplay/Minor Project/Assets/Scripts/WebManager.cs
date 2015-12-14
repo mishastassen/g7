@@ -42,6 +42,11 @@ public class WebManager : MonoBehaviour {
 		StartCoroutine(getWWW (www));
 	}
 
+	public void getUsers(){
+		WWW www = createEmptyWWW ("/updateUsers");
+		StartCoroutine(getWWW (www));
+	}
+
 	IEnumerator getWWW(WWW www){
 		yield return www;
 		responseText.GetComponent<Text> ().text = www.text;
