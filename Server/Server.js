@@ -65,27 +65,29 @@ app.post('/createAccount',function(req,res){
 			console.log("Account denied");
 			res.send("Username must have atleast 4 characters en password atleast 6");
 		}
-		connection.query("SELECT 1 FROM Users WHERE AccountName = '"+username+"' ORDER BY AccountName LIMIT 1", function (err, rows, fields) {
-			if(err){
-				console.log(err);
-			}
-			else if(rows.length  > 0){
-				console.log("Account denied");
-				res.send("Username already in use");
-			}
-			else{
-				console.log("Creating new account " + username);
-				connection.query("INSERT INTO Users(AccountName,Password) VALUES ('" + username + "','" + pass + "')",function(err, rows, fields) {
-					if(err){
-						console.log(err);
-					}
-					else{
-						console.log("Account succesfully created");
-						res.end("Account created");
-					}
-				});
-			}
-		});
+		else{
+			connection.query("SELECT 1 FROM Users WHERE AccountName = '"+username+"' ORDER BY AccountName LIMIT 1", function (err, rows, fields) {
+				if(err){
+					console.log(err);
+				}
+				else if(rows.length  > 0){
+					console.log("Account denied");
+					res.send("Username already in use");
+				}
+				else{
+					console.log("Creating new account " + username);
+					connection.query("INSERT INTO Users(AccountName,Password) VALUES ('" + username + "','" + pass + "')",function(err, rows, fields) {
+						if(err){
+							console.log(err);
+						}
+						else{
+							console.log("Account succesfully created");
+							res.end("Account created");
+						}
+					});
+				}
+			});
+		}
 	}
 });
 
@@ -104,8 +106,8 @@ app.post('/login',function(req,res){
 		}
 		else if(rows[0].Password === pass){
 			var user = new User(rows[0].UserId,username,true,Date.now());
-			sess.User = new User(rows[0].UserId,username,true,Date.now());
 			onlineUsers[user.UserId] = user;
+			sess.User = onlineUsers[user.UserId];
 			console.log('Password correct');
 			res.send("you logged in!");
 		}
