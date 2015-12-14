@@ -34,7 +34,7 @@ public class AlarmController : MonoBehaviour {
 	}
 
 	void HandleEventonPlayerSpotted() {
-		if (finishedIncrease) {
+		if (finishedIncrease && alarmPercent != 100) {
 			StartCoroutine (increaseAlarm ());
 			finishedIncrease = false;
 		}
@@ -50,14 +50,14 @@ public class AlarmController : MonoBehaviour {
 	IEnumerator increaseAlarm() {
 		alarmPercent += 5;
 		alarmText.text = "Alarm: " + alarmPercent + "%";
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (0.5f);
 		finishedIncrease = true;
 	}
 
 	IEnumerator decreaseAlarm() {
 		alarmPercent -= 5;
 		alarmText.text = "Alarm: " + alarmPercent + "%";
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds (1);
 		finishedDecrease = true;
 	}
 
