@@ -53,6 +53,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		}
 	}
 
+
 	[Server]
 	void HandleEventonPackageDestroyed ()
 	{	

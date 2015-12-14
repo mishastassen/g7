@@ -22,8 +22,9 @@ public class main : NetworkBehaviour {
 	bool finished;
 
 	//Level to go back too
-	public string nextlevel;
-	
+	//public string nextlevel;
+	private string returnLevel;
+
 	// Use this for initialization
 	void Start () {
 		timeLeft = 20.0f;
@@ -33,6 +34,7 @@ public class main : NetworkBehaviour {
 		succes = false;
 		finished = false;
 		setTimeText ();
+		returnLevel = Gamemanager.Instance.currentLevel;
 	}
 	
 	// Update is called once per frame
@@ -67,7 +69,8 @@ public class main : NetworkBehaviour {
 		if (isServer && finished && Input.GetButtonDown("Interact1_P1")) {
 			NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 			Manager.playerPrefab = prefab;
-			Eventmanager.Instance.triggerLevelFinished(nextlevel);
+			Debug.Log (returnLevel);
+			Eventmanager.Instance.triggerLevelFinished(returnLevel);
 		}
 	}
 
@@ -90,3 +93,5 @@ public class main : NetworkBehaviour {
 		Debug.Log ("levelload");
 	}
 }
+
+

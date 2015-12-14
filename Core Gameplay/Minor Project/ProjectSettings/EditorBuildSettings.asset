@@ -12,6 +12,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/BasisLevel.unity
   - enabled: 1
+    path: Assets/_Scenes/Level1.unity
+  - enabled: 1
     path: Assets/_Scenes/Minigame1.unity
   - enabled: 1
     path: Assets/_Scenes/Level1.unity

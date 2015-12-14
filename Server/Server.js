@@ -28,20 +28,23 @@ app.use( session({cookieName: 'session',
 				  secret: 'Geheim',
 				  resave: true,
 				  saveUninitialized: true,
-				  cookie: {maxAge: 3600000}}));
+				  cookie: {maxAge: 10000}}));
 
 /*Session variable*/
 var sess;
 
 /*store whose friendlists and requests have been updated*/
-var userFriendRequestsUpdated;
-var userFriendsUpdated;
+var userFriendRequestsUpdated = {};
+var userFriendsUpdated = {};
+
+/*store who is online*/
+var onlineUsers = {};
 
 /*Express urls*/
 app.get('/',function(req,res){
 	console.log('Empty url received');
 	sess = req.session;
-	if(sess.loggedin === true){
+	if(sess.User !== undefined){
 		res.redirect('/response');
 	}
 	else{
@@ -52,7 +55,7 @@ app.get('/',function(req,res){
 app.post('/createAccount',function(req,res){
 	console.log('User trying to create account');
 	sess = req.session;
-	if(sess.loggedin === true){
+	if(sess.User !== undefined){
 		res.send("Log out first");
 	}
 	else{
@@ -62,27 +65,29 @@ app.post('/createAccount',function(req,res){
 			console.log("Account denied");
 			res.send("Username must have atleast 4 characters en password atleast 6");
 		}
-		connection.query("SELECT 1 FROM Users WHERE AccountName = '"+username+"' ORDER BY AccountName LIMIT 1", function (err, rows, fields) {
-			if(err){
-				console.log(err);
-			}
-			else if(rows.length  > 0){
-				console.log("Account denied");
-				res.send("Username already in use");
-			}
-			else{
-				console.log("Creating new account " + username);
-				connection.query("INSERT INTO Users(AccountName,Password) VALUES ('" + username + "','" + pass + "')",function(err, rows, fields) {
-					if(err){
-						console.log(err);
-					}
-					else{
-						console.log("Account succesfully created");
-						res.end("Account created");
-					}
-				});
-			}
-		});
+		else{
+			connection.query("SELECT 1 FROM Users WHERE AccountName = '"+username+"' ORDER BY AccountName LIMIT 1", function (err, rows, fields) {
+				if(err){
+					console.log(err);
+				}
+				else if(rows.length  > 0){
+					console.log("Account denied");
+					res.send("Username already in use");
+				}
+				else{
+					console.log("Creating new account " + username);
+					connection.query("INSERT INTO Users(AccountName,Password) VALUES ('" + username + "','" + pass + "')",function(err, rows, fields) {
+						if(err){
+							console.log(err);
+						}
+						else{
+							console.log("Account succesfully created");
+							res.end("Account created");
+						}
+					});
+				}
+			});
+		}
 	}
 });
 
@@ -100,9 +105,9 @@ app.post('/login',function(req,res){
 			res.send("Wrong username");
 		}
 		else if(rows[0].Password === pass){
-			sess.username = username;
-			sess.UserId = rows[0].UserId;
-			sess.loggedin = true;
+			var user = new User(rows[0].UserId,username,true,Date.now());
+			onlineUsers[user.UserId] = user;
+			sess.User = onlineUsers[user.UserId];
 			console.log('Password correct');
 			res.send("you logged in!");
 		}
@@ -116,8 +121,9 @@ app.post('/login',function(req,res){
 app.get('/response',function(req,res){
 	console.log('User asking for response');
 	sess = req.session;
-	if(sess.loggedin === true){
-		res.send('Logged in as ' + sess.username);
+	if(sess.User !== undefined){
+		res.send('Logged in as ' + sess.User.Username);
+		onlineUsers[sess.User.UserId].lastUpdate = Date.now();
 	}else{
 		res.send('Not logged in');
 	}
@@ -125,45 +131,77 @@ app.get('/response',function(req,res){
 
 
 app.get('/logout',function(req,res){
-	req.session.destroy(function(err){
-		if(err){
-			console.log(err);
-		}
-		else{
-			console.log('User logged out');
-			res.send("You logged out");
-		}
-	});
+	if(sess.User !== undefined){
+		onlineUsers[sess.User.UserId].LoggedIn = false;
+		delete req.session.User;
+		req.session.destroy(function(err){
+			if(err){
+				console.log(err);
+			}
+			else{
+				console.log('User logged out');
+				res.send("You logged out");
+			}
+		});
+	}
+});
+
+app.get('/updateUsers',function(req,res){
+	console.log('User requesting online users');
+	sess = req.session;
+	if(sess.User === undefined){
+		res.send('Log in first');
+	}
+	else{
+		res.json(onlineUsers);
+		sess.User.lastUpdate = Date.now();
+	}
 });
 
 app.get('/updateFriends',function(req,res){
 	console.log('User requesting friend list');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.userId;
-		if(sess.lastFriendListUpdate === null){
+		var UserId = sess.User.UserId;
+		if(sess.lastFriendListUpdate === undefined){
 			res.redirect('/getFriendlist');
 		}
 		else if(userFriendsUpdated.UserId === true){
 			res.redirect('/getFriendlist');
 			userFriendsUpdated.UserId = false;
 		}
-		else if(sess.lastFriendListUpdate - date.now() > 300000){
+		else if(Date.now() - sess.lastFriendListUpdate > 300000){
 			res.redirect('/getFriendlist');
 		}
-		
-		if(sess.lastFriendRequestUpdate === null){
-			res.redirect('/getFriendlist');
+		else {
+			res.send('no need to update friendlist');
+		}
+	}
+});	
+
+app.get('/updateFriendRequests',function(req,res){
+	console.log('User requesting friend list');
+	sess = req.session;
+	if(sess.User === undefined){
+		res.send('Log in first');
+	}
+	else{
+		var UserId = sess.User.UserId;		
+		if(sess.lastFriendRequestUpdate === undefined){
+			res.redirect('/getFriendRequests');
 		}
 		else if(userFriendRequestsUpdated.UserId === true){
-			res.redirect('/getFriendlist');
+			res.redirect('/getFriendRequests');
 			userFriendRequestsUpdated.UserId = false;
 		}
-		else if(sess.lastFriendRequestUpdate - date.now() > 300000){
-			res.redirect('/getFriendlist');
+		else if(Date.now() - sess.lastFriendRequestUpdate > 300000){
+			res.redirect('/getFriendRequests');
+		}
+		else {
+			res.send('no need to update friendrequests');
 		}
 	}
 });
@@ -171,12 +209,12 @@ app.get('/updateFriends',function(req,res){
 app.get('/getFriendList',function(req,res){
 	console.log('Updating user friend list');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.userId;
-		connection.query("SELECT UserId, AccountName, Level_Progress FROM Users, Friends WHERE ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Users.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Users.UserId_Sender) )AND Status = 1", function(err, rows, fields) {
+		var UserId = sess.User.UserId;
+		connection.query("SELECT UserId, AccountName, LevelProgressId FROM Users, Friends WHERE ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 1", function(err, rows, fields) {
 			if(err){
 				console.log(err);
 			}
@@ -191,12 +229,12 @@ app.get('/getFriendList',function(req,res){
 app.get('/getFriendRequests',function(req,res){
 	console.log('Updating user friend requests');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.userId;
-		connection.query("SELECT UserId, AccountName, Status, UserId_Sender FROM Users, Friends WHERE ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Users.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Users.UserId_Sender) )AND Status = 0", function(err, rows, fields) {
+		var UserId = sess.User.UserId;
+		connection.query("SELECT UserId, AccountName, Status, UserId_Sender FROM Users, Friends WHERE ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 0", function(err, rows, fields) {
 			if(err){
 				console.log(err);
 			}
@@ -211,11 +249,11 @@ app.get('/getFriendRequests',function(req,res){
 app.post('/sendFriendRequest',function(req,res){
 	console.log('User sending friend request');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.userId;
+		var UserId = sess.User.UserId;
 		var FriendId = req.body.FriendId;
 		connection.query("SELECT 1 FROM Friends WHERE (UserId_Sender = '"+ UserId +"' AND UserId_Receiver '" + FriendId + "') OR (UserId_Sender = '"+ FriendId +"' AND UserId_Receiver '" + UserId + "') AND ORDER BY UserId_Sender LIMIT 1", function (err, rows, fields) {
 			if(err){
@@ -242,11 +280,11 @@ app.post('/sendFriendRequest',function(req,res){
 app.post('/acceptFriendRequest',function(req,res){
 	console.log('User accepting friend request');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.userId;
+		var UserId = sess.User.UserId;
 		var FriendId = req.body.FriendId;
 		connection.query("UPDATE Friends Set Status = 1 WHERE UserId_Sender = '" + FriendId + "' AND UserId_Receiver = '" + UserId + "'", function(err, rows, fields) {
 			if(err){
@@ -261,21 +299,21 @@ app.post('/acceptFriendRequest',function(req,res){
 	}
 });
 
-app.get('/getOnlinePlayers'){
+app.get('/getOnlinePlayers',function(req,res){
 	console.log('User requesting online players');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
 		
 	}
-}
+});
 
 app.post('/getHigscores',function(req,res){
 	console.log('User requesting highscores');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
@@ -286,7 +324,7 @@ app.post('/getHigscores',function(req,res){
 app.post('/updateHighscores',function(req,res){
 	console.log('User updating highscores');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
@@ -297,7 +335,7 @@ app.post('/updateHighscores',function(req,res){
 app.post('/updateAvatar',function(req,res){
 	console.log('User updating avatar');
 	sess = req.session;
-	if(sess.loggedin !== true){
+	if(sess.User === undefined){
 		res.send('Log in first');
 	}
 	else{
@@ -307,6 +345,55 @@ app.post('/updateAvatar',function(req,res){
 
 /*Start server*/
 var server = app.listen(port, function () {
-  var port = server.address().port;
-  console.log('Server listening at %s', port);
+	var port = server.address().port;
+	console.log('Server listening at %s', port);
 });
+wait10sec();	//Start cleaning offline users
+wait10min();	//Start cleaning open requests
+
+
+
+/*Function to run every 10 seconds*/
+function cleanOfflineUsers(callback){	//Removing users that went offline
+	console.log('cleaning offline users');
+	for (var UserId in onlineUsers){
+		if (onlineUsers.hasOwnProperty(UserId)){
+			if(onlineUsers[UserId].LoggedIn === false || (Date.now()- onlineUsers[UserId].lastUpdate > 10000)){
+				delete onlineUsers[UserId];
+			}
+		}
+	}
+	callback();
+}
+
+function wait10sec(){
+    setTimeout(function(){
+        cleanOfflineUsers(wait10sec);
+    }, 10000);
+}
+
+/*Function to run every 10 minutes*/
+function cleanOpenRequests(callback){	//Clean open requests and friendlist update arrays
+	console.log('cleaning open requests');
+	userFriendRequestsUpdated = {};
+	userFriendsUpdated = {};
+	callback();
+}
+
+function wait10min(){
+    setTimeout(function(){
+        cleanOpenRequests(wait10min);
+    }, 600000);
+}
+
+
+
+/*Objects*/
+
+/*Player*/
+function User(UserId,Username,LoggedIn,lastUpdate){
+	this.UserId = UserId;
+	this.Username = Username;
+	this.LoggedIn = LoggedIn;
+	this.lastUpdate = lastUpdate;
+}
