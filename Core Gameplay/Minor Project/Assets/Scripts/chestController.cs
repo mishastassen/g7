@@ -19,21 +19,15 @@ public class chestController : NetworkBehaviour {
 	}
 
 	void Start() {
-		Gamemanager.Instance.currentLevel = "Network manager";
+		Gamemanager.Instance.currentLevel = currentLevel;
 	}
-	/*
-	void Update() {
-		Debug.Log (Gamemanager.Instance.currentLevel);
-	}
-	*/
+
 	[Server]
 	void HandleEventonChestActivated(){
 		//Gamemanager.Instance.onNextLevelLoad = returnLevel;
 		NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		Manager.playerPrefab = minigame1Prefab;
 		Eventmanager.Instance.triggerLevelFinished ("Minigame1");
-		//Eventmanager.Instance.triggerMinigameStarted ("Minigame1", currentLevel);
-		//gameManager.currentLevel = currentLevel;
 	}
 
 	void returnLevel(){

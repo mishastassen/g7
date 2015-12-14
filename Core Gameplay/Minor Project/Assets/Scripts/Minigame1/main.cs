@@ -24,27 +24,7 @@ public class main : NetworkBehaviour {
 	//Level to go back too
 	//public string nextlevel;
 	private string returnLevel;
-	/*
-	private bool enabled;
 
-	void OnEnable() {
-		Eventmanager.Instance.EventonMinigameStarted += HandleEventonMinigameStarted;
-		enabled = true;
-		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
-	}
-
-	void OnDisable() {
-		if (enabled) {
-			Eventmanager.Instance.EventonMinigameStarted -= HandleEventonMinigameStarted;
-			enabled = false;
-		}
-	}
-
-	void HandleEventonMinigameStarted (string nextlevel, string currentLevel) {
-		Debug.Log ("Hij komt in de main");
-		returnLevel = currentLevel;
-	}
-	*/
 	// Use this for initialization
 	void Start () {
 		timeLeft = 20.0f;
@@ -89,6 +69,7 @@ public class main : NetworkBehaviour {
 		if (isServer && finished && Input.GetButtonDown("Interact1_P1")) {
 			NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 			Manager.playerPrefab = prefab;
+			Debug.Log (returnLevel);
 			Eventmanager.Instance.triggerLevelFinished(returnLevel);
 		}
 	}
