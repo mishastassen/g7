@@ -17,6 +17,9 @@ public class GuardContoller : NetworkBehaviour {
 	private float angle;
 	RaycastHit hitInfo;
 
+	public Transform goal;
+	private NavMeshAgent agent;
+
 	void Start () {
 		enemy = GetComponent<Rigidbody> ();
 		eyePosition = new Vector3 (enemy.position.x + 0.5f, enemy.position.y + 6.0f, enemy.position.z);
@@ -24,6 +27,8 @@ public class GuardContoller : NetworkBehaviour {
 		facingRight = true;
 		spotted = false;
 		coneDegrees = 45;
+		agent = GetComponentInParent<NavMeshAgent> ();
+		agent.destination = goal.position;
 	}
 	
 	void FixedUpdate () {
@@ -48,7 +53,7 @@ public class GuardContoller : NetworkBehaviour {
 
 	IEnumerator flipGuard () {
 		Vector3 theScale = transform.localScale;
-		theScale.y *= -1;
+		theScale.x *= -1;
 		transform.localScale = theScale;
 		yield return new WaitForSeconds(5);
 		finished = true;
@@ -76,10 +81,12 @@ public class GuardContoller : NetworkBehaviour {
 				} else {
 					Debug.DrawRay(eyePosition, direction, Color.green);
 					spotted = false;
+					 // agent.enabled = false;
 				}
 			} else {
 				Debug.DrawRay(eyePosition, direction, Color.green);
 				spotted = false;
+				// agent.enabled = false;
 			}
 		}
 	}
