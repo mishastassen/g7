@@ -807,15 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70bde35c758742e45921000ce846cb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-<<<<<<< HEAD
   levelName: TestJoris
-=======
-  levelName: Level1
->>>>>>> b60ccad849483f029a751b4936d76336bd3a344f
-=======
-  levelName: BasisLevel
->>>>>>> parent of a80f0ab... Eindelijk loopt die klote enemy goed!
 --- !u!1 &1937148589
 GameObject:
   m_ObjectHideFlags: 0
