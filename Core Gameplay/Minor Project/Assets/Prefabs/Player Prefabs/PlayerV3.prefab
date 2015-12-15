@@ -893,6 +893,7 @@ MonoBehaviour:
   walking: 0
   carriedPackage: {fileID: 0}
   facingRight: 0
+  debugText: {fileID: 0}
   TriggerList: []
 --- !u!136 &13612376
 CapsuleCollider:

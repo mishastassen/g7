@@ -495,7 +495,6 @@ MonoBehaviour:
   winText: {fileID: 1966851260}
   loseText: {fileID: 258658235}
   timeText: {fileID: 969980816}
-  nextlevel: BasisLevel
 --- !u!114 &757363625
 MonoBehaviour:
   m_ObjectHideFlags: 0
