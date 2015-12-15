@@ -4,6 +4,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var mysql = require('mysql');
+var getIP = require('ipware')().get_ip;
 
 /*Connect to MySQL database */
 var connection = mysql.createConnection({
@@ -17,7 +18,7 @@ connection.connect();
 /*select port for server*/
 var port = 8088;
 
-/*Initializng express */
+/*Initializng express and setting up middleware */
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -29,6 +30,12 @@ app.use( session({cookieName: 'session',
 				  resave: true,
 				  saveUninitialized: true,
 				  cookie: {maxAge: 10000}}));
+app.use(function(req, res, next) {
+    var ipInfo = getIP(req);
+    req.session.ipInfo = ipInfo;
+    // { clientIp: '127.0.0.1', clientIpRoutable: false }
+    next();
+});
 app.use(touchUser());
 
 /*Session variable*/
@@ -41,11 +48,14 @@ var userFriendsUpdated = {};
 /*store who is online*/
 var onlineUsers = {};
 
+/*Store messages*/
+var Messages = {};
+
 /*Express urls*/
 app.get('/',function(req,res){
 	console.log('Empty url received');
 	sess = req.session;
-	if(sess.User !== undefined){
+	if(sess.UserId !== undefined){
 		res.redirect('/response');
 	}
 	else{
@@ -56,7 +66,7 @@ app.get('/',function(req,res){
 app.post('/createAccount',function(req,res){
 	console.log('User trying to create account');
 	sess = req.session;
-	if(sess.User !== undefined){
+	if(sess.UserId !== undefined){
 		res.send("Log out first");
 	}
 	else{
@@ -106,9 +116,9 @@ app.post('/login',function(req,res){
 			res.send("Wrong username");
 		}
 		else if(rows[0].Password === pass){
-			var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress);
+			var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress,sess.ipInfo);
 			onlineUsers[user.UserId] = user;
-			sess.User = onlineUsers[user.UserId];
+			sess.UserId = user.UserId;
 			console.log('Password correct');
 			res.json(user);
 		}
@@ -122,8 +132,8 @@ app.post('/login',function(req,res){
 app.get('/response',function(req,res){
 	console.log('User asking for response');
 	sess = req.session;
-	if(sess.User !== undefined){
-		res.send('Logged in as ' + sess.User.Username);
+	if(sess.UserId !== undefined){
+		res.send('Logged in as ' + onlineUsers[sess.UserId].Username);
 	}else{
 		res.send('Not logged in');
 	}
@@ -131,11 +141,11 @@ app.get('/response',function(req,res){
 
 
 app.get('/logout',function(req,res){
-	if(sess.User !== undefined){
-		if(onlineUsers[sess.User.UserId] !== undefined){
-			onlineUsers[sess.User.UserId].LoggedIn = false;
+	sess = req.session;
+	if(sess.UserId !== undefined){
+		if(onlineUsers[sess.UserId] !== undefined){
+			onlineUsers[sess.UserId].LoggedIn = false;
 		}
-		delete req.session.User;
 		req.session.destroy(function(err){
 			if(err){
 				console.log(err);
@@ -146,29 +156,31 @@ app.get('/logout',function(req,res){
 			}
 		});
 	}
-	res.send("Already logged out");
+	else{
+		res.send("Already logged out");
+	}
 });
 
 app.get('/updateUsers',function(req,res){
 	console.log('User requesting online users');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
 		res.json(onlineUsers);
-		onlineUsers[sess.User.UserId].lastUpdate = Date.now();
+		onlineUsers[sess.UserId].lastUpdate = Date.now();
 	}
 });
 
 app.get('/updateFriends',function(req,res){
 	console.log('User requesting friend list');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.User.UserId;
+		var UserId = sess.UserId;
 		if(sess.lastFriendListUpdate === undefined){
 			res.redirect('/getFriendlist');
 		}
@@ -188,11 +200,11 @@ app.get('/updateFriends',function(req,res){
 app.get('/updateFriendRequests',function(req,res){
 	console.log('User requesting friend requests');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.User.UserId;		
+		var UserId = sess.UserId;		
 		if(sess.lastFriendRequestUpdate === undefined){
 			res.redirect('/getFriendRequests');
 		}
@@ -212,11 +224,11 @@ app.get('/updateFriendRequests',function(req,res){
 app.get('/getFriendList',function(req,res){
 	console.log('Updating user friend list');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.User.UserId;
+		var UserId = sess.UserId;
 		connection.query("SELECT UserId, AccountName, LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 1", function(err, rows, fields) {
 			if(err){
 				console.log(err);
@@ -225,7 +237,7 @@ app.get('/getFriendList',function(req,res){
 				sess.lastFriendListUpdate = Date.now();
 				var friends = new Array();
 				rows.forEach(function(index){
-					var friend = new User(index.UserId,index.AccountName,false,0,index.LevelProgress);
+					var friend = new User(index.UserId,index.AccountName,false,0,index.LevelProgress,0);
 					friends.push(friend);
 				});
 				res.json(friends);
@@ -237,11 +249,11 @@ app.get('/getFriendList',function(req,res){
 app.get('/getFriendRequests',function(req,res){
 	console.log('Updating user friend requests');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.User.UserId;
+		var UserId = sess.UserId;
 		connection.query("SELECT UserId, AccountName, Levels.LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 0", function(err, rows, fields) {
 			if(err){
 				console.log(err);
@@ -250,7 +262,7 @@ app.get('/getFriendRequests',function(req,res){
 				sess.lastFriendRequestUpdate = Date.now();
 				var friendRequests = new Array();
 				rows.forEach(function(index){
-					var requested = new User(index.UserId,index.AccountName,false,0,index.LevelProgress);
+					var requested = new User(index.UserId,index.AccountName,false,0,index.LevelProgress,0);
 					friendRequests.push(requested);
 				});
 				res.json(friendRequests);
@@ -262,11 +274,11 @@ app.get('/getFriendRequests',function(req,res){
 app.post('/sendFriendRequest',function(req,res){
 	console.log('User sending friend request');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.User.UserId;
+		var UserId = sess.UserId;
 		var FriendId = req.body.FriendId;
 		connection.query("SELECT 1 FROM Friends WHERE (UserId_Sender = '"+ UserId +"' AND UserId_Receiver '" + FriendId + "') OR (UserId_Sender = '"+ FriendId +"' AND UserId_Receiver '" + UserId + "') AND ORDER BY UserId_Sender LIMIT 1", function (err, rows, fields) {
 			if(err){
@@ -293,11 +305,11 @@ app.post('/sendFriendRequest',function(req,res){
 app.post('/acceptFriendRequest',function(req,res){
 	console.log('User accepting friend request');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
-		var UserId = sess.User.UserId;
+		var UserId = sess.UserId;
 		var FriendId = req.body.FriendId;
 		connection.query("UPDATE Friends Set Status = 1 WHERE UserId_Sender = '" + FriendId + "' AND UserId_Receiver = '" + UserId + "'", function(err, rows, fields) {
 			if(err){
@@ -312,21 +324,52 @@ app.post('/acceptFriendRequest',function(req,res){
 	}
 });
 
-app.get('/getOnlinePlayers',function(req,res){
-	console.log('User requesting online players');
+app.post('/sendMessage',function(req,res){
+	console.log('User sending message');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
-		
+		var UserId = sess.UserId;
+		var ReceipId = req.body.ReceipId;
+		if(onlineUsers[ReceipId] !== undefined){
+			if(onlineUsers[ReceipId].LoggedIn === true){
+				Messages[ReceipId] = req.body;
+				Messages[ReceipId].Timestamp = Date.now();
+			}
+			else{
+				res.send("Can only send messages to online players");
+			}
+		}
+		else{
+			res.send("Can only send messages to online players");
+		}
+	}
+});
+
+app.get('/getMessages',function(req,res){
+	console.log('User requesting messages');
+	sess = req.session;
+	if(sess.UserId === undefined){
+		res.send('Log in first');
+	}
+	else{
+		var UserId = sess.UserId;
+		if(Messages[UserId] === undefined){
+			res.send('No messages');
+		}
+		else{
+			res.json(Messages[UserId]);
+			delete Messages[UserId];
+		}
 	}
 });
 
 app.post('/getHigscores',function(req,res){
 	console.log('User requesting highscores');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
@@ -337,7 +380,7 @@ app.post('/getHigscores',function(req,res){
 app.post('/updateHighscores',function(req,res){
 	console.log('User updating highscores');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
@@ -348,7 +391,7 @@ app.post('/updateHighscores',function(req,res){
 app.post('/updateAvatar',function(req,res){
 	console.log('User updating avatar');
 	sess = req.session;
-	if(sess.User === undefined){
+	if(sess.UserId === undefined){
 		res.send('Log in first');
 	}
 	else{
@@ -362,7 +405,7 @@ var server = app.listen(port, function () {
 	console.log('Server listening at %s', port);
 });
 wait10sec();	//Start cleaning offline users
-wait10min();	//Start cleaning open requests
+wait10min();	//Start cleaning old vars
 
 
 
@@ -386,39 +429,62 @@ function wait10sec(){
 }
 
 /*Function to run every 10 minutes*/
-function cleanOpenRequests(callback){	//Clean open requests and friendlist update arrays
-	console.log('cleaning open requests');
+function cleanVars(callback){
+	console.log('cleaning variables');	//Clean open requests and friendlist update arrays
 	userFriendRequestsUpdated = {};
 	userFriendsUpdated = {};
+	
+	for (var ReceipId in Messages){		//Clean old messages
+		if (Messages.hasOwnProperty(ReceipId)){
+			if(Date.now()- Messages[ReceipId].timestamp > 600000){
+				delete Messages[ReceipId];
+			}
+		}
+	}
 	callback();
 }
 
 function wait10min(){
     setTimeout(function(){
-        cleanOpenRequests(wait10min);
+        cleanVars(wait10min);
     }, 600000);
 }
-
-
 
 /*Objects*/
 
 /*Player*/
-function User(UserId,Username,LoggedIn,lastUpdate,levelProgress){
+function User(UserId,Username,LoggedIn,lastUpdate,levelProgress,ipInfo){
 	this.UserId = UserId;
 	this.Username = Username;
 	this.LoggedIn = LoggedIn;
 	this.lastUpdate = lastUpdate;
 	this.levelProgress = levelProgress;
+	this.ipInfo = ipInfo;
 }
 
-/*Custom MiddleWare*/
+/*Custom middleware*/
 function touchUser() {
+	//Can add setup here
 	return function(req,res,next){
 		sess = req.session;
-		if(sess.User != undefined){
-			onlineUsers[sess.User.UserId].lastUpdate = Date.now();
+		if(sess.UserId !== undefined){
+			if(onlineUsers[sess.UserId] === undefined){
+				req.session.destroy(function(err){
+					if(err){
+						console.log(err);
+					}
+					else{
+						console.log('User timed out');
+						res.send("You timed out");
+					}
+				});
+			}else{
+				onlineUsers[sess.UserId].lastUpdate = Date.now();
+				next();
+			}
 		}
-		next();
+		else{
+			next();
+		}
 	}
 }

@@ -43,8 +43,6 @@ public class WebManager : MonoBehaviour {
 		StartCoroutine(IEgetUsers ());
 	}
 
-
-
 	IEnumerator IElogin(){
 		JSONClass JSON = new JSONClass();
 		JSON.Add ("username", new JSONData (loginName.GetComponent<InputField>().text));
@@ -134,12 +132,45 @@ public class WebManager : MonoBehaviour {
 		}
 		updateUserText (onlineUsersList);
 	}
-	
+
+	IEnumerator IEgetMessages(){
+		WWW www = createEmptyWWW ("/getMessages");
+		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
+		yield return cd.coroutine;
+		string result = (string)cd.result;
+		if (result == "No messages") {
+			yield break;
+		}
+		JSONNode message = SimpleJSON.JSON.Parse (result);
+		if (message ["Type"].Value == "playGame") {
+			int reqUserId = message ["messageBody"] ["reqUserId"].AsInt;
+			userRequestsGame (reqUserId);
+		} else if (message ["Type"].Value == "acceptGame") {
+			int acceptUserId = message ["messageBody"] ["acceptUserId"].AsInt;
+			userAcceptsGame (acceptUserId);
+		} else if (message ["Type"].Value == "HostStarted") {
+			int reqUserId = message ["messageBody"] ["reqUserId"].AsInt;
+			hostStarted (reqUserId);
+		}
+	}
+
+	public IEnumerator IEsendMessage(int receipId,string type,JSONClass messageBody){
+		JSONClass message = new JSONClass();
+		message["ReceipId"].AsInt = receipId;
+		message["Type"] = type;
+		message["messageBody"] = messageBody;
+		WWW www = createJSON (message.ToString (), "/sendMessage");
+		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
+		yield return cd.coroutine;
+		string result = (string)cd.result;
+	}
+
 	IEnumerator update(){
 		while (currentUser != null) {
 			StartCoroutine (IEgetUsers ());
 			StartCoroutine (IEgetFriendList ());
 			StartCoroutine (IEgetFriendRequests ());
+			StartCoroutine (IEgetMessages ());
 			yield return new WaitForSeconds (4.0f);
 		}
 	}
@@ -149,6 +180,7 @@ public class WebManager : MonoBehaviour {
 
 		if (!string.IsNullOrEmpty(www.error)){
 			Debug.LogError("Server request failed");
+			currentUser = null;
 			yield return null;
 		}
 		responseText.GetComponent<Text>().text = www.text;
@@ -189,7 +221,7 @@ public class WebManager : MonoBehaviour {
 		Text usertext = onlineUserText.GetComponent<Text> ();
 		string userString = "";
 		foreach (User user in users) {
-			userString += user.Username +" " + user.levelProgress +"\n";
+			userString += user.Username +" " + user.levelProgress +" " + user.Ip +"\n";
 		}
 		usertext.text = userString;
 	}
@@ -201,5 +233,17 @@ public class WebManager : MonoBehaviour {
 			userString += user.Username +" " + user.levelProgress +" " + user.Online + "\n";
 		}
 		usertext.text = userString;
+	}
+
+	void userRequestsGame(int reqUserId){
+		Debug.Log("user requests game");
+	}
+
+	void userAcceptsGame(int acceptUserId){
+		Debug.Log("user accepts game");
+	}
+
+	void hostStarted(int reqUserId){
+		Debug.Log("Host started");
 	}
 }
