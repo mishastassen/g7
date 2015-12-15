@@ -22,7 +22,7 @@ using UnityEditor;
 
 public class NavigationHelper : EditorWindow
 {
-    private const int COLLIDER_LAYER = -1; //edit this valve to set which layer a box collider needs to be on to be read
+    private const int COLLIDER_LAYER = 0; //edit this valve to set which layer a box collider needs to be on to be read
 
     private const string TEMP_NAV_MESH_OBJECT_TAG = "TempNavMeshItemDestroyable"; //you can change to what ever tag you would like as long as it isn't used by anything else
     private bool isSetup = true;
