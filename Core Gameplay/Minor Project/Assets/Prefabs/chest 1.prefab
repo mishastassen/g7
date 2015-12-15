@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185548}
   m_LocalRotation: {x: 0, y: .382683456, z: 0, w: .923879504}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -12.1999998, y: -14.9099998, z: -7.02072906}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 451102}
@@ -168,8 +168,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.14547825, y: 2.50639296, z: 4.03828192}
-  m_Center: {x: .039737951, y: 1.28566265, z: .0165428035}
+  m_Size: {x: 9.22745037, y: 2.61603546, z: 8.27324295}
+  m_Center: {x: -2.50107193, y: 1.34048367, z: -2.10087419}
 --- !u!95 &9553534
 Animator:
   serializedVersion: 3
@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigame1Prefab: {fileID: 125380, guid: 082345a403e8d9e4298e44ba6696b804, type: 2}
+  currentLevel: Level1B
 --- !u!137 &13782870
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

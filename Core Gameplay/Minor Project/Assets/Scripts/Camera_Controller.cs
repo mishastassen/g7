@@ -65,7 +65,7 @@ public class Camera_Controller : MonoBehaviour {
 		if (Mathf.Abs (center.y - windowCenter.y) > windowy) {
 			windowCenter.y += center.y+-previousCenter.y;
 		}
-		Vector3 newLocation = new Vector3 (windowCenter.x, windowCenter.y+5.0f, -40.0f);
+		Vector3 newLocation = new Vector3 (windowCenter.x, windowCenter.y+5.0f, -60.0f);
 		previousCenter = new Vector2(center.x,center.y);
 		this.GetComponent<Transform> ().position = newLocation;
 	}
