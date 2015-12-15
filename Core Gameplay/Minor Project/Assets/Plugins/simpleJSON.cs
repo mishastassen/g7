@@ -69,7 +69,9 @@ namespace SimpleJSON
 		public virtual void Add (string aKey, JSONNode aItem)
 		{
 		}
-		
+
+		public virtual IEnumerable<string> Keys { get { yield break; } }
+
 		public virtual JSONNode this [int aIndex]   { get { return null; } set { } }
 		
 		public virtual JSONNode this [string aKey]  { get { return null; } set { } }
@@ -946,6 +948,15 @@ namespace SimpleJSON
 			foreach (string K in m_Dict.Keys) {
 				aWriter.Write (K);
 				m_Dict [K].Serialize (aWriter);
+			}
+		}
+
+		public override IEnumerable<string> Keys
+		{
+			get 
+			{
+				foreach(var key in m_Dict.Keys)
+					yield return key;
 			}
 		}
 	}
