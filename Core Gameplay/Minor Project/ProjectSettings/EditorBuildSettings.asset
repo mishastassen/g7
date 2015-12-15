@@ -21,3 +21,5 @@ EditorBuildSettings:
     path: Assets/_Scenes/LevelMisha.unity
   - enabled: 1
     path: Assets/_Scenes/PathfindingTest.unity
+  - enabled: 1
+    path: Assets/_Scenes/TestJoris.unity
