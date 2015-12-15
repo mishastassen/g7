@@ -67,10 +67,14 @@ public class main : NetworkBehaviour {
 		}
 
 		if (isServer && finished && Input.GetButtonDown("Interact1_P1")) {
-			NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
-			Manager.playerPrefab = prefab;
-			Debug.Log (returnLevel);
-			Eventmanager.Instance.triggerLevelFinished(returnLevel);
+			if (succes) {
+				NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
+				Manager.playerPrefab = prefab;
+				Debug.Log (returnLevel);
+				Eventmanager.Instance.triggerLevelFinished(returnLevel);
+			} else {
+				Eventmanager.Instance.triggerLevelFinished("Minigame1");
+			}
 		}
 	}
 
