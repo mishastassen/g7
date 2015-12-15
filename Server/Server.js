@@ -29,6 +29,7 @@ app.use( session({cookieName: 'session',
 				  resave: true,
 				  saveUninitialized: true,
 				  cookie: {maxAge: 10000}}));
+app.use(touchUser());
 
 /*Session variable*/
 var sess;
@@ -96,7 +97,7 @@ app.post('/login',function(req,res){
 	sess = req.session;
 	var username = req.body.username,
 		pass = req.body.password;
-	connection.query("SELECT * FROM Users WHERE AccountName ='" + username +"'", function(err, rows, fields) {
+	connection.query("SELECT UserId, AccountName,Password,LevelProgress FROM Users, Levels WHERE AccountName ='" + username +"' AND Users.LevelProgressId = Levels.LevelId", function(err, rows, fields) {
 		if(err){
 			console.log(err);
 		}
@@ -105,11 +106,11 @@ app.post('/login',function(req,res){
 			res.send("Wrong username");
 		}
 		else if(rows[0].Password === pass){
-			var user = new User(rows[0].UserId,username,true,Date.now());
+			var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress);
 			onlineUsers[user.UserId] = user;
 			sess.User = onlineUsers[user.UserId];
 			console.log('Password correct');
-			res.send("you logged in!");
+			res.json(user);
 		}
 		else{
 			res.send("Wrong password");
@@ -123,7 +124,6 @@ app.get('/response',function(req,res){
 	sess = req.session;
 	if(sess.User !== undefined){
 		res.send('Logged in as ' + sess.User.Username);
-		onlineUsers[sess.User.UserId].lastUpdate = Date.now();
 	}else{
 		res.send('Not logged in');
 	}
@@ -132,7 +132,9 @@ app.get('/response',function(req,res){
 
 app.get('/logout',function(req,res){
 	if(sess.User !== undefined){
-		onlineUsers[sess.User.UserId].LoggedIn = false;
+		if(onlineUsers[sess.User.UserId] !== undefined){
+			onlineUsers[sess.User.UserId].LoggedIn = false;
+		}
 		delete req.session.User;
 		req.session.destroy(function(err){
 			if(err){
@@ -144,6 +146,7 @@ app.get('/logout',function(req,res){
 			}
 		});
 	}
+	res.send("Already logged out");
 });
 
 app.get('/updateUsers',function(req,res){
@@ -154,7 +157,7 @@ app.get('/updateUsers',function(req,res){
 	}
 	else{
 		res.json(onlineUsers);
-		sess.User.lastUpdate = Date.now();
+		onlineUsers[sess.User.UserId].lastUpdate = Date.now();
 	}
 });
 
@@ -183,7 +186,7 @@ app.get('/updateFriends',function(req,res){
 });	
 
 app.get('/updateFriendRequests',function(req,res){
-	console.log('User requesting friend list');
+	console.log('User requesting friend requests');
 	sess = req.session;
 	if(sess.User === undefined){
 		res.send('Log in first');
@@ -214,13 +217,18 @@ app.get('/getFriendList',function(req,res){
 	}
 	else{
 		var UserId = sess.User.UserId;
-		connection.query("SELECT UserId, AccountName, LevelProgressId FROM Users, Friends WHERE ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 1", function(err, rows, fields) {
+		connection.query("SELECT UserId, AccountName, LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 1", function(err, rows, fields) {
 			if(err){
 				console.log(err);
 			}
 			else{
 				sess.lastFriendListUpdate = Date.now();
-				res.json(rows);
+				var friends = new Array();
+				rows.forEach(function(index){
+					var friend = new User(index.UserId,index.AccountName,false,0,index.LevelProgress);
+					friends.push(friend);
+				});
+				res.json(friends);
 			}
 		});
 	}
@@ -234,13 +242,18 @@ app.get('/getFriendRequests',function(req,res){
 	}
 	else{
 		var UserId = sess.User.UserId;
-		connection.query("SELECT UserId, AccountName, Status, UserId_Sender FROM Users, Friends WHERE ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 0", function(err, rows, fields) {
+		connection.query("SELECT UserId, AccountName, Levels.LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 0", function(err, rows, fields) {
 			if(err){
 				console.log(err);
 			}
 			else{
 				sess.lastFriendRequestUpdate = Date.now();
-				res.json(rows);
+				var friendRequests = new Array();
+				rows.forEach(function(index){
+					var requested = new User(index.UserId,index.AccountName,false,0,index.LevelProgress);
+					friendRequests.push(requested);
+				});
+				res.json(friendRequests);
 			}
 		});
 	}
@@ -391,9 +404,21 @@ function wait10min(){
 /*Objects*/
 
 /*Player*/
-function User(UserId,Username,LoggedIn,lastUpdate){
+function User(UserId,Username,LoggedIn,lastUpdate,levelProgress){
 	this.UserId = UserId;
 	this.Username = Username;
 	this.LoggedIn = LoggedIn;
 	this.lastUpdate = lastUpdate;
+	this.levelProgress = levelProgress;
+}
+
+/*Custom MiddleWare*/
+function touchUser() {
+	return function(req,res,next){
+		sess = req.session;
+		if(sess.User != undefined){
+			onlineUsers[sess.User.UserId].lastUpdate = Date.now();
+		}
+		next();
+	}
 }
