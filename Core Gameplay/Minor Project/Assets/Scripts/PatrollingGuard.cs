@@ -2,7 +2,7 @@
 using UnityEngine.Networking;
 using System.Collections;
 
-public class EnemyController : NetworkBehaviour {
+public class PatrollingGuard: NetworkBehaviour {
 
 	private Rigidbody enemy;
 	private float speed;
@@ -52,13 +52,13 @@ public class EnemyController : NetworkBehaviour {
 		Vector3 leftPosition= new Vector3 (enemy.transform.position.x - 0.9f, enemy.transform.position.y + 1, enemy.transform.position.z);
 		return Physics.Raycast (leftPosition, Vector3.down, 6);
 	}	
-	
+
 	void walkRight() {
 		float yVelocity = enemy.velocity.y;
 		Vector3 movement = new Vector3 (speed, yVelocity, 0.0f);
 		enemy.velocity = movement;
 	}
-	
+
 	void walkLeft() {
 		float yVelocity = enemy.velocity.y;
 		Vector3 movement = new Vector3 (speed * -1, yVelocity, 0.0f);
