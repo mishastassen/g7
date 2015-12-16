@@ -39,6 +39,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0967a6bb48816459209108beb0181c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  server: http://drproject.twi.tudelft.nl:8088
+  loginName: {fileID: 0}
+  loginPass: {fileID: 0}
+  createName: {fileID: 0}
+  createPass: {fileID: 0}
+  responseText: {fileID: 0}
+  onlineUserPrefab: {fileID: 0}
+  onlineUserPanel: {fileID: 0}
+  friendsText: {fileID: 0}
+  popUpPanel: {fileID: 0}
+  inputButtonPanel: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

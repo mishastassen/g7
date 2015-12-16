@@ -436,7 +436,7 @@ function cleanVars(callback){
 	
 	for (var ReceipId in Messages){		//Clean old messages
 		if (Messages.hasOwnProperty(ReceipId)){
-			if(Date.now()- Messages[ReceipId].timestamp > 600000){
+			if(Date.now()- Messages[ReceipId].timestamp > 30000){
 				delete Messages[ReceipId];
 			}
 		}

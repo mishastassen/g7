@@ -6,13 +6,21 @@ using SimpleJSON;
 public class connectButton : MonoBehaviour {
 
 	public User linkedUser;
-
-	public NetworkManager networkmanager;
 	public WebManager webmanager;
 
+	public GameObject popUpPanel;
+	public GameObject inputButtonPanel;
+
 	public void onClick(){
-		JSONClass messageBody = new JSONClass();
-		messageBody ["reqUserId"].AsInt = 0;
-		StartCoroutine (webmanager.IEsendMessage (1,"playGame",messageBody));
+		if (webmanager.currentUser != null) {
+			JSONClass messageBody = new JSONClass ();
+			messageBody ["reqUserId"].AsInt = webmanager.currentUser.UserId;
+			messageBody["reqUsername"].Value = webmanager.currentUser.Username;
+			StartCoroutine (webmanager.IEsendMessage (linkedUser.UserId, "playGame", messageBody));
+			GameObject popUpPanel = GameObject.FindGameObjectWithTag("popUpPanel");
+			popUpPanel.SetActive (true);
+			inputButtonPanel.SetActive (false);
+			popUpPanel.GetComponent<messagePopup> ().sendRequest ();
+		}
 	}
 }

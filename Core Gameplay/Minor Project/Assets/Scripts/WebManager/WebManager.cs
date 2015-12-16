@@ -11,7 +11,7 @@ public class WebManager : MonoBehaviour {
 	string cookie = "";
 
 	/*UI input*/
-	public GameObject loginName, loginPass, createName, createPass, responseText, onlineUserText, friendsText;
+	public GameObject loginName, loginPass, createName, createPass, responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
 
 	/*Users*/
 	public User currentUser;
@@ -142,16 +142,7 @@ public class WebManager : MonoBehaviour {
 			yield break;
 		}
 		JSONNode message = SimpleJSON.JSON.Parse (result);
-		if (message ["Type"].Value == "playGame") {
-			int reqUserId = message ["messageBody"] ["reqUserId"].AsInt;
-			userRequestsGame (reqUserId);
-		} else if (message ["Type"].Value == "acceptGame") {
-			int acceptUserId = message ["messageBody"] ["acceptUserId"].AsInt;
-			userAcceptsGame (acceptUserId);
-		} else if (message ["Type"].Value == "HostStarted") {
-			int reqUserId = message ["messageBody"] ["reqUserId"].AsInt;
-			hostStarted (reqUserId);
-		}
+		messageReceived (message);
 	}
 
 	public IEnumerator IEsendMessage(int receipId,string type,JSONClass messageBody){
@@ -159,6 +150,7 @@ public class WebManager : MonoBehaviour {
 		message["ReceipId"].AsInt = receipId;
 		message["Type"] = type;
 		message["messageBody"] = messageBody;
+		Debug.Log (message.ToString ());
 		WWW www = createJSON (message.ToString (), "/sendMessage");
 		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
 		yield return cd.coroutine;
@@ -218,12 +210,23 @@ public class WebManager : MonoBehaviour {
 	}
 
 	void updateUserText(List<User> users){
-		Text usertext = onlineUserText.GetComponent<Text> ();
-		string userString = "";
+		List<GameObject> oldText = new List<GameObject>();
+		foreach (Transform child in onlineUserPanel.transform) oldText.Add(child.gameObject);
+		oldText.ForEach(child => Destroy(child));
+		int n = 0;
 		foreach (User user in users) {
-			userString += user.Username +" " + user.levelProgress +" " + user.Ip +"\n";
+			GameObject text = Instantiate(onlineUserPrefab) as GameObject;
+			text.transform.SetParent (onlineUserPanel.transform,false);
+			Vector3 textposition = text.transform.position;
+			textposition.y -= n*25;
+			text.transform.position = textposition;
+			text.GetComponent<connectButton>().webmanager = this;
+			text.GetComponent<connectButton>().linkedUser = user;
+			text.GetComponent<connectButton>().popUpPanel = popUpPanel;
+			text.GetComponent<connectButton>().inputButtonPanel = inputButtonPanel;
+			text.GetComponent<Text>().text = user.Username + " " + user.levelProgress + " " + user.Ip;
+			n++;
 		}
-		usertext.text = userString;
 	}
 
 	void updateFriendsText(List<User> friends){
@@ -235,15 +238,9 @@ public class WebManager : MonoBehaviour {
 		usertext.text = userString;
 	}
 
-	void userRequestsGame(int reqUserId){
-		Debug.Log("user requests game");
-	}
-
-	void userAcceptsGame(int acceptUserId){
-		Debug.Log("user accepts game");
-	}
-
-	void hostStarted(int reqUserId){
-		Debug.Log("Host started");
+	void messageReceived(JSONNode message){
+		popUpPanel.SetActive (true);
+		inputButtonPanel.SetActive (false);
+		popUpPanel.GetComponent<messagePopup> ().readMessage (message);
 	}
 }
