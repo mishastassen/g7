@@ -373,7 +373,7 @@ public class PlayerController : NetworkBehaviour {
 	void CmdPickupPackage(string tag){
 		Eventmanager.Instance.packagePickup (this.gameObject,tag);
 		Analytics.CustomEvent ("picked up package", new Dictionary<string , object> {
-			{ "picked up",1 }
+			{ "levelnumber",1 }
 		});
 	}
 
