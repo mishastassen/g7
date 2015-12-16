@@ -92,7 +92,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		clientEndLevelReady = false;
 		Gamemanager.Instance.CheckpointReached = 0;
 		networkmanager.ServerChangeScene (nextLevel);
-		Gamevariables.currentScene = networkmanager.networkSceneName;
+		//Gamevariables.currentScene = networkmanager.networkSceneName;
 	}
 
 
