@@ -7,7 +7,7 @@ using SimpleJSON;
 public class messagePopup : MonoBehaviour {
 
 	public bool requestedgame = false;
-	public GameObject yesButton, noButton, inputPanel, waitText, messageText;
+	public GameObject yesButton, noButton, inputPanel, waitText, messageText, okayButton;
 	string state = "open";
 	int reqUserId;
 
@@ -15,28 +15,41 @@ public class messagePopup : MonoBehaviour {
 	public NetworkManager networkmanager;
 
 	public void readMessage(JSONNode message){
-		messageText.GetComponent<Text> ().text = "";
-		yesButton.SetActive(false);
-		noButton.SetActive(false);
-		waitText.SetActive (false);
-		if (message ["Type"].Value == "playGame" && state == "open") {
-			reqUserId = message ["messageBody"] ["reqUserId"].AsInt;
-			string username = message ["messageBody"] ["reqUsername"].Value;
-			StartCoroutine (otherRequestsGame (username));
-		} else if (message ["Type"].Value == "acceptGame" && state == "gameRequested") {
-			reqUserId = message ["messageBody"] ["acceptUserId"].AsInt;
-			startHost ();
-		} else if (message ["Type"].Value == "HostStarted" && state == "gameAccepted") {
-			state = "open";
-			networkmanager.networkAddress = message ["messageBody"] ["Ip"];
-			networkmanager.StartClient ();
-		} else if (message ["Type"].Value == "denyGame" && state == "gameRequested") {
-			reqUserId = message ["messageBody"] ["acceptUserId"].AsInt;
-			gameDenied ();
+		if (message ["Type"].Value == "playGame" && state != "open") {
+			int busyUserId = message ["messageBody"] ["reqUserId"].AsInt;
+			JSONClass messageBody = new JSONClass ();
+			messageBody ["acceptUserId"].AsInt = webmanager.currentUser.UserId;
+			StartCoroutine (webmanager.IEsendMessage (busyUserId, "userBusy", messageBody));
 		} else {
-			Debug.LogError ("Wrong message received");
-			inputPanel.SetActive (true);
-			gameObject.SetActive (false);
+			messageText.GetComponent<Text> ().text = "";
+			yesButton.SetActive (false);
+			noButton.SetActive (false);
+			waitText.SetActive (false);
+			okayButton.SetActive (false);
+			if (message ["Type"].Value == "playGame" && state == "open") {
+				reqUserId = message ["messageBody"] ["reqUserId"].AsInt;
+				string username = message ["messageBody"] ["reqUsername"].Value;
+				StartCoroutine (otherRequestsGame (username));
+			} else if (message ["Type"].Value == "acceptGame" && state == "gameRequested") {
+				reqUserId = message ["messageBody"] ["acceptUserId"].AsInt;
+				startHost ();
+			} else if (message ["Type"].Value == "HostStarted" && state == "gameAccepted") {
+				state = "open";
+				Debug.Log ("starting");
+				Debug.Log (message ["messageBody"] ["Ip"]);
+				networkmanager.networkAddress = message ["messageBody"] ["Ip"];
+				networkmanager.StartClient ();
+			} else if (message ["Type"].Value == "denyGame" && state == "gameRequested") {
+				reqUserId = message ["messageBody"] ["acceptUserId"].AsInt;
+				gameDenied ();
+			} else if (message ["Type"].Value == "userBusy" && state == "gameRequested") {
+				reqUserId = message ["messageBody"] ["acceptUserId"].AsInt;
+				userBusy ();
+			} else {
+				Debug.LogError ("Wrong message received");
+				inputPanel.SetActive (true);
+				gameObject.SetActive (false);
+			}
 		}
 	}
 
@@ -47,9 +60,7 @@ public class messagePopup : MonoBehaviour {
 		yield return new WaitForSeconds(30.0f);
 		if (state == "gameRequested") {
 			Debug.Log ("no response from user");
-			state = "open";
-			inputPanel.SetActive (true);
-			gameObject.SetActive (false);
+			closePopup ();
 		}
 	}
 
@@ -73,9 +84,7 @@ public class messagePopup : MonoBehaviour {
 		yield return new WaitForSeconds(30.0f);
 		if (state == "gameAccepted") {
 			Debug.Log ("no response from host");
-			state = "open";
-			inputPanel.SetActive (true);
-			gameObject.SetActive (false);
+			closePopup ();
 		}
 	}
 
@@ -91,6 +100,7 @@ public class messagePopup : MonoBehaviour {
 		yesButton.SetActive(false);
 		noButton.SetActive(false);
 		waitText.SetActive (false);
+		okayButton.SetActive (false);
 		StartCoroutine (sendGameRequest());
 	}
 
@@ -115,5 +125,18 @@ public class messagePopup : MonoBehaviour {
 		messageBody ["Ip"].Value = webmanager.currentUser.Ip;
 		StartCoroutine (webmanager.IEsendMessage (reqUserId, "HostStarted", messageBody));
 		networkmanager.StartHost ();
+	}
+
+	public void userBusy(){
+		state = "okayButton";
+		waitText.SetActive (false);
+		messageText.GetComponent<Text> ().text = "User is busy, try again in a few minutes";
+		okayButton.SetActive (true);
+	}
+
+	public void closePopup(){
+		state = "open";
+		inputPanel.SetActive (true);
+		gameObject.SetActive (false);
 	}
 }
