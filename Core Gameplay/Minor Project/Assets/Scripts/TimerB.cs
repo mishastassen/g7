@@ -13,7 +13,7 @@ public class TimerB : MonoBehaviour {
 	private bool enabled;
 	
 	void Start () {
-		timer = Gamemanager.Instance.timer;
+		timer = Gamevariables.timer;
 		timerText.text = "";
 		minutes = 0.0f;
 		seconds = "";
