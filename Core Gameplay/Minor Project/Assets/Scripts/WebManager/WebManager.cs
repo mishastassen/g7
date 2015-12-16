@@ -220,9 +220,9 @@ public class WebManager : MonoBehaviour {
 			Vector3 textposition = text.transform.position;
 			textposition.y -= n*25;
 			text.transform.position = textposition;
+			text.GetComponent<connectButton>().popUpPanel = popUpPanel;
 			text.GetComponent<connectButton>().webmanager = this;
 			text.GetComponent<connectButton>().linkedUser = user;
-			text.GetComponent<connectButton>().popUpPanel = popUpPanel;
 			text.GetComponent<connectButton>().inputButtonPanel = inputButtonPanel;
 			text.GetComponent<Text>().text = user.Username + " " + user.levelProgress + " " + user.Ip;
 			n++;
