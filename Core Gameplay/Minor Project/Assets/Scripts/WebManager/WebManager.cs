@@ -163,7 +163,7 @@ public class WebManager : MonoBehaviour {
 			StartCoroutine (IEgetFriendList ());
 			StartCoroutine (IEgetFriendRequests ());
 			StartCoroutine (IEgetMessages ());
-			yield return new WaitForSeconds (4.0f);
+			yield return new WaitForSeconds (2.0f);
 		}
 	}
 

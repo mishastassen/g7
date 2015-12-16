@@ -26,6 +26,9 @@ public class PlayerController : NetworkBehaviour {
 	private float startTimeJump;
 	[SyncVar(hook="OnJumpingChange")]
 	private bool isJumping;
+	private float startTimeDraw;
+	[SyncVar(hook="OnDrawingChange")]
+	private bool isDrawing;
 	private bool isGrounded;
 	private bool PlayWalkingSoundrunning;
 	private bool doJump = false;
@@ -69,6 +72,7 @@ public class PlayerController : NetworkBehaviour {
 		slowjumplow = 9;
 		runThreshold = 0.5f;
 		facingRight = 1;
+		isDrawing = false;
 
 		GameObject debugObject = GameObject.Find ("DebugText");
 		if(debugObject!=null)
@@ -108,6 +112,9 @@ public class PlayerController : NetworkBehaviour {
 			if (Input.GetButtonUp (jumpButton)) {
 				doJumpCancel = true;
 			}
+			if(Input.GetButtonDown (interact2Button)) {
+				doInteract2();
+			}
 		}
 	}
 
@@ -129,6 +136,11 @@ public class PlayerController : NetworkBehaviour {
 				if(yVelocity>lowjump)
 					yVelocity = lowjump;
 				doJumpCancel = false;
+			}
+
+			// not the way it should be done
+			if(isDrawing && startTimeDraw+1<Time.time) {
+				CmdCheckDrawing(false);
 			}
 
 			//Sync if players are walking
@@ -209,6 +221,7 @@ public class PlayerController : NetworkBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x = facingRight;
 		transform.localScale = theScale;
+		this.facingRight = facingRight;
 	}
 
 	[Command]
@@ -221,6 +234,7 @@ public class PlayerController : NetworkBehaviour {
 	
 	void OnAnimationChange(bool isRunning) {
 		anim.SetBool ("isRunning", isRunning);
+		this.isRunning = isRunning;
 	}
 
 	bool isInStartJump() {
@@ -235,8 +249,19 @@ public class PlayerController : NetworkBehaviour {
 
 	void OnJumpingChange(bool isJumping) {
 		anim.SetBool ("isJumping", isJumping);
+		this.isJumping = isJumping;
 	}
 
+	[Command]
+	void CmdCheckDrawing(bool isDraw) {
+		isDrawing = isDraw;
+	}
+	
+	void OnDrawingChange(bool isDrawing) {
+		anim.SetBool ("isDrawing", isDrawing);
+		this.isDrawing = isDrawing;
+	}
+	
 	//Trigger player removed event
 	void OnDisable()
 	{
@@ -314,6 +339,13 @@ public class PlayerController : NetworkBehaviour {
 			if(TriggerList.Exists (x => x.tag == "Chest")){
 				CmdTriggerChest();
 			}
+		}
+	}
+
+	void doInteract2() {
+		if (!isDrawing) {
+			CmdCheckDrawing (true);
+			startTimeDraw = Time.time;
 		}
 	}
 

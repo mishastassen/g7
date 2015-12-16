@@ -35,6 +35,8 @@ public class messagePopup : MonoBehaviour {
 				startHost ();
 			} else if (message ["Type"].Value == "HostStarted" && state == "gameAccepted") {
 				state = "open";
+				Debug.Log ("starting");
+				Debug.Log (message ["messageBody"] ["Ip"]);
 				networkmanager.networkAddress = message ["messageBody"] ["Ip"];
 				networkmanager.StartClient ();
 			} else if (message ["Type"].Value == "denyGame" && state == "gameRequested") {
@@ -58,9 +60,7 @@ public class messagePopup : MonoBehaviour {
 		yield return new WaitForSeconds(30.0f);
 		if (state == "gameRequested") {
 			Debug.Log ("no response from user");
-			state = "open";
-			inputPanel.SetActive (true);
-			gameObject.SetActive (false);
+			closePopup ();
 		}
 	}
 
@@ -84,9 +84,7 @@ public class messagePopup : MonoBehaviour {
 		yield return new WaitForSeconds(30.0f);
 		if (state == "gameAccepted") {
 			Debug.Log ("no response from host");
-			state = "open";
-			inputPanel.SetActive (true);
-			gameObject.SetActive (false);
+			closePopup ();
 		}
 	}
 
