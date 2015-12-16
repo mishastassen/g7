@@ -14,39 +14,43 @@ public class EnemyController : NetworkBehaviour {
 		facingRight = true;
 	}
 
-	void FixedUpdate() {
+	void FixedUpdate (){
 		bool groundedRight = isGroundedRight ();
 		bool groundedLeft = isGroundedLeft ();
-		if (groundedRight && groundedLeft) {
-			// keep walking
-		} else if (groundedRight) {
-			if (!facingRight) {
-				flip ();
-			}
-			facingRight = true;
-		} else if (groundedLeft) {
+
+		if (groundedLeft && groundedRight) {
 			if (facingRight) {
-				flip ();
+				walkRight ();
+				Debug.Log ("Ik loop naar rechts");
+			} else {
+				walkLeft ();
+				Debug.Log ("Ik loop naar links");
 			}
-			facingRight = false;
-		}
-		if (facingRight) {
-			walkRight ();
-		} else {
+		} else if (groundedLeft && !groundedRight) {
+			Debug.Log ("Ik moet nu naar links gaan lopen");
+			flip ();
 			walkLeft ();
+			facingRight = false;
+		} else if (!groundedLeft && groundedRight) {
+			Debug.Log ("Ik moet nu naar rechts gaan lopen");
+			flip ();
+			walkRight ();
+			facingRight = true;
+		} else {
+			Debug.Log ("Oops. Er is iets goed mis");
 		}
 	}
 
 	// checks whether the rigth of the enemy is on a platform
 	bool isGroundedRight() {
-		Vector3 rightPosition = new Vector3 (enemy.transform.position.x + 0.5f, enemy.transform.position.y + 1, enemy.transform.position.z);
-		return Physics.Raycast (rightPosition, Vector3.down, 2);
+		Vector3 rightPosition = new Vector3 (enemy.transform.position.x + 0.9f, enemy.transform.position.y + 1, enemy.transform.position.z);
+		return Physics.Raycast (rightPosition, Vector3.down, 6);
 	}
 
 	// checks whether the left of the enemy is on a platform
 	bool isGroundedLeft() {
-		Vector3 leftPosition= new Vector3 (enemy.transform.position.x - 0.5f, enemy.transform.position.y + 1, enemy.transform.position.z);
-		return Physics.Raycast (leftPosition, Vector3.down, 2);
+		Vector3 leftPosition= new Vector3 (enemy.transform.position.x - 0.9f, enemy.transform.position.y + 1, enemy.transform.position.z);
+		return Physics.Raycast (leftPosition, Vector3.down, 6);
 	}	
 	
 	void walkRight() {
@@ -62,8 +66,8 @@ public class EnemyController : NetworkBehaviour {
 	}
 
 	void flip () {
-		Vector3 theScale = transform.localScale;
-		theScale.y *= -1;
+		Vector3 theScale = enemy.transform.localScale;
+		theScale.z *= -1;
 		transform.localScale = theScale;
 	}
 }

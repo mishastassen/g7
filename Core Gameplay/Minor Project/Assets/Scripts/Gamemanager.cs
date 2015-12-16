@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
@@ -18,6 +18,7 @@ public class Gamemanager : NetworkBehaviour {
 	[SyncVar]
 	public int CheckpointReached;
 	public string currentLevel;
+	public float timer;
 	
 	//Executed on the server when next level is loaded
 	public delegate void OnNextLevelLoad();
