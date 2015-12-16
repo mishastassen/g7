@@ -49,7 +49,7 @@ public class chestController : NetworkBehaviour {
 	}
 
 	void Update() {
-		Debug.Log (playerCount);
+		//Debug.Log (playerCount);
 	}
 
 	void OnTriggerEnter(Collider other) {
