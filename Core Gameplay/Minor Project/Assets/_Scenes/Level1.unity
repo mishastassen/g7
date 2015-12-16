@@ -41,11 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-<<<<<<< HEAD
   m_GIWorkflowMode: 1
-=======
-  m_GIWorkflowMode: 0
->>>>>>> 4e163acc8b6d6193b836decdef1dc49f3d5efcbd
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
