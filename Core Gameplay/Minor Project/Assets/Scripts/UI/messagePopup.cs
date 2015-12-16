@@ -36,8 +36,8 @@ public class messagePopup : MonoBehaviour {
 			} else if (message ["Type"].Value == "HostStarted" && state == "gameAccepted") {
 				state = "open";
 				Debug.Log ("starting");
-				Debug.Log (message ["messageBody"] ["Ip"]);
-				networkmanager.networkAddress = message ["messageBody"] ["Ip"];
+				Debug.Log (message ["messageBody"] ["gameIp"]);
+				networkmanager.networkAddress = message ["messageBody"] ["gameIp"];
 				networkmanager.StartClient ();
 			} else if (message ["Type"].Value == "denyGame" && state == "gameRequested") {
 				reqUserId = message ["messageBody"] ["acceptUserId"].AsInt;
@@ -122,7 +122,8 @@ public class messagePopup : MonoBehaviour {
 
 	public void startHost(){
 		JSONClass messageBody = new JSONClass ();
-		messageBody ["Ip"].Value = webmanager.currentUser.Ip;
+		messageBody ["gameIp"] = webmanager.currentUser.Ip;
+		Debug.Log (messageBody.ToString ());
 		StartCoroutine (webmanager.IEsendMessage (reqUserId, "HostStarted", messageBody));
 		networkmanager.StartHost ();
 	}
