@@ -11,6 +11,7 @@ GameObject:
   - 222: {fileID: 22258012}
   - 114: {fileID: 11490116}
   - 114: {fileID: 11488384}
+  - 114: {fileID: 11455172}
   m_Layer: 5
   m_Name: Online players
   m_TagString: Untagged
@@ -18,6 +19,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &11455172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce4d687986cbbc341a27f880a8e0f1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webmanager: {fileID: 0}
+  popUpPanel: {fileID: 0}
+  inputButtonPanel: {fileID: 0}
 --- !u!114 &11488384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,8 +72,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: response
+      - m_Target: {fileID: 11455172}
+        m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -96,7 +111,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -123,7 +138,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 4.76837158e-07, y: -20}
-  m_SizeDelta: {x: -20, y: 18}
+  m_SizeDelta: {x: -20, y: 20}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:
@@ -131,7 +146,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 148758}

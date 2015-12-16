@@ -1,2 +1,0 @@
-There should be 'minorprojectv1_Data'
-folder next to the executable

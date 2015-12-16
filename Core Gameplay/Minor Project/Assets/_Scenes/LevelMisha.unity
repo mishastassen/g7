@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458a6449e89e67447836eae1411f8a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facingRight: 0
 --- !u!1001 &256619032
 Prefab:
   m_ObjectHideFlags: 0
@@ -245,6 +246,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11467302, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 118158, guid: 9e0c8a33dc134e145a5e348e32f02e7e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
   m_IsPrefabParent: 0
@@ -683,7 +688,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
 --- !u!114 &817955138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,8 +702,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minzoom: 0
   maxzoom: 0
-  windowx: 3
-  windowy: 5
+  windowx: 0
+  windowy: 0
 --- !u!114 &817955139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,7 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881ce3d058093054da2604e01c948f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipAmbient: {fileID: 8300000, guid: a175276554e3fc644a0576b7d8c0230e, type: 3}
+  clipAmbient: {fileID: 0}
 --- !u!1 &848864327
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,7 +758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: {fileID: 1905983912}
-  speed: 5
+  speed: 1
   inRangeGoal: .100000001
 --- !u!114 &848864330
 MonoBehaviour:
@@ -839,7 +844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a714d146774e2f4691833c1c24e0993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 125380, guid: 082345a403e8d9e4298e44ba6696b804, type: 2}
+  prefab: {fileID: 0}
 --- !u!114 &904916336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,6 +1157,10 @@ Prefab:
       propertyPath: m_OnlineScene
       value: LevelMisha
       objectReference: {fileID: 0}
+    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 118158, guid: 9e0c8a33dc134e145a5e348e32f02e7e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
   m_IsPrefabParent: 0
