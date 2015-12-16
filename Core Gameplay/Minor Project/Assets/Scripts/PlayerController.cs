@@ -94,7 +94,7 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	void Update(){
-		Debug.Log (Gamevariables.currentScene);
+		Debug.Log (Gamevariables.currentLevel);
 		if (isLocalPlayer) {
 			CheckGrounded();
 
@@ -373,7 +373,7 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdPickupPackage(string tag){
 		Eventmanager.Instance.packagePickup (this.gameObject,tag);
-		Analytics.CustomEvent ("picked up package", new Dictionary<string , object> {
+		Analytics.CustomEvent (Gamevariables.currentLevel + "picked up package", new Dictionary<string , object> {
 			{ "levelnumber",1 }
 		});
 	}
@@ -381,7 +381,7 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdDropPackage(){
 		Eventmanager.Instance.packageDrop (this.gameObject);
-		Analytics.CustomEvent ("dropped package", new Dictionary<string , object> {
+		Analytics.CustomEvent (Gamevariables.currentLevel + "dropped package", new Dictionary<string , object> {
 			{ "dropped",1 }
 		});
 	}
@@ -389,7 +389,7 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdThrowPackage() {
 		Eventmanager.Instance.packageThrow (this.gameObject);
-		Analytics.CustomEvent ("throws package", new Dictionary<string , object> {
+		Analytics.CustomEvent (Gamevariables.currentLevel + "throws package", new Dictionary<string , object> {
 			{ "throw!",1 }
 		});
 	}
@@ -397,7 +397,7 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdTriggerSwitch(int id){
 		Eventmanager.Instance.triggerSwitchPulled(id);
-		Analytics.CustomEvent ("Switch triggered", new Dictionary<string , object> {
+		Analytics.CustomEvent (Gamevariables.currentLevel + "Switch triggered", new Dictionary<string , object> {
 			{ "Triggered",1 }
 		});
 	}
@@ -405,7 +405,7 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdTriggerChest(){
 		Eventmanager.Instance.triggerChestActivated ();
-		Analytics.CustomEvent ("Started chest minigame", new Dictionary<string , object> {
+		Analytics.CustomEvent (Gamevariables.currentLevel + "Started chest minigame", new Dictionary<string , object> {
 			{ "Minigame started",1 }
 		});
 	}
@@ -413,7 +413,7 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
-		Analytics.CustomEvent ("Death", new Dictionary<string , object> {
+		Analytics.CustomEvent (Gamevariables.currentLevel + "Death", new Dictionary<string , object> {
 			{ "Death",1 }
 		});
 	}
@@ -421,7 +421,7 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdCheckpointReached(int checkpointNum){
 		Eventmanager.Instance.triggerCheckpointReached (checkpointNum);
-		Analytics.CustomEvent ("Reached checkpoint", new Dictionary<string , object> {
+		Analytics.CustomEvent (Gamevariables.currentLevel + "Reached checkpoint", new Dictionary<string , object> {
 			{ "Checkpoint reached",1 }
 		});
 	}

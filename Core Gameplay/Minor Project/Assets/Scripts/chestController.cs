@@ -21,6 +21,7 @@ public class chestController : NetworkBehaviour {
 
 	void Start() {
 		playerCount = 0;
+		Gamevariables.returnLevel = currentLevel;
 		//Gamemanager.Instance.currentLevel = currentLevel;
 		//startLocation = GameObject.Find ("Player").GetComponent<Rigidbody> ().transform.position;
 	}

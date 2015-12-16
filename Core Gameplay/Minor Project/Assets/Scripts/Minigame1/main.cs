@@ -34,7 +34,7 @@ public class main : NetworkBehaviour {
 		succes = false;
 		finished = false;
 		setTimeText ();
-		returnLevel = Gamemanager.Instance.currentLevel;
+		returnLevel = Gamevariables.returnLevel;
 	}
 	
 	// Update is called once per frame

@@ -18,7 +18,7 @@ public class Gamemanager : NetworkBehaviour {
 	[SyncVar]
 	public int CheckpointReached;
 	public string currentLevel;
-	public float timer;
+	//public float timer;
 	
 	//Executed on the server when next level is loaded
 	public delegate void OnNextLevelLoad();
