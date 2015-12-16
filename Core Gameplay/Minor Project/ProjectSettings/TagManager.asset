@@ -18,6 +18,8 @@ TagManager:
   - TempNavMeshItemDestroyable
   - PlayerModel
   - Guard
+  - popUpPanel
+  - inputButtonPanel
   layers:
   - Default
   - TransparentFX
