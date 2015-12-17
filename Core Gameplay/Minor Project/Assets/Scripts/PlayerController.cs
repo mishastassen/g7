@@ -415,7 +415,8 @@ public class PlayerController : NetworkBehaviour {
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
 		Analytics.CustomEvent ("Player Deaths", new Dictionary<string , object> {
-			{"Levelname", Gamevariables.currentLevel}
+			{"Levelname", Gamevariables.currentLevel},
+			{"Position", this.transform.position}
 		});
 	}
 

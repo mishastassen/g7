@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class main : NetworkBehaviour {
@@ -20,6 +22,7 @@ public class main : NetworkBehaviour {
 	private double time;
 	bool succes;
 	bool finished;
+	private int amountofTries;
 
 	//Level to go back too
 	//public string nextlevel;
@@ -35,6 +38,7 @@ public class main : NetworkBehaviour {
 		finished = false;
 		setTimeText ();
 		returnLevel = Gamevariables.returnLevel;
+		amountofTries = 1;
 	}
 	
 	// Update is called once per frame
@@ -70,9 +74,13 @@ public class main : NetworkBehaviour {
 			if (succes) {
 				NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 				Manager.playerPrefab = prefab;
-				Debug.Log (returnLevel);
+				Analytics.CustomEvent ("Minigame Finished", new Dictionary<string, object> {
+					{ "Time Left", timeLeft },
+					{ "Mingame Tries", amountofTries }
+				});
 				Eventmanager.Instance.triggerLevelFinished(returnLevel);
 			} else {
+				amountofTries += 1;
 				Eventmanager.Instance.triggerLevelFinished("Minigame1");
 			}
 		}

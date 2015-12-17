@@ -2,6 +2,8 @@
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class GamemanagerEventHandler : NetworkBehaviour {
 
@@ -60,6 +62,10 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		GameObject package = GameObject.FindWithTag ("Package1");
 		Transform transform = GameObject.FindWithTag ("PickUp1Spawn").transform;
 		Destroy (package);
+		Analytics.CustomEvent ("Package Destroyed", new Dictionary<string, object> {
+			{ "Levelname", Gamevariables.currentLevel },
+			{ "Position", transform.position }
+		});
 		GameObject newPackage = (GameObject)Instantiate (PickUp1Prefab, transform.position, transform.rotation);
 		NetworkServer.Spawn (newPackage);
 	}

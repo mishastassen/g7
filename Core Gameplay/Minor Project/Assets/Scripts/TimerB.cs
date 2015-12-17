@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class TimerB : MonoBehaviour {
 	
@@ -36,6 +38,13 @@ public class TimerB : MonoBehaviour {
 	void Update () {
 		if (!levelFinished) {
 			UpdateTimer ();
+			Gamevariables.timer = timer;
+		} else {
+			Analytics.CustomEvent ("Level Finished", new Dictionary<string, object> {
+				{ "Levelname", Gamevariables.currentLevel },
+				{ "Time", timer }
+			});
+			Gamevariables.timer = 0;
 		}
 	}
 	
