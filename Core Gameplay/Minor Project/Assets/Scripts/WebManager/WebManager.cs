@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
@@ -18,7 +19,7 @@ public class WebManager : MonoBehaviour {
 
 	/*Setup levels*/
 	[HideInInspector]
-	public bool localmultiplayer;
+	public bool localmultiplayer = false;
 	public string level1;
 	
 	/*Users*/
@@ -186,7 +187,9 @@ public class WebManager : MonoBehaviour {
 			User user = new User(userListJSON[key]);
 			onlineUsersList.Add(user);
 		}
-		updateUserText (onlineUsersList);
+		if (SceneManager.GetActiveScene().buildIndex == 0) {
+			updateUserText (onlineUsersList);
+		}
 	}
 
 	IEnumerator IEgetMessages(){
@@ -231,7 +234,7 @@ public class WebManager : MonoBehaviour {
 			currentUser = null;
 			yield return null;
 		}
-		responseText.GetComponent<Text>().text = www.text;
+		//responseText.GetComponent<Text>().text = www.text;
 		if(www.responseHeaders.ContainsKey("SET-COOKIE")){
 			cookie = www.responseHeaders ["SET-COOKIE"];
 		}
@@ -277,7 +280,7 @@ public class WebManager : MonoBehaviour {
 			oldText.ForEach (child => Destroy (child));
 			foreach (User user in users) {
 				GameObject text = Instantiate (onlineUserPrefab) as GameObject;
-				text.GetComponent<Text> ().text = user.Username + " " + user.levelProgress + " " + user.Ip;
+				text.GetComponent<Text> ().text = user.Username;
 				text.transform.SetParent (onlineUserPanel.transform, false);
 				text.GetComponent<connectButton> ().popUpPanel = popUpPanel;
 				text.GetComponent<connectButton> ().webmanager = this;

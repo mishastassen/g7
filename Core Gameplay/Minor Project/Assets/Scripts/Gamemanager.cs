@@ -58,17 +58,21 @@ public class Gamemanager : NetworkBehaviour {
 		DontDestroyOnLoad (gameObject);
 		networkmanager = (NetworkManager) FindObjectOfType(typeof(NetworkManager));
 	}
-
+		
 	void Update () {
-		if(NetworkManager.networkSceneName == "preScene" && WebManager.Instance.localmultiplayer == true){
-			localmultiplayer = true;
-			ClientScene.AddPlayer(2);
-			Eventmanager.Instance.triggerLevelFinished(WebManager.Instance.level1);
+		if (NetworkManager.networkSceneName == "preScene") {
+			if (WebManager.Instance.localmultiplayer) {
+				localmultiplayer = true;
+				ClientScene.AddPlayer (2);
+				Eventmanager.Instance.triggerLevelFinished (WebManager.Instance.level1);
+			}else{
+				Eventmanager.Instance.triggerLevelFinished (WebManager.Instance.level1);
+			}
 		}else if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
 			ClientScene.AddPlayer(2);
 		}
 	}
-
+		
 	void OnDestroy () {
 		applicationIsQuitting = true;
 	}

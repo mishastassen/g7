@@ -24,6 +24,7 @@ public class messagePopup : MonoBehaviour {
 		image.color = c;
 
 		webmanager = WebManager.Instance;
+		networkmanager = (NetworkManager)GameObject.FindObjectOfType (typeof(NetworkManager));
 	}
 
 	public void readMessage(JSONNode message){

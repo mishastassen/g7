@@ -12,10 +12,10 @@ public class connectButton : MonoBehaviour {
 	public GameObject inputButtonPanel;
 
 	public void onClick(){
-		if (webmanager.currentUser != null) {
+		if (webmanager.currentUser != null && webmanager.currentUser.UserId != linkedUser.UserId) {
 			JSONClass messageBody = new JSONClass ();
 			messageBody ["reqUserId"].AsInt = webmanager.currentUser.UserId;
-			messageBody["reqUsername"].Value = webmanager.currentUser.Username;
+			messageBody["reqUsername"] = webmanager.currentUser.Username;
 			StartCoroutine (webmanager.IEsendMessage (linkedUser.UserId, "playGame", messageBody));
 			popUpPanel.SetActive (true);
 			//inputButtonPanel.SetActive (false);
