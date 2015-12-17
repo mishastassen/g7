@@ -94,6 +94,7 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	void Update(){
+		Debug.Log (Gamevariables.currentLevel);
 		if (isLocalPlayer) {
 			CheckGrounded();
 
@@ -329,6 +330,7 @@ public class PlayerController : NetworkBehaviour {
 			}
 
 			foreach( Collider c in TriggerList) {
+				Debug.Log (c.tag);
 				if(c.tag == "Switch") {
 					int switchID = ExtractIDFromName(c.name);
 					Debug.Log ("switch collider.name: "+c.name+", ID: "+switchID);
@@ -372,56 +374,57 @@ public class PlayerController : NetworkBehaviour {
 	[Command]
 	void CmdPickupPackage(string tag){
 		Eventmanager.Instance.packagePickup (this.gameObject,tag);
-		Analytics.CustomEvent ("picked up package", new Dictionary<string , object> {
-			{ "levelnumber",1 }
+		Analytics.CustomEvent ("Package Picked Up", new Dictionary<string , object> {
+			{"Levelname", Gamevariables.currentLevel}
 		});
 	}
 
 	[Command]
 	void CmdDropPackage(){
 		Eventmanager.Instance.packageDrop (this.gameObject);
-		Analytics.CustomEvent ("dropped package", new Dictionary<string , object> {
-			{ "dropped",1 }
+		Analytics.CustomEvent ("Package Dropped", new Dictionary<string , object> {
+			{"Levelname", Gamevariables.currentLevel}
 		});
 	}
 	
 	[Command]
 	void CmdThrowPackage() {
 		Eventmanager.Instance.packageThrow (this.gameObject);
-		Analytics.CustomEvent ("throws package", new Dictionary<string , object> {
-			{ "throw!",1 }
+		Analytics.CustomEvent ("Package Thrown", new Dictionary<string , object> {
+			{"Levelname", Gamevariables.currentLevel}
 		});
 	}
 
 	[Command]
 	void CmdTriggerSwitch(int id){
 		Eventmanager.Instance.triggerSwitchPulled(id);
-		Analytics.CustomEvent ("Switch triggered", new Dictionary<string , object> {
-			{ "Triggered",1 }
+		Analytics.CustomEvent ("Switch Triggered", new Dictionary<string , object> {
+			{"Levelname", Gamevariables.currentLevel}
 		});
 	}
 
 	[Command]
 	void CmdTriggerChest(){
 		Eventmanager.Instance.triggerChestActivated ();
-		Analytics.CustomEvent ("Started chest minigame", new Dictionary<string , object> {
-			{ "Minigame started",1 }
+		Analytics.CustomEvent ("Chest Minigame Started", new Dictionary<string , object> {
+			{"Levelname", Gamevariables.currentLevel}
 		});
 	}
 
 	[Command]
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
-		Analytics.CustomEvent ("Death", new Dictionary<string , object> {
-			{ "Death",1 }
+		Analytics.CustomEvent ("Player Deaths", new Dictionary<string , object> {
+			{"Levelname", Gamevariables.currentLevel},
+			{"Position", this.transform.position}
 		});
 	}
 
 	[Command]
 	void CmdCheckpointReached(int checkpointNum){
 		Eventmanager.Instance.triggerCheckpointReached (checkpointNum);
-		Analytics.CustomEvent ("Reached checkpoint", new Dictionary<string , object> {
-			{ "Checkpoint reached",1 }
+		Analytics.CustomEvent ("Checkpoint Reached", new Dictionary<string , object> {
+			{"Levelname", Gamevariables.currentLevel}
 		});
 	}
 

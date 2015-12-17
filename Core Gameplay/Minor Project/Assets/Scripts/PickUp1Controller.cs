@@ -26,6 +26,7 @@ public class PickUp1Controller : NetworkBehaviour {
 
 		if ( other.tag == "DeathZone" && !isDestroyed) {
 			isDestroyed = true;
+
 			Eventmanager.Instance.triggerPackageDestroyed();
 		}
 	}

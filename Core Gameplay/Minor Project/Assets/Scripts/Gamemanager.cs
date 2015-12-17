@@ -17,12 +17,9 @@ public class Gamemanager : NetworkBehaviour {
 	public bool localmultiplayer;
 	[SyncVar]
 	public int CheckpointReached;
-	public string currentLevel;
-	public float timer;
-
-	//References
-	private NetworkManager networkmanager;
-
+	//public string currentLevel;
+	//public float timer;
+	
 	//Executed on the server when next level is loaded
 	public delegate void OnNextLevelLoad();
 	public OnNextLevelLoad onNextLevelLoad;
@@ -56,17 +53,10 @@ public class Gamemanager : NetworkBehaviour {
 
 	void Awake () {
 		DontDestroyOnLoad (gameObject);
-		networkmanager = (NetworkManager) FindObjectOfType(typeof(NetworkManager));
 	}
 
 	void Update () {
-		if (NetworkManager.networkSceneName == "preScene") {
-			if (WebManager.Instance.localmultiplayer = true) {
-				localmultiplayer = true;
-				ClientScene.AddPlayer(2);
-				Eventmanager.Instance.triggerLevelFinished (WebManager.Instance.level1);
-			}
-		}else if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
+		if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
 			ClientScene.AddPlayer(2);
 		}
 	}
