@@ -28,6 +28,9 @@ public class Gamemanager : NetworkBehaviour {
 	public delegate void disableEventHandlers();
 	public disableEventHandlers onDisableEventHandlers;
 
+	//References
+	private NetworkManager networkmanager;
+
 	//Function to call this object
 	public static Gamemanager Instance{
 		get{
@@ -53,10 +56,15 @@ public class Gamemanager : NetworkBehaviour {
 
 	void Awake () {
 		DontDestroyOnLoad (gameObject);
+		networkmanager = (NetworkManager) FindObjectOfType(typeof(NetworkManager));
 	}
 
 	void Update () {
-		if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
+		if(NetworkManager.networkSceneName == "preScene" && WebManager.Instance.localmultiplayer == true){
+			localmultiplayer = true;
+			ClientScene.AddPlayer(2);
+			Eventmanager.Instance.triggerLevelFinished(WebManager.Instance.level1);
+		}else if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
 			ClientScene.AddPlayer(2);
 		}
 	}
