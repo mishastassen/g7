@@ -27,8 +27,8 @@ public class Player : MonoBehaviour {
 	
 	// is the wind blowing?
 	private bool windBlowing;
-	// public ParticleSystem toleft;
-	// public ParticleSystem toright;
+	public ParticleSystem toleft;
+	public ParticleSystem toright;
 	// private GameObject windtoright;
 	
 	int frame_count;
@@ -42,8 +42,8 @@ public class Player : MonoBehaviour {
 		frame_count = 1;
 		blowdir = getWindDirection ();
 
-		//toleft.enableEmission = false;
-		//toright.enableEmission = false;
+		toleft.enableEmission = false;
+		toright.enableEmission = false;
 
 		way_left = 1f;
 		way_right = 1f;
@@ -72,11 +72,11 @@ public class Player : MonoBehaviour {
 			wind_count ++;
 
 			if (blowdir > 0){
-				//toleft.enableEmission = true;
-				//toleft.Play();
+				toleft.enableEmission = true;
+				toleft.Play();
 			} else{
-				//toright.enableEmission = true;
-				//toright.Play ();
+				toright.enableEmission = true;
+				toright.Play ();
 			}
 			
 			left.transform.RotateAround (LeftPlayerRot, Vector3.forward, blowdir * severity * windspeed * Time.deltaTime * way_left);
@@ -87,8 +87,8 @@ public class Player : MonoBehaviour {
 				wind_count = 0;
 				blowdir = getWindDirection();
 				// geluid.Stop ();
-				// toleft.enableEmission = false;
-				// toright.enableEmission = false;
+				toleft.enableEmission = false;
+				toright.enableEmission = false;
 			}
 		}
 
@@ -101,10 +101,8 @@ public class Player : MonoBehaviour {
 		}
 		
 		if (Input.GetKey (KeyCode.S)) {
-			leftanim.SetInteger ("WalkBackwards", 1);
 			left.transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime * way_left);
 		} else {
-			leftanim.SetInteger ("WalkBackwards", 0);
 		}
 
 		if (Input.GetKey (KeyCode.A)) {
@@ -123,10 +121,8 @@ public class Player : MonoBehaviour {
 		}
 		
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			rightanim.SetInteger ("WalkBackwards", 1);
 			right.transform.Translate (-Vector3.forward * walkspeed * Time.deltaTime * way_right);
 		} else {
-			rightanim.SetInteger ("WalkBackwards", 0);
 		}
 		
 		if (Input.GetKey (KeyCode.LeftArrow)) {
@@ -145,17 +141,17 @@ public class Player : MonoBehaviour {
 		}
 
 		// increase the severity of the wind if one progresses
-		if (left.transform.position.z > 10 | right.transform.position.z > 10) {
+		if (left.transform.position.z > 15 | right.transform.position.z > 15) {
 			severity = 1.25f;
 			compensate = severity * 1.4f;
 		}
 		
-		if (left.transform.position.z > 20 | right.transform.position.z > 20) {
+		if (left.transform.position.z > 40 | right.transform.position.z > 40) {
 			severity = 1.5f;
 			compensate = severity * 1.3f;
 		}
 		
-		if (left.transform.position.z > 30 | right.transform.position.z > 30) {
+		if (left.transform.position.z > 60 | right.transform.position.z > 60) {
 			severity = 2.0f;
 			compensate = severity * 1.1f;
 		}
@@ -191,13 +187,15 @@ public class Player : MonoBehaviour {
 		}
 
 		// has the end been reached yet?
-		if (left.transform.position.z > 39) {
+		if (left.transform.position.z > 79) {
 			way_left = 0f;
 		}
 
-		if (right.transform.position.z > 39) {
+		if (right.transform.position.z > 79) {
 			way_right = 0f;
 		}
+
+		Debug.Log (left.transform.position.z);
 		// end of update function below
 	}
 
