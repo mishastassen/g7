@@ -18,7 +18,7 @@ public class connectButton : MonoBehaviour {
 			messageBody["reqUsername"].Value = webmanager.currentUser.Username;
 			StartCoroutine (webmanager.IEsendMessage (linkedUser.UserId, "playGame", messageBody));
 			popUpPanel.SetActive (true);
-			inputButtonPanel.SetActive (false);
+			//inputButtonPanel.SetActive (false);
 			popUpPanel.GetComponent<messagePopup> ().sendRequest ();
 		}
 	}

@@ -14,6 +14,18 @@ public class messagePopup : MonoBehaviour {
 	public WebManager webmanager;
 	public NetworkManager networkmanager;
 
+	Image image;
+
+	void Start(){
+		image = GetComponent<Image> ();
+
+		Color c = image.color;
+		c.a = 255;
+		image.color = c;
+
+		webmanager = WebManager.Instance;
+	}
+
 	public void readMessage(JSONNode message){
 		if (message ["Type"].Value == "playGame" && state != "open") {
 			int busyUserId = message ["messageBody"] ["reqUserId"].AsInt;
@@ -47,7 +59,7 @@ public class messagePopup : MonoBehaviour {
 				userBusy ();
 			} else {
 				Debug.LogError ("Wrong message received");
-				inputPanel.SetActive (true);
+				//inputPanel.SetActive (true);
 				gameObject.SetActive (false);
 			}
 		}
@@ -108,16 +120,12 @@ public class messagePopup : MonoBehaviour {
 		JSONClass messageBody = new JSONClass ();
 		messageBody ["acceptUserId"].AsInt = webmanager.currentUser.UserId;
 		StartCoroutine (webmanager.IEsendMessage (reqUserId, "denyGame", messageBody));
-		state = "open";
-		inputPanel.SetActive (true);
-		gameObject.SetActive (false);
+		closePopup ();
 	}
 
 	public void gameDenied(){
-		state = "open";
 		waitText.SetActive (false);
-		inputPanel.SetActive (true);
-		gameObject.SetActive (false);
+		closePopup ();
 	}
 
 	public void startHost(){
@@ -137,7 +145,7 @@ public class messagePopup : MonoBehaviour {
 
 	public void closePopup(){
 		state = "open";
-		inputPanel.SetActive (true);
+		//inputPanel.SetActive (true);
 		gameObject.SetActive (false);
 	}
 }
