@@ -35,8 +35,8 @@ public class Timer : MonoBehaviour {
 	void Update () {
 		if (!levelFinished) {
 			UpdateTimer ();
+			Gamevariables.timer = timer;
 		}
-		Gamevariables.timer = timer;
 	}
 	
 	void HandleEventonLevelFinished (string nextLevel)
