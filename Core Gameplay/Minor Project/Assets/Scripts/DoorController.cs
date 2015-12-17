@@ -15,7 +15,6 @@ public class DoorController : NetworkBehaviour {
 
 	public int doorID;
 
-	[SyncVar]
 	private bool doorOpen;
 	private bool eventEnabled;
 
@@ -42,7 +41,6 @@ public class DoorController : NetworkBehaviour {
 	void switchPulled(int id) {
 		if (id != doorID)
 			return;
-
 		if (!doorOpen) {
 			doorOpen = true;
 			anim.SetBool ("isOpen", true);

@@ -94,7 +94,6 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	void Update(){
-		Debug.Log (Gamevariables.currentLevel);
 		if (isLocalPlayer) {
 			CheckGrounded();
 

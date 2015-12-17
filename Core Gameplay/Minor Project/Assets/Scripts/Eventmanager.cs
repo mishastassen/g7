@@ -98,12 +98,12 @@ public class Eventmanager : NetworkBehaviour {
 
 				if ( FindObjectsOfType(typeof(Eventmanager)).Length > 1 )
 				{
-					Debug.Log("Warning: multiple event managers");
+					Debug.LogError("Warning: multiple event managers");
 					return static_instance;
 				}
 
 				if(static_instance == null){
-					Debug.Log("Error no Event manager singleton");
+					Debug.LogError("Error no Event manager singleton");
 				}
 			}
 			return static_instance;

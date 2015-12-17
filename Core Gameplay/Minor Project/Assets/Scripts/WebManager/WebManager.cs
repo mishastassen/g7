@@ -44,11 +44,11 @@ public class WebManager : MonoBehaviour {
 
 				if ( FindObjectsOfType(typeof(WebManager)).Length > 1 )
 				{
-					Debug.Log("Warning: multiple game managers");
+					Debug.LogError("Warning: multiple WebManagers");
 					return static_instance;
 				}
 				if(static_instance == null){
-					Debug.Log("Error no Gamemanager singleton");
+					Debug.LogError("Error no WebManager singleton");
 				}
 			}
 			return static_instance;
