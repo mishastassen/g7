@@ -13,14 +13,56 @@ public class WebManager : MonoBehaviour {
 	/*UI input*/
 	public GameObject loginName, loginPass, createName, createPass, responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
 
+	/*Setup levels*/
+	[HideInInspector]
+	public bool localmultiplayer;
+	public string level1;
+
 	/*Users*/
-	public User currentUser;
+	public User currentUser = null;
 	public List<User> friendList = new List<User>();  //Friend list
 	public List<User> requestList = new List<User> (); //Pending friend requests
 	public List<User> onlineUsersList = new List<User>(); //Online Users
-	
+
+	/*Make this Don't Destroy on Load and set instance*/
+	private static WebManager static_instance = null;
+	private static object _lock = new object ();
+	private static bool applicationIsQuitting = false;
+
+	public static WebManager Instance{
+		get{
+			if (applicationIsQuitting) {
+				return null;
+			}
+			lock(_lock)
+			{
+				static_instance = (WebManager) FindObjectOfType(typeof(WebManager));
+
+				if ( FindObjectsOfType(typeof(WebManager)).Length > 1 )
+				{
+					Debug.Log("Warning: multiple game managers");
+					return static_instance;
+				}
+				if(static_instance == null){
+					Debug.Log("Error no Gamemanager singleton");
+				}
+			}
+			return static_instance;
+		}
+	}
+
+	void Awake () {
+		if (FindObjectsOfType (typeof(WebManager)).Length > 1) {
+			Destroy (gameObject);
+		} else {
+			DontDestroyOnLoad (gameObject);
+		}
+	}
+
+
+	/*UI functions to call*/
 	public void login(){
-		StartCoroutine(IElogin ());
+		StartCoroutine(IElogin (loginName.GetComponent<InputField>().text,loginPass.GetComponent<InputField>().text));
 	}
 
 	public void logout(){
@@ -32,7 +74,7 @@ public class WebManager : MonoBehaviour {
 	}
 
 	public void createAccount(){
-		StartCoroutine(IEcreateAccount());
+		StartCoroutine(IEcreateAccount(createName.GetComponent<InputField>().text,createPass.GetComponent<InputField>().text));
 	}
 
 	public void getFriendList(){
@@ -43,10 +85,12 @@ public class WebManager : MonoBehaviour {
 		StartCoroutine(IEgetUsers ());
 	}
 
-	IEnumerator IElogin(){
+
+	/*IEnumerators for coroutines*/
+	IEnumerator IElogin(string username, string password){
 		JSONClass JSON = new JSONClass();
-		JSON.Add ("username", new JSONData (loginName.GetComponent<InputField>().text));
-		JSON.Add ("password", new JSONData (loginPass.GetComponent<InputField>().text));
+		JSON.Add ("username", new JSONData (username));
+		JSON.Add ("password", new JSONData (password));
 		WWW www = createJSON (JSON.ToString (), "/login");
 		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
 		yield return cd.coroutine;
@@ -72,10 +116,10 @@ public class WebManager : MonoBehaviour {
 		yield return cd.coroutine;
 	}
 
-	IEnumerator IEcreateAccount(){
+	IEnumerator IEcreateAccount(string username, string password){
 		JSONClass JSON = new JSONClass();
-		JSON.Add ("username", new JSONData (createName.GetComponent<InputField>().text));
-		JSON.Add ("password", new JSONData (createPass.GetComponent<InputField>().text));
+		JSON.Add ("username", new JSONData (username));
+		JSON.Add ("password", new JSONData (password));
 		WWW www = createJSON (JSON.ToString (), "/createAccount");
 		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
 		yield return cd.coroutine;
@@ -97,7 +141,7 @@ public class WebManager : MonoBehaviour {
 			friendList.Add(friend);
 			index++;
 		}
-		updateFriendsText (friendList);
+		//updateFriendsText (friendList);
 	}
 
 	IEnumerator IEgetFriendRequests(){
@@ -187,7 +231,9 @@ public class WebManager : MonoBehaviour {
 			yield return www.text;
 		}
 	}
-	
+
+
+	/*Constructors for different WWW objects*/
 	WWW createJSON(string JSONdata, string path){
 		
 		Dictionary<string,string> headers = new Dictionary<string,string>();
@@ -209,38 +255,40 @@ public class WebManager : MonoBehaviour {
 		return new WWW(server + path, null, headers);
 	}
 
+
+	/*Functions called in script*/
 	void updateUserText(List<User> users){
-		List<GameObject> oldText = new List<GameObject>();
-		foreach (Transform child in onlineUserPanel.transform) oldText.Add(child.gameObject);
-		oldText.ForEach(child => Destroy(child));
-		int n = 0;
-		foreach (User user in users) {
-			GameObject text = Instantiate(onlineUserPrefab) as GameObject;
-			text.transform.SetParent (onlineUserPanel.transform,false);
-			Vector3 textposition = text.transform.position;
-			textposition.y -= n*25;
-			text.transform.position = textposition;
-			text.GetComponent<connectButton>().popUpPanel = popUpPanel;
-			text.GetComponent<connectButton>().webmanager = this;
-			text.GetComponent<connectButton>().linkedUser = user;
-			text.GetComponent<connectButton>().inputButtonPanel = inputButtonPanel;
-			text.GetComponent<Text>().text = user.Username + " " + user.levelProgress + " " + user.Ip;
-			n++;
+		if (onlineUserPanel.activeInHierarchy) {
+			List<GameObject> oldText = new List<GameObject> ();
+			foreach (Transform child in onlineUserPanel.transform)
+				oldText.Add (child.gameObject);
+			oldText.ForEach (child => Destroy (child));
+			foreach (User user in users) {
+				GameObject text = Instantiate (onlineUserPrefab) as GameObject;
+				text.GetComponent<Text> ().text = user.Username + " " + user.levelProgress + " " + user.Ip;
+				text.transform.SetParent (onlineUserPanel.transform, false);
+				text.GetComponent<connectButton> ().popUpPanel = popUpPanel;
+				text.GetComponent<connectButton> ().webmanager = this;
+				text.GetComponent<connectButton> ().linkedUser = user;
+				//text.GetComponent<connectButton>().inputButtonPanel = inputButtonPanel;
+			}
 		}
 	}
 
 	void updateFriendsText(List<User> friends){
-		Text usertext = friendsText.GetComponent<Text> ();
-		string userString = "";
-		foreach (User user in friends) {
-			userString += user.Username +" " + user.levelProgress +" " + user.Online + "\n";
+		if (friendsText.activeInHierarchy) {
+			Text usertext = friendsText.GetComponent<Text> ();
+			string userString = "";
+			foreach (User user in friends) {
+				userString += user.Username + " " + user.levelProgress + " " + user.Online + "\n";
+			}
+			usertext.text = userString;
 		}
-		usertext.text = userString;
 	}
 
 	void messageReceived(JSONNode message){
 		popUpPanel.SetActive (true);
-		inputButtonPanel.SetActive (false);
+		//inputButtonPanel.SetActive (false);
 		popUpPanel.GetComponent<messagePopup> ().readMessage (message);
 	}
 }
