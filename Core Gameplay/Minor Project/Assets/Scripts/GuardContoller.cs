@@ -63,7 +63,7 @@ public class GuardContoller : NetworkBehaviour {
 
 	IEnumerator wait (){
 		agent.destination = PlayerPos.position;
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (5); 
 	}
 
 
