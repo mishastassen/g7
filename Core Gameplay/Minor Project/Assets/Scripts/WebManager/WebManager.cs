@@ -13,11 +13,14 @@ public class WebManager : MonoBehaviour {
 	/*UI input*/
 	public GameObject loginName, loginPass, createName, createPass, responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
 
+	/*UI response*/
+	public GameObject loginResponse, createAccountResponse;
+
 	/*Setup levels*/
 	[HideInInspector]
 	public bool localmultiplayer;
 	public string level1;
-
+	
 	/*Users*/
 	public User currentUser = null;
 	public List<User> friendList = new List<User>();  //Friend list
@@ -96,8 +99,13 @@ public class WebManager : MonoBehaviour {
 		yield return cd.coroutine;
 		string result = (string)cd.result;
 		if (result == "Wrong username" || result == "Wrong password") {
-			Debug.LogError("Incorrect login info");
+			if (loginResponse.activeInHierarchy) {
+				loginResponse.GetComponent<Text> ().text = "Incorrect login info";
+			}
 			yield break;
+		}
+		if (loginResponse.activeInHierarchy) {
+			loginResponse.GetComponent<Text> ().text = "";
 		}
 		currentUser = new User (SimpleJSON.JSON.Parse (result));
 		StartCoroutine (update());
@@ -123,6 +131,10 @@ public class WebManager : MonoBehaviour {
 		WWW www = createJSON (JSON.ToString (), "/createAccount");
 		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
 		yield return cd.coroutine;
+		string result = (string)cd.result;
+		if (createAccountResponse.activeInHierarchy) {
+			createAccountResponse.GetComponent<Text> ().text = result;
+		}
 	}
 
 	IEnumerator IEgetFriendList(){
