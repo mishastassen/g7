@@ -330,6 +330,7 @@ public class PlayerController : NetworkBehaviour {
 			}
 
 			foreach( Collider c in TriggerList) {
+				Debug.Log (c.tag);
 				if(c.tag == "Switch") {
 					int switchID = ExtractIDFromName(c.name);
 					Debug.Log ("switch collider.name: "+c.name+", ID: "+switchID);
