@@ -67,7 +67,7 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 118158, guid: 9e0c8a33dc134e145a5e348e32f02e7e, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: Start scene
+  m_OfflineScene: MainMenu
   m_OnlineScene: preScene
   m_SpawnPrefabs:
   - {fileID: 178754, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
@@ -159,6 +159,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_OnlineScene
       value: preScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_OfflineScene
+      value: MainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
