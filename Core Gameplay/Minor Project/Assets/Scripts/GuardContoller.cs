@@ -4,7 +4,7 @@ using System.Collections;
 
 public class GuardContoller : NetworkBehaviour {
 
-	public GameObject enemy;
+	private GameObject enemy;
 	private Vector3 eyePosition;
 
 	private bool finished;
