@@ -21,23 +21,23 @@ public class EnemyController : NetworkBehaviour {
 		if (groundedLeft && groundedRight) {
 			if (facingRight) {
 				walkRight ();
-				Debug.Log ("Ik loop naar rechts");
+				//Debug.Log ("Ik loop naar rechts");
 			} else {
 				walkLeft ();
-				Debug.Log ("Ik loop naar links");
+				//Debug.Log ("Ik loop naar links");
 			}
 		} else if (groundedLeft && !groundedRight) {
-			Debug.Log ("Ik moet nu naar links gaan lopen");
+			//Debug.Log ("Ik moet nu naar links gaan lopen");
 			flip ();
 			walkLeft ();
 			facingRight = false;
 		} else if (!groundedLeft && groundedRight) {
-			Debug.Log ("Ik moet nu naar rechts gaan lopen");
+			//Debug.Log ("Ik moet nu naar rechts gaan lopen");
 			flip ();
 			walkRight ();
 			facingRight = true;
 		} else {
-			Debug.Log ("Oops. Er is iets goed mis");
+			Debug.LogError ("Oops. Er is iets goed mis");
 		}
 	}
 

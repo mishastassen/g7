@@ -4,7 +4,7 @@ using System.Collections;
 
 public class GuardContoller : NetworkBehaviour {
 
-	public GameObject enemy;
+	private GameObject enemy;
 	private Vector3 eyePosition;
 
 	private bool finished;
@@ -63,7 +63,7 @@ public class GuardContoller : NetworkBehaviour {
 
 	IEnumerator wait (){
 		agent.destination = PlayerPos.position;
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (5); 
 	}
 
 

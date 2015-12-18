@@ -28,6 +28,9 @@ public class Gamemanager : NetworkBehaviour {
 	public delegate void disableEventHandlers();
 	public disableEventHandlers onDisableEventHandlers;
 
+	//References
+	private NetworkManager networkmanager;
+
 	//Function to call this object
 	public static Gamemanager Instance{
 		get{
@@ -40,11 +43,11 @@ public class Gamemanager : NetworkBehaviour {
 				
 				if ( FindObjectsOfType(typeof(Gamemanager)).Length > 1 )
 				{
-					Debug.Log("Warning: multiple game managers");
+					Debug.LogError("Warning: multiple game managers");
 					return static_instance;
 				}
 				if(static_instance == null){
-					Debug.Log("Error no Gamemanager singleton");
+					Debug.LogError("Error no Gamemanager singleton");
 				}
 			}
 			return static_instance;
@@ -53,14 +56,25 @@ public class Gamemanager : NetworkBehaviour {
 
 	void Awake () {
 		DontDestroyOnLoad (gameObject);
+		networkmanager = (NetworkManager) FindObjectOfType(typeof(NetworkManager));
 	}
-
+		
 	void Update () {
-		if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
+		if (NetworkManager.networkSceneName == "preScene") {
+			if (WebManager.Instance != null) {
+				if (WebManager.Instance.localmultiplayer) {
+					localmultiplayer = true;
+					ClientScene.AddPlayer (2);
+					Eventmanager.Instance.triggerLevelFinished (WebManager.Instance.level1);
+				} else {
+					Eventmanager.Instance.triggerLevelFinished (WebManager.Instance.level1);
+				}
+			}
+		}else if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
 			ClientScene.AddPlayer(2);
 		}
 	}
-
+		
 	void OnDestroy () {
 		applicationIsQuitting = true;
 	}
