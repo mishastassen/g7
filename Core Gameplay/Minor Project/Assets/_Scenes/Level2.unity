@@ -66,8 +66,7 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 112000001, guid: bcd6ebd6efec7974a94f3d4490be342a,
-    type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -1146,6 +1145,10 @@ Prefab:
     - target: {fileID: 145238, guid: b88a02e05c0870142a27cdfd1db3f8cd, type: 2}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 11499116, guid: b88a02e05c0870142a27cdfd1db3f8cd, type: 2}
+      propertyPath: nextLevel
+      value: Level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b88a02e05c0870142a27cdfd1db3f8cd, type: 2}
@@ -2628,7 +2631,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 456418, guid: 5e38c7053ee5d304aa2eb74c3ff9043f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.4
+      value: 4.8
       objectReference: {fileID: 0}
     - target: {fileID: 456418, guid: 5e38c7053ee5d304aa2eb74c3ff9043f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3151,7 +3154,7 @@ Light:
   serializedVersion: 6
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -3380,7 +3383,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 425336, guid: 7f76c737064a0ab48b72adb5578f8968, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 25.6
+      value: 27.2
       objectReference: {fileID: 0}
     - target: {fileID: 425336, guid: 7f76c737064a0ab48b72adb5578f8968, type: 2}
       propertyPath: m_LocalPosition.y
@@ -4751,7 +4754,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6502648, guid: a473c2bb1d68f064f9c025e6e0f559e7, type: 2}
       propertyPath: m_Size.x
-      value: 45
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 6502648, guid: a473c2bb1d68f064f9c025e6e0f559e7, type: 2}
       propertyPath: m_Center.x
