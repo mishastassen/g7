@@ -3,7 +3,7 @@ guid: 1c2b01087772434429cc527bf33fc955
 timeCreated: 1450177782
 licenseType: Free
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: Armature
     100002: Chest
@@ -64,6 +64,10 @@ ModelImporter:
     7400006: IdleV4
     7400008: JumpV4
     7400010: DrawSwordV4
+    7400012: DrawV4Half
+    7400014: DrawV4Grab
+    7400016: DrawV4Swing
+    7400018: DrawV4Release
     9500000: //RootNode
     13700000: Circle
   materials:
@@ -73,6 +77,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -80,9 +85,9 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
@@ -96,6 +101,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -164,6 +170,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: ArmatureAction
       takeName: ArmatureAction
@@ -174,6 +181,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -242,6 +250,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: RunningV4
       takeName: ArmatureAction
@@ -252,6 +261,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -320,6 +330,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: IdleV4
       takeName: ArmatureAction
@@ -330,6 +341,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
@@ -398,6 +410,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: JumpV4
       takeName: ArmatureAction
@@ -408,6 +421,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -476,6 +490,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: DrawSwordV4
       takeName: ArmatureAction
@@ -486,6 +501,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -554,6 +570,327 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DrawV4Half
+      takeName: ArmatureAction
+      firstFrame: 133
+      lastFrame: 153
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hips_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature/Hips_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature/leg_IK_L
+        weight: 1
+      - path: Armature/leg_IK_L/Foot_L
+        weight: 1
+      - path: Armature/LegIK_R
+        weight: 1
+      - path: Armature/LegIK_R/Foot_R
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Head
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Circle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DrawV4Grab
+      takeName: ArmatureAction
+      firstFrame: 133
+      lastFrame: 142
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hips_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature/Hips_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature/leg_IK_L
+        weight: 1
+      - path: Armature/leg_IK_L/Foot_L
+        weight: 1
+      - path: Armature/LegIK_R
+        weight: 1
+      - path: Armature/LegIK_R/Foot_R
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Head
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Circle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DrawV4Swing
+      takeName: ArmatureAction
+      firstFrame: 142
+      lastFrame: 162
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hips_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature/Hips_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature/leg_IK_L
+        weight: 1
+      - path: Armature/leg_IK_L/Foot_L
+        weight: 1
+      - path: Armature/LegIK_R
+        weight: 1
+      - path: Armature/LegIK_R/Foot_R
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Head
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Circle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DrawV4Release
+      takeName: ArmatureAction
+      firstFrame: 162
+      lastFrame: 172
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Hips_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L
+        weight: 1
+      - path: Armature/Hips_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature/Hips_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R
+        weight: 1
+      - path: Armature/Hips_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature/leg_IK_L
+        weight: 1
+      - path: Armature/leg_IK_L/Foot_L
+        weight: 1
+      - path: Armature/LegIK_R
+        weight: 1
+      - path: Armature/LegIK_R/Foot_R
+        weight: 1
+      - path: Armature/Stomach
+        weight: 1
+      - path: Armature/Stomach/Chest
+        weight: 1
+      - path: Armature/Stomach/Chest/Head
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature/Stomach/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Circle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -574,20 +911,19 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 0

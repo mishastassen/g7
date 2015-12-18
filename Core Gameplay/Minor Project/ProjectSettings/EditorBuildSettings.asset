@@ -4,4 +4,36 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
+<<<<<<< HEAD
   m_Scenes: []
+=======
+  m_Scenes:
+  - enabled: 0
+    path: Assets/_Scenes/Start scene.unity
+  - enabled: 0
+    path: Assets/_Scenes/WebTestScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/MainMenu.unity
+  - enabled: 1
+    path: Assets/_Scenes/preScene.unity
+  - enabled: 1
+    path: Assets/_Scenes/BasisLevel.unity
+  - enabled: 1
+    path: Assets/_Scenes/Level1.unity
+  - enabled: 1
+    path: Assets/_Scenes/Minigame1.unity
+  - enabled: 1
+    path: Assets/_Scenes/Level2.unity
+  - enabled: 1
+    path: Assets/_Scenes/LevelMisha.unity
+  - enabled: 1
+    path: Assets/_Scenes/PathfindingTest.unity
+  - enabled: 1
+    path: Assets/_Scenes/TestJoris.unity
+  - enabled: 1
+    path: Assets/_Scenes/Level1B.unity
+  - enabled: 1
+    path: Assets/_Scenes/Level4.unity
+  - enabled: 0
+    path: Assets/_Scenes/Level3.unity
+>>>>>>> 451ecf9729bfe588b5a4e268958c85eb17dee4d9
