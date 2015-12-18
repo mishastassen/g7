@@ -115,6 +115,11 @@ public class PlayerController : NetworkBehaviour  {
 			if(Input.GetButtonDown (interact2Button)) {
 				doInteract2();
 			}
+
+			if (Input.GetKeyDown (KeyCode.Escape) && playerID == 1) {
+				GameObject uiManager = GameObject.Find ("UIManager");
+				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
+			}
 		}
 	}
 
