@@ -6,14 +6,14 @@ var cookieParser = require('cookie-parser');
 var mysql = require('mysql');
 var getIP = require('ipware')().get_ip;
 
-/*Connect to MySQL database */
-var connection = mysql.createConnection({
+
+/*Setup MySQL database pool*/
+var MySQLpool = mysql.createPool({
   host     : 'localhost',
   user     : 'ewi3620tu7',
   password : 'ayRoHef3',
   database : 'ewi3620tu7'
 });
-connection.connect();
 
 /*select port for server*/
 var port = 8088;
@@ -77,23 +77,33 @@ app.post('/createAccount',function(req,res){
 			res.send("Username must have atleast 4 characters en password atleast 6");
 		}
 		else{
-			connection.query("SELECT 1 FROM Users WHERE AccountName = '"+username+"' ORDER BY AccountName LIMIT 1", function (err, rows, fields) {
+			MySQLpool.getConnection(function(err, connection) {
 				if(err){
 					console.log(err);
 				}
-				else if(rows.length  > 0){
-					console.log("Account denied");
-					res.send("Username already in use");
-				}
 				else{
-					console.log("Creating new account " + username);
-					connection.query("INSERT INTO Users(AccountName,Password) VALUES ('" + username + "','" + pass + "')",function(err, rows, fields) {
+					connection.query("SELECT 1 FROM Users WHERE AccountName = '"+username+"' ORDER BY AccountName LIMIT 1", function (err, rows, fields) {
 						if(err){
 							console.log(err);
+							connection.release();
+						}
+						else if(rows.length  > 0){
+							console.log("Account denied");
+							res.send("Username already in use");
+							connection.release();
 						}
 						else{
-							console.log("Account succesfully created");
-							res.end("Account created");
+							console.log("Creating new account " + username);
+							connection.query("INSERT INTO Users(AccountName,Password) VALUES ('" + username + "','" + pass + "')",function(err, rows, fields) {
+								connection.release();
+								if(err){
+									console.log(err);
+								}
+								else{
+									console.log("Account succesfully created");
+									res.end("Account created");
+								}
+							});
 						}
 					});
 				}
@@ -107,23 +117,31 @@ app.post('/login',function(req,res){
 	sess = req.session;
 	var username = req.body.username,
 		pass = req.body.password;
-	connection.query("SELECT UserId, AccountName,Password,LevelProgress FROM Users, Levels WHERE AccountName ='" + username +"' AND Users.LevelProgressId = Levels.LevelId", function(err, rows, fields) {
+	MySQLpool.getConnection(function(err, connection) {
 		if(err){
 			console.log(err);
 		}
-		else if(rows.length === 0){
-			console.log("Username bestaat niet");
-			res.send("Wrong username");
-		}
-		else if(rows[0].Password === pass){
-			var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress,sess.ipInfo);
-			onlineUsers[user.UserId] = user;
-			sess.UserId = user.UserId;
-			console.log('Password correct');
-			res.json(user);
-		}
 		else{
-			res.send("Wrong password");
+			connection.query("SELECT UserId, AccountName,Password,LevelProgress FROM Users, Levels WHERE AccountName ='" + username +"' AND Users.LevelProgressId = Levels.LevelId", function(err, rows, fields) {
+				connection.release();
+				if(err){
+					console.log(err);
+				}
+				else if(rows.length === 0){
+					console.log("Username bestaat niet");
+					res.send("Wrong username");
+				}
+				else if(rows[0].Password === pass){
+					var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress,sess.ipInfo);
+					onlineUsers[user.UserId] = user;
+					sess.UserId = user.UserId;
+					console.log('Password correct');
+					res.json(user);
+				}
+				else{
+					res.send("Wrong password");
+				}
+			});
 		}
 	});
 });
@@ -229,18 +247,26 @@ app.get('/getFriendList',function(req,res){
 	}
 	else{
 		var UserId = sess.UserId;
-		connection.query("SELECT UserId, AccountName, LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 1", function(err, rows, fields) {
+		MySQLpool.getConnection(function(err, connection) {
 			if(err){
 				console.log(err);
 			}
-			else{
-				sess.lastFriendListUpdate = Date.now();
-				var friends = new Array();
-				rows.forEach(function(index){
-					var friend = new User(index.UserId,index.AccountName,false,0,index.LevelProgress,0);
-					friends.push(friend);
+			else {
+				connection.query("SELECT UserId, AccountName, LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 1", function(err, rows, fields) {
+					connection.release();
+					if(err){
+						console.log(err);
+					}
+					else{
+						sess.lastFriendListUpdate = Date.now();
+						var friends = new Array();
+						rows.forEach(function(index){
+							var friend = new User(index.UserId,index.AccountName,false,0,index.LevelProgress,0);
+							friends.push(friend);
+						});
+						res.json(friends);
+					}
 				});
-				res.json(friends);
 			}
 		});
 	}
@@ -254,18 +280,26 @@ app.get('/getFriendRequests',function(req,res){
 	}
 	else{
 		var UserId = sess.UserId;
-		connection.query("SELECT UserId, AccountName, Levels.LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 0", function(err, rows, fields) {
+		MySQLpool.getConnection(function(err, connection) {
 			if(err){
 				console.log(err);
 			}
-			else{
-				sess.lastFriendRequestUpdate = Date.now();
-				var friendRequests = new Array();
-				rows.forEach(function(index){
-					var requested = new User(index.UserId,index.AccountName,false,0,index.LevelProgress,0);
-					friendRequests.push(requested);
+			else {
+				connection.query("SELECT UserId, AccountName, Levels.LevelProgress FROM Users, Friends, Levels WHERE Users.LevelProgressId = Levels.LevelId AND ((Friends.UserId_Sender ='" + UserId +"' AND Users.UserId = Friends.UserId_Receiver) OR (Friends.UserId_Receiver ='" + UserId +"' AND Users.UserId = Friends.UserId_Sender) )AND Status = 0", function(err, rows, fields) {
+					connection.release();
+					if(err){
+						console.log(err);
+					}
+					else{
+						sess.lastFriendRequestUpdate = Date.now();
+						var friendRequests = new Array();
+						rows.forEach(function(index){
+							var requested = new User(index.UserId,index.AccountName,false,0,index.LevelProgress,0);
+							friendRequests.push(requested);
+						});
+						res.json(friendRequests);
+					}
 				});
-				res.json(friendRequests);
 			}
 		});
 	}
@@ -280,21 +314,31 @@ app.post('/sendFriendRequest',function(req,res){
 	else{
 		var UserId = sess.UserId;
 		var FriendId = req.body.FriendId;
-		connection.query("SELECT 1 FROM Friends WHERE (UserId_Sender = '"+ UserId +"' AND UserId_Receiver '" + FriendId + "') OR (UserId_Sender = '"+ FriendId +"' AND UserId_Receiver '" + UserId + "') AND ORDER BY UserId_Sender LIMIT 1", function (err, rows, fields) {
+		MySQLpool.getConnection(function(err, connection) {
 			if(err){
 				console.log(err);
 			}
-			else if (rows.length  > 0){
-				res.send('Request bestaat al');
-			}
-			else{
-				connection.query("INSERT INTO Friends VALUES ('" + UserId + "','" + FriendId + "',0)", function(err, rows, fields) {
+			else {
+				connection.query("SELECT 1 FROM Friends WHERE (UserId_Sender = '"+ UserId +"' AND UserId_Receiver '" + FriendId + "') OR (UserId_Sender = '"+ FriendId +"' AND UserId_Receiver '" + UserId + "') AND ORDER BY UserId_Sender LIMIT 1", function (err, rows, fields) {
 					if(err){
 						console.log(err);
+						connection.release();
+					}
+					else if (rows.length  > 0){
+						res.send('Request bestaat al');
+						connection.release();
 					}
 					else{
-						userFriendRequestsUpdated.FriendId = true;
-						res.send('Friend request sent');
+						connection.query("INSERT INTO Friends VALUES ('" + UserId + "','" + FriendId + "',0)", function(err, rows, fields) {
+							connection.release();
+							if(err){
+								console.log(err);
+							}
+							else{
+								userFriendRequestsUpdated.FriendId = true;
+								res.send('Friend request sent');
+							}
+						});
 					}
 				});
 			}
@@ -311,14 +355,21 @@ app.post('/acceptFriendRequest',function(req,res){
 	else{
 		var UserId = sess.UserId;
 		var FriendId = req.body.FriendId;
-		connection.query("UPDATE Friends Set Status = 1 WHERE UserId_Sender = '" + FriendId + "' AND UserId_Receiver = '" + UserId + "'", function(err, rows, fields) {
+		MySQLpool.getConnection(function(err, connection) {
 			if(err){
 				console.log(err);
 			}
-			else{
-				userFriendRequestsUpdated.FriendId = true;
-				userFriendsUpdated.FriendId = true;
-				res.send('Friend request accepted');
+			else {
+				connection.query("UPDATE Friends Set Status = 1 WHERE UserId_Sender = '" + FriendId + "' AND UserId_Receiver = '" + UserId + "'", function(err, rows, fields) {
+					if(err){
+						console.log(err);
+					}
+					else{
+						userFriendRequestsUpdated.FriendId = true;
+						userFriendsUpdated.FriendId = true;
+						res.send('Friend request accepted');
+					}
+				});
 			}
 		});
 	}
@@ -407,7 +458,14 @@ var server = app.listen(port, function () {
 wait10sec();	//Start cleaning offline users
 wait10min();	//Start cleaning old vars
 
-
+/*Process functions*/
+process.on("exit", function() {
+	pool.end(function (err) {
+		if(err){
+			console.log(err);
+		}
+	});
+});
 
 /*Function to run every 10 seconds*/
 function cleanOfflineUsers(callback){	//Removing users that went offline
