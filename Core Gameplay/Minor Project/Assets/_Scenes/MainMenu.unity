@@ -5522,7 +5522,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The controls of the game are explained here
+  m_Text: 'To navigate, use the arrow keys or A and D
+
+    To jump, press arrow up or W
+
+    To interact with the environment, press arrow down or S'
 --- !u!222 &1479790794
 CanvasRenderer:
   m_ObjectHideFlags: 0
