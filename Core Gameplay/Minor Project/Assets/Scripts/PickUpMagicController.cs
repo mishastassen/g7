@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Analytics;
+using UnityAnalyticsHeatmap;
 
 public class PickUpMagicController : NetworkBehaviour {
 	
@@ -26,6 +29,12 @@ public class PickUpMagicController : NetworkBehaviour {
 		
 		if ( other.tag == "DeathZone" && !isDestroyed) {
 			isDestroyed = true;
+			Analytics.CustomEvent ("Package Destroyed", new Dictionary<string, object> {
+				{ "Levelname", Gamevariables.currentLevel }
+			});
+			HeatmapEvent.Send ("Package Destroyed Heatmap", this.transform.position, new Dictionary<string, object> {
+				{ "Levelname", Gamevariables.currentLevel }
+			});
 			Eventmanager.Instance.triggerPackageDestroyed();
 		}
 	}

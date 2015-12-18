@@ -4,6 +4,7 @@ using UnityEngine.Networking.NetworkSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Analytics;
+using UnityAnalyticsHeatmap;
 
 public class GamemanagerEventHandler : NetworkBehaviour {
 
@@ -63,8 +64,10 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		Transform transform = GameObject.FindWithTag ("PickUp1Spawn").transform;
 		Destroy (package);
 		Analytics.CustomEvent ("Package Destroyed", new Dictionary<string, object> {
-			{ "Levelname", Gamevariables.currentLevel },
-			{ "Position", transform.position }
+			{ "Levelname", Gamevariables.currentLevel }
+		});
+		HeatmapEvent.Send ("Package Destroyed Heatmap", package.transform.position, new Dictionary<string, object> {
+			{ "Levelname", Gamevariables.currentLevel }
 		});
 		GameObject newPackage = (GameObject)Instantiate (PickUp1Prefab, transform.position, transform.rotation);
 		NetworkServer.Spawn (newPackage);
@@ -97,6 +100,9 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		levelEnding = false;
 		clientEndLevelReady = false;
 		Gamemanager.Instance.CheckpointReached = 0;
+		Analytics.CustomEvent ("Level Started", new Dictionary<string, object> {
+			{ "Levelname", nextLevel }
+		});
 		networkmanager.ServerChangeScene (nextLevel);
 		Gamevariables.currentLevel = NetworkManager.networkSceneName;
 	}

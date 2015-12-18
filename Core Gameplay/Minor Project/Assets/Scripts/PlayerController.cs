@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
+using UnityAnalyticsHeatmap;
 //using System.Linq;
 
-public class PlayerController : NetworkBehaviour {
-
+public class PlayerController : NetworkBehaviour,  {
 
 	private float speed;
 	private float jump, lowjump;
@@ -406,7 +406,8 @@ public class PlayerController : NetworkBehaviour {
 	void CmdTriggerChest(){
 		Eventmanager.Instance.triggerChestActivated ();
 		Analytics.CustomEvent ("Chest Minigame Started", new Dictionary<string , object> {
-			{"Levelname", Gamevariables.currentLevel}
+			{"Levelname", Gamevariables.currentLevel},
+			{ "Time", Gamevariables.timer }
 		});
 	}
 
@@ -414,8 +415,10 @@ public class PlayerController : NetworkBehaviour {
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
 		Analytics.CustomEvent ("Player Deaths", new Dictionary<string , object> {
-			{"Levelname", Gamevariables.currentLevel},
-			{"Position", this.transform.position}
+			{"Levelname", Gamevariables.currentLevel}
+		});
+		HeatmapEvent.Send("Player Death Heatmap", this.transform.position, new Dictionary<string, object> {
+			{"Levelname", Gamevariables.currentLevel}
 		});
 	}
 
@@ -423,7 +426,9 @@ public class PlayerController : NetworkBehaviour {
 	void CmdCheckpointReached(int checkpointNum){
 		Eventmanager.Instance.triggerCheckpointReached (checkpointNum);
 		Analytics.CustomEvent ("Checkpoint Reached", new Dictionary<string , object> {
-			{"Levelname", Gamevariables.currentLevel}
+			{"Levelname", Gamevariables.currentLevel},
+			{"Checkpoint number", checkpointNum},
+			{"Time", Gamevariables.timer}
 		});
 	}
 
