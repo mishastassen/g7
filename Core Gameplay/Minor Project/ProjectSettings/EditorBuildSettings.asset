@@ -4,9 +4,6 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-<<<<<<< HEAD
-  m_Scenes: []
-=======
   m_Scenes:
   - enabled: 0
     path: Assets/_Scenes/Start scene.unity
@@ -36,4 +33,3 @@ EditorBuildSettings:
     path: Assets/_Scenes/Level4.unity
   - enabled: 0
     path: Assets/_Scenes/Level3.unity
->>>>>>> 451ecf9729bfe588b5a4e268958c85eb17dee4d9
