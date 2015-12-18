@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 428954}
   - 114: {fileID: 11482154}
   - 114: {fileID: 11482976}
-  - 114: {fileID: 11415730}
+  - 114: {fileID: 11476968}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11415730
+--- !u!114 &11476968
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -38,7 +38,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 175744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa93e4af6fc63b44f9ea3d9e7eeeecc7, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fadb2af549cac947ac29e3dd7ccd084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
