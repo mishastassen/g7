@@ -219,10 +219,17 @@ public class PlayerController : NetworkBehaviour {
 	}
 
 	void OnFacingChange(float facingRight) {
-		Vector3 theScale = transform.localScale;
-		theScale.x = facingRight;
-		transform.localScale = theScale;
+		//Vector3 theScale = transform.localScale;
+		//theScale.x = facingRight;
+		//transform.localScale = theScale;
 		this.facingRight = facingRight;
+
+		//Vector3 theTransform = transform.rotation;
+		if (facingRight > 0)
+			transform.rotation = Quaternion.Euler(0,0,0);
+		else
+			transform.rotation = Quaternion.Euler(0,180,0);
+		//transform.rotation = theTransform;
 	}
 
 	[Command]
