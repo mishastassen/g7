@@ -239,6 +239,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 11467302, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
+      propertyPath: PickUpMagicPrefab
+      value: 
+      objectReference: {fileID: 144400, guid: d9443081a9218094c987f4da0d2c3656, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
   m_IsPrefabParent: 0

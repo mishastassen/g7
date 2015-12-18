@@ -7,4 +7,5 @@ public class Gamevariables : MonoBehaviour {
 	public static string currentLevel;
 	public static string returnLevel;
 
+	public static bool magicPackage;
 }

@@ -37,7 +37,7 @@ public class EnemyController : NetworkBehaviour {
 			walkRight ();
 			facingRight = true;
 		} else {
-			Debug.LogError ("Oops. Er is iets goed mis");
+			//Debug.LogError ("Oops. Er is iets goed mis");
 		}
 	}
 

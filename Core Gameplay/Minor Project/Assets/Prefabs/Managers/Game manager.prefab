@@ -44,7 +44,6 @@ MonoBehaviour:
   packageheld: 0
   localmultiplayer: 0
   CheckpointReached: 0
-  currentLevel: 
 --- !u!114 &11467302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58,6 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 118158, guid: 9e0c8a33dc134e145a5e348e32f02e7e, type: 2}
   PickUp1Prefab: {fileID: 178754, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
+  PickUpMagicPrefab: {fileID: 144400, guid: d9443081a9218094c987f4da0d2c3656, type: 2}
 --- !u!114 &11493230
 MonoBehaviour:
   m_ObjectHideFlags: 1

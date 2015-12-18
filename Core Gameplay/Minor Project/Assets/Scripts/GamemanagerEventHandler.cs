@@ -10,6 +10,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 
 	public GameObject playerPrefab;
 	public GameObject PickUp1Prefab;
+	public GameObject PickUpMagicPrefab;
 	
 	private NetworkManager networkmanager;
 	private NetworkClient m_client;
@@ -63,13 +64,12 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		GameObject package = GameObject.FindWithTag ("Package1");
 		Transform transform = GameObject.FindWithTag ("PickUp1Spawn").transform;
 		Destroy (package);
-		Analytics.CustomEvent ("Package Destroyed", new Dictionary<string, object> {
-			{ "Levelname", Gamevariables.currentLevel }
-		});
-		HeatmapEvent.Send ("Package Destroyed Heatmap", package.transform.position, new Dictionary<string, object> {
-			{ "Levelname", Gamevariables.currentLevel }
-		});
-		GameObject newPackage = (GameObject)Instantiate (PickUp1Prefab, transform.position, transform.rotation);
+		GameObject newPackage;
+		if (Gamevariables.magicPackage) {
+			newPackage = (GameObject)Instantiate (PickUpMagicPrefab, transform.position, transform.rotation);
+		} else {
+			newPackage = (GameObject)Instantiate (PickUp1Prefab, transform.position, transform.rotation);
+		}
 		NetworkServer.Spawn (newPackage);
 	}
 

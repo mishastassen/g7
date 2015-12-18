@@ -8,10 +8,12 @@ using UnityAnalyticsHeatmap;
 public class PickUp1Controller : NetworkBehaviour {
 
 	public GameObject PickUp1SpawnPrefab;
+	public bool magicPackage;
 
 	private bool isDestroyed = false;
 	// Use this for initialization
 	void Start () {
+		Gamevariables.magicPackage = magicPackage;
 		if (isServer) {
 			if(GameObject.FindWithTag("PickUp1Spawn") == null){
 				GameObject newSpawn = (GameObject)Instantiate (PickUp1SpawnPrefab, this.transform.position, this.transform.rotation);

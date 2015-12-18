@@ -7,14 +7,14 @@ using UnityAnalyticsHeatmap;
 
 public class PickUpMagicController : NetworkBehaviour {
 	
-	public GameObject PickUpMagicSpawnPrefab;
+	public GameObject PickUp1SpawnPrefab;
 	
 	private bool isDestroyed = false;
 	// Use this for initialization
 	void Start () {
 		if (isServer) {
-			if(GameObject.FindWithTag("PickUpMagicSpawn") == null){
-				GameObject newSpawn = (GameObject)Instantiate (PickUpMagicSpawnPrefab, this.transform.position, this.transform.rotation);
+			if(GameObject.FindWithTag("PickUp1Spawn") == null){
+				GameObject newSpawn = (GameObject)Instantiate (PickUp1SpawnPrefab, this.transform.position, this.transform.rotation);
 			}
 		}
 	}
