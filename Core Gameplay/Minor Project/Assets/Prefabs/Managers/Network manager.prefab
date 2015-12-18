@@ -64,7 +64,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 134662, guid: 299a4b9288b78164d863ab957212891d, type: 2}
+  m_PlayerPrefab: {fileID: 118158, guid: 9e0c8a33dc134e145a5e348e32f02e7e, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
   m_OfflineScene: MainMenu
@@ -127,7 +127,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_PlayerPrefab
       value: 
-      objectReference: {fileID: 134662, guid: 299a4b9288b78164d863ab957212891d, type: 2}
+      objectReference: {fileID: 118158, guid: 9e0c8a33dc134e145a5e348e32f02e7e, type: 2}
     - target: {fileID: 0}
       propertyPath: m_AutoCreatePlayer
       value: 0
