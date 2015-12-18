@@ -12,10 +12,20 @@ public class AlarmController : MonoBehaviour {
 	private bool enabled;
 
 	void Start () {
-		alarmPercent = 0;;
+		alarmPercent = 0;
 		alarmText.text = "Alarm: " + alarmPercent + "%";
 		finishedIncrease = true;
 		finishedDecrease = true;
+	}			
+
+	void Update () {
+		/*
+		if (Gamevariables.alarmPercent == -1) {
+			alarmPercent = 0;
+			Gamevariables.alarmPercent = 0;
+		}
+		Gamevariables.alarmPercent = alarmPercent;
+		*/
 	}
 
 	void OnEnable() {
@@ -48,14 +58,22 @@ public class AlarmController : MonoBehaviour {
 	}
 
 	IEnumerator increaseAlarm() {
-		alarmPercent += 5;
+		alarmPercent += 20;
+		if (alarmPercent >= 100) {
+			alarmPercent = 100;
+		}
 		alarmText.text = "Alarm: " + alarmPercent + "%";
+		if (alarmPercent == 100) {
+			alarmText.color = Color.red;
+		}
 		yield return new WaitForSeconds (0.5f);
 		finishedIncrease = true;
 	}
 
 	IEnumerator decreaseAlarm() {
-		alarmPercent -= 5;
+		if (alarmPercent != 100) {
+			alarmPercent -= 5;
+		}
 		alarmText.text = "Alarm: " + alarmPercent + "%";
 		yield return new WaitForSeconds (1);
 		finishedDecrease = true;

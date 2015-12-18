@@ -121,6 +121,12 @@ public class PlayerController : NetworkBehaviour  {
 				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
 			}
 		}
+		/*
+		if (Gamevariables.alarmPercent == 100) {
+			Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
+			//Gamevariables.alarmPercent = -1;
+		}
+		*/
 	}
 
 	void FixedUpdate () {

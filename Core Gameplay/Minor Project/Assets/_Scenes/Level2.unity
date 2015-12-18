@@ -4806,6 +4806,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11433400, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
+      propertyPath: PickUp1SpawnPrefab
+      value: 
+      objectReference: {fileID: 184214, guid: 9a17d601ca113ab4d965fabb9e215a91, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
   m_IsPrefabParent: 0

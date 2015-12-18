@@ -30,6 +30,7 @@ GameObject:
   - 54: {fileID: 5429682}
   - 65: {fileID: 6566272}
   - 114: {fileID: 11452640}
+  - 65: {fileID: 6593158}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -44,7 +45,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161870}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 436270}
@@ -56,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 125888}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 32.59, y: 8.26, z: 0}
+  m_LocalPosition: {x: -90.79965, y: 5.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 427810}
@@ -122,6 +123,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.228993, y: 6.474924, z: 1.0432559}
   m_Center: {x: 0, y: -0.8395071, z: -0.047165}
+--- !u!65 &6593158
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 15, z: 20}
+  m_Center: {x: 0, y: 0, z: 10}
 --- !u!95 &9542116
 Animator:
   serializedVersion: 3

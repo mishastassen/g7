@@ -4,6 +4,8 @@ using System.Collections;
 
 public class GuardContoller : NetworkBehaviour {
 
+	private bool enabled;
+
 	private GameObject enemy;
 	private Vector3 eyePosition;
 
@@ -22,6 +24,8 @@ public class GuardContoller : NetworkBehaviour {
 	NavMeshAgent agent;
 	private Transform PlayerPos;
 	public Transform SpawnLocation;
+
+
 
 	void Start () {
 		// enemy = GetComponent<Rigidbody> ();
