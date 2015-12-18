@@ -1051,11 +1051,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 491332, guid: d9443081a9218094c987f4da0d2c3656, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 75
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 491332, guid: d9443081a9218094c987f4da0d2c3656, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -8.5
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 491332, guid: d9443081a9218094c987f4da0d2c3656, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1356,6 +1356,46 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e38c7053ee5d304aa2eb74c3ff9043f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1701617064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1701617066}
+  - 65: {fileID: 1701617065}
+  m_Layer: 0
+  m_Name: DeathZone
+  m_TagString: DeathZone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1701617065
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701617064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 150, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1701617066
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701617064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 96.2, y: -25.199997, z: 0}
+  m_LocalScale: {x: 2.237488, y: 1, z: 133.50311}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 34
 --- !u!1001 &1767641646
 Prefab:
   m_ObjectHideFlags: 0
@@ -1499,11 +1539,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 75.4
+      value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.z
