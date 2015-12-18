@@ -8,7 +8,7 @@ using UnityEngine.Analytics;
 using UnityAnalyticsHeatmap;
 //using System.Linq;
 
-public class PlayerController : NetworkBehaviour,  {
+public class PlayerController : NetworkBehaviour  {
 
 	private float speed;
 	private float jump, lowjump;
