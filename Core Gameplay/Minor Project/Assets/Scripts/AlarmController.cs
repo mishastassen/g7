@@ -58,7 +58,7 @@ public class AlarmController : MonoBehaviour {
 	}
 
 	IEnumerator increaseAlarm() {
-		alarmPercent += 20;
+		alarmPercent += 5;
 		if (alarmPercent >= 100) {
 			alarmPercent = 100;
 		}
