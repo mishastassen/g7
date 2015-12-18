@@ -273,7 +273,7 @@ public class PlayerController : NetworkBehaviour {
 	//Add triggers to trigger list
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "DeathZone" && isServer) {
+		if (other.tag == "DeathZone" && isLocalPlayer) {
 			CmdDeath ();
 		} 
 		if (other.tag == "Checkpoint" && isServer) {
