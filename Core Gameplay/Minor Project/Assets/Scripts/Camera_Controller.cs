@@ -49,24 +49,23 @@ public class Camera_Controller : MonoBehaviour {
 	void updateCameraLocation(){
 		Vector3 center = Vector3.zero;
 		foreach (GameObject player in players) {
-			if(player == null){
+			if (player == null) {
 				removeplayer (player);
 				return;
-			}
-			else{
-				center += player.GetComponent<Transform>().position;
+			} else {
+				center += player.GetComponent<Transform> ().position;
 			}
 		}
 		center /= (float)players.Count;
 		//newLocation.z = -40.0f;
 		if (Mathf.Abs (center.x - windowCenter.x) > windowx) {
-			windowCenter.x += center.x-previousCenter.x;
+			windowCenter.x += center.x - previousCenter.x;
 		}
 		if (Mathf.Abs (center.y - windowCenter.y) > windowy) {
-			windowCenter.y += center.y+-previousCenter.y;
+			windowCenter.y += center.y + -previousCenter.y;
 		}
-		Vector3 newLocation = new Vector3 (windowCenter.x, windowCenter.y+5.0f, -60.0f);
-		previousCenter = new Vector2(center.x,center.y);
+		Vector3 newLocation = new Vector3 (windowCenter.x, windowCenter.y + 5.0f, -60.0f);
+		previousCenter = new Vector2 (center.x, center.y);
 		this.GetComponent<Transform> ().position = newLocation;
 	}
 }
