@@ -930,7 +930,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -52.349976}
+  m_AnchoredPosition: {x: 0, y: -295.34998}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &277993400
@@ -2733,7 +2733,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11418744, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
       propertyPath: level1
-      value: Level4
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 11418744, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
       propertyPath: loginName
@@ -7238,7 +7238,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 585600854}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.47068965
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7455,7 +7455,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1873781351}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.874355
+  m_Size: 0.2911317
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
