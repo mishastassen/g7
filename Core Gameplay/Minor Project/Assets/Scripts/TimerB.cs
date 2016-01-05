@@ -40,10 +40,12 @@ public class TimerB : MonoBehaviour {
 			UpdateTimer ();
 			Gamevariables.timer = timer;
 		} else {
+			/*
 			Analytics.CustomEvent ("Level Finished", new Dictionary<string, object> {
 				{ "Levelname", Gamevariables.currentLevel },
 				{ "Time", timer }
 			});
+			*/
 			Gamevariables.timer = 0;
 		}
 	}

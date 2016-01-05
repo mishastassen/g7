@@ -52,7 +52,7 @@ public class Camera_Controller : MonoBehaviour {
 			updateCameraLocation ();
 		}
 		// Debug.Log ("The current field of view is " + cam.fieldOfView);
-		Debug.Log(players.Count);
+		// Debug.Log(players.Count);
 	}
 
 	void addplayer(GameObject player){	//Add new player to list of player objects
