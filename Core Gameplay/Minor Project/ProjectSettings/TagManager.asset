@@ -20,6 +20,9 @@ TagManager:
   - Guard
   - popUpPanel
   - inputButtonPanel
+  - Bridge
+  - Obstacle
+  - Root
   layers:
   - Default
   - TransparentFX
