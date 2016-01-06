@@ -5720,8 +5720,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 173, y: 97.5}
-  m_SizeDelta: {x: 346, y: 0}
+  m_AnchoredPosition: {x: 616, y: 454.5}
+  m_SizeDelta: {x: 1232, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
 MonoBehaviour:
@@ -7536,7 +7536,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11410796, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_OfflineScene

@@ -19,22 +19,22 @@ public class Eventmanager : NetworkBehaviour {
 
 	//SwitchPulled event
 	public delegate void SwitchPulled(int id);
-	[SyncEvent]
+	//[SyncEvent]
 	public event SwitchPulled EventonSwitchPulled;
 
 	//Package pickup event
 	public delegate void PackagePickup(NetworkInstanceId netId,string tag);
-	[SyncEvent]
+	//[SyncEvent]
 	public event PackagePickup EventonPackagePickup;
 
 	//Package drop event
 	public delegate void PackageDrop(NetworkInstanceId netId);
-	[SyncEvent]
+	//[SyncEvent]
 	public event PackageDrop EventonPackageDrop;
 
 	//Package throw event
 	public delegate void PackageThrow(NetworkInstanceId netId);
-	[SyncEvent]
+	//[SyncEvent]
 	public event PackageThrow EventonPackageThrow;
 
 	//Player death event
@@ -43,12 +43,12 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Player spotted event
 	public delegate void PlayerSpotted();
-	[SyncEvent]
+	//[SyncEvent]
 	public event PlayerSpotted EventonPlayerSpotted;
 
 	//Player not spotted event
 	public delegate void NoPlayerSpotted();
-	[SyncEvent]
+	//[SyncEvent]
 	public event NoPlayerSpotted EventonNoPlayerSpotted;
 
 	//Update alarm event
@@ -57,12 +57,12 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Package destroyed event
 	public delegate void PackageDestroyed();
-	[SyncEvent]
+	//[SyncEvent]
 	public event PackageDestroyed EventonPackageDestroyed;
 
 	//Level finished
 	public delegate void LevelFinished(string nextLevel);
-	[SyncEvent]
+	//[SyncEvent]
 	public event LevelFinished EventonLevelFinished;
 
 	//Minigame started
@@ -83,7 +83,7 @@ public class Eventmanager : NetworkBehaviour {
 
 	//CheckPoint reached
 	public delegate void CheckpointReached(int checkpointNum);
-	[SyncEvent]
+	//[SyncEvent]
 	public event CheckpointReached EventonCheckpointReached;
 
 	//Function to call this object
@@ -136,6 +136,9 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerSwitchPulled(int id){
 		if (EventonSwitchPulled != null) {	//Don't execute if noone is listening to event
 			EventonSwitchPulled(id);
+			if (isServer) {
+				RpcOnSwitchPulled (id);
+			}
 		}
 	}
 
@@ -146,6 +149,9 @@ public class Eventmanager : NetworkBehaviour {
 			Gamemanager.Instance.packageholder = player.GetComponent<NetworkIdentity> ().netId;
 			if(EventonPackagePickup != null){
 				EventonPackagePickup (Gamemanager.Instance.packageholder,tag);
+				if (isServer) {
+					RpcPackagePickup (Gamemanager.Instance.packageholder,tag);
+				}
 			}
 		}
 	}
@@ -155,6 +161,9 @@ public class Eventmanager : NetworkBehaviour {
 		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {
 			Gamemanager.Instance.packageheld = false;
 			EventonPackageDrop (Gamemanager.Instance.packageholder);
+			if (isServer) {
+				RpcPackageDrop (Gamemanager.Instance.packageholder);
+			}
 		}
 	}
 
@@ -163,6 +172,9 @@ public class Eventmanager : NetworkBehaviour {
 		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {
 			Gamemanager.Instance.packageheld = false;
 			EventonPackageThrow (Gamemanager.Instance.packageholder);
+			if (isServer) {
+				RpcPackageThrow (Gamemanager.Instance.packageholder);
+			}
 		}
 	}
 
@@ -178,6 +190,9 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerPlayerSpotted(){
 		if (EventonPlayerSpotted != null) { //Don't execute if noone is listening to event
 			EventonPlayerSpotted ();
+			if (isServer) {
+				RpcOnPlayerSpotted ();
+			}
 		}
 	}
 
@@ -185,6 +200,9 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerNoPlayerSpotted(){
 		if (EventonNoPlayerSpotted != null) { //Don't execute if noone is listening to event
 			EventonNoPlayerSpotted ();
+			if (isServer) {
+				RpcOnNoPlayerSpotted ();
+			}
 		}
 	}
 
@@ -200,6 +218,9 @@ public class Eventmanager : NetworkBehaviour {
 		Gamemanager.Instance.packageheld = false;
 		if (EventonPackageDestroyed != null) { //Don't execute if noone is listening to event
 			EventonPackageDestroyed ();
+			if (isServer) {
+				RpcOnPackageDestroyed ();
+			}
 		}
 	}
 
@@ -207,6 +228,9 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerLevelFinished(string nextLevel){
 		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
 			EventonLevelFinished(nextLevel);
+			if (isServer) {
+				RpcOnLevelFinished (nextLevel);
+			}
 		}
 	}
 
@@ -239,6 +263,72 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerCheckpointReached(int checkpointNum){
 		if (EventonCheckpointReached != null) {
 			EventonCheckpointReached(checkpointNum);
+			if (isServer) {
+				RpcOnCheckpointReached (checkpointNum);
+			}
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnSwitchPulled(int id){
+		if (EventonSwitchPulled != null) {
+			EventonSwitchPulled (id);
+		}
+	}
+
+	[ClientRpc]
+	void RpcPackagePickup(NetworkInstanceId player, string tag){
+		if (EventonPackagePickup != null) {
+			EventonPackagePickup (player, tag);
+		}
+	}
+
+	[ClientRpc]
+	void RpcPackageDrop(NetworkInstanceId player){
+		if (EventonPackageDrop != null) {
+			EventonPackageDrop (player);
+		}
+	}
+
+	[ClientRpc]
+	void RpcPackageThrow(NetworkInstanceId player){
+		if (EventonPackageThrow != null) {
+			EventonPackageThrow (player);
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnPlayerSpotted (){
+		if (EventonPlayerSpotted != null) {
+			EventonPlayerSpotted ();
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnNoPlayerSpotted (){
+		if (EventonNoPlayerSpotted != null) {
+			EventonNoPlayerSpotted ();
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnPackageDestroyed (){
+		if (EventonPackageDestroyed != null) {
+			EventonPackageDestroyed ();
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnLevelFinished (string nextLevel){
+		if (EventonLevelFinished != null) {
+			EventonLevelFinished (nextLevel);
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnCheckpointReached (int checkpointNum){
+		if (EventonCheckpointReached  != null) {
+			EventonCheckpointReached  (checkpointNum);
 		}
 	}
 }
