@@ -12,7 +12,8 @@ var MySQLpool = mysql.createPool({
   host     : 'localhost',
   user     : 'ewi3620tu7',
   password : 'ayRoHef3',
-  database : 'ewi3620tu7'
+  database : 'ewi3620tu7',
+  multipleStatements: true
 });
 
 /*select port for server*/
@@ -33,7 +34,6 @@ app.use( session({cookieName: 'session',
 app.use(function(req, res, next) {
     var ipInfo = getIP(req);
     req.session.ipInfo = ipInfo;
-    // { clientIp: '127.0.0.1', clientIpRoutable: false }
     next();
 });
 app.use(touchUser());
@@ -111,7 +111,7 @@ app.post('/createAccount',function(req,res){
 										}
 										else if(rows.length > 0){
 											AvatarId = rows[0].AvatarId;
-											connection.query("INSERT INTO PlayerAvatar VALUES ('" + UserId + "','" + AvatarId + "')",function(err, rows, fields) {
+											connection.query("INSERT INTO PlayerAvatar(UserId,AvatarId) VALUES ('" + UserId + "','" + AvatarId + "')",function(err, rows, fields) {
 												connection.release();
 												if(err){
 													console.log(err);
@@ -123,8 +123,7 @@ app.post('/createAccount',function(req,res){
 											});
 										}
 										else{
-											AvatarId = rows[0].AvatarId;
-											connection.query("BEGIN; INSERT INTO Avatars(Sex,Colour) VALUES ('" + sex + "','" + color + "'); INSERT INTO PlayerAvatar VALUES ('" + UserId + "',LAST_INSERT_ID()); COMMIT;",function(err, rows, fields) {
+											connection.query("BEGIN; INSERT INTO Avatars(Sex,Colour) VALUES ('" + sex + "','" + color + "'); INSERT INTO PlayerAvatar(UserId,AvatarId) VALUES ('" + UserId + "',LAST_INSERT_ID()); COMMIT",function(err, rows, fields) {
 												connection.release();
 												if(err){
 													console.log(err);
@@ -163,7 +162,7 @@ app.post('/login',function(req,res){
 				}
 				else if(rows.length === 0){
 					connection.release();
-					console.log("Username bestaat niet");
+					console.log("Username doesn't exist");
 					res.send("Wrong username");
 				}
 				else if(rows[0].Password === pass){
@@ -178,8 +177,9 @@ app.post('/login',function(req,res){
 						else{
 							var playerColor = rows[0].Colour;
 							var Sex = rows[0].Sex;
-							var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress,sess.ipInfo,playerColor,Sex);
+							var user = new User(UserId,username,true,Date.now(),LevelProgress,sess.ipInfo,playerColor,Sex);
 							onlineUsers[user.UserId] = user;
+							console.log(user.UserId);
 							sess.UserId = user.UserId;
 							res.json(user);
 							console.log("User logged in");
@@ -236,7 +236,6 @@ app.get('/updateUsers',function(req,res){
 	}
 	else{
 		res.json(onlineUsers);
-		onlineUsers[sess.UserId].lastUpdate = Date.now();
 	}
 });
 
