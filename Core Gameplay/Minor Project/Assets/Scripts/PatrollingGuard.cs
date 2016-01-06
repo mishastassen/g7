@@ -16,27 +16,31 @@ public class PatrollingGuard: NetworkBehaviour {
 	private float angle;
 	RaycastHit hitInfo;
 
+	private Transform PlayerPos;
+	private Vector3 ResetLoc;
+	private GameObject player;
+
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
 		facingRight = true;
 		coneDegrees = 30;
+		spotted = false;
+		ResetLoc = enemy.transform.position;
 	}
-	/*
-	void OnEnable () {
-		Eventmanager.Instance.EventonPlayerDeath += HandleEventonPlayerDeath;
-		enabled = true;
-		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
-	}
+		
+	void FixedUpdate (){
 
-	void OnDisable () {
-		if (enabled) {
-			Eventmanager.Instance.EventonPlayerDeath -= HandleEventonPlayerDeath;
-			enabled = false;
+		if (spotted) {
+			Debug.Log ("Player spotted"); 
+			CmdPlayerSpotted ();
+		} else {
+			CmdNoPlayerSpotted ();
+			walk ();
 		}
 	}
-	*/
-	void FixedUpdate (){
+
+	void walk (){
 		bool groundedRight = isGroundedRight ();
 		bool groundedLeft = isGroundedLeft ();
 
@@ -62,12 +66,6 @@ public class PatrollingGuard: NetworkBehaviour {
 			facingRight = true;
 		} else {
 			//Debug.Log ("Oops. Er is iets goed mis");
-		}
-		if (spotted) {
-			CmdPlayerSpotted ();
-		} 
-		else {
-			CmdNoPlayerSpotted ();
 		}
 	}
 
