@@ -20,23 +20,21 @@ public class PatrollingGuard: NetworkBehaviour {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
 		facingRight = true;
-		coneDegrees = 30;
+		coneDegrees = 60;
+		spotted = false;
 	}
-	/*
-	void OnEnable () {
-		Eventmanager.Instance.EventonPlayerDeath += HandleEventonPlayerDeath;
-		enabled = true;
-		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
-	}
+		
+	void FixedUpdate (){
 
-	void OnDisable () {
-		if (enabled) {
-			Eventmanager.Instance.EventonPlayerDeath -= HandleEventonPlayerDeath;
-			enabled = false;
+		if (spotted) {
+			CmdPlayerSpotted ();
+		} else {
+			CmdNoPlayerSpotted ();
+			walk ();
 		}
 	}
-	*/
-	void FixedUpdate (){
+
+	void walk (){
 		bool groundedRight = isGroundedRight ();
 		bool groundedLeft = isGroundedLeft ();
 
@@ -44,30 +42,19 @@ public class PatrollingGuard: NetworkBehaviour {
 			if (facingRight) {
 				walkRight ();
 				eyePosition = new Vector3 (enemy.transform.position.x + 0.5f, enemy.transform.position.y + 2.0f, enemy.transform.position.z);
-				//Debug.Log ("Ik loop naar rechts");
 			} else {
 				walkLeft ();
 				eyePosition = new Vector3 (enemy.transform.position.x - 0.5f, enemy.transform.position.y + 2.0f, enemy.transform.position.z);
-				//Debug.Log ("Ik loop naar links");
 			}
 		} else if (groundedLeft && !groundedRight) {
-			//Debug.Log ("Ik moet nu naar links gaan lopen");
 			flip ();
 			walkLeft ();
 			facingRight = false;
 		} else if (!groundedLeft && groundedRight) {
-			//Debug.Log ("Ik moet nu naar rechts gaan lopen");
 			flip ();
 			walkRight ();
 			facingRight = true;
 		} else {
-			//Debug.Log ("Oops. Er is iets goed mis");
-		}
-		if (spotted) {
-			CmdPlayerSpotted ();
-		} 
-		else {
-			CmdNoPlayerSpotted ();
 		}
 	}
 
@@ -138,12 +125,7 @@ public class PatrollingGuard: NetworkBehaviour {
 			spotted = false;
 		}
 	}
-	/*
-	void HandleEventonPlayerDeath (GameObject player) {
-		spotted = false;
-		Gamevariables.alarmPercent = -1;
-	}
-	*/
+
 	[Command]
 	void CmdPlayerSpotted() {
 		Eventmanager.Instance.triggerPlayerSpotted();
