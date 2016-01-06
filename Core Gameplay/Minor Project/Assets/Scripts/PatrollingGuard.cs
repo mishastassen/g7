@@ -16,23 +16,17 @@ public class PatrollingGuard: NetworkBehaviour {
 	private float angle;
 	RaycastHit hitInfo;
 
-	private Transform PlayerPos;
-	private Vector3 ResetLoc;
-	private GameObject player;
-
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
 		facingRight = true;
-		coneDegrees = 30;
+		coneDegrees = 60;
 		spotted = false;
-		ResetLoc = enemy.transform.position;
 	}
 		
 	void FixedUpdate (){
 
 		if (spotted) {
-			Debug.Log ("Player spotted"); 
 			CmdPlayerSpotted ();
 		} else {
 			CmdNoPlayerSpotted ();
@@ -48,24 +42,19 @@ public class PatrollingGuard: NetworkBehaviour {
 			if (facingRight) {
 				walkRight ();
 				eyePosition = new Vector3 (enemy.transform.position.x + 0.5f, enemy.transform.position.y + 2.0f, enemy.transform.position.z);
-				//Debug.Log ("Ik loop naar rechts");
 			} else {
 				walkLeft ();
 				eyePosition = new Vector3 (enemy.transform.position.x - 0.5f, enemy.transform.position.y + 2.0f, enemy.transform.position.z);
-				//Debug.Log ("Ik loop naar links");
 			}
 		} else if (groundedLeft && !groundedRight) {
-			//Debug.Log ("Ik moet nu naar links gaan lopen");
 			flip ();
 			walkLeft ();
 			facingRight = false;
 		} else if (!groundedLeft && groundedRight) {
-			//Debug.Log ("Ik moet nu naar rechts gaan lopen");
 			flip ();
 			walkRight ();
 			facingRight = true;
 		} else {
-			//Debug.Log ("Oops. Er is iets goed mis");
 		}
 	}
 
@@ -136,12 +125,7 @@ public class PatrollingGuard: NetworkBehaviour {
 			spotted = false;
 		}
 	}
-	/*
-	void HandleEventonPlayerDeath (GameObject player) {
-		spotted = false;
-		Gamevariables.alarmPercent = -1;
-	}
-	*/
+
 	[Command]
 	void CmdPlayerSpotted() {
 		Eventmanager.Instance.triggerPlayerSpotted();
