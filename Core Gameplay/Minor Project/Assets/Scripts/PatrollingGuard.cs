@@ -15,6 +15,7 @@ public class PatrollingGuard: NetworkBehaviour {
 	private Vector3 direction;
 	private float angle;
 	RaycastHit hitInfo;
+	private Animator anim;
 
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
@@ -22,13 +23,16 @@ public class PatrollingGuard: NetworkBehaviour {
 		facingRight = true;
 		coneDegrees = 60;
 		spotted = false;
+		anim = GetComponent<Animator> ();
 	}
 		
 	void FixedUpdate (){
 
 		if (spotted) {
 			CmdPlayerSpotted ();
+			anim.speed = 0;
 		} else {
+			anim.speed = 1;
 			CmdNoPlayerSpotted ();
 			walk ();
 		}
