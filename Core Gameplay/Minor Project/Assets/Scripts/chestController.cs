@@ -12,11 +12,15 @@ public class chestController : NetworkBehaviour {
 
 	private bool eventEnabled;
 
+	// animotor  and particle system stuff
+	private Animator anim;
+
 	// Use this for initialization
 	void OnEnable () {
 		Eventmanager.Instance.EventonChestActivated += HandleEventonChestActivated;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 		eventEnabled = true;
+		anim = GetComponent<Animator> ();
 	}
 
 	void Start() {
@@ -39,6 +43,7 @@ public class chestController : NetworkBehaviour {
 
 	void returnLevel(){
 		main main = (main)GameObject.FindObjectOfType (typeof(main));
+
 		//main.nextlevel = ("BasisLevel");
 	}
 
