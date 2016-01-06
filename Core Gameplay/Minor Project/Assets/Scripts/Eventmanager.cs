@@ -135,7 +135,6 @@ public class Eventmanager : NetworkBehaviour {
 	//Trigger SwitchPulled event
 	public void triggerSwitchPulled(int id){
 		if (EventonSwitchPulled != null) {	//Don't execute if noone is listening to event
-			EventonSwitchPulled(id);
 			if (isServer) {
 				RpcOnSwitchPulled (id);
 			}
@@ -148,7 +147,6 @@ public class Eventmanager : NetworkBehaviour {
 			Gamemanager.Instance.packageheld = true;
 			Gamemanager.Instance.packageholder = player.GetComponent<NetworkIdentity> ().netId;
 			if(EventonPackagePickup != null){
-				EventonPackagePickup (Gamemanager.Instance.packageholder,tag);
 				if (isServer) {
 					RpcPackagePickup (Gamemanager.Instance.packageholder,tag);
 				}
@@ -160,7 +158,6 @@ public class Eventmanager : NetworkBehaviour {
 	public void packageDrop(GameObject player){
 		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {
 			Gamemanager.Instance.packageheld = false;
-			EventonPackageDrop (Gamemanager.Instance.packageholder);
 			if (isServer) {
 				RpcPackageDrop (Gamemanager.Instance.packageholder);
 			}
@@ -171,7 +168,6 @@ public class Eventmanager : NetworkBehaviour {
 	public void packageThrow(GameObject player){
 		if (Gamemanager.Instance.packageholder == player.GetComponent<NetworkIdentity> ().netId) {
 			Gamemanager.Instance.packageheld = false;
-			EventonPackageThrow (Gamemanager.Instance.packageholder);
 			if (isServer) {
 				RpcPackageThrow (Gamemanager.Instance.packageholder);
 			}
@@ -189,7 +185,6 @@ public class Eventmanager : NetworkBehaviour {
 	//Trigger when player is spotted
 	public void triggerPlayerSpotted(){
 		if (EventonPlayerSpotted != null) { //Don't execute if noone is listening to event
-			EventonPlayerSpotted ();
 			if (isServer) {
 				RpcOnPlayerSpotted ();
 			}
@@ -199,7 +194,6 @@ public class Eventmanager : NetworkBehaviour {
 	//Trigger when no player is spotted
 	public void triggerNoPlayerSpotted(){
 		if (EventonNoPlayerSpotted != null) { //Don't execute if noone is listening to event
-			EventonNoPlayerSpotted ();
 			if (isServer) {
 				RpcOnNoPlayerSpotted ();
 			}
@@ -217,7 +211,6 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerPackageDestroyed(){
 		Gamemanager.Instance.packageheld = false;
 		if (EventonPackageDestroyed != null) { //Don't execute if noone is listening to event
-			EventonPackageDestroyed ();
 			if (isServer) {
 				RpcOnPackageDestroyed ();
 			}
@@ -227,7 +220,6 @@ public class Eventmanager : NetworkBehaviour {
 	//Trigger when level is finished(){
 	public void triggerLevelFinished(string nextLevel){
 		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
-			EventonLevelFinished(nextLevel);
 			if (isServer) {
 				RpcOnLevelFinished (nextLevel);
 			}
@@ -262,7 +254,6 @@ public class Eventmanager : NetworkBehaviour {
 
 	public void triggerCheckpointReached(int checkpointNum){
 		if (EventonCheckpointReached != null) {
-			EventonCheckpointReached(checkpointNum);
 			if (isServer) {
 				RpcOnCheckpointReached (checkpointNum);
 			}
