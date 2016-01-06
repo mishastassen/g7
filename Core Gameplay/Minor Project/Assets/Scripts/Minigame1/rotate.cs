@@ -96,7 +96,7 @@ public class rotate : NetworkBehaviour {
 
 		}
 
-		if (count > 7) {
+		if (count > 1) {
 			way = 0;
 			finished = true;
 		}

@@ -87,6 +87,7 @@ public class PlayerController : NetworkBehaviour  {
 			interact2Button = "Interact2_P2";
 			throwButton = "Throw_P2";
 		}
+		changeColour (new Color32 (10, 200, 10, 255));
 	}
 
 	void OnEnable(){
@@ -359,6 +360,18 @@ public class PlayerController : NetworkBehaviour  {
 			CmdCheckDrawing (true);
 			startTimeDraw = Time.time;
 		}
+	}
+		
+	void changeColour(Color32 playerColor){
+		Texture2D texture = this.transform.GetChild (0).GetChild (1).gameObject.GetComponent<SkinnedMeshRenderer> ().material.mainTexture as Texture2D;
+		Color32[] colors = texture.GetPixels32 (0);
+		for(int j = 0; j < colors.Length; j++){
+			if ((196 > colors[j].r && colors[j].r > 186) && (6 > colors [j].g) && (169 > colors [j].b && colors [j].b > 159)) {
+				colors [j] = playerColor;
+			}
+		}
+		texture.SetPixels32(colors,0);
+		texture.Apply(true);
 	}
 
 	//Play walking sound
