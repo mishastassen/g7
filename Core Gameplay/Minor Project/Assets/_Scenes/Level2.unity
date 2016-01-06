@@ -2204,7 +2204,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 436270, guid: 33d8c79029659ca4c84161f61e1d9247, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 68.2
+      value: 84.25
       objectReference: {fileID: 0}
     - target: {fileID: 436270, guid: 33d8c79029659ca4c84161f61e1d9247, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2257,6 +2257,30 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 436270, guid: 33d8c79029659ca4c84161f61e1d9247, type: 2}
   m_PrefabInternal: {fileID: 727733868}
+--- !u!1 &727733870 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 161870, guid: 33d8c79029659ca4c84161f61e1d9247, type: 2}
+  m_PrefabInternal: {fileID: 727733868}
+--- !u!195 &727733871
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 727733870}
+  m_Enabled: 1
+  m_Radius: 1
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6
+  m_BaseOffset: 4
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &743206321
 Prefab:
   m_ObjectHideFlags: 0
@@ -3877,11 +3901,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -146.4
+      value: -148.7
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -46.4
+      value: -47.9
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4101,11 +4125,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -150.9
+      value: -153.2
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -46.4
+      value: -47.9
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.z
