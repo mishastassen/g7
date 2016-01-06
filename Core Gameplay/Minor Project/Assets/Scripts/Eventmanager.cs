@@ -211,6 +211,7 @@ public class Eventmanager : NetworkBehaviour {
 	public void triggerPackageDestroyed(){
 		Gamemanager.Instance.packageheld = false;
 		if (EventonPackageDestroyed != null) { //Don't execute if noone is listening to event
+			//EventonPackageDestroyed ();
 			if (isServer) {
 				RpcOnPackageDestroyed ();
 			}
@@ -220,6 +221,7 @@ public class Eventmanager : NetworkBehaviour {
 	//Trigger when level is finished(){
 	public void triggerLevelFinished(string nextLevel){
 		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
+			EventonLevelFinished(nextLevel);
 			if (isServer) {
 				RpcOnLevelFinished (nextLevel);
 			}
