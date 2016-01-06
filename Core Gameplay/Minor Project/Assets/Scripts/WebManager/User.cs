@@ -9,10 +9,10 @@ public class User{
 	public string Ip;
 	public int levelProgress;
 	public bool Online;
-	public Color playerColor;
+	public Color32 playerColor;
 	public string Sex;
 
-	public User (int UserId, string Username, int levelProgress,bool Online,string Ip, Color playerColor,string Sex){
+	public User (int UserId, string Username, int levelProgress,bool Online,string Ip, Color32 playerColor,string Sex){
 		this.UserId = UserId;
 		this.Username = Username;
 		this.levelProgress = levelProgress;
@@ -33,7 +33,7 @@ public class User{
 		Sex = aJSON ["Sex"];
 	}
 
-	private Color hexToColor(string hex)
+	private Color32 hexToColor(string hex)
 	{
 		hex = hex.Replace ("#", "");
 		byte a = 255;
