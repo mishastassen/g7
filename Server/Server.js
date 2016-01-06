@@ -71,7 +71,9 @@ app.post('/createAccount',function(req,res){
 	}
 	else{
 		var username = req.body.username,
-			pass = req.body.password;
+			pass = req.body.password,
+			color = req.body.color,
+			sex = req.body.sex;
 		if(username.length < 4 || pass.length < 6){
 			console.log("Account denied");
 			res.send("Username must have atleast 4 characters en password atleast 6");
@@ -95,13 +97,45 @@ app.post('/createAccount',function(req,res){
 						else{
 							console.log("Creating new account " + username);
 							connection.query("INSERT INTO Users(AccountName,Password) VALUES ('" + username + "','" + pass + "')",function(err, rows, fields) {
-								connection.release();
 								if(err){
+									connection.release();
 									console.log(err);
 								}
 								else{
-									console.log("Account succesfully created");
-									res.end("Account created");
+									console.log("Account accepted");
+									UserId = rows.insertId;
+									connection.query("SELECT AvatarId FROM Avatars WHERE Colour = '" + color + "' AND Sex = '" + sex + "' LIMIT 1",function(err, rows, fields) {
+										if(err){
+											connection.release();
+											console.log(err);
+										}
+										else if(rows.length > 0){
+											AvatarId = rows[0].AvatarId;
+											connection.query("INSERT INTO PlayerAvatar VALUES ('" + UserId + "','" + AvatarId + "')",function(err, rows, fields) {
+												connection.release();
+												if(err){
+													console.log(err);
+												}
+												else{
+													console.log("Account succesfully created using existing avatar");
+													res.end("Account created");
+												}
+											});
+										}
+										else{
+											AvatarId = rows[0].AvatarId;
+											connection.query("BEGIN; INSERT INTO Avatars(Sex,Colour) VALUES ('" + sex + "','" + color + "'); INSERT INTO PlayerAvatar VALUES ('" + UserId + "',LAST_INSERT_ID()); COMMIT;",function(err, rows, fields) {
+												connection.release();
+												if(err){
+													console.log(err);
+												}
+												else{
+													console.log("Account succesfully created using new avatar");
+													res.end("Account created");
+												}
+											});
+										}
+									});
 								}
 							});
 						}
@@ -123,22 +157,37 @@ app.post('/login',function(req,res){
 		}
 		else{
 			connection.query("SELECT UserId, AccountName,Password,LevelProgress FROM Users, Levels WHERE AccountName ='" + username +"' AND Users.LevelProgressId = Levels.LevelId", function(err, rows, fields) {
-				connection.release();
 				if(err){
+					connection.release();
 					console.log(err);
 				}
 				else if(rows.length === 0){
+					connection.release();
 					console.log("Username bestaat niet");
 					res.send("Wrong username");
 				}
 				else if(rows[0].Password === pass){
-					var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress,sess.ipInfo);
-					onlineUsers[user.UserId] = user;
-					sess.UserId = user.UserId;
+					var UserId = rows[0].UserId;
+					var LevelProgress = rows[0].LevelProgress;
 					console.log('Password correct');
-					res.json(user);
+					connection.query("SELECT Colour, Sex FROM Avatars, PlayerAvatar WHERE Avatars.AvatarId = PlayerAvatar.AvatarId AND PlayerAvatar.UserId = '" + UserId + "'",function(err, rows, fields){
+						connection.release();
+						if(err){
+							console.log(err);
+						}
+						else{
+							var playerColor = rows[0].Colour;
+							var Sex = rows[0].Sex;
+							var user = new User(rows[0].UserId,username,true,Date.now(),rows[0].LevelProgress,sess.ipInfo,playerColor,Sex);
+							onlineUsers[user.UserId] = user;
+							sess.UserId = user.UserId;
+							res.json(user);
+							console.log("User logged in");
+						}
+					});
 				}
 				else{
+					connection.release();
 					res.send("Wrong password");
 				}
 			});
@@ -511,13 +560,15 @@ function wait10min(){
 /*Objects*/
 
 /*Player*/
-function User(UserId,Username,LoggedIn,lastUpdate,levelProgress,ipInfo){
+function User(UserId,Username,LoggedIn,lastUpdate,levelProgress,ipInfo,playerColor,Sex){
 	this.UserId = UserId;
 	this.Username = Username;
 	this.LoggedIn = LoggedIn;
 	this.lastUpdate = lastUpdate;
 	this.levelProgress = levelProgress;
 	this.ipInfo = ipInfo;
+	this.playerColor = playerColor;
+	this.Sex = Sex;
 }
 
 /*Custom middleware*/

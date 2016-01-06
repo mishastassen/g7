@@ -78,7 +78,7 @@ public class WebManager : MonoBehaviour {
 	}
 
 	public void createAccount(){
-		StartCoroutine(IEcreateAccount(createName.GetComponent<InputField>().text,createPass.GetComponent<InputField>().text));
+		StartCoroutine(IEcreateAccount(createName.GetComponent<InputField>().text,createPass.GetComponent<InputField>().text,"M","#FF0000"));
 	}
 
 	public void getFriendList(){
@@ -125,10 +125,12 @@ public class WebManager : MonoBehaviour {
 		yield return cd.coroutine;
 	}
 
-	IEnumerator IEcreateAccount(string username, string password){
+	IEnumerator IEcreateAccount(string username, string password, string sex, string color){
 		JSONClass JSON = new JSONClass();
 		JSON.Add ("username", new JSONData (username));
 		JSON.Add ("password", new JSONData (password));
+		JSON.Add ("sex", new JSONData (sex));
+		JSON.Add ("color", new JSONData (color));
 		WWW www = createJSON (JSON.ToString (), "/createAccount");
 		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
 		yield return cd.coroutine;
