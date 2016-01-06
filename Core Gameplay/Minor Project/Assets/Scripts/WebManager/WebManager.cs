@@ -12,7 +12,7 @@ public class WebManager : MonoBehaviour {
 	string cookie = "";
 
 	/*UI input*/
-	public GameObject loginName, loginPass, createName, createPass, responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
+	public GameObject loginName, loginPass, responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
 
 	/*UI response*/
 	public GameObject loginResponse, createAccountResponse;
@@ -24,6 +24,7 @@ public class WebManager : MonoBehaviour {
 	
 	/*Users*/
 	public User currentUser = null;
+	public User otherPlayer = null;
 	public List<User> friendList = new List<User>();  //Friend list
 	public List<User> requestList = new List<User> (); //Pending friend requests
 	public List<User> onlineUsersList = new List<User>(); //Online Users
@@ -77,8 +78,8 @@ public class WebManager : MonoBehaviour {
 		StartCoroutine(IEresponse());
 	}
 
-	public void createAccount(){
-		StartCoroutine(IEcreateAccount(createName.GetComponent<InputField>().text,createPass.GetComponent<InputField>().text,"M","#FF0000"));
+	public void createAccount(string username, string password, string hexColor){
+		StartCoroutine(IEcreateAccount(username,password,"M",hexColor));
 	}
 
 	public void getFriendList(){

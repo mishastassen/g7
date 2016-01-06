@@ -97,6 +97,7 @@ public class messagePopup : MonoBehaviour {
 		yield return new WaitForSeconds(30.0f);
 		if (state == "gameAccepted") {
 			Debug.Log ("no response from host");
+			WebManager.Instance.otherPlayer = null;
 			closePopup ();
 		}
 	}
@@ -105,6 +106,7 @@ public class messagePopup : MonoBehaviour {
 		JSONClass messageBody = new JSONClass ();
 		messageBody ["acceptUserId"].AsInt = webmanager.currentUser.UserId;
 		StartCoroutine (webmanager.IEsendMessage (reqUserId, "acceptGame", messageBody));
+		WebManager.Instance.otherPlayer = WebManager.Instance.onlineUsersList.Find(User => User.UserId == reqUserId);
 		StartCoroutine (weAcceptedGame ());
 	}
 
@@ -134,6 +136,7 @@ public class messagePopup : MonoBehaviour {
 		messageBody ["gameIp"] = webmanager.currentUser.Ip;
 		Debug.Log (messageBody.ToString ());
 		StartCoroutine (webmanager.IEsendMessage (reqUserId, "HostStarted", messageBody));
+		WebManager.Instance.otherPlayer = WebManager.Instance.onlineUsersList.Find(User => User.UserId == reqUserId);
 		networkmanager.StartHost ();
 	}
 
