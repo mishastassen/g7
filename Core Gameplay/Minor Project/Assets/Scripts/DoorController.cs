@@ -44,6 +44,7 @@ public class DoorController : NetworkBehaviour {
 		if (!doorOpen) {
 			doorOpen = true;
 			anim.SetBool ("isOpen", true);
+			anim.SetBool ("isPressed", true);
 			Vector3 center = box.center;
 			center.y=openedCenterY;
 			box.center = center;

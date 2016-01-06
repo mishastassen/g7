@@ -100,9 +100,11 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		levelEnding = false;
 		clientEndLevelReady = false;
 		Gamemanager.Instance.CheckpointReached = 0;
+		/*
 		Analytics.CustomEvent ("Level Started", new Dictionary<string, object> {
 			{ "Levelname", nextLevel }
 		});
+		*/
 		networkmanager.ServerChangeScene (nextLevel);
 		Gamevariables.currentLevel = NetworkManager.networkSceneName;
 	}

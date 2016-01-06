@@ -384,63 +384,77 @@ public class PlayerController : NetworkBehaviour  {
 	[Command]
 	void CmdPickupPackage(string tag){
 		Eventmanager.Instance.packagePickup (this.gameObject,tag);
+		/*
 		Analytics.CustomEvent ("Package Picked Up", new Dictionary<string , object> {
 			{"Levelname", Gamevariables.currentLevel}
 		});
+		*/
 	}
 
 	[Command]
 	void CmdDropPackage(){
 		Eventmanager.Instance.packageDrop (this.gameObject);
+		/*
 		Analytics.CustomEvent ("Package Dropped", new Dictionary<string , object> {
 			{"Levelname", Gamevariables.currentLevel}
 		});
+		*/
 	}
 	
 	[Command]
 	void CmdThrowPackage() {
 		Eventmanager.Instance.packageThrow (this.gameObject);
+		/*
 		Analytics.CustomEvent ("Package Thrown", new Dictionary<string , object> {
 			{"Levelname", Gamevariables.currentLevel}
 		});
+		*/
 	}
 
 	[Command]
 	void CmdTriggerSwitch(int id){
 		Eventmanager.Instance.triggerSwitchPulled(id);
+		/*
 		Analytics.CustomEvent ("Switch Triggered", new Dictionary<string , object> {
 			{"Levelname", Gamevariables.currentLevel}
 		});
+		*/
 	}
 
 	[Command]
 	void CmdTriggerChest(){
 		Eventmanager.Instance.triggerChestActivated ();
+		/*
 		Analytics.CustomEvent ("Chest Minigame Started", new Dictionary<string , object> {
 			{"Levelname", Gamevariables.currentLevel},
 			{ "Time", Gamevariables.timer }
 		});
+		*/
 	}
 
 	[Command]
 	void CmdDeath(){
 		Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
+		/*
 		Analytics.CustomEvent ("Player Deaths", new Dictionary<string , object> {
 			{"Levelname", Gamevariables.currentLevel}
 		});
 		HeatmapEvent.Send("Player Death Heatmap", this.transform.position, new Dictionary<string, object> {
 			{"Levelname", Gamevariables.currentLevel}
 		});
+		*/
 	}
 
 	[Command]
 	void CmdCheckpointReached(int checkpointNum){
 		Eventmanager.Instance.triggerCheckpointReached (checkpointNum);
+		/*
 		Analytics.CustomEvent ("Checkpoint Reached", new Dictionary<string , object> {
 			{"Levelname", Gamevariables.currentLevel},
 			{"Checkpoint number", checkpointNum},
 			{"Time", Gamevariables.timer}
 		});
+		*/
 	}
 
 }

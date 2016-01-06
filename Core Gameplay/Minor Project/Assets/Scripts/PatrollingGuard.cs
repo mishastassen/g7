@@ -8,18 +8,19 @@ public class PatrollingGuard: NetworkBehaviour {
 	private float speed;
 	private bool facingRight;
 
-	//private Vector3 eyePosition;
+	private Vector3 eyePosition;
 	private bool spotted;
 	private bool enabled;
-	//private float coneDegrees; //halve hoek van gezichtspunt gegeven in graden
-	//private Vector3 direction;
-	//private float angle;
-	//RaycastHit hitInfo;
+	private float coneDegrees; //halve hoek van gezichtspunt gegeven in graden
+	private Vector3 direction;
+	private float angle;
+	RaycastHit hitInfo;
 
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
 		facingRight = true;
+		coneDegrees = 30;
 	}
 	/*
 	void OnEnable () {
@@ -42,9 +43,11 @@ public class PatrollingGuard: NetworkBehaviour {
 		if (groundedLeft && groundedRight) {
 			if (facingRight) {
 				walkRight ();
+				eyePosition = new Vector3 (enemy.transform.position.x + 0.5f, enemy.transform.position.y + 2.0f, enemy.transform.position.z);
 				//Debug.Log ("Ik loop naar rechts");
 			} else {
 				walkLeft ();
+				eyePosition = new Vector3 (enemy.transform.position.x - 0.5f, enemy.transform.position.y + 2.0f, enemy.transform.position.z);
 				//Debug.Log ("Ik loop naar links");
 			}
 		} else if (groundedLeft && !groundedRight) {
@@ -60,7 +63,6 @@ public class PatrollingGuard: NetworkBehaviour {
 		} else {
 			//Debug.Log ("Oops. Er is iets goed mis");
 		}
-		Debug.Log (spotted);
 		if (spotted) {
 			CmdPlayerSpotted ();
 		} 
@@ -99,37 +101,28 @@ public class PatrollingGuard: NetworkBehaviour {
 		transform.localScale = theScale;
 	}
 
-	void OnTriggerEnter(Collider other) {
+	void OnTriggerStay(Collider other) {
 		if (other.tag == "Player") {
-			spotted = true;
-			/*
-			Debug.Log ("player seen");
+			
 			direction = other.transform.position + new Vector3(0,3,0) - eyePosition;
-			Debug.DrawRay (eyePosition, direction, Color.blue);
+
 			if (facingRight) {
 				angle = Vector3.Angle (direction, Vector3.right);
-				direction = Vector3.right;
 			} else {
 				angle = Vector3.Angle (direction, Vector3.left);
-				direction = Vector3.left;
 			}
-			// Debug.Log ("Angle " + angle + " condeDeg " + coneDegrees);
 
 			if (angle <= coneDegrees) {
-				Debug.Log ("Drawing Line!");
-				Debug.DrawRay(eyePosition,direction*1000f, Color.red, duration:5f);
+
 				if (Physics.Raycast (eyePosition, direction, out hitInfo)) {
-					Debug.Log (hitInfo.collider.tag);
 					if (hitInfo.collider.tag == "Player") {
-						Debug.Log ("Hit by Player");
-						Debug.DrawRay(eyePosition, direction, Color.red);
+						Debug.DrawRay (eyePosition, direction, Color.red);
 						spotted = true;
 					} else {
-						Debug.Log ("Did not hit the Player but hit " + hitInfo.collider.name);
 						Debug.DrawRay(eyePosition, direction, Color.green);
 						spotted = false;
 					}
-				} else {
+				} else {				
 					Debug.DrawRay(eyePosition, direction, Color.green);
 					spotted = false;
 				}
@@ -137,7 +130,6 @@ public class PatrollingGuard: NetworkBehaviour {
 				Debug.DrawRay(eyePosition, direction, Color.green);
 				spotted = false;
 			}
-			*/
 		}
 	}
 

@@ -19,11 +19,11 @@ public class TextFade : MonoBehaviour {
 	}
 
 	IEnumerator firstTextFade(){
-		yield return new WaitForSeconds (6f);
+		yield return new WaitForSeconds (12f);
 		firstinstruction.enabled = false;
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (5f);
 		secondinstruction.enabled = true;
-		yield return new WaitForSeconds (6f);
+		yield return new WaitForSeconds (12f);
 		secondinstruction.enabled = false;
 	}
 }
