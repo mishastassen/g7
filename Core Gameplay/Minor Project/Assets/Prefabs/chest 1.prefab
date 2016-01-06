@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 494398}
   - 137: {fileID: 13782870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 410894}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 497284}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bone_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 451102}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - 114: {fileID: 11441500}
   - 114: {fileID: 11479446}
   - 114: {fileID: 11441242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chest 1
   m_TagString: Chest
   m_Icon: {fileID: 0}
@@ -88,9 +88,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126898}
-  m_LocalRotation: {x: .295665592, y: .295665443, z: -.642325401, w: .642325401}
+  m_LocalRotation: {x: 0.2956656, y: 0.29566544, z: -0.6423254, w: 0.6423254}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .99999994, y: 1, z: 1}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_Children:
   - {fileID: 497284}
   m_Father: {fileID: 451102}
@@ -101,8 +101,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185548}
-  m_LocalRotation: {x: 0, y: .382683456, z: 0, w: .923879504}
-  m_LocalPosition: {x: -12.1999998, y: -14.9099998, z: -7.02072906}
+  m_LocalRotation: {x: 0, y: 0.92387944, z: 0, w: -0.38268363}
+  m_LocalPosition: {x: -361.7, y: -211.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 451102}
@@ -115,7 +115,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167086}
-  m_LocalRotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -140,9 +140,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131126}
-  m_LocalRotation: {x: -.572635651, y: -.0107891671, z: .817994654, w: .0534491241}
-  m_LocalPosition: {x: -1.62752342, y: 1.22874596e-07, z: 0}
-  m_LocalScale: {x: .999999642, y: .99999994, z: .999999762}
+  m_LocalRotation: {x: -0.57263565, y: -0.010789167, z: 0.81799465, w: 0.053449124}
+  m_LocalPosition: {x: -1.6275234, y: 0.0000001228746, z: 0}
+  m_LocalScale: {x: 0.99999964, y: 0.99999994, z: 0.99999976}
   m_Children: []
   m_Father: {fileID: 410894}
   m_RootOrder: 0
@@ -156,8 +156,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.07269692, y: 2.23526859, z: 2.00895262}
-  m_Center: {x: 0, y: 1.11758089, z: 0}
+  m_Size: {x: 3.072697, y: 2.2352686, z: 2.0089526}
+  m_Center: {x: 0, y: 1.1175809, z: 0}
 --- !u!65 &6560152
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -168,8 +168,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.22745037, y: 2.61603546, z: 8.27324295}
-  m_Center: {x: -2.50107193, y: 1.34048367, z: -2.10087419}
+  m_Size: {x: 9.22745, y: 2.6160355, z: 8.273243}
+  m_Center: {x: 3, y: 1.3404837, z: 3}
 --- !u!95 &9553534
 Animator:
   serializedVersion: 3
@@ -231,11 +231,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
-  m_SendInterval: .100000001
+  m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
-  m_MovementTheshold: .00100000005
+  m_MovementTheshold: 0.001
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigame1Prefab: {fileID: 125380, guid: 082345a403e8d9e4298e44ba6696b804, type: 2}
-  currentLevel: Level1B
+  currentLevel: Level1C
 --- !u!137 &13782870
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -273,7 +273,7 @@ SkinnedMeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
@@ -288,8 +288,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 410894}
   m_AABB:
-    m_Center: {x: -.71938318, y: -.0111726522, z: .738954961}
-    m_Extent: {x: 1.69867611, y: 1.78831768, z: 1.61399794}
+    m_Center: {x: -0.7193832, y: -0.011172652, z: 0.73895496}
+    m_Extent: {x: 1.6986761, y: 1.7883177, z: 1.6139979}
   m_DirtyAABB: 0
 --- !u!1001 &100100000
 Prefab:
