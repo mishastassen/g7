@@ -20,7 +20,7 @@ public class PatrollingGuard: NetworkBehaviour {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
 		facingRight = true;
-		coneDegrees = 30;
+		coneDegrees = 60;
 	}
 	/*
 	void OnEnable () {
