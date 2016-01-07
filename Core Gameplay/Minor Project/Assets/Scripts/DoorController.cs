@@ -18,6 +18,8 @@ public class DoorController : NetworkBehaviour {
 	private bool doorOpen;
 	private bool eventEnabled;
 
+	private GameObject Switch;
+
 	int ExtractIDFromName(String name) {
 		int from = name.IndexOf ('(')+1;
 		int to = name.IndexOf (')');
@@ -36,6 +38,7 @@ public class DoorController : NetworkBehaviour {
 		Eventmanager.Instance.EventonSwitchPulled += switchPulled;
 		eventEnabled = true;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
+		Switch = GameObject.FindGameObjectWithTag("Switch");
 	}
 	
 	void switchPulled(int id) {
@@ -44,7 +47,6 @@ public class DoorController : NetworkBehaviour {
 		if (!doorOpen) {
 			doorOpen = true;
 			anim.SetBool ("isOpen", true);
-			anim.SetBool ("isPressed", true);
 			Vector3 center = box.center;
 			center.y=openedCenterY;
 			box.center = center;
@@ -53,13 +55,13 @@ public class DoorController : NetworkBehaviour {
 			box.size = size;
 		} else {
 			doorOpen = false;
-			anim.SetBool ("isOpen", false);
+			// anim.SetBool ("isOpen", false);
 			Vector3 center = box.center;
 			center.y=closedCenterY;
-			box.center = center;
+			//box.center = center;
 			Vector3 size = box.size;
 			size.y=closedSizeY;
-			box.size = size;
+			//box.size = size;
 		}
 
 	
