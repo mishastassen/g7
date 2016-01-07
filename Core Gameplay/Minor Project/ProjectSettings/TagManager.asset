@@ -23,6 +23,9 @@ TagManager:
   - Bridge
   - Obstacle
   - Root
+  - Bridge1
+  - minigame2controller
+  - minigame3controller
   layers:
   - Default
   - TransparentFX
