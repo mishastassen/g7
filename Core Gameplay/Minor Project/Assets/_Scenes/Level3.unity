@@ -3309,6 +3309,52 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 435108, guid: 2d8c814e89a9ce8499f7ae213e80c073, type: 2}
   m_PrefabInternal: {fileID: 222149122}
+--- !u!1001 &224774194
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1191405004}
+    m_Modifications:
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -54.597954
+      objectReference: {fileID: 0}
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -29.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 11.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3df622472ae51db489b5557442607219, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &224774195 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
+  m_PrefabInternal: {fileID: 224774194}
 --- !u!1001 &280579177
 Prefab:
   m_ObjectHideFlags: 0
@@ -16522,6 +16568,7 @@ Transform:
   - {fileID: 1613674282}
   - {fileID: 110388859}
   - {fileID: 280579178}
+  - {fileID: 224774195}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1001 &1240282210
