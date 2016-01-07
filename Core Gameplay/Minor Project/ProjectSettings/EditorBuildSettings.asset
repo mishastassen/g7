@@ -11,6 +11,8 @@ EditorBuildSettings:
     path: Assets/_Scenes/WebTestScene.unity
   - enabled: 1
     path: Assets/_Scenes/MainMenu.unity
+  - enabled: 0
+    path: Assets/_Scenes/RickMenu.unity
   - enabled: 1
     path: Assets/_Scenes/preScene.unity
   - enabled: 1
