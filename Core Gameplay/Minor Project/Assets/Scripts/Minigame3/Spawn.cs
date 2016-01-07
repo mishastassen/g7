@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Spawn : MonoBehaviour
+public class Spawn : NetworkBehaviour
 {
     private int b;
     private float Timer;
@@ -9,7 +10,6 @@ public class Spawn : MonoBehaviour
     public float SpawnTime; //kan later private
     public Transform[] Spawnlocations;
     public GameObject[] PrefabtoSpawn;
-    public GameObject[] ClonetoSpawn;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class Spawn : MonoBehaviour
         b = 3;
     }
 
-    void FixedUpdate()
+    void Update()
     {
 
         //timer
@@ -34,8 +34,12 @@ public class Spawn : MonoBehaviour
     }
     void SpawnObject(int a, int x)
     {
-        ClonetoSpawn[a] = Instantiate(PrefabtoSpawn[a], Spawnlocations[a].transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
-        ClonetoSpawn[x] = Instantiate(PrefabtoSpawn[x], Spawnlocations[x].transform.position, Quaternion.Euler(0, 0, 0)) as GameObject;
+		if (isServer) {
+			GameObject clonedSpawn1 = Instantiate (PrefabtoSpawn [a], Spawnlocations [a].transform.position, Quaternion.Euler (0, 0, 0)) as GameObject;
+			GameObject clonedSpawn2 = Instantiate (PrefabtoSpawn [x], Spawnlocations [x].transform.position, Quaternion.Euler (0, 0, 0)) as GameObject;
+			NetworkServer.Spawn (clonedSpawn1);
+			NetworkServer.Spawn (clonedSpawn2);
+		}
     }
 }
 
