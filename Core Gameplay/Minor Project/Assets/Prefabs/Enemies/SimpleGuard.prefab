@@ -15,7 +15,7 @@ GameObject:
   - 65: {fileID: 6575198}
   - 114: {fileID: 11429662}
   - 114: {fileID: 11487376}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: malev2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 464838}
   - 195: {fileID: 19501756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SimpleGuard
   m_TagString: Guard
   m_Icon: {fileID: 0}
@@ -219,6 +219,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Acceleration
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

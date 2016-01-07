@@ -993,7 +993,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 112456624}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Locations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2049,6 +2049,10 @@ Prefab:
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121248, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
@@ -4624,6 +4628,10 @@ Prefab:
     - target: {fileID: 121248, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_Name
       value: Start location (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 121248, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}

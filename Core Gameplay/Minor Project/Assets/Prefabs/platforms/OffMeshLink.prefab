@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 448354}
   - 114: {fileID: 11487224}
   - 191: {fileID: 19127482}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 421218}
   - 114: {fileID: 11460484}
   - 191: {fileID: 19195006}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 474192}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: OffMeshLink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 199058}
