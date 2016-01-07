@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CheckpointController : MonoBehaviour {
 
+	private Animator anim;
+
 	public int checkpointNum;
 	public Transform playerSpawn;
 
@@ -12,6 +14,8 @@ public class CheckpointController : MonoBehaviour {
 		Eventmanager.Instance.EventonCheckpointReached += HandleEventonCheckpointReached;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 		eventsEnabled = true;
+		anim = this.GetComponent<Animator> ();
+		anim.speed = 1.5f;
 	}
 
 	void OnDisable(){
@@ -24,7 +28,8 @@ public class CheckpointController : MonoBehaviour {
 	void HandleEventonCheckpointReached (int checkpointNum)
 	{
 		if (checkpointNum == this.checkpointNum) {
-			gameObject.GetComponent<Renderer>().material.color = Color.red;
+			// gameObject.GetComponent<Renderer>().material.color = Color.red;
+			anim.SetBool("reached",true);
 		}
 	}
 	
