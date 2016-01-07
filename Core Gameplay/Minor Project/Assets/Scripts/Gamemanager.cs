@@ -65,9 +65,9 @@ public class Gamemanager : NetworkBehaviour {
 				if (WebManager.Instance.localmultiplayer) {
 					localmultiplayer = true;
 					ClientScene.AddPlayer (2);
-					Eventmanager.Instance.triggerLevelFinished (WebManager.Instance.level1);
+					Eventmanager.Instance.triggerLevelSwitch (WebManager.Instance.level1);
 				} else {
-					Eventmanager.Instance.triggerLevelFinished (WebManager.Instance.level1);
+					Eventmanager.Instance.triggerLevelSwitch (WebManager.Instance.level1);
 				}
 			}
 		}else if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {

@@ -26,6 +26,7 @@ TagManager:
   - Bridge1
   - minigame2controller
   - minigame3controller
+  - levelFinishPanel
   layers:
   - Default
   - TransparentFX

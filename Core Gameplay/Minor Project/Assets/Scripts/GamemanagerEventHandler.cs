@@ -23,9 +23,9 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 	void Start () {
 		Eventmanager.Instance.EventonPlayerDeath += HandleEventonPlayerDeath;
 		Eventmanager.Instance.EventonPackageDestroyed += HandleEventonPackageDestroyed;
-		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
+		Eventmanager.Instance.EventonLevelSwitch += HandleEventonLevelSwitch;
 		Eventmanager.Instance.EventonCheckpointReached += HandleEventonCheckpointReached;
-
+		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
 
 		networkmanager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		NetworkServer.RegisterHandler(ClientReadyMsg, onClientReadyMsg);
@@ -38,8 +38,16 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		Gamemanager.Instance.CheckpointReached = checkpointNum;
 	}
 
-	void HandleEventonLevelFinished (string nextLevel)
+	void HandleEventonLevelFinished(string nextLevel){
+		Time.timeScale = 0;
+		GameObject panel = GameObject.FindGameObjectWithTag ("levelFinishPanel").GetComponentInChildren(typeof(RectTransform),true).gameObject;
+		panel.SetActive (true);
+		panel.GetComponent<levelFinishScreen> ().nextLevel = nextLevel;
+	}
+
+	void HandleEventonLevelSwitch (string nextLevel)
 	{	
+		Time.timeScale = 1.0f;
 		if (!levelEnding) {
 			levelEnding = true;
 			Gamemanager.Instance.triggerDisableEventHandlers ();
