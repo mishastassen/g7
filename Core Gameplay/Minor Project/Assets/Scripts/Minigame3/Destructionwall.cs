@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Destructionwall : MonoBehaviour
+public class Destructionwall : NetworkBehaviour
 {
     private Rigidbody rb;
     // Use this for initialization
@@ -18,6 +19,8 @@ public class Destructionwall : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+		if (isServer) {
+			Destroy (other.gameObject);
+		}
     }
 }

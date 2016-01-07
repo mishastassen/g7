@@ -399,15 +399,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 445038, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.54108429
+      value: 3.5410843
       objectReference: {fileID: 0}
     - target: {fileID: 445038, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .762063026
+      value: 0.762063
       objectReference: {fileID: 0}
     - target: {fileID: 445038, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -4.07451153
+      value: -4.0745115
       objectReference: {fileID: 0}
     - target: {fileID: 445038, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_LocalRotation.x
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   left: {fileID: 0}
   right: {fileID: 0}
-  prefab: {fileID: 118158, guid: 9e0c8a33dc134e145a5e348e32f02e7e, type: 2}
+  prefab: {fileID: 134662, guid: 299a4b9288b78164d863ab957212891d, type: 2}
   winText: {fileID: 1966851260}
   loseText: {fileID: 258658235}
   timeText: {fileID: 969980816}
