@@ -25,6 +25,7 @@ public class SwitchController : NetworkBehaviour {
 		eventEnabled = true;
 		anim = this.GetComponent<Animator> ();
 		isSwitched = false;
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 	}
 
 	void OnDisable(){

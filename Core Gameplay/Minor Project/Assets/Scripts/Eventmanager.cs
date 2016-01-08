@@ -65,6 +65,10 @@ public class Eventmanager : NetworkBehaviour {
 	//[SyncEvent]
 	public event LevelFinished EventonLevelFinished;
 
+	//Level switch
+	public delegate void LevelSwitch(string nextLevel);
+	public event LevelSwitch EventonLevelSwitch;
+
 	//Minigame started
 	public delegate void MinigameStarted();
 	public event MinigameStarted EventonMinigameStarted;
@@ -221,9 +225,17 @@ public class Eventmanager : NetworkBehaviour {
 	//Trigger when level is finished(){
 	public void triggerLevelFinished(string nextLevel){
 		if (EventonLevelFinished != null) { //Don't execute if noone is listening to event
-			EventonLevelFinished(nextLevel);
 			if (isServer) {
 				RpcOnLevelFinished (nextLevel);
+			}
+		}
+	}
+
+	public void triggerLevelSwitch(string nextLevel){
+		if (EventonLevelSwitch != null) { //Don't execute if noone is listening to event
+			EventonLevelSwitch(nextLevel);
+			if (isServer) {
+				RpcOnLevelSwitch (nextLevel);
 			}
 		}
 	}
@@ -322,6 +334,13 @@ public class Eventmanager : NetworkBehaviour {
 	void RpcOnCheckpointReached (int checkpointNum){
 		if (EventonCheckpointReached  != null) {
 			EventonCheckpointReached  (checkpointNum);
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnLevelSwitch(string nextlevel){
+		if (EventonLevelSwitch != null) {
+			EventonLevelSwitch (nextlevel);
 		}
 	}
 }
