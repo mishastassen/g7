@@ -31,11 +31,7 @@ app.use( session({cookieName: 'session',
 				  resave: true,
 				  saveUninitialized: true,
 				  cookie: {maxAge: 10000}}));
-app.use(function(req, res, next) {
-    var ipInfo = getIP(req);
-    req.session.ipInfo = ipInfo;
-    next();
-});
+app.use(setIp());
 app.use(touchUser());
 
 /*Session variable*/
@@ -410,9 +406,11 @@ app.post('/acceptFriendRequest',function(req,res){
 			else {
 				connection.query("UPDATE Friends Set Status = 1 WHERE UserId_Sender = '" + FriendId + "' AND UserId_Receiver = '" + UserId + "'", function(err, rows, fields) {
 					if(err){
+						connection.release();
 						console.log(err);
 					}
 					else{
+						connection.release();
 						userFriendRequestsUpdated.FriendId = true;
 						userFriendsUpdated.FriendId = true;
 						res.send('Friend request accepted');
@@ -472,7 +470,35 @@ app.post('/getHigscores',function(req,res){
 		res.send('Log in first');
 	}
 	else{
-		
+		var UserId = sess.UserId;
+		var LevelId = req.body.LevelId;
+		var response = {};
+		MySQLpool.getConnection(function(err, connection) {
+			if(err){
+				console.log(err);
+			}
+			else {
+				connection.query("SELECT HS.Highscore, P1.AccountName, P2.AccountName FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' ORDER BY HS.Highscore LIMIT 10",function(err,rows,fields){
+					if(err){
+						connection.release();
+						console.log(err);
+					}
+					else{
+						response.top10 = rows;
+						connection.query("SELECT HS.Highscore, P1.AccountName, P2.AccountName FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.UserId_Player1 = '" + UserId +"' OR HS.UserId_Player2 = '" + UserId +"' ORDER BY HS.Highscore LIMIT 1",function(err,rows,fields){
+							connection.release();
+							if(err){
+								console.log(err);
+							}
+							else{
+								response.bestTime = rows;
+								res.json(response);
+							}
+						});
+					}
+				});
+			}
+		});
 	}
 });
 
@@ -483,9 +509,29 @@ app.post('/updateHighscores',function(req,res){
 		res.send('Log in first');
 	}
 	else{
-		
+		var Player1 = sess.UserId;
+		var LevelId = req.body.LevelId;
+		var Player2 = req.body.Player2Id;
+		var Highscore = req.body.Highscore;
+		MySQLpool.getConnection(function(err, connection) {
+			if(err){
+				console.log(err);
+			}
+			else{
+				connection.query("INSERT INTO HighScores VALUES ('" + Player1 + "','" + Player2 + "','" + LevelId + "','" + Highscore + "')",function(err, rows, fields){
+					connection.release();
+					if(err){
+						console.log(err);
+					}
+					else{
+						res.send("Succes");
+					}
+				});
+			}
+		});
 	}
 });
+
 
 app.post('/updateAvatar',function(req,res){
 	console.log('User updating avatar');
@@ -503,7 +549,7 @@ var server = app.listen(port, function () {
 	var port = server.address().port;
 	console.log('Server listening at %s', port);
 });
-wait10sec();	//Start cleaning offline users
+wait60sec();	//Start cleaning offline users
 wait10min();	//Start cleaning old vars
 
 /*Process functions*/
@@ -515,12 +561,12 @@ process.on("exit", function() {
 	});
 });
 
-/*Function to run every 10 seconds*/
+/*Function to run every 60 seconds*/
 function cleanOfflineUsers(callback){	//Removing users that went offline
 	console.log('cleaning offline users');
 	for (var UserId in onlineUsers){
 		if (onlineUsers.hasOwnProperty(UserId)){
-			if(onlineUsers[UserId].LoggedIn === false || (Date.now()- onlineUsers[UserId].lastUpdate > 10000)){
+			if(onlineUsers[UserId].LoggedIn === false || (Date.now()- onlineUsers[UserId].lastUpdate > 60000)){
 				delete onlineUsers[UserId];
 			}
 		}
@@ -528,10 +574,10 @@ function cleanOfflineUsers(callback){	//Removing users that went offline
 	callback();
 }
 
-function wait10sec(){
+function wait60sec(){
     setTimeout(function(){
-        cleanOfflineUsers(wait10sec);
-    }, 10000);
+        cleanOfflineUsers(wait60sec);
+    }, 60000);
 }
 
 /*Function to run every 10 minutes*/
@@ -572,7 +618,6 @@ function User(UserId,Username,LoggedIn,lastUpdate,levelProgress,ipInfo,playerCol
 
 /*Custom middleware*/
 function touchUser() {
-	//Can add setup here
 	return function(req,res,next){
 		sess = req.session;
 		if(sess.UserId !== undefined){
@@ -594,5 +639,13 @@ function touchUser() {
 		else{
 			next();
 		}
+	}
+}
+
+function setIp(){
+	return function(req,res,next){
+		var ipInfo = getIP(req);
+		req.session.ipInfo = ipInfo;
+		next();
 	}
 }
