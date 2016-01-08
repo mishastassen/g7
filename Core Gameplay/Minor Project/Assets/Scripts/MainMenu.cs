@@ -59,11 +59,14 @@ public class MainMenu : MonoBehaviour {
 	public void PressHelp() {
 		help.enabled = true;
 		menu.enabled = false;
+		//closeHelpButton.transform.parent.GetComponent<Animator> ().SetTrigger ("Active");
+		closeHelpButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void PressExitHelp (){
 		help.enabled = false;
 		menu.enabled = true;
+		closeHelpButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
 	}
 
 	public void PressOptions() {
