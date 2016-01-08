@@ -1054,7 +1054,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 424776, guid: e401c6c9718bea349890f5d5d634e3d7, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e401c6c9718bea349890f5d5d634e3d7, type: 2}
@@ -1531,7 +1531,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 841511786}
-  - {fileID: 1687657361}
   - {fileID: 114107236}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -21326,15 +21325,15 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 229261865}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 428954, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 365.25012
+      value: 1026.2501
       objectReference: {fileID: 0}
     - target: {fileID: 428954, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 373.8181
+      value: 828.3181
       objectReference: {fileID: 0}
     - target: {fileID: 428954, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
       propertyPath: m_LocalPosition.z
@@ -21358,19 +21357,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 428954, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11476968, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 841511785}
+    - target: {fileID: 11401680, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
+      propertyPath: levelId
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1687657361 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 428954, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
-  m_PrefabInternal: {fileID: 1687657360}
 --- !u!1001 &1728551557
 Prefab:
   m_ObjectHideFlags: 0

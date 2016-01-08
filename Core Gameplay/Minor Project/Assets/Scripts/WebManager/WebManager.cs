@@ -90,6 +90,13 @@ public class WebManager : MonoBehaviour {
 		StartCoroutine(IEgetUsers ());
 	}
 
+	public void getHighscores(int levelId, levelFinishScreen endscreen){
+		StartCoroutine (IEgetHighscores (levelId, endscreen));
+	}
+
+	public void updateHighscores(int levelId, int highscore){
+		StartCoroutine (IEupdateHighscores (levelId, highscore));
+	}
 
 	/*IEnumerators for coroutines*/
 	IEnumerator IElogin(string username, string password){
@@ -212,11 +219,37 @@ public class WebManager : MonoBehaviour {
 		message["ReceipId"].AsInt = receipId;
 		message["Type"] = type;
 		message["messageBody"] = messageBody;
-		Debug.Log (message.ToString ());
 		WWW www = createJSON (message.ToString (), "/sendMessage");
 		CoroutineWithData cd = new CoroutineWithData(this,getWWW(www));
 		yield return cd.coroutine;
 		string result = (string)cd.result;
+	}
+
+	IEnumerator IEgetHighscores(int levelId, levelFinishScreen endscreen){
+		JSONClass message = new JSONClass ();
+		message ["LevelId"].AsInt = levelId;
+		message ["UserId"].AsInt = currentUser.UserId;
+		WWW www = createJSON (message.ToString (), "/getHighscores");
+		CoroutineWithData cd = new CoroutineWithData (this, getWWW (www));
+		yield return cd.coroutine;
+		string result = (string)cd.result;
+		JSONNode highscores = SimpleJSON.JSON.Parse(result);
+		endscreen.displayHighscores (highscores);
+	}
+
+	IEnumerator IEupdateHighscores(int levelId, int highscore){
+		JSONClass message = new JSONClass ();
+		message ["levelId"].AsInt = levelId;
+		message ["UserId"].AsInt = currentUser.UserId;
+		message ["Player2Id"].AsInt = otherPlayer.UserId;
+		message ["Highscore"].AsInt = highscore;
+		WWW www = createJSON (message.ToString (), "/updateHighscores");
+		CoroutineWithData cd = new CoroutineWithData (this, getWWW (www));
+		yield return cd.coroutine;
+		string result = (string)cd.result;
+		if (result != "Succes") {
+			Debug.LogError ("Problem updating highscores");
+		}
 	}
 
 	IEnumerator update(){

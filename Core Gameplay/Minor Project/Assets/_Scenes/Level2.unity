@@ -1858,6 +1858,10 @@ Prefab:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1672327313}
+    - target: {fileID: 11401680, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
+      propertyPath: levelId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
   m_IsPrefabParent: 0

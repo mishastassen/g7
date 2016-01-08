@@ -3199,7 +3199,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11418744, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
       propertyPath: level1
-      value: Level1
+      value: Level3
       objectReference: {fileID: 0}
     - target: {fileID: 11418744, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
       propertyPath: loginName
@@ -6909,8 +6909,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 426.5, y: 127}
-  m_SizeDelta: {x: 853, y: 0}
+  m_AnchoredPosition: {x: 661, y: 454.5}
+  m_SizeDelta: {x: 1322, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
 MonoBehaviour:

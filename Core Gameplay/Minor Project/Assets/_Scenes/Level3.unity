@@ -10684,6 +10684,10 @@ Prefab:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1895896716}
+    - target: {fileID: 11401680, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
+      propertyPath: levelId
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf4a8236115c42e458e22a14a8227c13, type: 2}
   m_IsPrefabParent: 0
@@ -18583,8 +18587,6 @@ GameObject:
   - 33: {fileID: 1484758557}
   - 23: {fileID: 1484758556}
   - 95: {fileID: 1484758555}
-  - 114: {fileID: 1484758554}
-  - 114: {fileID: 1484758553}
   - 65: {fileID: 1484758552}
   m_Layer: 8
   m_Name: FenceWithTorch (3)
@@ -18619,30 +18621,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.1593204, y: 1.970943, z: 5.5167255}
   m_Center: {x: -0.067210816, y: 0.014525064, z: 2.7583628}
---- !u!114 &1484758553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11420074, guid: f02c3c38f7da976419e70f0cb76cd027,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1484758550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1484758554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11403794, guid: f02c3c38f7da976419e70f0cb76cd027,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1484758550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1484758555
 Animator:
   serializedVersion: 3
