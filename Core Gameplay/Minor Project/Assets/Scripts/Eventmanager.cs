@@ -3,10 +3,6 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class Eventmanager : NetworkBehaviour {
-	
-	private static Eventmanager static_instance = null;
-	private static object _lock = new object ();
-	private static bool applicationIsQuitting = false;
 
 	//Events:
 	//Playeradded event
@@ -93,33 +89,26 @@ public class Eventmanager : NetworkBehaviour {
 	//Function to call this object
 	public static Eventmanager Instance{
 		get{
-			if (applicationIsQuitting) {
-				return null;
+			Eventmanager instance = (Eventmanager) FindObjectOfType(typeof(Eventmanager));
+			if (FindObjectsOfType (typeof(Eventmanager)).Length > 1) {
+				Debug.LogError ("Warning: multiple event managers");
+				return instance;
 			}
-			lock(_lock)
-			{
-				static_instance = (Eventmanager) FindObjectOfType(typeof(Eventmanager));
-
-				if ( FindObjectsOfType(typeof(Eventmanager)).Length > 1 )
-				{
-					Debug.LogError("Warning: multiple event managers");
-					return static_instance;
-				}
-
-				if(static_instance == null){
-					Debug.LogError("Error no Event manager singleton");
-				}
+			if(instance == null){
+				Debug.LogError("Error no Event manager singleton");
 			}
-			return static_instance;
+			return instance;
 		}
 	}
-
-	void Awake(){
-		DontDestroyOnLoad(gameObject);
+		
+	void Start(){
+		Gamemanager.Instance.gameObject.GetComponent<GamemanagerEventHandler> ().OnEventManagerStart ();
 	}
 
-	public void OnDestroy () {
-		applicationIsQuitting = true;
+	void OnDisable(){
+		if (Gamemanager.Instance != null) {
+			Gamemanager.Instance.gameObject.GetComponent<GamemanagerEventHandler> ().OnEventManagerStop ();
+		}
 	}
 
 	//Trigger PlayerAdded event

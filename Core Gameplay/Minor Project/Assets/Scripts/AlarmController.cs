@@ -16,6 +16,9 @@ public class AlarmController : MonoBehaviour {
 		alarmText.text = "Alarm: " + alarmPercent + "%";
 		finishedIncrease = true;
 		finishedDecrease = true;
+		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
+		Eventmanager.Instance.EventonNoPlayerSpotted += HandleEventonNoPlayerSpotted;
+		enabled = true;
 	}			
 
 	void Update () {
@@ -29,9 +32,6 @@ public class AlarmController : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
-		Eventmanager.Instance.EventonNoPlayerSpotted += HandleEventonNoPlayerSpotted;
-		enabled = true;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 	}
 
