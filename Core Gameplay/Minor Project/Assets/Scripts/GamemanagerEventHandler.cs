@@ -23,9 +23,9 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 	void Start () {
 		Eventmanager.Instance.EventonPlayerDeath += HandleEventonPlayerDeath;
 		Eventmanager.Instance.EventonPackageDestroyed += HandleEventonPackageDestroyed;
-		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
+		Eventmanager.Instance.EventonLevelSwitch += HandleEventonLevelSwitch;
 		Eventmanager.Instance.EventonCheckpointReached += HandleEventonCheckpointReached;
-
+		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
 
 		networkmanager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		NetworkServer.RegisterHandler(ClientReadyMsg, onClientReadyMsg);
@@ -38,8 +38,16 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		Gamemanager.Instance.CheckpointReached = checkpointNum;
 	}
 
-	void HandleEventonLevelFinished (string nextLevel)
+	void HandleEventonLevelFinished(string nextLevel){
+		Time.timeScale = 0;
+		GameObject panel = GameObject.FindGameObjectWithTag ("levelFinishPanel").GetComponentInChildren(typeof(RectTransform),true).gameObject;
+		panel.SetActive (true);
+		panel.GetComponent<levelFinishScreen> ().nextLevel = nextLevel;
+	}
+
+	void HandleEventonLevelSwitch (string nextLevel)
 	{	
+		Time.timeScale = 1.0f;
 		if (!levelEnding) {
 			levelEnding = true;
 			Gamemanager.Instance.triggerDisableEventHandlers ();
@@ -65,6 +73,16 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		Transform transform = GameObject.FindWithTag ("PickUp1Spawn").transform;
 		Destroy (package);
 		GameObject newPackage;
+
+		if (Gamemanager.Instance.CheckpointReached != 0) {
+			GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+			foreach(GameObject checkpoint in checkpoints){
+				if(checkpoint.GetComponent<CheckpointController>().checkpointNum == Gamemanager.Instance.CheckpointReached){
+					transform = checkpoint.GetComponent<CheckpointController>().playerSpawn;
+				}
+			}
+		}
+
 		if (Gamevariables.magicPackage) {
 			newPackage = (GameObject)Instantiate (PickUpMagicPrefab, transform.position, transform.rotation);
 		} else {
@@ -79,6 +97,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		NetworkConnection conn = player.GetComponent<NetworkIdentity> ().connectionToClient;
 		short playerControllerId = player.GetComponent<NetworkIdentity> ().playerControllerId;
 		Transform transform = GameObject.FindWithTag ("SpawnLocation").transform;
+		GameObject package = GameObject.FindWithTag ("Package1");
 		if (Gamemanager.Instance.CheckpointReached != 0) {
 			GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
 			foreach(GameObject checkpoint in checkpoints){
