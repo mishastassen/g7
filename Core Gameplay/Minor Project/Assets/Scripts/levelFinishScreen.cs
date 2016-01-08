@@ -10,7 +10,7 @@ public class levelFinishScreen : NetworkBehaviour {
 
 	void OnEnable(){
 		int highscore = (int)Mathf.Round (Gamevariables.timer);
-		int levelId = GameObject.Find("levelManager").GetComponent<Levelvariables>().levelId;
+		int levelId = GameObject.Find("LevelManager").GetComponent<Levelvariables>().levelId;
 		if (WebManager.Instance.currentUser != null && isServer) {
 			WebManager.Instance.updateHighscores (levelId, highscore);
 		}
