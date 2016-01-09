@@ -93,9 +93,7 @@ public class PlayerController : NetworkBehaviour  {
 		else if(!isLocalPlayer && WebManager.Instance.otherPlayer != null){
 			changeColour (WebManager.Instance.otherPlayer.playerColor);
 		}
-	}
 
-	void OnEnable(){
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 	}
 
@@ -123,7 +121,7 @@ public class PlayerController : NetworkBehaviour  {
 			}
 
 			if (Input.GetKeyDown (KeyCode.Escape) && playerID == 1) {
-				GameObject uiManager = GameObject.Find ("UIManager");
+				GameObject uiManager = GameObject.Find ("LevelManager");
 				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
 			}
 		}

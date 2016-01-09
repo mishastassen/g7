@@ -17,19 +17,36 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 
 	private bool levelEnding = false;
 	private bool clientEndLevelReady = false;
+	private bool eventsEnabled;
 	const short ClientReadyMsg = 1002;
 
 	// Use this for initialization
-	void Start () {
+	public void OnEventManagerStart () {
+		eventsEnabled = true;
 		Eventmanager.Instance.EventonPlayerDeath += HandleEventonPlayerDeath;
 		Eventmanager.Instance.EventonPackageDestroyed += HandleEventonPackageDestroyed;
 		Eventmanager.Instance.EventonLevelSwitch += HandleEventonLevelSwitch;
 		Eventmanager.Instance.EventonCheckpointReached += HandleEventonCheckpointReached;
 		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
-
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 		networkmanager = GameObject.Find ("Network manager").GetComponent<NetworkManager>();
 		NetworkServer.RegisterHandler(ClientReadyMsg, onClientReadyMsg);
 		m_client = networkmanager.client;
+	}
+
+	public void OnEventManagerStop () {
+		OnDisable ();
+	}
+
+	void OnDisable(){
+		if (eventsEnabled) {
+			Eventmanager.Instance.EventonPlayerDeath -= HandleEventonPlayerDeath;
+			Eventmanager.Instance.EventonPackageDestroyed -= HandleEventonPackageDestroyed;
+			Eventmanager.Instance.EventonLevelSwitch -= HandleEventonLevelSwitch;
+			Eventmanager.Instance.EventonCheckpointReached -= HandleEventonCheckpointReached;
+			Eventmanager.Instance.EventonLevelFinished -= HandleEventonLevelFinished;
+			eventsEnabled = false;
+		}
 	}
 
 	[Server]

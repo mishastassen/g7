@@ -10,7 +10,7 @@ public class CheckpointController : MonoBehaviour {
 
 	bool eventsEnabled;
 
-	void OnEnable(){
+	void Start(){
 		Eventmanager.Instance.EventonCheckpointReached += HandleEventonCheckpointReached;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 		eventsEnabled = true;
