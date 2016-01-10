@@ -23,7 +23,6 @@ public class SimpleGuard : NetworkBehaviour {
 
 		anim = GetComponentInChildren<Animator> ();
 	}
-	
 
 	void Update () {
 		foreach (Collider c in TriggerList) {
@@ -34,8 +33,10 @@ public class SimpleGuard : NetworkBehaviour {
 				Vector3 playerPos = player.transform.position;
 				agent.destination = playerPos;
 
-				if (isServer && IsInStrikingDistance (playerPos))
-					Strike ();
+				if (isServer) {
+					bool shouldStrike = IsInStrikingDistance (playerPos);
+					Strike (shouldStrike);
+				}
 				return;
 			} 
 		}
@@ -53,6 +54,7 @@ public class SimpleGuard : NetworkBehaviour {
 		if (other.tag == "Player") {
 			Debug.Log ("Player entered!");
 		} 
+		PrintTriggerList();
 	}
 
 	void OnTriggerExit (Collider other){
@@ -63,14 +65,23 @@ public class SimpleGuard : NetworkBehaviour {
 			}
 			TriggerList.Remove (other);
 		}
+		PrintTriggerList ();
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
 		Vector3 curPos = this.transform.position;
-		return  Vector3.Distance (curPos, playerPos) < 5;
+		return  Vector3.Distance (curPos, playerPos) < 8;
 	}
 
-	void Strike() {
-		anim.SetBool ("isStriking", true);
+	void Strike(bool shouldStrike) {
+		anim.SetBool ("isStriking", shouldStrike);
 	}
+
+	void PrintTriggerList() {
+		Debug.Log ("triggerlist:");
+		foreach (Collider c in TriggerList) {
+			Debug.Log (c.tag);
+		}
+	}
+
 }
