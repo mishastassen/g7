@@ -6,12 +6,12 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
 
-public class SimpleGuard : MonoBehaviour {
+public class SimpleGuard : NetworkBehaviour {
 
-	public GameObject enemy;
+	private Animator anim;
+
 	private GameObject player;
 	NavMeshAgent agent;
-	private Transform PlayerPos;
 	private Vector3 ResetLoc;
 
 	private List <Collider> TriggerList= new List<Collider>();
@@ -19,29 +19,29 @@ public class SimpleGuard : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		agent = GetComponentInParent<NavMeshAgent> ();
-		ResetLoc = enemy.transform.position;
+		ResetLoc = this.transform.position;
 
+		anim = GetComponentInChildren<Animator> ();
 	}
-	
-	// Update is called once per frame
-//	void Update () {
-//		player = GameObject.FindGameObjectWithTag ("Player");
-//		PlayerPos = player.transform;
-//		agent.destination = PlayerPos.position;
-//	}
 
 	void Update () {
 		foreach (Collider c in TriggerList) {
 			if (c.tag == "Player") {
-				Debug.Log ("Player found!");
-				player = GameObject.FindGameObjectWithTag ("Player");
-				PlayerPos = player.transform;
-				agent.destination = PlayerPos.position;
+				//Debug.Log ("Player found!");
+				player = c.gameObject;
+				//player = GameObject.FindGameObjectWithTag ("Player");
+				Vector3 playerPos = player.transform.position;
+				agent.destination = playerPos;
+
+				if (isServer) {
+					bool shouldStrike = IsInStrikingDistance (playerPos);
+					Strike (shouldStrike);
+				}
 				return;
 			} 
 		}
-		Debug.Log ("Should start walking back now!");
-		agent.destination = ResetLoc;	
+		//Debug.Log ("Should start walking back now!");
+		agent.destination = ResetLoc;
 	}
 
 	void OnTriggerEnter (Collider other){
@@ -54,6 +54,7 @@ public class SimpleGuard : MonoBehaviour {
 		if (other.tag == "Player") {
 			Debug.Log ("Player entered!");
 		} 
+		PrintTriggerList();
 	}
 
 	void OnTriggerExit (Collider other){
@@ -64,5 +65,23 @@ public class SimpleGuard : MonoBehaviour {
 			}
 			TriggerList.Remove (other);
 		}
+		PrintTriggerList ();
 	}
+
+	bool IsInStrikingDistance(Vector3 playerPos) {
+		Vector3 curPos = this.transform.position;
+		return  Vector3.Distance (curPos, playerPos) < 8;
+	}
+
+	void Strike(bool shouldStrike) {
+		anim.SetBool ("isStriking", shouldStrike);
+	}
+
+	void PrintTriggerList() {
+		Debug.Log ("triggerlist:");
+		foreach (Collider c in TriggerList) {
+			Debug.Log (c.tag);
+		}
+	}
+
 }

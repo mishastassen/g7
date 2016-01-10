@@ -17,9 +17,6 @@ public class chestController : NetworkBehaviour {
 
 	// Use this for initialization
 	void OnEnable () {
-		Eventmanager.Instance.EventonChestActivated += HandleEventonChestActivated;
-		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
-		eventEnabled = true;
 		anim = GetComponent<Animator> ();
 	}
 
@@ -28,6 +25,9 @@ public class chestController : NetworkBehaviour {
 		Gamevariables.returnLevel = currentLevel;
 		//Gamemanager.Instance.currentLevel = currentLevel;
 		//startLocation = GameObject.Find ("Player").GetComponent<Rigidbody> ().transform.position;
+		Eventmanager.Instance.EventonChestActivated += HandleEventonChestActivated;
+		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
+		eventEnabled = true;
 	}
 
 	[Server]
@@ -36,7 +36,7 @@ public class chestController : NetworkBehaviour {
 			//Gamemanager.Instance.onNextLevelLoad = returnLevel;
 			NetworkManager Manager = GameObject.Find ("Network manager").GetComponent<NetworkManager> ();
 			Manager.playerPrefab = minigame1Prefab;
-			Eventmanager.Instance.triggerLevelFinished ("Minigame1");
+			Eventmanager.Instance.triggerLevelSwitch ("Minigame1");
 			//Eventmanager.Instance.triggerMinigameStarted ();
 		}
 	}

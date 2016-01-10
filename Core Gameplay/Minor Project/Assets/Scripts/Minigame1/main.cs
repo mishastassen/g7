@@ -78,10 +78,10 @@ public class main : NetworkBehaviour {
 					{ "Time Left", timeLeft },
 					{ "Mingame Tries", amountofTries }
 				});
-				Eventmanager.Instance.triggerLevelFinished(returnLevel);
+				Eventmanager.Instance.triggerLevelSwitch(returnLevel);
 			} else {
 				amountofTries += 1;
-				Eventmanager.Instance.triggerLevelFinished("Minigame1");
+				Eventmanager.Instance.triggerLevelSwitch("Minigame1");
 			}
 		}
 	}

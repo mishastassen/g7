@@ -20,6 +20,7 @@ public class PlayerController : NetworkBehaviour  {
 
 	[SyncVar(hook="OnFacingChange")]
 	public float facingRight;
+	Quaternion targetRotation;
 
 	[SyncVar(hook="OnAnimationChange")]
 	private bool isRunning;
@@ -48,6 +49,7 @@ public class PlayerController : NetworkBehaviour  {
 	private float slowspeed;
 	private float slowjump; // velocity for highest jump with package
 	private float slowjumplow; // velocity for lowest jump with package
+	public float turnSpeed;
 	
 	public Text debugText;
 	private int playerID;
@@ -70,6 +72,7 @@ public class PlayerController : NetworkBehaviour  {
 		slowspeed = 8;
 		slowjump = 18;
 		slowjumplow = 9;
+		turnSpeed = 12;
 		runThreshold = 0.5f;
 		facingRight = 1;
 		isDrawing = false;
@@ -93,9 +96,7 @@ public class PlayerController : NetworkBehaviour  {
 		else if(!isLocalPlayer && WebManager.Instance.otherPlayer != null){
 			changeColour (WebManager.Instance.otherPlayer.playerColor);
 		}
-	}
 
-	void OnEnable(){
 		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 	}
 
@@ -123,10 +124,13 @@ public class PlayerController : NetworkBehaviour  {
 			}
 
 			if (Input.GetKeyDown (KeyCode.Escape) && playerID == 1) {
-				GameObject uiManager = GameObject.Find ("UIManager");
+				GameObject uiManager = GameObject.Find ("LevelManager");
 				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
 			}
 		}
+		// Smoothly rotate towards the target point
+		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+
 		/*
 		if (Gamevariables.alarmPercent == 100) {
 			Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
@@ -235,10 +239,12 @@ public class PlayerController : NetworkBehaviour  {
 	}
 
 	void OnFacingChange(float facingRight) {
-		Vector3 theScale = transform.localScale;
+		/*Vector3 theScale = transform.localScale;
 		theScale.x = facingRight;
 		transform.localScale = theScale;
+		*/
 		this.facingRight = facingRight;
+		targetRotation = Quaternion.LookRotation(facingRight*Vector3.forward);
 	}
 
 	[Command]

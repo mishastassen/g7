@@ -8,6 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 424776}
+  - 114: {fileID: 11475804}
   m_Layer: 0
   m_Name: levelFinishPrefab
   m_TagString: levelFinishPanel
@@ -60,6 +61,7 @@ GameObject:
   - 222: {fileID: 22228824}
   - 114: {fileID: 11490058}
   - 114: {fileID: 11436108}
+  - 114: {fileID: 11498996}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -195,6 +197,38 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11475804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 228
+    i1: 1
+    i2: 198
+    i3: 201
+    i4: 113
+    i5: 139
+    i6: 234
+    i7: 52
+    i8: 152
+    i9: 144
+    i10: 245
+    i11: 213
+    i12: 214
+    i13: 52
+    i14: 227
+    i15: 215
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11489522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,6 +316,38 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11498996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 228
+    i1: 1
+    i2: 198
+    i3: 201
+    i4: 113
+    i5: 139
+    i6: 234
+    i7: 52
+    i8: 152
+    i9: 144
+    i10: 245
+    i11: 213
+    i12: 214
+    i13: 52
+    i14: 227
+    i15: 215
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!222 &22221100
 CanvasRenderer:
   m_ObjectHideFlags: 1

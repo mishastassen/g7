@@ -17,9 +17,6 @@ public class Timer : MonoBehaviour {
 		minutes = 0.0f;
 		seconds = "";
 		levelFinished = false;
-	}
-
-	void OnEnable() {
 		Eventmanager.Instance.EventonLevelFinished += HandleEventonLevelFinished;
 		enabled = true;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
