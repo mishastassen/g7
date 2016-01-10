@@ -284,6 +284,9 @@ public class WebManager : MonoBehaviour {
 			foreach (User user in users) {
 				GameObject text = Instantiate (onlineUserPrefab) as GameObject;
 				text.GetComponent<Text> ().text = user.Username;
+				//text.GetComponent<Text> ().color = new Color (189, 115, 22);
+				//text.GetComponent<Text> ().fontSize = 25;
+				//text.GetComponent<Text> ().fontStyle = FontStyle.BoldAndItalic;
 				text.transform.SetParent (onlineUserPanel.transform, false);
 				text.GetComponent<connectButton> ().popUpPanel = popUpPanel;
 				text.GetComponent<connectButton> ().webmanager = this;
