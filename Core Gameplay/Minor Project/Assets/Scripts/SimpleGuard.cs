@@ -27,9 +27,7 @@ public class SimpleGuard : NetworkBehaviour {
 	void Update () {
 		foreach (Collider c in TriggerList) {
 			if (c.tag == "Player") {
-				//Debug.Log ("Player found!");
 				player = c.gameObject;
-				//player = GameObject.FindGameObjectWithTag ("Player");
 				Vector3 playerPos = player.transform.position;
 				agent.destination = playerPos;
 
@@ -45,27 +43,28 @@ public class SimpleGuard : NetworkBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other){
-
 		if (!TriggerList.Contains (other)) {
 			//add the object to the list
 			TriggerList.Add (other);
+			Debug.Log ("triggerenter: "+other.tag);
 		}
 
 		if (other.tag == "Player") {
-			Debug.Log ("Player entered!");
+			//Debug.Log ("Player entered!");
 		} 
-		PrintTriggerList();
+		//PrintTriggerList();
 	}
 
 	void OnTriggerExit (Collider other){
 		//if the object is in the list of triggers, remove it
 		if (TriggerList.Contains (other)) {
+			Debug.Log ("triggerexit: "+other.tag);
 			if (other.tag == "Player") {
-				Debug.Log ("Player removed!");
+				//Debug.Log ("Player removed!");
 			}
 			TriggerList.Remove (other);
 		}
-		PrintTriggerList ();
+		//PrintTriggerList ();
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
@@ -83,5 +82,6 @@ public class SimpleGuard : NetworkBehaviour {
 			Debug.Log (c.tag);
 		}
 	}
+
 
 }

@@ -85,7 +85,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 460952}
   - 195: {fileID: 19566386}
-  - 136: {fileID: 13632618}
   - 65: {fileID: 6528336}
   - 114: {fileID: 11435994}
   - 114: {fileID: 11440642}
@@ -331,6 +330,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 409732}
   - 95: {fileID: 9501074}
+  - 136: {fileID: 13677438}
   m_Layer: 0
   m_Name: guardv3startanimtexture
   m_TagString: Untagged
@@ -835,12 +835,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87c3336ba536474d9c29bb91fd93021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &13632618
+--- !u!136 &13677438
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133530}
+  m_GameObject: {fileID: 180556}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

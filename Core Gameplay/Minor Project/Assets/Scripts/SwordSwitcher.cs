@@ -4,8 +4,8 @@ using System.Collections;
 
 public class SwordSwitcher : NetworkBehaviour {
 
-	public GameObject SwoldOnHip;
-	public GameObject SwoldInHand;
+	public GameObject SwordOnHip;
+	public GameObject SwordInHand;
 
 	// Use this for initialization
 	void Start () {
@@ -18,14 +18,14 @@ public class SwordSwitcher : NetworkBehaviour {
 	}
 
 	public void OnGrab() {
-		Debug.Log ("Sword grabbed: "+SwoldOnHip.name);
-		SwoldOnHip.SetActive (false);
-		SwoldInHand.SetActive (true);
+		Debug.Log ("Sword grabbed: "+SwordOnHip.name);
+		SwordOnHip.SetActive (false);
+		SwordInHand.SetActive (true);
 	}
 
 	public void OnInPocket() {
 		Debug.Log ("Sword in pocket.");
-		SwoldOnHip.SetActive (true);
-		SwoldInHand.SetActive (false);
+		SwordOnHip.SetActive (true);
+		SwordInHand.SetActive (false);
 	}
 }

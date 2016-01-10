@@ -339,6 +339,9 @@ public class PlayerController : NetworkBehaviour  {
 
 
 	void doInteract1(){
+		// If an object in triggerlist gets destroyed, OnTriggerExit isn't called, but object should be removed
+		TriggerList.RemoveAll(x => x == null);
+
 		if (hasPackage) {
 			CmdDropPackage ();
 		}
@@ -352,7 +355,7 @@ public class PlayerController : NetworkBehaviour  {
 			}
 
 			foreach( Collider c in TriggerList) {
-				Debug.Log (c.tag);
+				//Debug.Log (c.tag);
 				if(c.tag == "Switch") {
 					int switchID = ExtractIDFromName(c.name);
 					Debug.Log ("switch collider.name: "+c.name+", ID: "+switchID);
