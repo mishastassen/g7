@@ -47,7 +47,7 @@ public class Gamemanager : NetworkBehaviour {
 					return static_instance;
 				}
 				if(static_instance == null){
-					Debug.LogError("Error no Gamemanager singleton");
+					//Debug.LogError("Error no Gamemanager singleton");
 				}
 			}
 			return static_instance;
