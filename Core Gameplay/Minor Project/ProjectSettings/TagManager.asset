@@ -28,6 +28,7 @@ TagManager:
   - minigame3controller
   - levelFinishPanel
   - Sword
+  - Naginata
   layers:
   - Default
   - TransparentFX

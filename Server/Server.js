@@ -521,7 +521,7 @@ app.post('/updateHighscores',function(req,res){
 				console.log(err);
 			}
 			else{
-				connection.query("INSERT INTO HighScores VALUES ('" + Player1 + "','" + Player2 + "','" + LevelId + "','" + Highscore + "')",function(err, rows, fields){
+				connection.query("INSERT INTO HighScores (UserId_Player1,UserId_Player2,LevelId,HighScore) VALUES (" + Player1 + "," + Player2 + "," + LevelId + "," + Highscore + ")",function(err, rows, fields){
 					connection.release();
 					if(err){
 						console.log(err);

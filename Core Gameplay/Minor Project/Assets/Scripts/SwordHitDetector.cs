@@ -22,6 +22,7 @@ public class SwordHitDetector : NetworkBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (isServer && other.tag == "Sword") 
 			//Debug.Log ("Destroy this gameobject");
+			// FIXME: should be made multiplayer proof
 			Destroy (this.transform.parent.gameObject);
 
 	}

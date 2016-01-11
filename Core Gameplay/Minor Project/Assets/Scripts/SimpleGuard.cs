@@ -25,6 +25,8 @@ public class SimpleGuard : NetworkBehaviour {
 	}
 
 	void Update () {
+		// If an object in triggerlist gets destroyed, OnTriggerExit isn't called, but object should be removed
+		TriggerList.RemoveAll(x => x == null);
 		foreach (Collider c in TriggerList) {
 			if (c.tag == "Player") {
 				player = c.gameObject;

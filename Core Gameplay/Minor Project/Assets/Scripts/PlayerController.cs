@@ -296,6 +296,10 @@ public class PlayerController : NetworkBehaviour  {
 	//Add triggers to trigger list
 	void OnTriggerEnter(Collider other)
 	{
+		// If player gets hit by an enemy
+		if (other.tag == "Naginata" && isLocalPlayer) {
+			CmdDeath ();
+		}
 		if (other.tag == "DeathZone" && isLocalPlayer) {
 			CmdDeath ();
 		} 
