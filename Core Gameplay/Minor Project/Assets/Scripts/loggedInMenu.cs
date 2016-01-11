@@ -13,6 +13,8 @@ public class loggedInMenu : MonoBehaviour {
 
 	public void pressLogOut(){
 		WebManager.Instance.logout ();
+		loggedIn.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		network.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	void Update(){
