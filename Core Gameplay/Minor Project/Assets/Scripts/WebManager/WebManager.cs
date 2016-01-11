@@ -95,6 +95,7 @@ public class WebManager : MonoBehaviour {
 	}
 
 	public void updateHighscores(int levelId, int highscore){
+		Debug.Log ("Updating highscores");
 		StartCoroutine (IEupdateHighscores (levelId, highscore));
 	}
 
@@ -239,9 +240,14 @@ public class WebManager : MonoBehaviour {
 
 	IEnumerator IEupdateHighscores(int levelId, int highscore){
 		JSONClass message = new JSONClass ();
-		message ["levelId"].AsInt = levelId;
+		message ["LevelId"].AsInt = levelId;
 		message ["UserId"].AsInt = currentUser.UserId;
-		message ["Player2Id"].AsInt = otherPlayer.UserId;
+		if (otherPlayer != null) {
+			message ["Player2Id"].AsInt = otherPlayer.UserId;
+		} else {
+			message ["Player2Id"].AsInt = 0;
+		}
+		Debug.Log (highscore);
 		message ["Highscore"].AsInt = highscore;
 		WWW www = createJSON (message.ToString (), "/updateHighscores");
 		CoroutineWithData cd = new CoroutineWithData (this, getWWW (www));
