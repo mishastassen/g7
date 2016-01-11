@@ -70,9 +70,12 @@ app.post('/createAccount',function(req,res){
 			pass = req.body.password,
 			color = req.body.color,
 			sex = req.body.sex;
-		if(username.length < 4 || pass.length < 6){
-			console.log("Account denied");
-			res.send("Username must have atleast 4 characters en password atleast 6");
+		if(username.length < 4 ){
+			console.log("Username denied");
+			res.send("Username must have at least 4 characters");
+		} else if (pass.length < 6) {
+			console.log("Password denied");
+			res.send("Password must have at least 6 characters");
 		}
 		else{
 			MySQLpool.getConnection(function(err, connection) {
@@ -87,7 +90,7 @@ app.post('/createAccount',function(req,res){
 						}
 						else if(rows.length  > 0){
 							console.log("Account denied");
-							res.send("Username already in use");
+							res.send("Username is already taken");
 							connection.release();
 						}
 						else{

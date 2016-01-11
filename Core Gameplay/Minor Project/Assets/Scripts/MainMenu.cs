@@ -49,16 +49,23 @@ public class MainMenu : MonoBehaviour {
 		createAccount.enabled = false;
 		network.enabled = false;
 		loggedIn.enabled = false;
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void PressPlay (){
 		play.enabled = true;
 		menu.enabled = false;
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		play.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void PressHelp() {
 		help.enabled = true;
 		menu.enabled = false;
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
 		closeHelpButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
@@ -66,16 +73,24 @@ public class MainMenu : MonoBehaviour {
 		help.enabled = false;
 		menu.enabled = true;
 		closeHelpButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void PressOptions() {
 		options.enabled = true;
 		menu.enabled = false;
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		closeOptionsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void PressExitOptions(){
 		menu.enabled = true;
 		options.enabled = false;
+		closeOptionsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void PressExitGame() {
@@ -96,11 +111,17 @@ public class MainMenu : MonoBehaviour {
 	public void PressCredits (){
 		credits.enabled = true;
 		menu.enabled = false;
-		}
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		closeCreditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
+	}
 
 	public void closeCredits() {
 		credits.enabled = false;
 		menu.enabled = true;
+		closeCreditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void pressLocalGame(){

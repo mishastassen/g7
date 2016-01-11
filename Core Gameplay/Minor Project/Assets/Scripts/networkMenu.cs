@@ -11,16 +11,22 @@ public class networkMenu : MonoBehaviour {
 
 	public void pressLogin(){
 		WebManager.Instance.login ();
+		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		loggedIn.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void pressBack(){
 		play.enabled = true;
 		networkMultiplayer.enabled = false;
+		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		play.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void pressCreateAccount(){
 		accountCreate.enabled = true;
 		networkMultiplayer.enabled = false;
+		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		accountCreate.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	void Update(){

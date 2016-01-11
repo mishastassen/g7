@@ -17,6 +17,8 @@ public class createAccountMenu : MonoBehaviour {
 	public void pressBack(){
 		networkMultiplayer.enabled = true;
 		accountCreate.enabled = false;
+		accountCreate.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void pressCreateAccount(){
