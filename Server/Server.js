@@ -463,7 +463,7 @@ app.get('/getMessages',function(req,res){
 	}
 });
 
-app.post('/getHigscores',function(req,res){
+app.post('/getHighscores',function(req,res){
 	console.log('User requesting highscores');
 	sess = req.session;
 	if(sess.UserId === undefined){
@@ -478,14 +478,14 @@ app.post('/getHigscores',function(req,res){
 				console.log(err);
 			}
 			else {
-				connection.query("SELECT HS.Highscore, P1.AccountName, P2.AccountName FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' ORDER BY HS.Highscore LIMIT 10",function(err,rows,fields){
+				connection.query("SELECT HS.Highscore, P1.AccountName AS Player1, P2.AccountName As Player2 FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' ORDER BY HS.Highscore LIMIT 10",function(err,rows,fields){
 					if(err){
 						connection.release();
 						console.log(err);
 					}
 					else{
 						response.top10 = rows;
-						connection.query("SELECT HS.Highscore, P1.AccountName, P2.AccountName FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.UserId_Player1 = '" + UserId +"' OR HS.UserId_Player2 = '" + UserId +"' ORDER BY HS.Highscore LIMIT 1",function(err,rows,fields){
+						connection.query("SELECT HS.Highscore, P1.AccountName AS Player1, P2.AccountName AS Player2 FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.UserId_Player1 = '" + UserId +"' OR HS.UserId_Player2 = '" + UserId +"' ORDER BY HS.Highscore LIMIT 1",function(err,rows,fields){
 							connection.release();
 							if(err){
 								console.log(err);
