@@ -28,6 +28,9 @@ TagManager:
   - minigame3controller
   - levelFinishPanel
   - Sword
+  - redgreen
+  - redgreen_right
+  - instructionCanvas
   layers:
   - Default
   - TransparentFX
