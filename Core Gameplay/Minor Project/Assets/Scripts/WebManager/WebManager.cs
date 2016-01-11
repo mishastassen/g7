@@ -95,6 +95,7 @@ public class WebManager : MonoBehaviour {
 	}
 
 	public void updateHighscores(int levelId, int highscore){
+		Debug.Log ("Updating highscores");
 		StartCoroutine (IEupdateHighscores (levelId, highscore));
 	}
 
