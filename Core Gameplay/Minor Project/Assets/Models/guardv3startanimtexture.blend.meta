@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8f4af75debacffb48a5d17fe418b157d
-timeCreated: 1452264250
+guid: e4dc71d683dafa3439fb248198c18086
+timeCreated: 1452522274
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -60,6 +60,9 @@ ModelImporter:
     4300000: Circle_001
     7400000: Default Take
     7400002: Armature_001Action
+    7400004: GuardWalk
+    7400006: NaginataStrike
+    7400008: GuardIdle
     9500000: //RootNode
     13700000: Circle_001
   materials:
@@ -82,7 +85,407 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 60
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_001
+        weight: 1
+      - path: Armature_001/Belly
+        weight: 1
+      - path: Armature_001/Belly/Chest
+        weight: 1
+      - path: Armature_001/Belly/Chest/Head
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Armature_001/Hip_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature_001/Hip_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001/Foot_L
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001/Foot_R
+        weight: 1
+      - path: Circle_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature_001Action
+      takeName: Armature_001Action
+      firstFrame: 0
+      lastFrame: 128
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_001
+        weight: 1
+      - path: Armature_001/Belly
+        weight: 1
+      - path: Armature_001/Belly/Chest
+        weight: 1
+      - path: Armature_001/Belly/Chest/Head
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Armature_001/Hip_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature_001/Hip_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001/Foot_L
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001/Foot_R
+        weight: 1
+      - path: Circle_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GuardWalk
+      takeName: Armature_001Action
+      firstFrame: 8
+      lastFrame: 47
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_001
+        weight: 1
+      - path: Armature_001/Belly
+        weight: 1
+      - path: Armature_001/Belly/Chest
+        weight: 1
+      - path: Armature_001/Belly/Chest/Head
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Armature_001/Hip_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature_001/Hip_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001/Foot_L
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001/Foot_R
+        weight: 1
+      - path: Circle_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: NaginataStrike
+      takeName: Armature_001Action
+      firstFrame: 61
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_001
+        weight: 1
+      - path: Armature_001/Belly
+        weight: 1
+      - path: Armature_001/Belly/Chest
+        weight: 1
+      - path: Armature_001/Belly/Chest/Head
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Armature_001/Hip_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature_001/Hip_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001/Foot_L
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001/Foot_R
+        weight: 1
+      - path: Circle_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: GuardIdle
+      takeName: Armature_001Action
+      firstFrame: 99
+      lastFrame: 128
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_001
+        weight: 1
+      - path: Armature_001/Belly
+        weight: 1
+      - path: Armature_001/Belly/Chest
+        weight: 1
+      - path: Armature_001/Belly/Chest/Head
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Hand_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_L/Upperarm_L/Lowerarm_L/Thumb_L
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Hand_R
+        weight: 1
+      - path: Armature_001/Belly/Chest/Shoulder_R/Upperarm_R/Lowerarm_R/Thumb_R
+        weight: 1
+      - path: Armature_001/Hip_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L
+        weight: 1
+      - path: Armature_001/Hip_L/Upperleg_L/Lowerleg_L
+        weight: 1
+      - path: Armature_001/Hip_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R
+        weight: 1
+      - path: Armature_001/Hip_R/Upperleg_R/Lowerleg_R
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001
+        weight: 1
+      - path: Armature_001/Lowerleg_L_001/Foot_L
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001
+        weight: 1
+      - path: Armature_001/Lowerleg_R_001/Foot_R
+        weight: 1
+      - path: Circle_001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
