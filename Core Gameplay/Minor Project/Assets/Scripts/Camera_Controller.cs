@@ -27,7 +27,7 @@ public class Camera_Controller : MonoBehaviour {
 
 	private string currentLevel;
 	private GameObject deliveryZone;
-	private bool ready = false;
+	private bool ready;
 	private bool isStarted = false;
 
 	private float lerpTime;
@@ -36,6 +36,7 @@ public class Camera_Controller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		ready = false;
 		currentLevel = Gamevariables.currentLevel;
 		players = new List<GameObject>();
 		windowCenter.x = this.GetComponent<Transform> ().position.x;
@@ -46,6 +47,8 @@ public class Camera_Controller : MonoBehaviour {
 		cam = this.GetComponent<Camera> ();
 		zoom = cam.fieldOfView;
 		if (currentLevel == "Level6") {
+		} else {
+			ready = true;
 		}
 		lerpTime = 15f;
 		playerPos = (this.GetComponent<Transform> ().position);
