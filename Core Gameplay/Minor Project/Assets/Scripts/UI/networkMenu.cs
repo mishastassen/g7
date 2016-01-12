@@ -13,6 +13,8 @@ public class networkMenu : MonoBehaviour {
 		WebManager.Instance.login ();
 		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
 		loggedIn.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+		loggedIn.enabled = true;
+		networkMultiplayer.enabled = false;
 	}
 
 	public void pressBack(){
@@ -28,11 +30,5 @@ public class networkMenu : MonoBehaviour {
 		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
 		accountCreate.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
-
-	void Update(){
-		if (WebManager.Instance.currentUser != null) {
-			loggedIn.enabled = true;
-			networkMultiplayer.enabled = false;
-		}
-	}
+		
 }

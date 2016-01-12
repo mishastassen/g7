@@ -16,6 +16,7 @@ public class WebManager : MonoBehaviour {
 
 	/*UI response*/
 	public GameObject loginResponse, createAccountResponse;
+	public Canvas levelSelect, loggedIn;
 
 	/*Setup levels*/
 	[HideInInspector]
@@ -344,6 +345,8 @@ public class WebManager : MonoBehaviour {
 				text.GetComponent<connectButton> ().popUpPanel = popUpPanel;
 				text.GetComponent<connectButton> ().webmanager = this;
 				text.GetComponent<connectButton> ().linkedUser = user;
+				text.GetComponent<connectButton> ().levelSelect = levelSelect;
+				text.GetComponent<connectButton> ().loggedIn = loggedIn;
 				//text.GetComponent<connectButton>().inputButtonPanel = inputButtonPanel;
 			}
 		}

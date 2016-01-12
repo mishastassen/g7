@@ -35,12 +35,14 @@ public class MainMenu : MonoBehaviour {
 	public Canvas createAccount;
 	public Canvas network;
 	public Canvas loggedIn;
+	public Canvas levelSelect;
 
 	public NetworkManager networkmanager;
 	public WebManager webmanager;
 
 	// Use this for initialization
 	void Start () {
+		levelSelect.enabled = false;
 		play.enabled = false;
 		credits.enabled = false;
 		sure.enabled = false;

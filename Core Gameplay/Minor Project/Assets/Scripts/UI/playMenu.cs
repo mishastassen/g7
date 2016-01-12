@@ -7,11 +7,14 @@ public class playMenu : MonoBehaviour {
 	public Canvas mainMenu;
 	public Canvas networkMultiplayer;
 	public Canvas play;
+	public Canvas levelSelect;
 
 	public void pressLocalGame(){
-		WebManager.Instance.localmultiplayer = true;
-		NetworkManager networkmanager = (NetworkManager)GameObject.FindObjectOfType (typeof(NetworkManager));
-		networkmanager.StartHost ();
+		levelSelect.GetComponent<levelSelectCanvas> ().offline = true;
+		levelSelect.GetComponent<levelSelectCanvas> ().UpdateButtons ();
+		levelSelect.GetComponent<levelSelectCanvas> ().returnCanvas = play;
+		levelSelect.enabled = true;
+		play.enabled = false;
 	}
 
 	public void pressBack(){
