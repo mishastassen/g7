@@ -18,13 +18,13 @@ public class SwordSwitcher : NetworkBehaviour {
 	}
 
 	public void OnGrab() {
-		Debug.Log ("Sword grabbed: "+SwordOnHip.name);
+		//Debug.Log ("Sword grabbed: "+SwordOnHip.name);
 		SwordOnHip.SetActive (false);
 		SwordInHand.SetActive (true);
 	}
 
 	public void OnInPocket() {
-		Debug.Log ("Sword in pocket.");
+		//Debug.Log ("Sword in pocket.");
 		SwordOnHip.SetActive (true);
 		SwordInHand.SetActive (false);
 	}
