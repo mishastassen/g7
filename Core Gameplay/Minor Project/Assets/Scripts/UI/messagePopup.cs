@@ -80,7 +80,7 @@ public class messagePopup : MonoBehaviour {
 	IEnumerator otherRequestsGame(string username){
 		yesButton.SetActive(true);
 		noButton.SetActive(true);
-		messageText.GetComponent<Text> ().text = "User " + username + " requested game, would you like to accept?";
+		messageText.GetComponent<Text> ().text = username + "\ninvited you for a game\n\nWould you like to accept?";
 		state = "otherRequestedGame";
 		yield return new WaitForSeconds(30.0f);
 		if (state == "otherRequestedGame") {
@@ -143,7 +143,7 @@ public class messagePopup : MonoBehaviour {
 	public void userBusy(){
 		state = "okayButton";
 		waitText.SetActive (false);
-		messageText.GetComponent<Text> ().text = "User is busy, try again in a few minutes";
+		messageText.GetComponent<Text> ().text = "User is busy\nTry again in a few minutes";
 		okayButton.SetActive (true);
 	}
 
