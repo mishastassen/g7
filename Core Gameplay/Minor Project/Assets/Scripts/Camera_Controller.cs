@@ -75,7 +75,6 @@ public class Camera_Controller : MonoBehaviour {
 				Vector3 delivPos = (deliveryZone.GetComponent<Transform> ().position);
 				delivPos.z = -80f;
 				currentLerpTime += Time.deltaTime;
-				deliveryZone = GameObject.FindGameObjectWithTag ("DeliveryZone");
 				cam.fieldOfView = 40;
 				playerPos.z = -80f;
 				if (currentLerpTime > lerpTime) {
