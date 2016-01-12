@@ -36,12 +36,14 @@ public class MainMenu : MonoBehaviour {
 	public Canvas network;
 	public Canvas loggedIn;
 	public Canvas levelSelect;
+	public Canvas localOnline;
 
 	public NetworkManager networkmanager;
 	public WebManager webmanager;
 
 	// Use this for initialization
 	void Start () {
+		localOnline.enabled = false;
 		levelSelect.enabled = false;
 		play.enabled = false;
 		credits.enabled = false;
