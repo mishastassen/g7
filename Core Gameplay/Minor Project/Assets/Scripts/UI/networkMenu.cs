@@ -9,8 +9,11 @@ public class networkMenu : MonoBehaviour {
 	public Canvas play;
 	public Canvas loggedIn;
 
+	public InputField loginName;
+	public InputField loginPass;
+
 	public void pressLogin(){
-		WebManager.Instance.login ();
+		WebManager.Instance.login (loginName.text,loginPass.text);
 		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
 		loggedIn.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 		loggedIn.enabled = true;

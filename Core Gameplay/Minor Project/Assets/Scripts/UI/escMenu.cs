@@ -11,4 +11,8 @@ public class escMenu : MonoBehaviour {
 	public void pressCloseMenu(){
 		this.gameObject.SetActive (false);
 	}
+
+	public void pressRestartLevel(){
+		Eventmanager.Instance.triggerLevelSwitch (Application.loadedLevelName);
+	}
 }

@@ -17,8 +17,10 @@ public class levelFinishScreen : MonoBehaviour {
 	void OnEnable(){
 		int highscore = (int)Mathf.Round (Gamevariables.timer);
 		int levelId = GameObject.Find("LevelManager").GetComponent<Levelvariables>().levelId;
-		if (WebManager.Instance.currentUser != null && NetworkServer.active) {
-			WebManager.Instance.updateHighscores (levelId, highscore);
+		if (WebManager.Instance.currentUser != null) {
+			if (NetworkServer.active) {
+				WebManager.Instance.updateHighscores (levelId, highscore);
+			}
 			WebManager.Instance.getHighscores (levelId, this);
 			if (WebManager.Instance.currentUser.levelProgress < levelId) {
 				WebManager.Instance.updateLevelProgress (levelId);

@@ -14,6 +14,7 @@ public class levelSelectCanvas : MonoBehaviour {
 
 	public GameObject popUpPanel;
 	public Canvas returnCanvas;
+	public Canvas localOnlineCanvas;
 
 	public void UpdateButtons(){
 		foreach (GameObject button in levelButtons) {
@@ -24,8 +25,8 @@ public class levelSelectCanvas : MonoBehaviour {
 	public void onLevelSelect(string levelName){
 		WebManager.Instance.level1 = levelName;
 		if (offline) {
-			WebManager.Instance.localmultiplayer = true;
-			NetworkManager.singleton.StartHost ();
+			gameObject.GetComponent<Canvas> ().enabled = false;
+			localOnlineCanvas.enabled = true;
 		} else {
 			JSONClass messageBody = new JSONClass ();
 			messageBody ["reqUserId"].AsInt = WebManager.Instance.currentUser.UserId;
