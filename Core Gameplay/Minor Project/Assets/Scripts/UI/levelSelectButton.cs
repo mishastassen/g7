@@ -10,17 +10,11 @@ public class levelSelectButton : MonoBehaviour {
 	public string levelName;
 
 	public void updateButton(){
+		Debug.Log ("updating buttons");
 		if (levelSelect.offline) {
-			if(PlayerPrefs.HasKey("levelProgress")){
-				Debug.Log (PlayerPrefs.GetInt ("levelProgress"));
-				if (PlayerPrefs.GetInt ("levelProgress") + 1 >= levelId) {
-					gameObject.GetComponent<Button> ().interactable = true;
-				} else {
-					gameObject.GetComponent<Button> ().interactable = false;
-				}
-			}else if(levelId == 1){
+			if (levelId == 1 || (PlayerPrefs.GetInt ("levelProgress") != null && PlayerPrefs.GetInt ("levelProgress") + 1 >= levelId)) {
 				gameObject.GetComponent<Button> ().interactable = true;
-			}else{
+			} else {
 				gameObject.GetComponent<Button> ().interactable = false;
 			}
 		} else {
