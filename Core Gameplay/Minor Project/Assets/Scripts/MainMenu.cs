@@ -96,6 +96,8 @@ public class MainMenu : MonoBehaviour {
 	public void PressExitGame() {
 		sure.enabled = true;
 		menu.enabled = false;
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", false);
 	}
 
 	public void PressExitGameYes(){
@@ -105,6 +107,8 @@ public class MainMenu : MonoBehaviour {
 	public void PressExitGameNo(){
 		sure.enabled = false;
 		menu.enabled = true;
+		exitGameButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
+		creditsButton.transform.parent.GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 
