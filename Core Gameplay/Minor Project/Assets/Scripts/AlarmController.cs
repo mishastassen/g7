@@ -4,7 +4,8 @@ using System.Collections;
 
 public class AlarmController : MonoBehaviour {
 
-	public Text alarmText;
+	//public Text alarmText;
+	public Scrollbar alarmBar;
 	private float alarmPercent;
 	private bool finishedIncrease;
 	private bool finishedDecrease;
@@ -12,8 +13,9 @@ public class AlarmController : MonoBehaviour {
 	private bool enabled;
 
 	void Start () {
+		alarmBar.size = 0.0f; 
 		alarmPercent = 0;
-		alarmText.text = "Alarm: " + alarmPercent + "%";
+		//alarmText.text = "Alarm: " + alarmPercent + "%";
 		finishedIncrease = true;
 		finishedDecrease = true;
 		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
@@ -21,7 +23,7 @@ public class AlarmController : MonoBehaviour {
 		enabled = true;
 	}			
 
-	void Update () {
+	void Update () {		
 		/*
 		if (Gamevariables.alarmPercent == -1) {
 			alarmPercent = 0;
@@ -62,9 +64,10 @@ public class AlarmController : MonoBehaviour {
 		if (alarmPercent >= 100) {
 			alarmPercent = 100;
 		}
-		alarmText.text = "Alarm: " + alarmPercent + "%";
+		//alarmText.text = "Alarm: " + alarmPercent + "%";
+		alarmBar.size = alarmPercent / 100f;
 		if (alarmPercent == 100) {
-			alarmText.color = Color.red;
+			//alarmText.color = Color.red;
 		}
 		yield return new WaitForSeconds (0.5f);
 		finishedIncrease = true;
@@ -74,7 +77,8 @@ public class AlarmController : MonoBehaviour {
 		if (alarmPercent != 100) {
 			alarmPercent -= 5;
 		}
-		alarmText.text = "Alarm: " + alarmPercent + "%";
+		//alarmText.text = "Alarm: " + alarmPercent + "%";
+		alarmBar.size = alarmPercent / 100f;
 		yield return new WaitForSeconds (1);
 		finishedDecrease = true;
 	}
