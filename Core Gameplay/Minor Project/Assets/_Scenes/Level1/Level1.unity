@@ -435,15 +435,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000006198883
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 411.9
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_AnchorMin.x
@@ -468,10 +468,6 @@ Prefab:
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 101070, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
@@ -1009,6 +1005,10 @@ Prefab:
     - target: {fileID: 22489908, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 147772, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
@@ -2121,7 +2121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1042408462
 Transform:
   m_ObjectHideFlags: 0
@@ -2664,7 +2664,7 @@ GameObject:
   - 114: {fileID: 1713964740}
   - 114: {fileID: 1713964739}
   m_Layer: 5
-  m_Name: EscMenuCanvas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

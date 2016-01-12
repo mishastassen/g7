@@ -385,11 +385,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 411
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_AnchorMin.x
