@@ -18,145 +18,73 @@ Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild
 Loading C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.700 seconds
+- Completed reload, in  0.744 seconds
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\System.dll (this message is harmless)
 desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.894336 ms
+UnloadTime: 1.133803 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 3748 -> priority: 1 
-  Thread -> id: 5938 -> priority: 1 
-{"gameIp":"145.94.166.151"}
+  Thread -> id: 5bf8 -> priority: 1 
+  Thread -> id: 5a18 -> priority: 1 
+starting
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 13.878829 ms
-
-Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 505.
-Total: 0.986702 ms (FindLiveObjects: 0.043495 ms CreateObjectMapping: 0.040562 ms MarkObjects: 0.669530 ms  DeleteObjects: 0.232625 ms)
-
-Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 8.312442 ms
-Error: sent failed
-Error: sent failed
-Error: sent failed
-Error: sent failed
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3176.
-Total: 3.434153 ms (FindLiveObjects: 0.270255 ms CreateObjectMapping: 0.524384 ms MarkObjects: 2.480195 ms  DeleteObjects: 0.158341 ms)
-
-Error: sent failed
-Error: sent failed
-Error: sent failed
-Error: sent failed
-Error: sent failed
-Error: sent failed
-Error: sent failed
-Instance not found when handling Command message [netId=4]
+"145.94.140.70"
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Instance not found when handling Command message [netId=4]
+Not logged in
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Instance not found when handling Command message [netId=4]
+Not logged in
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Instance not found when handling Command message [netId=4]
+Not logged in
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Instance not found when handling Command message [netId=4]
+NullReferenceException: Object reference not set to an instance of an object
+  at SimpleJSON.JSONNode.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at SimpleJSON.JSON.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at WebManager+<IEgetUsers>c__Iterator13.MoveNext () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SimpleJSON.JSONNode.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at SimpleJSON.JSON.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at WebManager+<IEgetFriendList>c__Iterator11.MoveNext () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SimpleJSON.JSONNode.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at SimpleJSON.JSON.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at WebManager+<IEgetMessages>c__Iterator14.MoveNext () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Log: cannot connect after 10 attempt address {::ffff:145.94.140.70:7777}
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 13.813342 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 1172.
+Total: 2.465533 ms (FindLiveObjects: 0.241910 ms CreateObjectMapping: 0.152477 ms MarkObjects: 2.041823 ms  DeleteObjects: 0.028345 ms)
+
+Not logged in
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Instance not found when handling Command message [netId=4]
+NullReferenceException: Object reference not set to an instance of an object
+  at SimpleJSON.JSONNode.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at SimpleJSON.JSON.Parse (System.String aJSON) [0x00000] in <filename unknown>:0 
+  at WebManager+<IEgetFriendRequests>c__Iterator12.MoveNext () [0x00000] in <filename unknown>:0 
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-Instance not found when handling Command message [netId=4]
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+(Filename:  Line: -1)
 
