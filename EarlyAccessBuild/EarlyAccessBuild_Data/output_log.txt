@@ -18,194 +18,145 @@ Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild
 Loading C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.723 seconds
+- Completed reload, in  0.700 seconds
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\System.dll (this message is harmless)
 desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.370338 ms
+UnloadTime: 0.894336 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 48cc -> priority: 1 
-  Thread -> id: 2c70 -> priority: 1 
-starting
+  Thread -> id: 3748 -> priority: 1 
+  Thread -> id: 5938 -> priority: 1 
+{"gameIp":"145.94.166.151"}
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-"145.94.155.55"
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 13.878829 ms
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 505.
+Total: 0.986702 ms (FindLiveObjects: 0.043495 ms CreateObjectMapping: 0.040562 ms MarkObjects: 0.669530 ms  DeleteObjects: 0.232625 ms)
+
+Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 8.312442 ms
+Error: sent failed
+Error: sent failed
+Error: sent failed
+Error: sent failed
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 3176.
+Total: 3.434153 ms (FindLiveObjects: 0.270255 ms CreateObjectMapping: 0.524384 ms MarkObjects: 2.480195 ms  DeleteObjects: 0.158341 ms)
+
+Error: sent failed
+Error: sent failed
+Error: sent failed
+Error: sent failed
+Error: sent failed
+Error: sent failed
+Error: sent failed
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Log: cannot connect after 10 attempt address {::ffff:145.94.155.55:7777}
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 15.245747 ms
-
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 1123.
-Total: 2.407866 ms (FindLiveObjects: 0.170559 ms CreateObjectMapping: 0.214542 ms MarkObjects: 2.007125 ms  DeleteObjects: 0.014661 ms)
-
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.GameObject:get_activeInHierarchy ()
-  at WebManager.updateUserText (System.Collections.Generic.List`1 users) [0x00000] in <filename unknown>:0 
-  at WebManager+<IEgetUsers>c__Iterator13.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.GameObject:get_activeInHierarchy ()
-  at WebManager.updateUserText (System.Collections.Generic.List`1 users) [0x00000] in <filename unknown>:0 
-  at WebManager+<IEgetUsers>c__Iterator13.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.GameObject:get_activeInHierarchy ()
-  at WebManager.updateUserText (System.Collections.Generic.List`1 users) [0x00000] in <filename unknown>:0 
-  at WebManager+<IEgetUsers>c__Iterator13.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.GameObject:get_activeInHierarchy ()
-  at WebManager.updateUserText (System.Collections.Generic.List`1 users) [0x00000] in <filename unknown>:0 
-  at WebManager+<IEgetUsers>c__Iterator13.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.GameObject:get_activeInHierarchy ()
-  at WebManager.updateUserText (System.Collections.Generic.List`1 users) [0x00000] in <filename unknown>:0 
-  at WebManager+<IEgetUsers>c__Iterator13.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 5.605485 ms
-
-Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 503.
-Total: 1.226658 ms (FindLiveObjects: 0.045938 ms CreateObjectMapping: 0.042028 ms MarkObjects: 0.853284 ms  DeleteObjects: 0.284916 ms)
-
-Unloading 8 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.386157 ms
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 2879.
-Total: 28.329937 ms (FindLiveObjects: 0.248752 ms CreateObjectMapping: 25.146000 ms MarkObjects: 2.791502 ms  DeleteObjects: 0.142214 ms)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at GamemanagerEventHandler.OnDisable () [0x00000] in <filename unknown>:0 
-  at GamemanagerEventHandler.OnEventManagerStop () [0x00000] in <filename unknown>:0 
-  at Eventmanager.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DoorController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at GamemanagerEventHandler.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at SwitchController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DoorController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at SwitchController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at CheckpointController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at CheckpointController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at SwitchController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at DoorController.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at PlayerEventHandler.OnDisable () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-Error no Event manager singleton
+Instance not found when handling Command message [netId=4]
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
-NullReferenceException: Object reference not set to an instance of an object
-  at PlayerEventHandler.OnDisable () [0x00000] in <filename unknown>:0 
+Instance not found when handling Command message [netId=4]
  
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Instance not found when handling Command message [netId=4]
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
 
