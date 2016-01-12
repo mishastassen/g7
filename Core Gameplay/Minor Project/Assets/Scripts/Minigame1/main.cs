@@ -31,20 +31,11 @@ public class main : NetworkBehaviour {
 
 	//instruction variables go below
 	public Canvas instructions;
-	public Text disappearTimeText;
-	private int disappeartimeleft;
-	private float disappear = 15f;
 
 	// Use this for initialization
 	void Start () {
-		instructionsFinished = false;
+		instructionsFinished = true;
 		returnLevel = Gamevariables.returnLevel;
-		instructions.enabled = false;
-		if (returnLevel == "Level1C") {
-			StartCoroutine (instructionsTextFade ());
-		} else {
-			instructionsFinished = true;
-		}
 		timeLeft = 20.0f;
 		time = timeLeft;
 		winText.enabled = false;
@@ -101,7 +92,7 @@ public class main : NetworkBehaviour {
 				}
 			}
 		} else {
-			setDisappearText ();
+			
 		}
 	}
 
@@ -118,22 +109,10 @@ public class main : NetworkBehaviour {
 		}
 	}
 
-	void setDisappearText (){
-		disappeartimeleft = (int)(disappear -= Time.deltaTime);
-		disappearTimeText.text = ("This screen will automatically disappear in " + disappeartimeleft.ToString() +" seconds");
-	}
-
 	void triggerWin(){
 		Time.timeScale = 1.0f;
 		Eventmanager.Instance.triggerChestCompleted ();
 		Debug.Log ("levelload");
-	}
-
-	IEnumerator instructionsTextFade(){
-		instructions.enabled = true;
-		yield return new WaitForSeconds (15f);
-		instructions.enabled = false;
-		instructionsFinished = true;
 	}
 }
 

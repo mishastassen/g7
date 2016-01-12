@@ -48,6 +48,7 @@ public class rotate : NetworkBehaviour {
 			scoreTextName = "Score_right";
 			GameObject.Find("main").GetComponent<main>().left = this;
 		}
+
 		cirkel = transform.FindChild ("Circle").gameObject;
 		scoreText = GameObject.Find (scoreTextName).GetComponent<Text>();
 		pos_pijl = gameObject.transform.position;
@@ -93,7 +94,6 @@ public class rotate : NetworkBehaviour {
 				count = 0;
 				setScoreText ();
 			}
-
 		}
 
 		if (count > 1) {
@@ -153,5 +153,4 @@ public class rotate : NetworkBehaviour {
 		}
 		setScoreText ();
 	}
-	
 }
