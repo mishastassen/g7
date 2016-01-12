@@ -15,6 +15,8 @@ public class playMenu : MonoBehaviour {
 		levelSelect.GetComponent<levelSelectCanvas> ().returnCanvas = play;
 		levelSelect.enabled = true;
 		play.enabled = false;
+		play.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void pressBack(){

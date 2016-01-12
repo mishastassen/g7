@@ -13,6 +13,7 @@ public class levelSelectCanvas : MonoBehaviour {
 	public bool offline;
 
 	public GameObject popUpPanel;
+	public Canvas levelSelect;
 	public Canvas returnCanvas;
 	public Canvas localOnlineCanvas;
 
@@ -40,5 +41,7 @@ public class levelSelectCanvas : MonoBehaviour {
 	public void goBack(){
 		gameObject.GetComponent<Canvas> ().enabled = false;
 		returnCanvas.enabled = true;
+		levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		returnCanvas.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 }
