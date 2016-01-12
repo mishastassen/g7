@@ -40,17 +40,19 @@ public class levelFinishScreen : MonoBehaviour {
 		for (int i = 0; i<10; i++)
 		{
 			if (top10 [i] != null) {
-				string highscoreText = top10 [i] ["Player1"] + " and " + top10 [i] ["Player2"] + " in " + top10 [i] ["Highscore"] + " seconds";
+				string highscoreText = top10 [i] ["Player1"] + "\n" + top10 [i] ["Player2"];
+				string scoreText = top10 [i] ["Highscore"] + " seconds";
 				GameObject highscoreEntry = Instantiate (highscoreEntryPrefab) as GameObject;
 				highscoreEntry.transform.SetParent (highscorePanel.transform, false);
 				string spot = (i+1).ToString ();
-				highscoreEntry.GetComponent<highScoreDisplay> ().displayHighscore (spot, highscoreText);
+				highscoreEntry.GetComponent<highScoreDisplay> ().displayHighscore (spot, highscoreText, scoreText);
 			}
 		}
-		string personalscoreText = bestTime ["Player1"] + " and " + bestTime["Player2"] + " in " + bestTime["Highscore"] + " seconds";
+		string personalscoreText = bestTime ["Player1"] + "\n" + bestTime ["Player2"];
+		string bestScoreText = bestTime["Highscore"] + " seconds";
 		string personalSpot = bestTime["position"];
 		GameObject personalscoreEntry = Instantiate (highscoreEntryPrefab) as GameObject;
 		personalscoreEntry.transform.SetParent (personalscorePanel.transform, false);
-		personalscoreEntry.GetComponent<highScoreDisplay> ().displayHighscore (personalSpot, personalscoreText);
+		personalscoreEntry.GetComponent<highScoreDisplay> ().displayHighscore (personalSpot, personalscoreText, bestScoreText);
 	}
 }

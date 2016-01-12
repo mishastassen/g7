@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
@@ -276,11 +277,16 @@ public class WebManager : MonoBehaviour {
 
 	IEnumerator update(){
 		while (currentUser != null) {
-			StartCoroutine (IEgetUsers ());
-			StartCoroutine (IEgetFriendList ());
-			StartCoroutine (IEgetFriendRequests ());
-			StartCoroutine (IEgetMessages ());
-			yield return new WaitForSeconds (2.0f);
+			if (!NetworkManager.singleton.isNetworkActive) {
+				StartCoroutine (IEgetUsers ());
+				StartCoroutine (IEgetFriendList ());
+				StartCoroutine (IEgetFriendRequests ());
+				StartCoroutine (IEgetMessages ());
+				yield return new WaitForSeconds (3.0f);
+			} else {
+				StartCoroutine (IEgetUsers ());
+				yield return new WaitForSeconds (20.0f);
+			}
 		}
 	}
 
@@ -289,7 +295,7 @@ public class WebManager : MonoBehaviour {
 
 		if (!string.IsNullOrEmpty(www.error)){
 			Debug.LogError("Server request failed");
-			currentUser = null;
+			//currentUser = null;
 			yield return null;
 		}
 		//responseText.GetComponent<Text>().text = www.text;

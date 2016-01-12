@@ -30,7 +30,7 @@ app.use( session({cookieName: 'session',
 				  secret: 'Geheim',
 				  resave: true,
 				  saveUninitialized: true,
-				  cookie: {maxAge: 10000}}));
+				  cookie: {maxAge: 120000}}));
 app.use(setIp());
 app.use(touchUser());
 
