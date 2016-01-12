@@ -247,7 +247,6 @@ public class WebManager : MonoBehaviour {
 		} else {
 			message ["Player2Id"].AsInt = 0;
 		}
-		Debug.Log (highscore);
 		message ["Highscore"].AsInt = highscore;
 		WWW www = createJSON (message.ToString (), "/updateHighscores");
 		CoroutineWithData cd = new CoroutineWithData (this, getWWW (www));
