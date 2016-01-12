@@ -71,6 +71,7 @@ public class Camera_Controller : MonoBehaviour {
 			if (ready) {
 				updateCameraLocation ();
 			} else {
+				deliveryZone = GameObject.FindGameObjectWithTag ("DeliveryZone");
 				Vector3 delivPos = (deliveryZone.GetComponent<Transform> ().position);
 				delivPos.z = -80f;
 				currentLerpTime += Time.deltaTime;
@@ -131,7 +132,7 @@ public class Camera_Controller : MonoBehaviour {
 
 	IEnumerator lerpCamera (){
 
-		yield return new WaitForSeconds(16f);
+		yield return new WaitForSeconds(15f);
 		ready = true;
 	}
 }
