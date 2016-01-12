@@ -19,11 +19,32 @@ public class SwordHitDetector : NetworkBehaviour {
 	
 	}
 
+	// if script is attached to guard
 	void OnTriggerEnter (Collider other) {
-		if (isServer && other.tag == "Sword") 
+		if (isServer && other.tag == "Sword") {
 			//Debug.Log ("Destroy this gameobject");
 			// FIXME: should be made multiplayer proof
-			Destroy (this.transform.parent.gameObject);
+			//Destroy (this.transform.parent.gameObject);
+			// Network.Destroy works only when object is instantiated in scene. Probably.
+			Destroy(this.gameObject);
 
+		}
 	}
+
+	/*
+	// If script is attached to player 
+	void OnTriggerEnter (Collider other) {
+		if (other.tag == "Guard") {
+			//Debug.Log ("Destroy this gameobject");
+			// FIXME: should be made multiplayer proof
+			//Destroy (this.transform.parent.gameObject);
+
+			NetworkIdentity nid = other.gameObject.GetComponent<NetworkIdentity>();
+			//nid.netId;
+			//NetworkInstanceId g = nid.;
+			Debug.Log ("Guard geraakt, networkid: "+nid);
+		}
+	}
+	*/
+
 }

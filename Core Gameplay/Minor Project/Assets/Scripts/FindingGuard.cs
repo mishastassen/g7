@@ -6,38 +6,54 @@ using System;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
 
-public class FindingGuard : MonoBehaviour {
+public class FindingGuard : NetworkBehaviour {
+
+	private Animator anim;
 
 	private GameObject player;
 	NavMeshAgent agent;
-	private Transform PlayerPos;
 
 	private List <Collider> TriggerList= new List<Collider>();
 
 	// Use this for initialization
 	void Start () {
+		anim = GetComponentInChildren<Animator> ();
 		agent = GetComponentInParent<NavMeshAgent> ();
 	}
 
 	void Update () {
-		player = GameObject.FindGameObjectWithTag ("Player");
-		PlayerPos = player.transform;
-		agent.destination = PlayerPos.position;
+		if (!isServer)
+			return;
+
+		TriggerList.RemoveAll(x => x == null);
+
+		if(player==null)
+			player = GameObject.FindGameObjectWithTag ("Player");
+		// Sometimes there are no players in the scene (for a short moment)
+		if (player == null)
+			return;
+		
+		Vector3 playerPos = player.transform.position;
+		agent.destination = playerPos;
+
+		bool shouldStrike = IsInStrikingDistance (playerPos);
+		Strike (shouldStrike);
 	}
 
-	void OnTriggerEnter (Collider other){
-		if (!TriggerList.Contains (other)) {
-			//add the object to the list
-			TriggerList.Add (other);
+	bool IsInStrikingDistance(Vector3 playerPos) {
+		Vector3 curPos = this.transform.position;
+		return  Vector3.Distance (curPos, playerPos) < 8;
+	}
+
+	void Strike(bool shouldStrike) {
+		anim.SetBool ("isStriking", shouldStrike);
+	}
+
+	void PrintTriggerList() {
+		Debug.Log ("triggerlist:");
+		foreach (Collider c in TriggerList) {
+			Debug.Log (c.tag);
 		}
 	}
 
-	void OnTriggerExit (Collider other){
-		//if the object is in the list of triggers, remove it
-		if (TriggerList.Contains (other)) {
-			if (other.tag == "Player") {
-			}
-			TriggerList.Remove (other);
-		}
-	}
 }

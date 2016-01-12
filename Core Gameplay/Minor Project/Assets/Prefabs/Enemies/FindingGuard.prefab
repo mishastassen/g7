@@ -220,12 +220,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 460952}
   - 195: {fileID: 19566386}
-  - 65: {fileID: 6528336}
   - 114: {fileID: 11435994}
+  - 136: {fileID: 13663046}
   - 114: {fileID: 11440642}
+  - 114: {fileID: 11455738}
   m_Layer: 0
-  m_Name: Naginator
-  m_TagString: Untagged
+  m_Name: FindingGuard
+  m_TagString: Guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,12 +300,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 438484}
   - 95: {fileID: 9520038}
-  - 136: {fileID: 13691626}
-  - 114: {fileID: 11442502}
-  - 114: {fileID: 11401488}
   m_Layer: 0
   m_Name: guardv3startanimtexture
-  m_TagString: Guard
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,7 +333,7 @@ GameObject:
   - 136: {fileID: 13619880}
   m_Layer: 0
   m_Name: Hand_L
-  m_TagString: Untagged
+  m_TagString: Naginata
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -632,7 +630,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58.117004, y: 0, z: 0}
+  m_LocalPosition: {x: 51.481083, y: -0.14218466, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 438484}
@@ -765,18 +763,6 @@ Transform:
   - {fileID: 426936}
   m_Father: {fileID: 416218}
   m_RootOrder: 0
---- !u!65 &6528336
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133530}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 40, y: 40, z: 40}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9520038
 Animator:
   serializedVersion: 3
@@ -794,17 +780,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11401488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03110cb3969181741a895cf8fd4a5662, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11435994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,22 +794,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 234
-    i1: 133
-    i2: 76
-    i3: 52
-    i4: 68
-    i5: 230
+    i0: 119
+    i1: 46
+    i2: 72
+    i3: 158
+    i4: 237
+    i5: 76
     i6: 31
-    i7: 116
-    i8: 170
-    i9: 159
-    i10: 140
-    i11: 225
-    i12: 88
-    i13: 236
-    i14: 102
-    i15: 245
+    i7: 180
+    i8: 152
+    i9: 221
+    i10: 70
+    i11: 61
+    i12: 235
+    i13: 147
+    i14: 182
+    i15: 137
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &11440642
@@ -845,41 +820,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 133530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e87c3336ba536474d9c29bb91fd93021, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bda7207d76bb5f4ba9d57567297410b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11442502
+--- !u!114 &11455738
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155148}
+  m_GameObject: {fileID: 133530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 03110cb3969181741a895cf8fd4a5662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 234
-    i1: 133
-    i2: 76
-    i3: 52
-    i4: 68
-    i5: 230
-    i6: 31
-    i7: 116
-    i8: 170
-    i9: 159
-    i10: 140
-    i11: 225
-    i12: 88
-    i13: 236
-    i14: 102
-    i15: 245
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!136 &13619880
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -893,12 +847,12 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 0
   m_Center: {x: 1.25, y: -1, z: 1.75}
---- !u!136 &13691626
+--- !u!136 &13663046
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155148}
+  m_GameObject: {fileID: 133530}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
