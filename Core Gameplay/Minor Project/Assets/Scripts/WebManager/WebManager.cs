@@ -95,8 +95,11 @@ public class WebManager : MonoBehaviour {
 	}
 
 	public void updateHighscores(int levelId, int highscore){
-		Debug.Log ("Updating highscores");
 		StartCoroutine (IEupdateHighscores (levelId, highscore));
+	}
+
+	public void updateLevelProgress(int levelId){
+		StartCoroutine (IEupdateLevelProgress (levelId));
 	}
 
 	/*IEnumerators for coroutines*/
@@ -254,6 +257,19 @@ public class WebManager : MonoBehaviour {
 		string result = (string)cd.result;
 		if (result != "Succes") {
 			Debug.LogError ("Problem updating highscores");
+		}
+	}
+
+	IEnumerator IEupdateLevelProgress(int levelId){
+		JSONClass message = new JSONClass ();
+		message ["LevelId"].AsInt = levelId;
+		message ["UserId"].AsInt = currentUser.UserId;
+		WWW www = createJSON (message.ToString (), "/updateLevelProgress");
+		CoroutineWithData cd = new CoroutineWithData (this, getWWW (www));
+		yield return cd.coroutine;
+		string result = (string)cd.result;
+		if (result != "Succes") {
+			Debug.LogError ("Problem updating level progress");
 		}
 	}
 
