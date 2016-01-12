@@ -13,7 +13,7 @@ public class WebManager : MonoBehaviour {
 	string cookie = "";
 
 	/*UI input*/
-	public GameObject loginName, loginPass, responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
+	public GameObject responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
 
 	/*UI response*/
 	public GameObject loginResponse, createAccountResponse;
@@ -68,8 +68,8 @@ public class WebManager : MonoBehaviour {
 
 
 	/*UI functions to call*/
-	public void login(){
-		StartCoroutine(IElogin (loginName.GetComponent<InputField>().text,loginPass.GetComponent<InputField>().text));
+	public void login(string username,string password){
+		StartCoroutine(IElogin (username,password));
 	}
 
 	public void logout(){
@@ -119,8 +119,10 @@ public class WebManager : MonoBehaviour {
 			}
 			yield break;
 		}
-		if (loginResponse.activeInHierarchy) {
-			loginResponse.GetComponent<Text> ().text = "";
+		if (!localmultiplayer) {
+			if (loginResponse.activeInHierarchy) {
+				loginResponse.GetComponent<Text> ().text = "";
+			}
 		}
 		currentUser = new User (SimpleJSON.JSON.Parse (result));
 		StartCoroutine (update());
