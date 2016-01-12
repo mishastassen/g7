@@ -32,7 +32,7 @@ public class Camera_Controller : MonoBehaviour {
 
 	private float lerpTime;
 	private float currentLerpTime;
-	Vector3 playerPos;
+	private Vector3 playerPos;
 
 	// Use this for initialization
 	void Start () {
@@ -43,17 +43,16 @@ public class Camera_Controller : MonoBehaviour {
 		windowCenter.y = this.GetComponent<Transform> ().position.y;
 		previousCenter = windowCenter;
 		limitX = 30f;
-		limitY = 20f;
+		limitY = 10f;
 		cam = this.GetComponent<Camera> ();
 		zoom = cam.fieldOfView;
+		lerpTime = 15f;
+		playerPos = (this.GetComponent<Transform> ().position);
 		if (currentLevel == "Level6") {
+			StartCoroutine (lerpCamera ());
 		} else {
 			ready = true;
 		}
-		lerpTime = 15f;
-		playerPos = (this.GetComponent<Transform> ().position);
-		StartCoroutine (lerpCamera ());
-
 	}
 
 	void OnEnable(){
@@ -114,15 +113,21 @@ public class Camera_Controller : MonoBehaviour {
 		if (Mathf.Abs (center.y - windowCenter.y) > windowy) {
 			windowCenter.y += center.y + -previousCenter.y;
 		}
-		newLocation.Set(windowCenter.x, windowCenter.y + 5.0f, -60.0f);
+		newLocation.Set(windowCenter.x, windowCenter.y + 1.0f, -60.0f);
 		previousCenter = new Vector2 (center.x, center.y);
 
 		foreach (GameObject player in players) {
 			if (Mathf.Abs (player.GetComponent<Transform> ().position.x - newLocation.x) > Mathf.Abs(limitX)) {
 				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, cam.fieldOfView*1.05f, Time.deltaTime * zoomSpeed);
 				limitX *= (player.GetComponent<Transform> ().position.x / limitX);
-			} else {
+			} else if (Mathf.Abs (player.GetComponent<Transform>().position.y - newLocation.y) > Mathf.Abs(limitY)) {
+				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, cam.fieldOfView*1.15f, Time.deltaTime * zoomSpeed);
+				limitY *= (player.GetComponent<Transform> ().position.y / limitY);
+				Debug.Log (limitY);
+			}
+			else {
 				limitX = 30f;
+				limitY = 10f;
 				cam.fieldOfView = Mathf.Lerp(cam.fieldOfView,35,Time.deltaTime*(zoomSpeed/2f));
 			}
 		}
@@ -130,7 +135,6 @@ public class Camera_Controller : MonoBehaviour {
 	}
 
 	IEnumerator lerpCamera (){
-
 		yield return new WaitForSeconds(15f);
 		ready = true;
 	}
