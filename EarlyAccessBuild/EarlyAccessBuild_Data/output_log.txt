@@ -18,44 +18,9 @@ Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild
 Loading C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.134 seconds
+- Completed reload, in  0.735 seconds
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Joris\Documents\g7\EarlyAccessBuild\EarlyAccessBuild_Data\Managed\System.dll (this message is harmless)
 desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-<RI> Initialized touch support.
-UnloadTime: 1.085421 ms
-Setting up 2 worker threads for Enlighten.
-  Thread -> id: 17a8 -> priority: 1 
-  Thread -> id: 37e4 -> priority: 1 
-Server request failed
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at User..ctor (SimpleJSON.JSONNode aJSON) [0x00000] in <filename unknown>:0 
-  at WebManager+<IElogin>c__IteratorB.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Server request failed
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at User..ctor (SimpleJSON.JSONNode aJSON) [0x00000] in <filename unknown>:0 
-  at WebManager+<IElogin>c__IteratorB.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-Server request failed
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at User..ctor (SimpleJSON.JSONNode aJSON) [0x00000] in <filename unknown>:0 
-  at WebManager+<IElogin>c__IteratorB.MoveNext () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-

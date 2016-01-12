@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 using SimpleJSON;
@@ -11,15 +12,26 @@ public class connectButton : MonoBehaviour {
 	public GameObject popUpPanel;
 	public GameObject inputButtonPanel;
 
+	public Canvas levelSelect;
+	public Canvas loggedIn;
+
 	public void onClick(){
 		if (webmanager.currentUser != null && webmanager.currentUser.UserId != linkedUser.UserId) {
-			JSONClass messageBody = new JSONClass ();
+			levelSelect.gameObject.GetComponent<levelSelectCanvas> ().player1 = webmanager.currentUser;
+			levelSelect.gameObject.GetComponent<levelSelectCanvas> ().player2 = linkedUser;
+			levelSelect.gameObject.GetComponent<levelSelectCanvas> ().offline = false;
+			levelSelect.GetComponent<levelSelectCanvas> ().returnCanvas = loggedIn;
+			levelSelect.GetComponent<levelSelectCanvas> ().UpdateButtons ();
+			loggedIn.enabled = false;
+			levelSelect.enabled = true;
+			/*JSONClass messageBody = new JSONClass ();
 			messageBody ["reqUserId"].AsInt = webmanager.currentUser.UserId;
 			messageBody["reqUsername"] = webmanager.currentUser.Username;
 			StartCoroutine (webmanager.IEsendMessage (linkedUser.UserId, "playGame", messageBody));
 			popUpPanel.SetActive (true);
 			//inputButtonPanel.SetActive (false);
-			popUpPanel.GetComponent<messagePopup> ().sendRequest ();
+			popUpPanel.GetComponent<messagePopup> ().sendRequest ();*/
+
 		}
 	}
 }

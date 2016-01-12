@@ -30,7 +30,7 @@ app.use( session({cookieName: 'session',
 				  secret: 'Geheim',
 				  resave: true,
 				  saveUninitialized: true,
-				  cookie: {maxAge: 10000}}));
+				  cookie: {maxAge: 120000}}));
 app.use(setIp());
 app.use(touchUser());
 
@@ -70,9 +70,12 @@ app.post('/createAccount',function(req,res){
 			pass = req.body.password,
 			color = req.body.color,
 			sex = req.body.sex;
-		if(username.length < 4 || pass.length < 6){
-			console.log("Account denied");
-			res.send("Username must have atleast 4 characters en password atleast 6");
+		if(username.length < 4 ){
+			console.log("Username denied");
+			res.send("Username must have at least 4 characters");
+		} else if (pass.length < 6) {
+			console.log("Password denied");
+			res.send("Password must have at least 6 characters");
 		}
 		else{
 			MySQLpool.getConnection(function(err, connection) {
@@ -84,10 +87,11 @@ app.post('/createAccount',function(req,res){
 						if(err){
 							console.log(err);
 							connection.release();
+							res.send("Database error");
 						}
 						else if(rows.length  > 0){
 							console.log("Account denied");
-							res.send("Username already in use");
+							res.send("Username is already taken");
 							connection.release();
 						}
 						else{
@@ -96,6 +100,7 @@ app.post('/createAccount',function(req,res){
 								if(err){
 									connection.release();
 									console.log(err);
+									res.send("Database error");
 								}
 								else{
 									console.log("Account accepted");
@@ -104,6 +109,7 @@ app.post('/createAccount',function(req,res){
 										if(err){
 											connection.release();
 											console.log(err);
+											res.send("Database error");
 										}
 										else if(rows.length > 0){
 											AvatarId = rows[0].AvatarId;
@@ -111,6 +117,7 @@ app.post('/createAccount',function(req,res){
 												connection.release();
 												if(err){
 													console.log(err);
+													res.send("Database error");
 												}
 												else{
 													console.log("Account succesfully created using existing avatar");
@@ -123,6 +130,7 @@ app.post('/createAccount',function(req,res){
 												connection.release();
 												if(err){
 													console.log(err);
+													res.send("Database error");
 												}
 												else{
 													console.log("Account succesfully created using new avatar");
@@ -155,6 +163,7 @@ app.post('/login',function(req,res){
 				if(err){
 					connection.release();
 					console.log(err);
+					res.send("Database error");
 				}
 				else if(rows.length === 0){
 					connection.release();
@@ -169,6 +178,7 @@ app.post('/login',function(req,res){
 						connection.release();
 						if(err){
 							console.log(err);
+							res.send("Database error");
 						}
 						else{
 							var playerColor = rows[0].Colour;
@@ -300,6 +310,7 @@ app.get('/getFriendList',function(req,res){
 					connection.release();
 					if(err){
 						console.log(err);
+						res.send("Database error");
 					}
 					else{
 						sess.lastFriendListUpdate = Date.now();
@@ -333,6 +344,7 @@ app.get('/getFriendRequests',function(req,res){
 					connection.release();
 					if(err){
 						console.log(err);
+						res.send("Database error");
 					}
 					else{
 						sess.lastFriendRequestUpdate = Date.now();
@@ -367,6 +379,7 @@ app.post('/sendFriendRequest',function(req,res){
 					if(err){
 						console.log(err);
 						connection.release();
+						res.send("Database error");
 					}
 					else if (rows.length  > 0){
 						res.send('Request bestaat al');
@@ -377,6 +390,7 @@ app.post('/sendFriendRequest',function(req,res){
 							connection.release();
 							if(err){
 								console.log(err);
+								res.send("Database error");
 							}
 							else{
 								userFriendRequestsUpdated.FriendId = true;
@@ -408,6 +422,7 @@ app.post('/acceptFriendRequest',function(req,res){
 					if(err){
 						connection.release();
 						console.log(err);
+						res.send("Database error");
 					}
 					else{
 						connection.release();
@@ -463,7 +478,7 @@ app.get('/getMessages',function(req,res){
 	}
 });
 
-app.post('/getHigscores',function(req,res){
+app.post('/getHighscores',function(req,res){
 	console.log('User requesting highscores');
 	sess = req.session;
 	if(sess.UserId === undefined){
@@ -478,17 +493,19 @@ app.post('/getHigscores',function(req,res){
 				console.log(err);
 			}
 			else {
-				connection.query("SELECT HS.Highscore, P1.AccountName, P2.AccountName FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' ORDER BY HS.Highscore LIMIT 10",function(err,rows,fields){
+				connection.query("SELECT HS.Highscore, P1.AccountName AS Player1, P2.AccountName As Player2 FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' ORDER BY HS.Highscore LIMIT 10",function(err,rows,fields){
 					if(err){
 						connection.release();
 						console.log(err);
+						res.send("Database error");
 					}
 					else{
 						response.top10 = rows;
-						connection.query("SELECT HS.Highscore, P1.AccountName, P2.AccountName FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.UserId_Player1 = '" + UserId +"' OR HS.UserId_Player2 = '" + UserId +"' ORDER BY HS.Highscore LIMIT 1",function(err,rows,fields){
+						connection.query("SELECT HS.Highscore, P1.AccountName AS Player1, P2.AccountName AS Player2,(SELECT COUNT(*) FROM HighScores AS HS2 WHERE HS2.Highscore <= HS.Highscore) AS position FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' AND (HS.UserId_Player1 = '" + UserId +"' OR HS.UserId_Player2 = '" + UserId +"') ORDER BY HS.Highscore LIMIT 1",function(err,rows,fields){
 							connection.release();
 							if(err){
 								console.log(err);
+								res.send("Database error");
 							}
 							else{
 								response.bestTime = rows;
@@ -522,6 +539,7 @@ app.post('/updateHighscores',function(req,res){
 					connection.release();
 					if(err){
 						console.log(err);
+						res.send("Database error");
 					}
 					else{
 						res.send("Succes");
@@ -532,6 +550,34 @@ app.post('/updateHighscores',function(req,res){
 	}
 });
 
+app.post('/updateLevelProgress',function(req,res){
+	console.log('User updating level progress');
+	sess = req.session;
+	if(sess.UserId === undefined){
+		res.send('Log in first');
+	}
+	else{
+		var userId = sess.UserId;
+		var levelId = req.body.LevelId;
+		MySQLpool.getConnection(function(err, connection) {
+			if(err){
+				console.log(err);
+			}
+			else{
+				connection.query("UPDATE Users Set LevelProgressId = '" + levelId + "' WHERE Users.UserId = '" + userId + "'",function(err, rows, fields){
+					connection.release();
+					if(err){
+						console.log(err);
+						res.send("Database error");
+					}
+					else{
+						res.send("Succes");
+					}
+				});
+			}
+		});
+	}
+});
 
 app.post('/updateAvatar',function(req,res){
 	console.log('User updating avatar');

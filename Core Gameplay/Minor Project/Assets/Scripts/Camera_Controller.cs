@@ -25,16 +25,34 @@ public class Camera_Controller : MonoBehaviour {
 	private float zoomMin = 25f;
 	private float zoomMax = 45f;
 
+	private string currentLevel;
+	private GameObject deliveryZone;
+	private bool ready;
+	private bool isStarted = false;
+
+	private float lerpTime;
+	private float currentLerpTime;
+	private Vector3 playerPos;
+
 	// Use this for initialization
 	void Start () {
+		ready = false;
+		currentLevel = Gamevariables.currentLevel;
 		players = new List<GameObject>();
 		windowCenter.x = this.GetComponent<Transform> ().position.x;
 		windowCenter.y = this.GetComponent<Transform> ().position.y;
 		previousCenter = windowCenter;
 		limitX = 30f;
-		limitY = 20f;
+		limitY = 10f;
 		cam = this.GetComponent<Camera> ();
 		zoom = cam.fieldOfView;
+		lerpTime = 15f;
+		playerPos = (this.GetComponent<Transform> ().position);
+		if (currentLevel == "Level6") {
+			StartCoroutine (lerpCamera ());
+		} else {
+			ready = true;
+		}
 	}
 
 	void OnEnable(){
@@ -49,7 +67,21 @@ public class Camera_Controller : MonoBehaviour {
 
 	void Update(){
 		if (players.Count > 0) {
-			updateCameraLocation ();
+			if (ready) {
+				updateCameraLocation ();
+			} else {
+				deliveryZone = GameObject.FindGameObjectWithTag ("DeliveryZone");
+				Vector3 delivPos = (deliveryZone.GetComponent<Transform> ().position);
+				delivPos.z = -80f;
+				currentLerpTime += Time.deltaTime;
+				cam.fieldOfView = 40;
+				playerPos.z = -80f;
+				if (currentLerpTime > lerpTime) {
+					currentLerpTime = lerpTime;
+				}
+				float perc = currentLerpTime / lerpTime;
+				this.GetComponent<Transform> ().position = Vector3.Lerp (delivPos, playerPos, perc);
+			}
 		}
 		// Debug.Log ("The current field of view is " + cam.fieldOfView);
 		// Debug.Log(players.Count);
@@ -81,18 +113,29 @@ public class Camera_Controller : MonoBehaviour {
 		if (Mathf.Abs (center.y - windowCenter.y) > windowy) {
 			windowCenter.y += center.y + -previousCenter.y;
 		}
-		newLocation.Set(windowCenter.x, windowCenter.y + 5.0f, -60.0f);
+		newLocation.Set(windowCenter.x, windowCenter.y + 1.0f, -60.0f);
 		previousCenter = new Vector2 (center.x, center.y);
 
 		foreach (GameObject player in players) {
 			if (Mathf.Abs (player.GetComponent<Transform> ().position.x - newLocation.x) > Mathf.Abs(limitX)) {
 				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, cam.fieldOfView*1.05f, Time.deltaTime * zoomSpeed);
 				limitX *= (player.GetComponent<Transform> ().position.x / limitX);
-			} else {
+			} else if (Mathf.Abs (player.GetComponent<Transform>().position.y - newLocation.y) > Mathf.Abs(limitY)) {
+				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, cam.fieldOfView*1.15f, Time.deltaTime * zoomSpeed);
+				limitY *= (player.GetComponent<Transform> ().position.y / limitY);
+				Debug.Log (limitY);
+			}
+			else {
 				limitX = 30f;
+				limitY = 10f;
 				cam.fieldOfView = Mathf.Lerp(cam.fieldOfView,35,Time.deltaTime*(zoomSpeed/2f));
 			}
 		}
 		this.GetComponent<Transform> ().position = newLocation;
+	}
+
+	IEnumerator lerpCamera (){
+		yield return new WaitForSeconds(15f);
+		ready = true;
 	}
 }
