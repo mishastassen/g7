@@ -4399,7 +4399,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11418744, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
       propertyPath: level1
-      value: Level5
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 11418744, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
       propertyPath: loginName
@@ -9263,7 +9263,7 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.39165446, y: 0.39165446, z: 0.39165446}
+  m_LocalScale: {x: 0.96852124, y: 0.96852124, z: 0.96852124}
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -9276,7 +9276,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 267.5, y: 150.5}
+  m_AnchoredPosition: {x: 661.5, y: 454.5}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -11617,8 +11617,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 585600855}
   m_HandleRect: {fileID: 585600854}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0.625
+  m_Size: 0.99999964
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
