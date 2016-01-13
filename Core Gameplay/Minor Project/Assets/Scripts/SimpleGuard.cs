@@ -26,6 +26,9 @@ public class SimpleGuard : NetworkBehaviour {
 		anim = GetComponentInChildren<Animator> ();
 		strikingDistance = 12f;
 		waiting = false;
+		if (!isServer) {
+			agent.enabled = false;
+		}
 	}
 
 	void Update () {
@@ -119,7 +122,9 @@ public class SimpleGuard : NetworkBehaviour {
 			}
 		}
 		else{
-			anim.SetBool ("isStriking", shouldStrike);
+			if (anim.GetBool ("isStriking")) {
+				RpcStopStrike ();
+			}
 		}
 	}
 
@@ -134,7 +139,17 @@ public class SimpleGuard : NetworkBehaviour {
 		waiting = true;
 		Debug.Log ("Wait for striking");
 		yield return new WaitForSeconds(1f);
-		anim.SetBool ("isStriking", true);
+		RpcStartStrike ();
 		waiting = false;
+	}
+
+	[ClientRpc]
+	void RpcStartStrike(){
+		anim.SetBool ("isStriking", true);
+	}
+
+	[ClientRpc]
+	void RpcStopStrike(){
+		anim.SetBool ("isStriking", false);
 	}
 }
