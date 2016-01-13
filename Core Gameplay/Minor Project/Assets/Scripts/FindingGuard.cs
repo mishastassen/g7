@@ -22,9 +22,10 @@ public class FindingGuard : NetworkBehaviour {
 	}
 
 	void Update () {
-		if (!isServer)
+		if (!isServer) {
+			Debug.Log ("finding guard is niet op server");
 			return;
-
+		}
 		TriggerList.RemoveAll(x => x == null);
 
 		if(player==null)
