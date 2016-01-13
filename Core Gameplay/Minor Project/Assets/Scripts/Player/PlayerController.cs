@@ -380,6 +380,9 @@ public class PlayerController : NetworkBehaviour  {
 	}
 
 	void doInteract2() {
+		// Rule: You can't hit with a package
+		if (hasPackage)
+			return;
 		if (!isDrawing) {
 			CmdCheckDrawing (true);
 			startTimeDraw = Time.time;
