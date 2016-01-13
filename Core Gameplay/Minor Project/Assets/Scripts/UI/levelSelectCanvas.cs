@@ -28,6 +28,8 @@ public class levelSelectCanvas : MonoBehaviour {
 		if (offline) {
 			gameObject.GetComponent<Canvas> ().enabled = false;
 			localOnlineCanvas.enabled = true;
+			levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+			localOnlineCanvas.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 		} else {
 			JSONClass messageBody = new JSONClass ();
 			messageBody ["reqUserId"].AsInt = WebManager.Instance.currentUser.UserId;
@@ -46,6 +48,10 @@ public class levelSelectCanvas : MonoBehaviour {
 		gameObject.GetComponent<Canvas> ().enabled = false;
 		returnCanvas.enabled = true;
 		levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
-		returnCanvas.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+		if (returnCanvas.transform.FindChild ("BackButtonContainer") != null) {
+			returnCanvas.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+		} else if (returnCanvas.transform.FindChild ("LogoutButtonContainer") != null) {
+			returnCanvas.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+		}
 	}
 }
