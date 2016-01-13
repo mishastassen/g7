@@ -70,7 +70,9 @@ public class FindingGuard : NetworkBehaviour {
 			}
 		}
 		else{
-			anim.SetBool ("isStriking", shouldStrike);
+			if (anim.GetBool ("isStriking")) {
+				RpcStopStrike ();
+			}
 		}
 	}
 
@@ -85,8 +87,18 @@ public class FindingGuard : NetworkBehaviour {
 		waiting = true;
 		Debug.Log ("Wait for striking");
 		yield return new WaitForSeconds(1f);
-		anim.SetBool ("isStriking", true);
+		RpcStartStrike ();
 		waiting = false;
+	}
+
+	[ClientRpc]
+	void RpcStartStrike(){
+		anim.SetBool ("isStriking", true);
+	}
+
+	[ClientRpc]
+	void RpcStopStrike(){
+		anim.SetBool ("isStriking", false);
 	}
 
 }
