@@ -15,33 +15,68 @@ public class SimpleGuard : NetworkBehaviour {
 	private Vector3 ResetLoc;
 
 	private List <Collider> TriggerList= new List<Collider>();
+	private Vector3 playerPos;
+	private float strikingDistance;
+	private bool waiting;
 
 	// Use this for initialization
 	void Start () {
 		agent = GetComponentInParent<NavMeshAgent> ();
 		ResetLoc = this.transform.position;
-
 		anim = GetComponentInChildren<Animator> ();
+		strikingDistance = 17f;
+		waiting = false;
 	}
 
 	void Update () {
-		// If an object in triggerlist gets destroyed, OnTriggerExit isn't called, but object should be removed
+		if (!isServer) {
+			Debug.Log ("Simple guard is niet op server");
+			return;
+		}
+
+		if(player==null)
+			player = GameObject.FindGameObjectWithTag ("Player");
+		// Sometimes there are no players in the scene (for a short moment)
+		if (player == null) {
+			Debug.Log ("Er zijn geen players");
+			return;
+		}
+
 		TriggerList.RemoveAll(x => x == null);
 		foreach (Collider c in TriggerList) {
 			if (c.tag == "Player") {
 				player = c.gameObject;
 				Vector3 playerPos = player.transform.position;
-				agent.destination = playerPos;
 
-				if (isServer) {
-					bool shouldStrike = IsInStrikingDistance (playerPos);
-					Strike (shouldStrike);
+				bool shouldStrike = IsInStrikingDistance (playerPos);
+				Strike (shouldStrike);
+
+				// Debug.Log ("De waarde van de shouldstrike bool = " + shouldStrike);
+
+				if (shouldStrike) {
+					agent.enabled = false;
+				} else {
+					agent.enabled = true;
+					playerPos = player.transform.position;
+					anim.speed = 1;
+					agent.destination = playerPos;
 				}
 				return;
 			} 
 		}
-		//Debug.Log ("Should start walking back now!");
+		agent.enabled = true;
+		stopWalking ();
 		agent.destination = ResetLoc;
+	}
+
+	void stopWalking (){
+		Vector3 curPos = this.transform.position;
+		Debug.Log ("De guard is zo dicht van zijn reset locatie: "+Vector3.Distance (curPos, ResetLoc));
+		if (Vector3.Distance (curPos, ResetLoc) < 1f) {
+			anim.speed = 0;
+		} else {
+			anim.speed = 1;
+		}
 	}
 
 	void OnTriggerEnter (Collider other){
@@ -71,11 +106,21 @@ public class SimpleGuard : NetworkBehaviour {
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
 		Vector3 curPos = this.transform.position;
-		return  Vector3.Distance (curPos, playerPos) < 8;
+		player = GameObject.FindGameObjectWithTag ("Player");
+		playerPos = player.transform.position;
+		Debug.Log (Vector3.Distance(curPos,playerPos));
+		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
 	}
 
 	void Strike(bool shouldStrike) {
-		anim.SetBool ("isStriking", shouldStrike);
+		if (shouldStrike) {
+			if (!waiting) {
+				StartCoroutine (waitBeforeHit ());
+			}
+		}
+		else{
+			anim.SetBool ("isStriking", shouldStrike);
+		}
 	}
 
 	void PrintTriggerList() {
@@ -85,5 +130,11 @@ public class SimpleGuard : NetworkBehaviour {
 		}
 	}
 
-
+	IEnumerator waitBeforeHit(){
+		waiting = true;
+		Debug.Log ("Wait for striking");
+		yield return new WaitForSeconds(1f);
+		anim.SetBool ("isStriking", true);
+		waiting = false;
+	}
 }

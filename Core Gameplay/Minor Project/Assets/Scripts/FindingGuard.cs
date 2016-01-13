@@ -22,7 +22,7 @@ public class FindingGuard : NetworkBehaviour {
 	void Start () {
 		anim = GetComponentInChildren<Animator> ();
 		agent = GetComponentInParent<NavMeshAgent> ();
-		strikingDistance = 12f;
+		strikingDistance = 20f;
 		waiting = false;
 	}
 
