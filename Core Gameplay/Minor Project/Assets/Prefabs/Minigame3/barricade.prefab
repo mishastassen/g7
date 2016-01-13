@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11483244}
   - 114: {fileID: 11496690}
   m_Layer: 0
-  m_Name: Barricade
+  m_Name: barricade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
