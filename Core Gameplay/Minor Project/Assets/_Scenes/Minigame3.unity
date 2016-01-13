@@ -252,7 +252,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 350263082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.05, y: 0.75, z: 10}
+  m_LocalPosition: {x: 1.81, y: 0.76, z: 9.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 702200062}
@@ -279,7 +279,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 362327170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.12, y: 0.91, z: 9.48}
+  m_LocalPosition: {x: -1.81, y: 0.76, z: 9.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 702200062}
@@ -443,14 +443,14 @@ MonoBehaviour:
   - {fileID: 362327171}
   - {fileID: 894385360}
   PrefabtoSpawn:
-  - {fileID: 103782, guid: f39903b8d8c14894bb423577385f3216, type: 2}
-  - {fileID: 103782, guid: f39903b8d8c14894bb423577385f3216, type: 2}
-  - {fileID: 174612, guid: 48c4c55a39999da4aada7028b6dedd7c, type: 2}
-  - {fileID: 150614, guid: 073477a5345d6804696a14fe30cd675e, type: 2}
-  - {fileID: 103782, guid: f39903b8d8c14894bb423577385f3216, type: 2}
-  - {fileID: 103782, guid: f39903b8d8c14894bb423577385f3216, type: 2}
-  - {fileID: 174612, guid: 48c4c55a39999da4aada7028b6dedd7c, type: 2}
-  - {fileID: 150614, guid: 073477a5345d6804696a14fe30cd675e, type: 2}
+  - {fileID: 104754, guid: 362bb2dfa284e7a409e0ae5159b774cc, type: 2}
+  - {fileID: 104754, guid: 362bb2dfa284e7a409e0ae5159b774cc, type: 2}
+  - {fileID: 179190, guid: 9f58495ceadde0c47b251e2dc602860d, type: 2}
+  - {fileID: 137728, guid: 3a8a644f783280e49bb939637fdc0a40, type: 2}
+  - {fileID: 104754, guid: 362bb2dfa284e7a409e0ae5159b774cc, type: 2}
+  - {fileID: 104754, guid: 362bb2dfa284e7a409e0ae5159b774cc, type: 2}
+  - {fileID: 179190, guid: 9f58495ceadde0c47b251e2dc602860d, type: 2}
+  - {fileID: 137728, guid: 3a8a644f783280e49bb939637fdc0a40, type: 2}
 --- !u!114 &702200064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1371,9 +1371,9 @@ MonoBehaviour:
   m_OfflineScene: 
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 174612, guid: 48c4c55a39999da4aada7028b6dedd7c, type: 2}
-  - {fileID: 103782, guid: f39903b8d8c14894bb423577385f3216, type: 2}
-  - {fileID: 150614, guid: 073477a5345d6804696a14fe30cd675e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
