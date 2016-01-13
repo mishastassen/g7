@@ -19,6 +19,8 @@ public class localOnline : MonoBehaviour {
 	public void pressBack(){
 		levelSelectCanvas.enabled = true;
 		localOnlineCanvas.enabled = false;
+		localOnlineCanvas.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+		levelSelectCanvas.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 
 	public void pressOffline(){
