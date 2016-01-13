@@ -20,7 +20,7 @@ public class Destructionwall : NetworkBehaviour
     void OnTriggerEnter(Collider other)
     {
 		if (isServer) {
-			Destroy (other.gameObject);
+			Destroy (other.gameObject.transform.parent.gameObject);
 		}
     }
 }
