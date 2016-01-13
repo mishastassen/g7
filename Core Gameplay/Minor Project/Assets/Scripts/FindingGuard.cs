@@ -16,12 +16,14 @@ public class FindingGuard : NetworkBehaviour {
 	private List <Collider> TriggerList= new List<Collider>();
 	private Vector3 playerPos;
 	private float strikingDistance;
+	private bool waiting;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponentInChildren<Animator> ();
 		agent = GetComponentInParent<NavMeshAgent> ();
-		strikingDistance = 15f;
+		strikingDistance = 12f;
+		waiting = false;
 	}
 
 	void Update () {
@@ -59,7 +61,14 @@ public class FindingGuard : NetworkBehaviour {
 	}
 
 	void Strike(bool shouldStrike) {
-		anim.SetBool ("isStriking", shouldStrike);
+		if (shouldStrike) {
+			if (!waiting) {
+				StartCoroutine (waitBeforeHit ());
+			}
+		}
+		else{
+			anim.SetBool ("isStriking", shouldStrike);
+		}
 	}
 
 	void PrintTriggerList() {
@@ -67,6 +76,14 @@ public class FindingGuard : NetworkBehaviour {
 		foreach (Collider c in TriggerList) {
 			Debug.Log (c.tag);
 		}
+	}
+
+	IEnumerator waitBeforeHit(){
+		waiting = true;
+		Debug.Log ("Wait for striking");
+		yield return new WaitForSeconds(1f);
+		anim.SetBool ("isStriking", true);
+		waiting = false;
 	}
 
 }
