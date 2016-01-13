@@ -20,7 +20,7 @@ public class PatrollingGuard: NetworkBehaviour {
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
-		facingRight = true;
+		facingRight = false;
 		coneDegrees = 60;
 		spotted = false;
 		anim = GetComponent<Animator> ();
