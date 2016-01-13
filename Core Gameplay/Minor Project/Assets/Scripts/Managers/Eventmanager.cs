@@ -79,7 +79,10 @@ public class Eventmanager : NetworkBehaviour {
 
 	//Chest completed succesfully
 	public delegate void ChestCompleted();
-	public event ChestActivated EventonChestCompleted;
+	public event ChestCompleted EventonChestCompleted;
+
+	public delegate void Minigame3Activated();
+	public event Minigame3Activated EventonMinigame3Activated;
 
 	//CheckPoint reached
 	public delegate void CheckpointReached(int checkpointNum);
@@ -260,6 +263,12 @@ public class Eventmanager : NetworkBehaviour {
 			if (isServer) {
 				RpcOnCheckpointReached (checkpointNum);
 			}
+		}
+	}
+
+	public void triggerMinigame3Activated(){
+		if (EventonMinigame3Activated != null) {
+			EventonMinigame3Activated ();
 		}
 	}
 

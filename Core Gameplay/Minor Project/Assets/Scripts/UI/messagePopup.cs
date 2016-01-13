@@ -68,7 +68,7 @@ public class messagePopup : MonoBehaviour {
 
 	IEnumerator sendGameRequest(){
 		messageText.GetComponent<Text> ().text = "Waiting for response";
-		waitText.SetActive (true);
+		//waitText.SetActive (true);
 		state = "gameRequested";
 		yield return new WaitForSeconds(30.0f);
 		if (state == "gameRequested") {
@@ -91,7 +91,7 @@ public class messagePopup : MonoBehaviour {
 	IEnumerator weAcceptedGame(){
 		yesButton.SetActive (false);
 		noButton.SetActive (false);
-		waitText.SetActive (true);
+		//waitText.SetActive (true);
 		messageText.GetComponent<Text> ().text = "Waiting for host to start";
 		state = "gameAccepted";
 		yield return new WaitForSeconds(30.0f);
