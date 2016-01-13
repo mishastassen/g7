@@ -27,7 +27,7 @@ public class Camera_Controller : MonoBehaviour {
 
 	private string currentLevel;
 	private GameObject deliveryZone;
-	private bool ready = false;
+	private bool ready = true;
 	private bool isStarted = false;
 
 	private float lerpTime;
@@ -45,15 +45,7 @@ public class Camera_Controller : MonoBehaviour {
 		limitY = 20f;
 		cam = this.GetComponent<Camera> ();
 		zoom = cam.fieldOfView;
-		lerpTime = 15f;
-		if (currentLevel == "Level6") {
-			StartCoroutine (lerpCamera ());
-		} else {
-			ready = true;
-		}
 		playerPos = (this.GetComponent<Transform> ().position);
-		StartCoroutine (lerpCamera ());
-
 	}
 
 	void OnEnable(){
@@ -70,18 +62,6 @@ public class Camera_Controller : MonoBehaviour {
 		if (players.Count > 0) {
 			if (ready) {
 				updateCameraLocation ();
-			} else {
-				Vector3 delivPos = (deliveryZone.GetComponent<Transform> ().position);
-				delivPos.z = -80f;
-				currentLerpTime += Time.deltaTime;
-				deliveryZone = GameObject.FindGameObjectWithTag ("DeliveryZone");
-				cam.fieldOfView = 40;
-				playerPos.z = -80f;
-				if (currentLerpTime > lerpTime) {
-					currentLerpTime = lerpTime;
-				}
-				float perc = currentLerpTime / lerpTime;
-				this.GetComponent<Transform> ().position = Vector3.Lerp (delivPos, playerPos, perc);
 			}
 		}
 		// Debug.Log ("The current field of view is " + cam.fieldOfView);
@@ -139,11 +119,6 @@ public class Camera_Controller : MonoBehaviour {
 			}
 		}
 		this.GetComponent<Transform> ().position = newLocation;
-	}
-
-	IEnumerator lerpCamera (){
-		yield return new WaitForSeconds(lerpTime);
-		ready = true;
 	}
 
 	float updateFoV (float fov){

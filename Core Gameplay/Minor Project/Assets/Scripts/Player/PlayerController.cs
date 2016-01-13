@@ -62,7 +62,9 @@ public class PlayerController : NetworkBehaviour  {
 		Time.timeScale = 1.0f;
 		rb = GetComponent<Rigidbody>();
 		anim = GetComponentInChildren<Animator> ();
-		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
+		if (isLocalPlayer) {
+			Eventmanager.Instance.triggerPlayerAdded (this.gameObject);
+		}
 		hasPackage = false;
 		hasMagicPackage = false;
 		carriedPackage = null;
@@ -96,8 +98,6 @@ public class PlayerController : NetworkBehaviour  {
 		else if(!isLocalPlayer && WebManager.Instance.otherPlayer != null){
 			changeColour (WebManager.Instance.otherPlayer.playerColor);
 		}
-
-		Eventmanager.Instance.triggerPlayerAdded(this.gameObject);
 	}
 
 	void Update(){
@@ -211,8 +211,8 @@ public class PlayerController : NetworkBehaviour  {
 
 	// invoke at start of update and fixedupdate to set bool isGrounded
 	void CheckGrounded() {
-		isGrounded = true;
-		//isGrounded = isGroundedHeel () || isGroundedToe ();
+		//isGrounded = true;
+		isGrounded = isGroundedHeel () || isGroundedToe ();
 		//Debug.Log ("isgrounded: "+isGrounded);
 	}
 

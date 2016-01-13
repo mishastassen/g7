@@ -5,7 +5,9 @@ using System.Collections;
 public class escMenu : MonoBehaviour {
 
 	public void pressQuit(){
-		Application.Quit();
+		//Application.Quit();
+		Gamemanager.Instance.triggerDisableEventHandlers();
+		GameNetworkManager.singleton.StopHost();
 	}
 
 	public void pressCloseMenu(){
