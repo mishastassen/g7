@@ -14,6 +14,7 @@ public class Camera_Controller : MonoBehaviour {
 	private Vector2 windowCenter;
 	private Vector2 previousCenter;
 	private Vector3 newLocation;
+	private Vector3 oldLocation;
 
 	float limitX;
 	float limitY;
@@ -34,8 +35,18 @@ public class Camera_Controller : MonoBehaviour {
 	private float currentLerpTime;
 	private Vector3 playerPos;
 
+	private float currentLerpTimeX;
+	private float lerpTimeX;
+	private bool zooming;
+
+	private float x;
+	private float y;
+	private float z0;
+	private float z1;
+
 	// Use this for initialization
 	void Start () {
+		zooming = false;
 		ready = false;
 		currentLevel = Gamevariables.currentLevel;
 		players = new List<GameObject>();
@@ -53,6 +64,8 @@ public class Camera_Controller : MonoBehaviour {
 		} else {
 			ready = true;
 		}
+		lerpTimeX = 2f;
+		currentLerpTimeX = 0f;
 	}
 
 	void OnEnable(){
@@ -118,7 +131,28 @@ public class Camera_Controller : MonoBehaviour {
 
 		foreach (GameObject player in players) {
 			if (Mathf.Abs (player.GetComponent<Transform> ().position.x - newLocation.x) > Mathf.Abs(limitX)) {
-				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, cam.fieldOfView*1.05f, Time.deltaTime * zoomSpeed);
+				float x = newLocation.x;
+				float y = newLocation.y;
+				float z0 = newLocation.z;
+				float z1 = newLocation.z * 1.1f;
+
+				oldLocation.Set (x, y, z0);
+				newLocation.Set (x, y, z1);
+
+				currentLerpTimeX += Time.deltaTime;
+
+				if (currentLerpTimeX > lerpTimeX) {
+					currentLerpTimeX = lerpTimeX;
+				}
+				float perc = currentLerpTimeX / lerpTimeX;
+				Debug.Log (perc);
+
+				this.GetComponent<Transform> ().position = Vector3.Lerp (oldLocation, newLocation, perc);
+
+				if (!zooming) {
+					StartCoroutine (busyZooming ());
+				}
+				// cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, cam.fieldOfView*1.05f, Time.deltaTime * zoomSpeed);
 				limitX *= (player.GetComponent<Transform> ().position.x / limitX);
 			} else if (Mathf.Abs (player.GetComponent<Transform>().position.y - newLocation.y) > Mathf.Abs(limitY)) {
 				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, cam.fieldOfView*1.15f, Time.deltaTime * zoomSpeed);
@@ -131,7 +165,14 @@ public class Camera_Controller : MonoBehaviour {
 				cam.fieldOfView = Mathf.Lerp(cam.fieldOfView,35,Time.deltaTime*(zoomSpeed/2f));
 			}
 		}
-		this.GetComponent<Transform> ().position = newLocation;
+		// this.GetComponent<Transform> ().position = newLocation;
+	}
+
+	IEnumerator busyZooming (){
+		zooming = true;
+		yield return new WaitForSeconds(lerpTimeX);
+		currentLerpTimeX = 0f;
+		zooming = false;
 	}
 
 	IEnumerator lerpCamera (){
