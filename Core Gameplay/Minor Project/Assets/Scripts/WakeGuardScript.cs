@@ -24,10 +24,13 @@ public class WakeGuardScript : NetworkBehaviour {
 
 	void OnTriggerEnter (Collider other) {
 		//*
-		if (isServer && other.tag == "Player") {
-			Debug.Log ("player entered.");
-			inactiveFindingGuard.SetActive (true);
-			NetworkServer.Spawn (inactiveFindingGuard);
+		if (inactiveFindingGuard != null) {
+			if (isServer && other.tag == "Player" && !inactiveFindingGuard.activeSelf) {
+				Debug.Log ("player entered.");
+				//inactiveFindingGuard.SetActive (true);
+				RpcSetActiveGuard ();
+				NetworkServer.Spawn (inactiveFindingGuard);
+			}
 		}
 		/*/
 		if (isServer && other.tag=="Player") {
@@ -38,6 +41,11 @@ public class WakeGuardScript : NetworkBehaviour {
 			}
 		} 
 		//*/
+	}
+
+	[ClientRpc]
+	void RpcSetActiveGuard(){
+		inactiveFindingGuard.SetActive (true);
 	}
 
 }
