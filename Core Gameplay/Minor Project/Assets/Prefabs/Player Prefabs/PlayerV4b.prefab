@@ -971,8 +971,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16c856ae6c757f449579a91de2dee4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwoldOnHip: {fileID: 138398}
-  SwoldInHand: {fileID: 104322}
+  SwordOnHip: {fileID: 0}
+  SwordInHand: {fileID: 0}
 --- !u!114 &11420014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -986,7 +986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
   m_SendInterval: 0.04
-  m_SyncRotationAxis: 7
+  m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
@@ -1027,6 +1027,7 @@ MonoBehaviour:
   walking: 0
   carriedPackage: {fileID: 0}
   facingRight: 0
+  turnSpeed: 0
   debugText: {fileID: 0}
   TriggerList: []
 --- !u!114 &11463810

@@ -22,6 +22,9 @@ public class FindingGuard : NetworkBehaviour {
 	void Start () {
 		anim = GetComponentInChildren<Animator> ();
 		agent = GetComponentInParent<NavMeshAgent> ();
+		if (!isServer) {
+			agent.enabled = false;
+		}
 		strikingDistance = 12f;
 		waiting = false;
 	}

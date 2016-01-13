@@ -211,7 +211,8 @@ public class PlayerController : NetworkBehaviour  {
 
 	// invoke at start of update and fixedupdate to set bool isGrounded
 	void CheckGrounded() {
-		isGrounded = isGroundedHeel () || isGroundedToe ();
+		isGrounded = true;
+		//isGrounded = isGroundedHeel () || isGroundedToe ();
 		//Debug.Log ("isgrounded: "+isGrounded);
 	}
 
