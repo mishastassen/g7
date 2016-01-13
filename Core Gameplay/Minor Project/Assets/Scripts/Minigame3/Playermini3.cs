@@ -27,8 +27,6 @@ public class Playermini3 : NetworkBehaviour
 	private string horizontalAxis = "Horizontal_P1";
 	private string jumpButton = "Jump_P1";
 	private string interact1Button = "Interact1_P1";
-	private string interact2Button = "Interact2_P1";
-	private string throwButton = "Throw_P1";
 
     void Start()
     {
@@ -44,8 +42,6 @@ public class Playermini3 : NetworkBehaviour
 			horizontalAxis = "Horizontal_P2";
 			jumpButton = "Jump_P2";
 			interact1Button = "Interact1_P2";
-			interact2Button = "Interact2_P2";
-			throwButton = "Throw_P2";
 		}
     }
 
@@ -90,25 +86,23 @@ public class Playermini3 : NetworkBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
-        {
-            CmdLoseLife();
-        }
+		if (isLocalPlayer) {
+			if (other.gameObject.CompareTag ("Obstacle")) {
+				CmdLoseLife ();
+			}
 
-        if (other.gameObject.CompareTag("Bridge"))
-        {
-            if (!ducking)
-            {
-                CmdLoseLife();
-            }
-        }
-        if (other.gameObject.CompareTag("Root"))
-        {
-            if (!jumping)
-            {
-                CmdLoseLife();
-            }
-        }
+			if (other.gameObject.CompareTag ("Bridge")) {
+				if (!ducking) {
+					CmdLoseLife ();
+				}
+			}
+
+			if (other.gameObject.CompareTag ("Root")) {
+				if (!jumping) {
+					CmdLoseLife ();
+				}
+			}
+		}
     }
 
 	[Command]
