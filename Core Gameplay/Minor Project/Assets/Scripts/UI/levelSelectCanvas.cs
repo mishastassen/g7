@@ -35,6 +35,10 @@ public class levelSelectCanvas : MonoBehaviour {
 			StartCoroutine (WebManager.Instance.IEsendMessage (player2.UserId, "playGame", messageBody));
 			popUpPanel.SetActive (true);
 			popUpPanel.GetComponent<messagePopup> ().sendRequest ();
+			gameObject.GetComponent<Canvas> ().enabled = false;
+			returnCanvas.enabled = true;
+			levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+			returnCanvas.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 		}
 	}
 
@@ -42,6 +46,6 @@ public class levelSelectCanvas : MonoBehaviour {
 		gameObject.GetComponent<Canvas> ().enabled = false;
 		returnCanvas.enabled = true;
 		levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
-		returnCanvas.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+		returnCanvas.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 	}
 }

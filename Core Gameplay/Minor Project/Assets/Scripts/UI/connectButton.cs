@@ -24,6 +24,8 @@ public class connectButton : MonoBehaviour {
 			levelSelect.GetComponent<levelSelectCanvas> ().UpdateButtons ();
 			loggedIn.enabled = false;
 			levelSelect.enabled = true;
+			loggedIn.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+			levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 			/*JSONClass messageBody = new JSONClass ();
 			messageBody ["reqUserId"].AsInt = webmanager.currentUser.UserId;
 			messageBody["reqUsername"] = webmanager.currentUser.Username;
