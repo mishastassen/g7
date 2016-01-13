@@ -1,56 +1,56 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &174612
+--- !u!1 &179190
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 417412}
-  - 33: {fileID: 3342816}
-  - 65: {fileID: 6561954}
-  - 23: {fileID: 2376582}
-  - 114: {fileID: 11479332}
-  - 114: {fileID: 11446468}
-  - 114: {fileID: 11458328}
+  - 4: {fileID: 450216}
+  - 33: {fileID: 3391212}
+  - 23: {fileID: 2314194}
+  - 65: {fileID: 6599478}
+  - 114: {fileID: 11424048}
+  - 114: {fileID: 11453090}
+  - 114: {fileID: 11453606}
   m_Layer: 0
-  m_Name: Bridge
-  m_TagString: Bridge
+  m_Name: barricade
+  m_TagString: Root
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &417412
+--- !u!4 &450216
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5975547, y: -2.8089504, z: 11.354055}
-  m_LocalScale: {x: 3, y: 0.5, z: 1}
+  m_GameObject: {fileID: 179190}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: 1.81, y: 0.19, z: 9.41}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2376582
+--- !u!23 &2314194
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174612}
+  m_GameObject: {fileID: 179190}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 621a4bc990a4c9d43a50293e5cb7cda3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
   m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_MinimumChartSize: 4
@@ -59,31 +59,31 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3342816
+--- !u!33 &3391212
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174612}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6561954
+  m_GameObject: {fileID: 179190}
+  m_Mesh: {fileID: 4300000, guid: 8758812f333c6564e82f27aba5453491, type: 3}
+--- !u!65 &6599478
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174612}
+  m_GameObject: {fileID: 179190}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11446468
+  m_Size: {x: 6.880563, y: 2.3853123, z: 2.6031253}
+  m_Center: {x: 0.08464658, y: 0, z: 1.4023535}
+--- !u!114 &11424048
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174612}
+  m_GameObject: {fileID: 179190}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
@@ -92,30 +92,30 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 72
-    i1: 196
-    i2: 197
-    i3: 90
-    i4: 57
-    i5: 153
-    i6: 157
-    i7: 164
-    i8: 170
-    i9: 218
-    i10: 112
-    i11: 40
-    i12: 182
-    i13: 222
-    i14: 221
-    i15: 124
+    i0: 159
+    i1: 88
+    i2: 73
+    i3: 92
+    i4: 234
+    i5: 221
+    i6: 224
+    i7: 196
+    i8: 123
+    i9: 37
+    i10: 30
+    i11: 45
+    i12: 198
+    i13: 2
+    i14: 134
+    i15: 13
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &11458328
+--- !u!114 &11453090
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174612}
+  m_GameObject: {fileID: 179190}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
@@ -130,12 +130,12 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &11479332
+--- !u!114 &11453606
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174612}
+  m_GameObject: {fileID: 179190}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea8a85a6db2dff146a5e55c5017ad209, type: 3}
@@ -150,18 +150,26 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: Bridge
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: movementspeed
       value: -0.2
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 174612}
+  m_RootGameObject: {fileID: 179190}
   m_IsPrefabParent: 1
