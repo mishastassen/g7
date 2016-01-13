@@ -39,7 +39,7 @@ public class levelFinishScreen : MonoBehaviour {
 	public void displayHighscores(JSONNode highscores){
 		JSONNode top10 = highscores ["top10"];
 		JSONNode bestTime = highscores ["bestTime"][0];
-		for (int i = 0; i<10; i++)
+		for (int i = 0; i<5; i++)
 		{
 			if (top10 [i] != null) {
 				string highscoreText = top10 [i] ["Player1"] + "\n" + top10 [i] ["Player2"];
