@@ -92,11 +92,12 @@ public class PlayerController : NetworkBehaviour  {
 			interact2Button = "Interact2_P2";
 			throwButton = "Throw_P2";
 		}
-		if (isLocalPlayer && WebManager.Instance.otherPlayer != null) {
-			changeColour (WebManager.Instance.currentUser.playerColor);
-		} 
-		else if(!isLocalPlayer && WebManager.Instance.otherPlayer != null){
-			changeColour (WebManager.Instance.otherPlayer.playerColor);
+		if (WebManager.Instance != null) {
+			if (isLocalPlayer && WebManager.Instance.otherPlayer != null) {
+				changeColour (WebManager.Instance.currentUser.playerColor);
+			} else if (!isLocalPlayer && WebManager.Instance.otherPlayer != null) {
+				changeColour (WebManager.Instance.otherPlayer.playerColor);
+			}
 		}
 	}
 
@@ -371,6 +372,10 @@ public class PlayerController : NetworkBehaviour  {
 			if(TriggerList.Exists (x => x.tag == "Chest")){
 				CmdTriggerChest();
 			}
+
+			if (TriggerList.Exists (x => x.tag == "startMinigame3")) {
+				CmdTriggerMinigame3 ();
+			}
 		}
 	}
 
@@ -464,6 +469,11 @@ public class PlayerController : NetworkBehaviour  {
 			{ "Time", Gamevariables.timer }
 		});
 		*/
+	}
+
+	[Command]
+	void CmdTriggerMinigame3(){
+		Eventmanager.Instance.triggerMinigame3Activated ();
 	}
 
 	[Command]

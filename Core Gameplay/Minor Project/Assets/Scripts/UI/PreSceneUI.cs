@@ -18,7 +18,7 @@ public class PreSceneUI : MonoBehaviour {
 		Eventmanager.Instance.triggerLevelFinished(levelName);
 	}
 
-	void addPlayer(){
+	public void addPlayer(){
 		ClientScene.AddPlayer(2);
 	}
 }
