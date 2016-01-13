@@ -24,7 +24,7 @@ public class SimpleGuard : NetworkBehaviour {
 		agent = GetComponentInParent<NavMeshAgent> ();
 		ResetLoc = this.transform.position;
 		anim = GetComponentInChildren<Animator> ();
-		strikingDistance = 17f;
+		strikingDistance = 12f;
 		waiting = false;
 	}
 
