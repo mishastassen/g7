@@ -14,11 +14,14 @@ public class FindingGuard : NetworkBehaviour {
 	NavMeshAgent agent;
 
 	private List <Collider> TriggerList= new List<Collider>();
+	private Vector3 playerPos;
+	private float strikingDistance;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponentInChildren<Animator> ();
 		agent = GetComponentInParent<NavMeshAgent> ();
+		strikingDistance = 15f;
 	}
 
 	void Update () {
@@ -33,17 +36,26 @@ public class FindingGuard : NetworkBehaviour {
 		// Sometimes there are no players in the scene (for a short moment)
 		if (player == null)
 			return;
-		
-		Vector3 playerPos = player.transform.position;
-		agent.destination = playerPos;
 
 		bool shouldStrike = IsInStrikingDistance (playerPos);
 		Strike (shouldStrike);
+
+		Debug.Log ("De waarde van de shouldstrike bool = " + shouldStrike);
+
+		if (shouldStrike) {
+			agent.enabled = false;
+		} else {
+			agent.enabled = true;
+			playerPos = player.transform.position;
+			agent.destination = playerPos;
+		}
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
 		Vector3 curPos = this.transform.position;
-		return  Vector3.Distance (curPos, playerPos) < 8;
+		player = GameObject.FindGameObjectWithTag ("Player");
+		playerPos = player.transform.position;
+		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
 	}
 
 	void Strike(bool shouldStrike) {
