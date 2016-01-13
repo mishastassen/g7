@@ -6,7 +6,6 @@ public class Gamemanager : NetworkBehaviour {
 
 	private static Gamemanager static_instance = null;
 	private static object _lock = new object ();
-	private static bool applicationIsQuitting = false;
 
 	//Game vars
 	[SyncVar]
@@ -19,7 +18,9 @@ public class Gamemanager : NetworkBehaviour {
 	public int CheckpointReached;
 	//public string currentLevel;
 	//public float timer;
-	
+
+	public bool disabledManager = false;
+
 	//Executed on the server when next level is loaded
 	public delegate void OnNextLevelLoad();
 	public OnNextLevelLoad onNextLevelLoad;
@@ -34,9 +35,6 @@ public class Gamemanager : NetworkBehaviour {
 	//Function to call this object
 	public static Gamemanager Instance{
 		get{
-			if (applicationIsQuitting) {
-				return null;
-			}
 			lock(_lock)
 			{
 				static_instance = (Gamemanager) FindObjectOfType(typeof(Gamemanager));
@@ -74,10 +72,6 @@ public class Gamemanager : NetworkBehaviour {
 			ClientScene.AddPlayer(2);
 		}
 	}
-		
-	void OnDestroy () {
-		applicationIsQuitting = true;
-	}
 
 	[ServerCallback]
 	void OnLevelWasLoaded(int level){
@@ -92,5 +86,12 @@ public class Gamemanager : NetworkBehaviour {
 			onDisableEventHandlers ();
 		}
 		onDisableEventHandlers = null;
+	}
+
+	public void stopManager(){
+		networkmanager = null;
+		static_instance = null;
+		disabledManager = true;
+		gameObject.SetActive (false);
 	}
 }

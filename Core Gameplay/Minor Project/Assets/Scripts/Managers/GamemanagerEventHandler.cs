@@ -154,4 +154,11 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 	void onClientReadyMsg(NetworkMessage netMsg){
 		clientEndLevelReady = true;
 	}
+
+	public void stopManager(){
+		networkmanager = null;
+		m_client = null;
+		NetworkServer.ClearHandlers ();
+		eventsEnabled = false;
+	}
 }

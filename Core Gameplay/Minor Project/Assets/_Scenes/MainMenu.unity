@@ -8073,6 +8073,45 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 905227808}
+--- !u!1 &919238730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 919238732}
+  - 114: {fileID: 919238731}
+  m_Layer: 0
+  m_Name: resetObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &919238731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919238730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff39294ac597c0548b8243a70e891327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &919238732
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919238730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
 --- !u!1 &933536237
 GameObject:
   m_ObjectHideFlags: 0
@@ -12981,7 +13020,7 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.79941434, y: 0.79941434, z: 0.79941434}
+  m_LocalScale: {x: 0.84992677, y: 0.84992677, z: 0.84992677}
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -12994,7 +13033,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 546, y: 229.5}
+  m_AnchoredPosition: {x: 580.5, y: 454.5}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -15489,8 +15528,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 585600855}
   m_HandleRect: {fileID: 585600854}
   m_Direction: 0
-  m_Value: 0.75
-  m_Size: 0.9999998
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
