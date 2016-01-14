@@ -16,6 +16,7 @@ public class networkMenu : MonoBehaviour {
 		WebManager.Instance.login (loginName.text,loginPass.text);
 		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
 		loggedIn.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+		loggedIn.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
 		loggedIn.enabled = true;
 		networkMultiplayer.enabled = false;
 	}
@@ -32,6 +33,16 @@ public class networkMenu : MonoBehaviour {
 		networkMultiplayer.enabled = false;
 		networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
 		accountCreate.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+	}
+
+	void Update(){
+		if (this.gameObject.GetComponent<Canvas> ().enabled && WebManager.Instance.currentUser != null) {
+			networkMultiplayer.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
+			loggedIn.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+			loggedIn.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);
+			loggedIn.enabled = true;
+			networkMultiplayer.enabled = false;
+		}
 	}
 		
 }

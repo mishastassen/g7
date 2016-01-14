@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PatrollingSpawnGuard: NetworkBehaviour {
 
@@ -19,6 +20,8 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 
 	// attributen voor het spawnen van een finding guard staan below. 
 	public GameObject inactiveFindingGuard;
+	public Canvas spottedCanvas;
+	private bool displayingCanvas;
 
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
@@ -27,6 +30,8 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 		coneDegrees = 60;
 		spotted = false;
 		anim = GetComponent<Animator> ();
+		spottedCanvas.enabled = false;
+		displayingCanvas = false;
 	}
 
 	void Update (){
@@ -45,6 +50,9 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 	void FixedUpdate (){
 
 		if (spotted) {
+			if (!displayingCanvas) {
+				StartCoroutine (canvasSpotted ());
+			}
 			CmdPlayerSpotted ();
 			anim.speed = 0;
 		} else {
@@ -159,5 +167,15 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 	[ClientRpc]
 	void RpcSetActiveGuard(){
 		inactiveFindingGuard.SetActive (true);
+	}
+
+	IEnumerator canvasSpotted (){
+		displayingCanvas = true;
+		Debug.Log ("Canvas moet nu aan staan");
+		spottedCanvas.enabled = true;
+		yield return new WaitForSeconds (2f);
+
+		spottedCanvas.enabled = false;
+		displayingCanvas = true;
 	}
 }

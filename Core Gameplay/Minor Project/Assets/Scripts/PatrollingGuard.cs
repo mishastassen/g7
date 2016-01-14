@@ -17,6 +17,11 @@ public class PatrollingGuard: NetworkBehaviour {
 	RaycastHit hitInfo;
 	private Animator anim;
 
+	private GameObject targetPlayer;
+	private Vector3 playerPos;
+	private float strikingDistance;
+	private bool waiting;
+
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
@@ -24,17 +29,41 @@ public class PatrollingGuard: NetworkBehaviour {
 		coneDegrees = 60;
 		spotted = false;
 		anim = GetComponent<Animator> ();
+		strikingDistance = 12f;
+		waiting = false;
 	}
 		
-	void FixedUpdate (){
-
+	void Update (){
 		if (spotted) {
 			CmdPlayerSpotted ();
-			anim.speed = 0;
+			bool shouldStrike = IsInStrikingDistance (playerPos);
+			Strike (shouldStrike);
 		} else {
-			anim.speed = 1;
+			anim.speed = 1f;
 			CmdNoPlayerSpotted ();
 			walk ();
+		}
+	}
+
+	bool IsInStrikingDistance(Vector3 playerPos) {
+		Vector3 curPos = this.transform.position;
+		targetPlayer = GameObject.FindGameObjectWithTag ("Player");
+		playerPos = targetPlayer.transform.position;
+		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
+	}
+
+	void Strike(bool shouldStrike) {
+		if (shouldStrike) {
+			if (!waiting) {
+				StartCoroutine (WaitBeforeHit ());
+			}
+		}
+		else{
+			if (anim.GetBool ("isStriking")) {
+				RpcStopStrike ();
+			} else {
+				walk ();
+			}
 		}
 	}
 
@@ -109,6 +138,7 @@ public class PatrollingGuard: NetworkBehaviour {
 					if (hitInfo.collider.tag == "Player") {
 						Debug.DrawRay (eyePosition, direction, Color.red);
 						spotted = true;
+						playerPos = other.transform.position;
 					} else {
 						Debug.DrawRay(eyePosition, direction, Color.green);
 						spotted = false;
@@ -138,5 +168,24 @@ public class PatrollingGuard: NetworkBehaviour {
 	[Command]
 	void CmdNoPlayerSpotted() {
 		Eventmanager.Instance.triggerNoPlayerSpotted ();
+	}
+
+	IEnumerator WaitBeforeHit(){
+		waiting = true;
+		Debug.Log ("Wait for striking");
+		yield return new WaitForSeconds(1f);
+		anim.speed = 1f;
+		RpcStartStrike ();
+		waiting = false;
+	}
+
+	[ClientRpc]
+	void RpcStartStrike(){
+		anim.SetBool ("isStriking", true);
+	}
+
+	[ClientRpc]
+	void RpcStopStrike(){
+		anim.SetBool ("isStriking", false);
 	}
 }
