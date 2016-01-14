@@ -1438,22 +1438,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
+    i0: 141
+    i1: 227
+    i2: 181
+    i3: 81
+    i4: 190
+    i5: 215
+    i6: 136
+    i7: 100
+    i8: 89
+    i9: 167
+    i10: 229
+    i11: 119
+    i12: 163
+    i13: 250
+    i14: 43
+    i15: 214
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!1 &1167267061
@@ -2622,7 +2622,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 456238, guid: ecab6d4cd93dc8947b54c3f34cd0d18a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2.5
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 456238, guid: ecab6d4cd93dc8947b54c3f34cd0d18a, type: 2}
       propertyPath: m_LocalRotation.x
