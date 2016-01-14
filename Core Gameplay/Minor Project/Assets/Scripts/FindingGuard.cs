@@ -10,11 +10,14 @@ public class FindingGuard : NetworkBehaviour {
 
 	private Animator anim;
 
-	private GameObject player;
 	NavMeshAgent agent;
 
 	private List <Collider> TriggerList= new List<Collider>();
+
+	private GameObject[] players;
+	private GameObject targetPlayer;
 	private Vector3 playerPos;
+
 	private float strikingDistance;
 	private bool waiting;
 
@@ -36,10 +39,10 @@ public class FindingGuard : NetworkBehaviour {
 		}
 		TriggerList.RemoveAll(x => x == null);
 
-		if(player==null)
-			player = GameObject.FindGameObjectWithTag ("Player");
+		FindPlayers ();
+		targetPlayer = GetClosestPlayer ();
 		// Sometimes there are no players in the scene (for a short moment)
-		if (player == null)
+		if (targetPlayer == null)
 			return;
 
 		bool shouldStrike = IsInStrikingDistance (playerPos);
@@ -51,22 +54,37 @@ public class FindingGuard : NetworkBehaviour {
 			agent.enabled = false;
 		} else {
 			agent.enabled = true;
-			playerPos = player.transform.position;
+			playerPos = targetPlayer.transform.position;
 			agent.destination = playerPos;
 		}
 	}
 
+	void FindPlayers() {
+		players = GameObject.FindGameObjectsWithTag ("Player");
+	}
+
+	GameObject GetClosestPlayer() {
+		GameObject closestPlayer = null;
+		float shortestDistance = 1e9f;
+		foreach (GameObject p in players)
+			if (Vector3.Distance (p.transform.position, this.transform.position) < shortestDistance) {
+				shortestDistance = Vector3.Distance (p.transform.position, this.transform.position);
+				closestPlayer = p;
+			}
+		return closestPlayer;
+	}
+
 	bool IsInStrikingDistance(Vector3 playerPos) {
 		Vector3 curPos = this.transform.position;
-		player = GameObject.FindGameObjectWithTag ("Player");
-		playerPos = player.transform.position;
+		targetPlayer = GameObject.FindGameObjectWithTag ("Player");
+		playerPos = targetPlayer.transform.position;
 		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
 	}
 
 	void Strike(bool shouldStrike) {
 		if (shouldStrike) {
 			if (!waiting) {
-				StartCoroutine (waitBeforeHit ());
+				StartCoroutine (WaitBeforeHit ());
 			}
 		}
 		else{
@@ -83,7 +101,7 @@ public class FindingGuard : NetworkBehaviour {
 		}
 	}
 
-	IEnumerator waitBeforeHit(){
+	IEnumerator WaitBeforeHit(){
 		waiting = true;
 		Debug.Log ("Wait for striking");
 		yield return new WaitForSeconds(1f);
