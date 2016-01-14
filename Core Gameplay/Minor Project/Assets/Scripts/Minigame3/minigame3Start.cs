@@ -8,6 +8,8 @@ public class minigame3Start : NetworkBehaviour {
 	private bool packageNearby;
 	private int playerCount;
 
+	public string minigame3SceneName;
+
 	public GameObject minigame3Player;
 
 	void Start(){
@@ -46,7 +48,7 @@ public class minigame3Start : NetworkBehaviour {
 		Debug.Log ("Starting minigame3");
 		if (playerCount == 2) {
 			GameNetworkManager.singleton.playerPrefab = minigame3Player;
-			Eventmanager.Instance.triggerLevelSwitch ("Minigame3");
+			Eventmanager.Instance.triggerLevelSwitch (minigame3SceneName);
 		}
 	}
 }
