@@ -1,3 +1,5 @@
+Textures
+
 Het hout komt van nl.freepik.com
 De jaarringen komen van cutcaster.com
 Het donkere komt van bgfonds.com
@@ -8,3 +10,8 @@ De barrel komt van dmsp.digital.eca.ed.ac.uk
 Het goud komt van wikipedia
 De rope texture komt van forums.autodesk.com
 De vlam is van textures.com
+
+UI plank - http://www.1001freedownloads.com/free-cliparts/?tag=plank
+
+Audio
+

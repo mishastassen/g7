@@ -15,8 +15,11 @@ public class main : NetworkBehaviour {
 	public GameObject prefab;
 
 	// text and time and succes
+	public Image winLosePlank;
 	public Text winText;
+	public Text winInstruction;
 	public Text loseText;
+	public Text loseInstruction;
 	public Text timeText;
 	private float timeLeft;
 	private double time;
@@ -38,8 +41,11 @@ public class main : NetworkBehaviour {
 		returnLevel = Gamevariables.returnLevel;
 		timeLeft = 20.0f;
 		time = timeLeft;
+		winLosePlank.enabled = false;
 		winText.enabled = false;
+		winInstruction.enabled = false;
 		loseText.enabled = false;
+		loseInstruction.enabled = false;
 		succes = false;
 		finished = false;
 		setTimeText ();
@@ -55,7 +61,9 @@ public class main : NetworkBehaviour {
 			}
 			// if finished!
 			if (left.finished && right.finished && !finished) {
+				winLosePlank.enabled = true;
 				winText.enabled = true;
+				winInstruction.enabled = true;
 				succes = true;
 				if (isServer) {
 					Gamemanager.Instance.onNextLevelLoad += triggerWin;	//Tigger chest completed event when previous level is loaded
@@ -72,7 +80,9 @@ public class main : NetworkBehaviour {
 			if (timeLeft < 0 && !finished) {
 				left.finished = true;
 				right.finished = true;
+				winLosePlank.enabled = true;
 				loseText.enabled = true;
+				loseInstruction.enabled = true;
 				succes = false;
 				finished = true;
 			}
