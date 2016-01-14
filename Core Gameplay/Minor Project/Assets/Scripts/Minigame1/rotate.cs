@@ -91,6 +91,7 @@ public class rotate : NetworkBehaviour {
 				RandomTurn ();
 				count = count + 1;
 				setScoreText ();
+				GetComponent<PlayerAudioManager> ().succesSound.Play ();
 			}
 		
 			// if not pressed correctly
