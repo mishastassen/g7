@@ -74,6 +74,10 @@ MonoBehaviour:
   - {fileID: 158734, guid: 5d79a84f1720b2d478cdade440cd5c95, type: 2}
   - {fileID: 184668, guid: 3d6e44eaef054384984e35a005b04ac9, type: 2}
   - {fileID: 125380, guid: 082345a403e8d9e4298e44ba6696b804, type: 2}
+  - {fileID: 112652, guid: 39af1f2cad78c3b43aefe471007e9140, type: 2}
+  - {fileID: 106306, guid: 48c4c55a39999da4aada7028b6dedd7c, type: 2}
+  - {fileID: 179426, guid: 87492bdce224f954daef284e55d97d1c, type: 2}
+  - {fileID: 167076, guid: 9dd4efbed329a9f4c9629a2ce4ea0765, type: 2}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:

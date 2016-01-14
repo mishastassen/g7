@@ -124,13 +124,18 @@ public class Playermini3 : NetworkBehaviour
 	[Command]
     void CmdLoseLife()
     {	
-		minigame3controller.lives -= 1;
-		minigame3controller.SetLives();
+		RpcLoseLife ();
     }
 
 	[Command]
 	void CmdCheckAnimation(int state) {
 		animationID = state;
+	}
+
+	[ClientRpc]
+	void RpcLoseLife(){
+		minigame3controller.lives -= 1;
+		minigame3controller.SetLives ();
 	}
 
 	void OnAnimationChange(int state) {
