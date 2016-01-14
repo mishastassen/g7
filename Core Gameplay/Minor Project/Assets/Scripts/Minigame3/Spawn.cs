@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Spawn : NetworkBehaviour
 {
@@ -9,6 +10,7 @@ public class Spawn : NetworkBehaviour
     private float obstaclesspawnded;
     private bool stop;
 
+    public Text win;
     public float obstaclestododge;
     public float SpawnTime; //kan later private
     public Transform[] Spawnlocations;
@@ -20,6 +22,7 @@ public class Spawn : NetworkBehaviour
         b = 3;
         obstaclesspawnded = 0;
         stop = false;
+        win.text = "";
     }
 
     void Update()
@@ -37,6 +40,12 @@ public class Spawn : NetworkBehaviour
             SpawnObject(spawn, spawn2);
             obstaclesspawnded = obstaclesspawnded + 1;
             stopspawn();
+        }
+
+        //display win
+        if (Timer < -7 && stop)
+        {
+            win.text = "You Win!";
         }
     }
 
@@ -59,5 +68,6 @@ public class Spawn : NetworkBehaviour
             stop = true;
         }
     }
+
 
 }
