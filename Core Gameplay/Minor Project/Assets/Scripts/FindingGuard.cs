@@ -21,8 +21,10 @@ public class FindingGuard : NetworkBehaviour {
 	private float strikingDistance;
 	private bool waiting;
 
+	// initial cooldown time
+	private static float startCoolDownTime = 0.8f;
 	// minimum time between consecutive strikes
-	private float coolDownTime = 1.0f;
+	private float coolDownTime = startCoolDownTime;
 	private float lastStrike = -1f;
 
 	// Use this for initialization
@@ -52,6 +54,8 @@ public class FindingGuard : NetworkBehaviour {
 		UpdateStrength ();
 
 		bool shouldStrike = IsInStrikingDistance (playerPos) && Time.time > lastStrike + coolDownTime;
+		if(shouldStrike)
+			lastStrike = Time.time;
 		Strike (shouldStrike);
 
 		Debug.Log ("De waarde van de shouldstrike bool = " + shouldStrike);
@@ -80,9 +84,12 @@ public class FindingGuard : NetworkBehaviour {
 		return closestPlayer;
 	}
 
+	// Strength should be between 0 (really weak) and 1 (strong)
 	void UpdateStrength() {
 		float strength = BaseGuard.getStrength ();
-		//anim.speed = 0.1f;
+		Debug.Log("Strength: "+strength);
+		coolDownTime = startCoolDownTime + 3*(1f - strength);
+		anim.speed = 0.2f + 0.8f*strength;
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
