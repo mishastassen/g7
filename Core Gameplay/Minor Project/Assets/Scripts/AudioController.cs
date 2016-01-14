@@ -9,9 +9,10 @@ public class AudioController : MonoBehaviour {
 
 	void Start () {
 		webmanager = GameObject.Find ("Webmanager");
+		musicSlider.value = webmanager.GetComponent<AudioSource> ().volume*10;
 	}
 
 	void Update () {
-		webmanager.GetComponent<AudioSource> ().volume = musicSlider.value;
+		webmanager.GetComponent<AudioSource> ().volume = musicSlider.value*0.1f;
 	}
 }
