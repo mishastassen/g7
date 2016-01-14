@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   findingGuard: {fileID: 460952, guid: 772e489eed4c1fb498dd463deb93b689, type: 2}
-  inactiveFindingGuard: {fileID: 109076}
+  inactiveFindingGuard: {fileID: 133530, guid: 772e489eed4c1fb498dd463deb93b689, type: 2}
 --- !u!136 &13621064
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1090,6 +1090,10 @@ Prefab:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: inactiveFindingGuard
+      value: 
+      objectReference: {fileID: 133530, guid: 772e489eed4c1fb498dd463deb93b689, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 109214}
