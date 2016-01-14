@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
-using UnityEngine.UI;
 
 public class Playermini3 : NetworkBehaviour
 {
@@ -53,6 +52,8 @@ public class Playermini3 : NetworkBehaviour
 				ducking = false;
 				jumping = false;
 			}
+
+        
 
 			//duck
 			if (Input.GetButtonDown(interact1Button) && !ducking) {
