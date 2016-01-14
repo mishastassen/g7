@@ -21,6 +21,10 @@ public class FindingGuard : NetworkBehaviour {
 	private float strikingDistance;
 	private bool waiting;
 
+	// minimum time between consecutive strikes
+	private float coolDownTime = 1.0f;
+	private float lastStrike = -1f;
+
 	// Use this for initialization
 	void Start () {
 		anim = GetComponentInChildren<Animator> ();
@@ -47,7 +51,7 @@ public class FindingGuard : NetworkBehaviour {
 
 		UpdateStrength ();
 
-		bool shouldStrike = IsInStrikingDistance (playerPos);
+		bool shouldStrike = IsInStrikingDistance (playerPos) && Time.time > lastStrike + coolDownTime;
 		Strike (shouldStrike);
 
 		Debug.Log ("De waarde van de shouldstrike bool = " + shouldStrike);
@@ -83,7 +87,7 @@ public class FindingGuard : NetworkBehaviour {
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
 		Vector3 curPos = this.transform.position;
-		targetPlayer = GameObject.FindGameObjectWithTag ("Player");
+		//targetPlayer = GameObject.FindGameObjectWithTag ("Player");
 		playerPos = targetPlayer.transform.position;
 		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
 	}
