@@ -832,6 +832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inactiveFindingGuard: {fileID: 0}
+  spottedCanvas: {fileID: 22359378, guid: 2553e5a98eb7d854cb6f42955c79d216, type: 2}
 --- !u!114 &11474390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -961,7 +962,12 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: spottedCanvas
+      value: 
+      objectReference: {fileID: 22359378, guid: 2553e5a98eb7d854cb6f42955c79d216,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 116690}

@@ -15,7 +15,7 @@ public class WakeGuardScript : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
 		spawnLocation = transform.Find ("GuardSpawnLocation"); // GetComponentInChildren<Transform> ();
-		Debug.Log ("spawnLocation pos: "+spawnLocation.position);
+		// Debug.Log ("spawnLocation pos: "+spawnLocation.position);
 	}
 	
 	// Update is called once per frame
