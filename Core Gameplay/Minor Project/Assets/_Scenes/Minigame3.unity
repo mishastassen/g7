@@ -695,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6295a221e78eb44d9c40c98b792c78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstaclestododge: 5
   SpawnTime: 1
   Spawnlocations:
   - {fileID: 750196331}

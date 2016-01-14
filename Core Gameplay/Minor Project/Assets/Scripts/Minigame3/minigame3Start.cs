@@ -49,4 +49,6 @@ public class minigame3Start : NetworkBehaviour {
 			Eventmanager.Instance.triggerLevelSwitch ("Minigame3");
 		}
 	}
+
+   
 }
