@@ -17,6 +17,7 @@ public class loggedInMenu : MonoBehaviour {
 	public Text usernameText;
 
 	private float time = 0;
+	private float time2 = 0;
 
 	public void pressLogOut(){
 		WebManager.Instance.logout ();
@@ -48,23 +49,28 @@ public class loggedInMenu : MonoBehaviour {
 		} else if(time != 0) {
 			time = 0;
 		}
-		if (loggedIn.enabled && WebManager.Instance.currentUser != null) {
-			List<GameObject> oldText = new List<GameObject> ();
-			foreach (Transform child in onlineUserPanel.transform)
-				oldText.Add (child.gameObject);
-			oldText.ForEach (child => Destroy (child));
-			foreach (User user in WebManager.Instance.onlineUsersList) {
-				GameObject text = Instantiate (onlineUserPrefab) as GameObject;
-				text.GetComponent<Text> ().text = user.Username;
-				text.GetComponent<Text> ().color = Color.black;
-				text.GetComponent<Text> ().fontStyle = FontStyle.Italic;
-				text.transform.SetParent (onlineUserPanel.transform, false);
-				text.GetComponent<connectButton> ().popUpPanel = popUpPanel;
-				text.GetComponent<connectButton> ().webmanager = WebManager.Instance;
-				text.GetComponent<connectButton> ().linkedUser = user;
-				text.GetComponent<connectButton> ().levelSelect = levelSelect;
-				text.GetComponent<connectButton> ().loggedIn = loggedIn;
+		if (time2 > 0.5) {
+			if (loggedIn.enabled && WebManager.Instance.currentUser != null) {
+				List<GameObject> oldText = new List<GameObject> ();
+				foreach (Transform child in onlineUserPanel.transform)
+					oldText.Add (child.gameObject);
+				oldText.ForEach (child => Destroy (child));
+				foreach (User user in WebManager.Instance.onlineUsersList) {
+					GameObject text = Instantiate (onlineUserPrefab) as GameObject;
+					text.GetComponent<Text> ().text = user.Username;
+					text.GetComponent<Text> ().color = Color.black;
+					text.GetComponent<Text> ().fontStyle = FontStyle.Italic;
+					text.transform.SetParent (onlineUserPanel.transform, false);
+					text.GetComponent<connectButton> ().popUpPanel = popUpPanel;
+					text.GetComponent<connectButton> ().webmanager = WebManager.Instance;
+					text.GetComponent<connectButton> ().linkedUser = user;
+					text.GetComponent<connectButton> ().levelSelect = levelSelect;
+					text.GetComponent<connectButton> ().loggedIn = loggedIn;
+				}
 			}
+			time2 = 0;
+		} else {
+			time2 += Time.deltaTime;
 		}
 	}
 }
