@@ -20,7 +20,6 @@ public class WebManager : MonoBehaviour {
 	public Canvas levelSelect, loggedIn;
 
 	/*Setup levels*/
-	[HideInInspector]
 	public bool localmultiplayer = false;
 	public string level1;
 	
