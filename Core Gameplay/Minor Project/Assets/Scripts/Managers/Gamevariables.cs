@@ -9,4 +9,8 @@ public class Gamevariables : MonoBehaviour {
 	public static float alarmPercent;
 
 	public static bool magicPackage;
+
+	// Variables for AI: Determines strength guards
+	public static int deathCount;
+	public static int checkPointsReached;
 }

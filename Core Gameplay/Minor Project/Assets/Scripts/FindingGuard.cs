@@ -45,6 +45,8 @@ public class FindingGuard : NetworkBehaviour {
 		if (targetPlayer == null)
 			return;
 
+		UpdateStrength ();
+
 		bool shouldStrike = IsInStrikingDistance (playerPos);
 		Strike (shouldStrike);
 
@@ -72,6 +74,11 @@ public class FindingGuard : NetworkBehaviour {
 				closestPlayer = p;
 			}
 		return closestPlayer;
+	}
+
+	void UpdateStrength() {
+		float strength = BaseGuard.getStrength ();
+		//anim.speed = strength;
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
