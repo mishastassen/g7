@@ -35,6 +35,9 @@ public class main : NetworkBehaviour {
 	//instruction variables go below
 	public Canvas instructions;
 
+	//audio
+	public AudioSource moneySound;
+
 	// Use this for initialization
 	void Start () {
 		instructionsFinished = true;
@@ -65,6 +68,7 @@ public class main : NetworkBehaviour {
 				winText.enabled = true;
 				winInstruction.enabled = true;
 				succes = true;
+				moneySound.Play ();
 				if (isServer) {
 					Gamemanager.Instance.onNextLevelLoad += triggerWin;	//Tigger chest completed event when previous level is loaded
 				}

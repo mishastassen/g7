@@ -1500,7 +1500,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &83782374
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1761,10 +1761,6 @@ Prefab:
     - target: {fileID: 22471282, guid: 85571bc4ea05ac549893f6404dafb8e1, type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11439424, guid: 85571bc4ea05ac549893f6404dafb8e1, type: 2}
-      propertyPath: m_Text
-      value: AS DAYLIGHT DIES
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85571bc4ea05ac549893f6404dafb8e1, type: 2}
@@ -2423,7 +2419,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &207319435
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5452,7 +5448,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &574054678
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8563,7 +8559,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &899856787
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8638,7 +8634,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &905227811
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9227,7 +9223,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &1034450364
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10327,7 +10323,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &1170432135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10984,7 +10980,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &1234208469
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13794,7 +13790,7 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7349927, y: 0.7349927, z: 0.7349927}
+  m_LocalScale: {x: 0.46193266, y: 0.46193266, z: 0.46193266}
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -13807,7 +13803,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 502, y: 229.5}
+  m_AnchoredPosition: {x: 315.5, y: 177.5}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -15553,7 +15549,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &1778175683
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16105,7 +16101,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &1866220077
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17573,7 +17569,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: AS DAYLIGHT DIES
+  m_Text: GAME NAME GOES HERE
 --- !u!222 &2034114292
 CanvasRenderer:
   m_ObjectHideFlags: 0
