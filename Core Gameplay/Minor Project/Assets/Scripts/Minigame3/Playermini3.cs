@@ -61,12 +61,27 @@ public class Playermini3 : NetworkBehaviour
 				jumping = false;
 			}
 
+			//duck stop
+			if (Input.GetButtonUp(interact1Button)) {
+				timeLeft = jumpducktime;
+				ducking = false;
+				jumping = false;
+			}
+
 			//jump
 			if (Input.GetButtonDown(jumpButton) && !jumping) {
 				timeLeft = jumpducktime;
 				jumping = true;
 				ducking = false;
 			}
+
+			//jump stop
+			if (Input.GetButtonUp(jumpButton)) {
+				timeLeft = jumpducktime;
+				jumping = false;
+				ducking = false;
+			}
+
 
 			int state = ducking?-1:jumping?1:0;
 			CmdCheckAnimation(state);
