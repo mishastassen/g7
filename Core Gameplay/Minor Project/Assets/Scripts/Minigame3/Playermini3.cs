@@ -12,8 +12,11 @@ public class Playermini3 : NetworkBehaviour
     private float timeLeft;
     private bool jumping;
     private bool ducking;
+	[SyncVar(hook="OnAnimationChange")]
+	private int animationID = 0;
 
     private Rigidbody rb;
+	private Animator anim;
 
 	private Vector3 horizontalMovement;
 	private miniGame3Controller minigame3controller;
@@ -24,15 +27,13 @@ public class Playermini3 : NetworkBehaviour
 	private string horizontalAxis = "Horizontal_P1";
 	private string jumpButton = "Jump_P1";
 	private string interact1Button = "Interact1_P1";
-	private string interact2Button = "Interact2_P1";
-	private string throwButton = "Throw_P1";
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+		anim = GetComponentInChildren<Animator> ();
         jumping = false;
         ducking = false;
-        GetComponent<Renderer>().material.color = new Color(0.5f, 1, 1);
         timeLeft = 0;
 		minigame3controller = GameObject.FindGameObjectWithTag ("minigame3controller").GetComponent<miniGame3Controller> ();
 
@@ -41,8 +42,6 @@ public class Playermini3 : NetworkBehaviour
 			horizontalAxis = "Horizontal_P2";
 			jumpButton = "Jump_P2";
 			interact1Button = "Interact1_P2";
-			interact2Button = "Interact2_P2";
-			throwButton = "Throw_P2";
 		}
     }
 
@@ -51,7 +50,6 @@ public class Playermini3 : NetworkBehaviour
 			//timer
 			timeLeft -= Time.deltaTime;
 			if (timeLeft < 0) {
-				GetComponent<Renderer> ().material.color = new Color (0.5f, 1, 1);
 				ducking = false;
 				jumping = false;
 			}
@@ -59,18 +57,34 @@ public class Playermini3 : NetworkBehaviour
 			//duck
 			if (Input.GetButtonDown(interact1Button) && !ducking) {
 				timeLeft = jumpducktime;
-				GetComponent<Renderer> ().material.color = new Color (0.5f, 0, 1);
 				ducking = true;
+				jumping = false;
+			}
+
+			//duck stop
+			if (Input.GetButtonUp(interact1Button)) {
+				timeLeft = jumpducktime;
+				ducking = false;
 				jumping = false;
 			}
 
 			//jump
 			if (Input.GetButtonDown(jumpButton) && !jumping) {
 				timeLeft = jumpducktime;
-				GetComponent<Renderer> ().material.color = new Color (0.5f, 1, 0);
 				jumping = true;
 				ducking = false;
 			}
+
+			//jump stop
+			if (Input.GetButtonUp(jumpButton)) {
+				timeLeft = jumpducktime;
+				jumping = false;
+				ducking = false;
+			}
+
+
+			int state = ducking?-1:jumping?1:0;
+			CmdCheckAnimation(state);
 		}
 	}
 		
@@ -87,25 +101,23 @@ public class Playermini3 : NetworkBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
-        {
-            CmdLoseLife();
-        }
+		if (isLocalPlayer) {
+			if (other.gameObject.CompareTag ("Obstacle")) {
+				CmdLoseLife ();
+			}
 
-        if (other.gameObject.CompareTag("Bridge"))
-        {
-            if (!ducking)
-            {
-                CmdLoseLife();
-            }
-        }
-        if (other.gameObject.CompareTag("Root"))
-        {
-            if (!jumping)
-            {
-                CmdLoseLife();
-            }
-        }
+			if (other.gameObject.CompareTag ("Bridge")) {
+				if (!ducking) {
+					CmdLoseLife ();
+				}
+			}
+
+			if (other.gameObject.CompareTag ("Root")) {
+				if (!jumping) {
+					CmdLoseLife ();
+				}
+			}
+		}
     }
 
 	[Command]
@@ -114,6 +126,17 @@ public class Playermini3 : NetworkBehaviour
 		minigame3controller.lives -= 1;
 		minigame3controller.SetLives();
     }
+
+	[Command]
+	void CmdCheckAnimation(int state) {
+		animationID = state;
+	}
+
+	void OnAnimationChange(int state) {
+		anim.SetInteger ("animationID", state);
+		this.animationID = state;
+	}
+
 }
 
 

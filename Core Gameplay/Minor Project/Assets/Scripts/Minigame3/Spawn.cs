@@ -32,6 +32,7 @@ public class Spawn : NetworkBehaviour
             SpawnObject(spawn,spawn2);
         }
     }
+
     void SpawnObject(int a, int x)
     {
 		if (isServer) {
