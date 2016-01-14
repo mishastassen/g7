@@ -74,7 +74,7 @@ public class SimpleGuard : NetworkBehaviour {
 
 	void stopWalking (){
 		Vector3 curPos = this.transform.position;
-		Debug.Log ("De guard is zo dicht van zijn reset locatie: "+Vector3.Distance (curPos, ResetLoc));
+		// Debug.Log ("De guard is zo dicht van zijn reset locatie: "+Vector3.Distance (curPos, ResetLoc));
 		if (Vector3.Distance (curPos, ResetLoc) < 1f) {
 			anim.speed = 0;
 		} else {
@@ -111,7 +111,7 @@ public class SimpleGuard : NetworkBehaviour {
 		Vector3 curPos = this.transform.position;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerPos = player.transform.position;
-		Debug.Log (Vector3.Distance(curPos,playerPos));
+		// Debug.Log (Vector3.Distance(curPos,playerPos));
 		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
 	}
 
@@ -137,7 +137,7 @@ public class SimpleGuard : NetworkBehaviour {
 
 	IEnumerator waitBeforeHit(){
 		waiting = true;
-		Debug.Log ("Wait for striking");
+		// Debug.Log ("Wait for striking");
 		yield return new WaitForSeconds(1f);
 		RpcStartStrike ();
 		waiting = false;
