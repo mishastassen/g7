@@ -6473,6 +6473,10 @@ Prefab:
       propertyPath: loggedIn
       value: 
       objectReference: {fileID: 473271797}
+    - target: {fileID: 159454, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fa9dd3a1b9a15944bdc6698a34a53b8, type: 2}
   m_IsPrefabParent: 0
@@ -13631,7 +13635,7 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.46193266, y: 0.46193266, z: 0.46193266}
+  m_LocalScale: {x: 0.7833089, y: 0.7833089, z: 0.7833089}
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -13644,7 +13648,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 315.5, y: 177.5}
+  m_AnchoredPosition: {x: 535, y: 229.5}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -16279,7 +16283,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 585600855}
   m_HandleRect: {fileID: 585600854}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17106,6 +17110,10 @@ Prefab:
     - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_OnlineScene
       value: preScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 119466, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
