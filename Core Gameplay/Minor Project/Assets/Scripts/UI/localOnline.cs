@@ -28,4 +28,11 @@ public class localOnline : MonoBehaviour {
 		NetworkManager.singleton.StartHost ();
 	}
 
+	void Update(){
+		if (gameObject.GetComponent<Canvas> ().enabled && WebManager.Instance.currentUser != null) {
+			WebManager.Instance.localmultiplayer = true;
+			NetworkManager.singleton.StartHost ();
+		}
+	}
+
 }

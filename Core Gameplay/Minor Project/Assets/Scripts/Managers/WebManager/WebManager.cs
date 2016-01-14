@@ -13,7 +13,7 @@ public class WebManager : MonoBehaviour {
 	string cookie = "";
 
 	/*UI input*/
-	public GameObject responseText, onlineUserPrefab, onlineUserPanel, friendsText, popUpPanel, inputButtonPanel;
+	public GameObject responseText, friendsText, popUpPanel;
 
 	/*UI response*/
 	public GameObject loginResponse, createAccountResponse;
@@ -60,7 +60,7 @@ public class WebManager : MonoBehaviour {
 
 	void Awake () {
 		if (FindObjectsOfType (typeof(WebManager)).Length > 1) {
-			Destroy (gameObject);
+			Destroy (this.gameObject);
 		} else {
 			DontDestroyOnLoad (gameObject);
 		}
@@ -205,9 +205,6 @@ public class WebManager : MonoBehaviour {
 			User user = new User(userListJSON[key]);
 			onlineUsersList.Add(user);
 		}
-		if (SceneManager.GetActiveScene().buildIndex == 0) {
-			updateUserText (onlineUsersList);
-		}
 	}
 
 	IEnumerator IEgetMessages(){
@@ -336,30 +333,7 @@ public class WebManager : MonoBehaviour {
 		return new WWW(server + path, null, headers);
 	}
 
-
-	/*Functions called in script*/
-	void updateUserText(List<User> users){
-		if (onlineUserPanel.activeInHierarchy) {
-			List<GameObject> oldText = new List<GameObject> ();
-			foreach (Transform child in onlineUserPanel.transform)
-				oldText.Add (child.gameObject);
-			oldText.ForEach (child => Destroy (child));
-			foreach (User user in users) {
-				GameObject text = Instantiate (onlineUserPrefab) as GameObject;
-				text.GetComponent<Text> ().text = user.Username;
-				text.GetComponent<Text> ().color = Color.black;
-				text.GetComponent<Text> ().fontStyle = FontStyle.Italic;
-				text.transform.SetParent (onlineUserPanel.transform, false);
-				text.GetComponent<connectButton> ().popUpPanel = popUpPanel;
-				text.GetComponent<connectButton> ().webmanager = this;
-				text.GetComponent<connectButton> ().linkedUser = user;
-				text.GetComponent<connectButton> ().levelSelect = levelSelect;
-				text.GetComponent<connectButton> ().loggedIn = loggedIn;
-				//text.GetComponent<connectButton>().inputButtonPanel = inputButtonPanel;
-			}
-		}
-	}
-
+	/*
 	void updateFriendsText(List<User> friends){
 		if (friendsText.activeInHierarchy) {
 			Text usertext = friendsText.GetComponent<Text> ();
@@ -370,10 +344,10 @@ public class WebManager : MonoBehaviour {
 			usertext.text = userString;
 		}
 	}
+	*/
 
 	void messageReceived(JSONNode message){
 		popUpPanel.SetActive (true);
-		//inputButtonPanel.SetActive (false);
 		popUpPanel.GetComponent<messagePopup> ().readMessage (message);
 	}
 }
