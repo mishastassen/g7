@@ -33,9 +33,11 @@ public class SimpleGuard : NetworkBehaviour {
 
 	void Update () {
 		if (!isServer) {
-			Debug.Log ("Simple guard is niet op server");
+			//Debug.Log ("Simple guard is niet op server");
 			return;
 		}
+
+		UpdateStrength ();
 
 		if(player==null)
 			player = GameObject.FindGameObjectWithTag ("Player");
@@ -105,6 +107,11 @@ public class SimpleGuard : NetworkBehaviour {
 			TriggerList.Remove (other);
 		}
 		//PrintTriggerList ();
+	}
+
+	void UpdateStrength() {
+		float strength = BaseGuard.getStrength ();
+		//anim.speed = 0.1f;
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {

@@ -78,7 +78,7 @@ public class FindingGuard : NetworkBehaviour {
 
 	void UpdateStrength() {
 		float strength = BaseGuard.getStrength ();
-		//anim.speed = strength;
+		//anim.speed = 0.1f;
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
