@@ -501,7 +501,7 @@ app.post('/getHighscores',function(req,res){
 					}
 					else{
 						response.top10 = rows;
-						connection.query("SELECT HS.Highscore, P1.AccountName AS Player1, P2.AccountName AS Player2,(SELECT COUNT(*) FROM HighScores AS HS2 WHERE HS2.Highscore <= HS.Highscore) AS position FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' AND (HS.UserId_Player1 = '" + UserId +"' OR HS.UserId_Player2 = '" + UserId +"') ORDER BY HS.Highscore LIMIT 1",function(err,rows,fields){
+						connection.query("SELECT HS.Highscore, P1.AccountName AS Player1, P2.AccountName AS Player2,(SELECT COUNT(*) FROM HighScores AS HS2 WHERE HS2.Highscore <= HS.Highscore AND HS.LevelId = '" + LevelId +"') AS position FROM HighScores AS HS JOIN Users AS P1 ON HS.UserId_Player1=P1.UserId JOIN Users As P2 ON HS.UserId_Player2=P2.UserId WHERE HS.LevelId = '" + LevelId +"' AND (HS.UserId_Player1 = '" + UserId +"' OR HS.UserId_Player2 = '" + UserId +"') ORDER BY HS.Highscore LIMIT 1",function(err,rows,fields){
 							connection.release();
 							if(err){
 								console.log(err);
