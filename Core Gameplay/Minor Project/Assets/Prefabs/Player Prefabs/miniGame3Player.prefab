@@ -346,7 +346,7 @@ GameObject:
   - 114: {fileID: 11408726}
   - 114: {fileID: 11466734}
   m_Layer: 0
-  m_Name: MiniGame3Player
+  m_Name: miniGame3Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
