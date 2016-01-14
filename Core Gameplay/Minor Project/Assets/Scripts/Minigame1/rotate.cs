@@ -36,6 +36,9 @@ public class rotate : NetworkBehaviour {
 	private string redgreen;
 	private string scoreTextName;
 
+	//audio
+	private AudioSource wrongSound;
+
 	 void Start (){
 		if (this.transform.position.x < 0) {
 			player = 1;
@@ -66,6 +69,8 @@ public class rotate : NetworkBehaviour {
 		setScoreText ();
 		finished = false;
 		speed = 150;
+
+		wrongSound = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -93,6 +98,7 @@ public class rotate : NetworkBehaviour {
 				CmdPressed(false);
 				count = 0;
 				setScoreText ();
+				GetComponent<PlayerAudioManager> ().failSound.Play ();
 			}
 		}
 

@@ -9,6 +9,9 @@ public class SwitchController : NetworkBehaviour {
 	bool eventEnabled;
 	private Animator anim;
 	private bool isSwitched;
+	private bool playedSound;
+	private AudioSource switchSound;
+	//private BoxCollider collider;
 
 	int ExtractIDFromName(String name) {
 		int from = name.IndexOf ('(')+1;
@@ -26,6 +29,9 @@ public class SwitchController : NetworkBehaviour {
 		anim = this.GetComponent<Animator> ();
 		isSwitched = false;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
+		playedSound = false;
+		switchSound = GetComponent<AudioSource> ();
+		//collider = GetComponent<BoxCollider> ();
 	}
 
 	void OnDisable(){
@@ -43,6 +49,12 @@ public class SwitchController : NetworkBehaviour {
 		if (!isSwitched) {
 			isSwitched = true;
 			anim.SetBool ("isPressed", true);
+			if (!playedSound) {
+				switchSound.Play ();
+				playedSound = true;
+			}
+			//collider.enabled = false;
+			//collider.isTrigger = false;
 		} else {
 			isSwitched = false;
 		}

@@ -43,7 +43,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   Priority: 100
   DopplerLevel: 1
@@ -116,11 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   server: http://drproject.twi.tudelft.nl:8088
   responseText: {fileID: 0}
-  onlineUserPrefab: {fileID: 0}
-  onlineUserPanel: {fileID: 0}
   friendsText: {fileID: 0}
   popUpPanel: {fileID: 0}
-  inputButtonPanel: {fileID: 0}
   loginResponse: {fileID: 0}
   createAccountResponse: {fileID: 0}
   levelSelect: {fileID: 0}
@@ -172,7 +169,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Mute
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: BypassListenerEffects
