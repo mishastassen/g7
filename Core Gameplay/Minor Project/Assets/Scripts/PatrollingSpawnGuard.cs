@@ -23,6 +23,11 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 	public Canvas spottedCanvas;
 	private bool displayingCanvas;
 
+	private GameObject targetPlayer;
+	private Vector3 playerPos;
+	private float strikingDistance;
+	private bool waiting;
+
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
@@ -35,7 +40,9 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 	}
 
 	void Update (){
+
 		if (spotted) {
+			// activate guard
 			if (inactiveFindingGuard != null) {
 				if (isServer && !inactiveFindingGuard.activeSelf) {
 					Debug.Log ("Spotted guard should spawn.");
@@ -44,21 +51,39 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 					NetworkServer.Spawn (inactiveFindingGuard);
 				}
 			}
-		}
-	}
 
-	void FixedUpdate (){
-
-		if (spotted) {
 			if (!displayingCanvas) {
 				StartCoroutine (canvasSpotted ());
 			}
 			CmdPlayerSpotted ();
-			anim.speed = 0;
+			bool shouldStrike = IsInStrikingDistance (playerPos);
+			Strike (shouldStrike);
 		} else {
-			anim.speed = 1;
+			anim.speed = 1f;
 			CmdNoPlayerSpotted ();
 			walk ();
+		}
+	}
+
+	bool IsInStrikingDistance(Vector3 playerPos) {
+		Vector3 curPos = this.transform.position;
+		targetPlayer = GameObject.FindGameObjectWithTag ("Player");
+		playerPos = targetPlayer.transform.position;
+		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
+	}
+
+	void Strike(bool shouldStrike) {
+		if (shouldStrike) {
+			if (!waiting) {
+				StartCoroutine (WaitBeforeHit ());
+			}
+		}
+		else{
+			if (anim.GetBool ("isStriking")) {
+				RpcStopStrike ();
+			} else {
+				walk ();
+			}
 		}
 	}
 
@@ -133,6 +158,7 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 					if (hitInfo.collider.tag == "Player") {
 						Debug.DrawRay (eyePosition, direction, Color.red);
 						spotted = true;
+						playerPos = other.transform.position;
 					} else {
 						Debug.DrawRay(eyePosition, direction, Color.green);
 						spotted = false;
@@ -177,5 +203,24 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 
 		spottedCanvas.enabled = false;
 		displayingCanvas = true;
+	}
+
+	IEnumerator WaitBeforeHit(){
+		waiting = true;
+		Debug.Log ("Wait for striking");
+		yield return new WaitForSeconds(1f);
+		anim.speed = 1f;
+		RpcStartStrike ();
+		waiting = false;
+	}
+
+	[ClientRpc]
+	void RpcStartStrike(){
+		anim.SetBool ("isStriking", true);
+	}
+
+	[ClientRpc]
+	void RpcStopStrike(){
+		anim.SetBool ("isStriking", false);
 	}
 }
