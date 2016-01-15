@@ -1083,9 +1083,13 @@ MonoBehaviour:
   clipGetHurt: {fileID: 8300000, guid: a31330e19030e424792eb2eb1647052d, type: 3}
   clipFootstepWood1: {fileID: 8300000, guid: e80406fb1a0a6c84db9657dd46f2808f, type: 3}
   clipFootstepWood2: {fileID: 8300000, guid: 606190d97e7be724f9f6d1594c6d3623, type: 3}
+  clipFailSound: {fileID: 0}
+  clipSuccesSound: {fileID: 0}
   audioGetHurt: {fileID: 0}
   audioFootstepWood1: {fileID: 0}
   audioFootstepWood2: {fileID: 0}
+  failSound: {fileID: 0}
+  succesSound: {fileID: 0}
 --- !u!114 &11471236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1098,12 +1102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.05
+  m_SendInterval: 0.04761905
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 1
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
-  m_SnapThreshold: 1
+  m_SnapThreshold: 2
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
 --- !u!136 &13600874
@@ -1199,11 +1203,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_SendInterval
-      value: 0.05
+      value: 0.04761905
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SnapThreshold
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SyncSpin

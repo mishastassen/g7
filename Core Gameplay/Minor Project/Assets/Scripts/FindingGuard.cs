@@ -21,6 +21,15 @@ public class FindingGuard : NetworkBehaviour {
 	private float strikingDistance;
 	private bool waiting;
 
+	// initial cooldown time
+	private static float startCoolDownTime = 0.8f;
+	// minimum time between consecutive strikes
+	private float coolDownTime = startCoolDownTime;
+	private float lastStrike = -1f;
+
+	private static float startAgentSpeed = 3.5f;
+	private float agentSpeed = startAgentSpeed;
+
 	// Use this for initialization
 	void Start () {
 		anim = GetComponentInChildren<Animator> ();
@@ -33,36 +42,43 @@ public class FindingGuard : NetworkBehaviour {
 	}
 
 	void Update () {
-		if (!isServer) {
-			//Debug.Log ("finding guard is niet op server");
-			return;
-		}
 		TriggerList.RemoveAll(x => x == null);
 
-		FindPlayers ();
-		targetPlayer = GetClosestPlayer ();
+		if (isServer) {
+			UpdatePlayers ();
+			targetPlayer = GetClosestPlayer ();
+		}
 		// Sometimes there are no players in the scene (for a short moment)
 		if (targetPlayer == null)
 			return;
 
 		UpdateStrength ();
 
-		bool shouldStrike = IsInStrikingDistance (playerPos);
+		bool shouldStrike = IsInStrikingDistance (playerPos) && Time.time > lastStrike + coolDownTime;
+		if(shouldStrike)
+			lastStrike = Time.time;
 		Strike (shouldStrike);
 
-		Debug.Log ("De waarde van de shouldstrike bool = " + shouldStrike);
-
 		if (shouldStrike) {
-			agent.enabled = false;
+			//agent.enabled = false;
+			agent.speed = agentSpeed / 5;
 		} else {
-			agent.enabled = true;
+			//agent.enabled = true;
 			playerPos = targetPlayer.transform.position;
 			agent.destination = playerPos;
+			agent.speed = agentSpeed;
 		}
 	}
 
-	void FindPlayers() {
-		players = GameObject.FindGameObjectsWithTag ("Player");
+	void UpdatePlayers() {
+		bool updateNeeded = players==null || players.Length<2;
+		if(players!=null) {
+			foreach (GameObject p in players)
+				if (p==null)
+					updateNeeded = true;
+		}
+		if(updateNeeded)
+			players = GameObject.FindGameObjectsWithTag ("Player");
 	}
 
 	GameObject GetClosestPlayer() {
@@ -76,14 +92,22 @@ public class FindingGuard : NetworkBehaviour {
 		return closestPlayer;
 	}
 
+	// Strength should be between 0 (really weak) and 1 (initially, strong). But could even be higher, so stronger.
 	void UpdateStrength() {
 		float strength = BaseGuard.getStrength ();
-		//anim.speed = 0.1f;
+		//Debug.Log("Strength: "+strength);
+		coolDownTime = startCoolDownTime + 3*(1f - strength);
+		float speedFactor =  0.6f + 0.4f*strength;
+		anim.speed = speedFactor * 1.0f;
+		agent.speed = speedFactor * startAgentSpeed;
+		agentSpeed = agent.speed;
+		//Debug.Log ("coolDownTime: "+coolDownTime);
+		//Debug.Log ("SpeedFactor: "+speedFactor);
+		//Debug.Log ("agent.speed: "+agent.speed);
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
 		Vector3 curPos = this.transform.position;
-		targetPlayer = GameObject.FindGameObjectWithTag ("Player");
 		playerPos = targetPlayer.transform.position;
 		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
 	}

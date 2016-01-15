@@ -15,7 +15,8 @@ public class PlayerController : NetworkBehaviour  {
 	public float runThreshold;
 	
 	[SyncVar]
-	public bool hasPackage, hasMagicPackage, walking;
+	public bool hasPackage, hasMagicPackage;
+	public bool walking;
 	public Transform carriedPackage;
 
 	[SyncVar(hook="OnFacingChange")]
@@ -165,7 +166,7 @@ public class PlayerController : NetworkBehaviour  {
 				CmdCheckDrawing(false);
 			}
 
-			//Sync if players are walking
+			//Check if player is walking
 			if (Mathf.Abs (moveHorizontal) > 0.1) {
 				walking = true;
 			} else {
