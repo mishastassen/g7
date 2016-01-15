@@ -19,17 +19,20 @@ public class PlayerController : NetworkBehaviour  {
 	public bool walking;
 	public Transform carriedPackage;
 
-	[SyncVar(hook="OnFacingChange")]
+	[SyncVar(hook="OnAnimationChange")]
+	private int animationID=1; // 1: facingRight == 1 and idle
+
+	//[SyncVar(hook="OnFacingChange")]
 	public float facingRight;
 	Quaternion targetRotation;
 
-	[SyncVar(hook="OnAnimationChange")]
+	//[SyncVar(hook="OnAnimationChange")]
 	private bool isRunning;
 	private float startTimeJump;
-	[SyncVar(hook="OnJumpingChange")]
+	//[SyncVar(hook="OnJumpingChange")]
 	private bool isJumping;
 	private float startTimeDraw;
-	[SyncVar(hook="OnDrawingChange")]
+	//[SyncVar(hook="OnDrawingChange")]
 	private bool isDrawing;
 	private bool isGrounded;
 	private bool PlayWalkingSoundrunning;
@@ -152,7 +155,8 @@ public class PlayerController : NetworkBehaviour  {
 			if(doJump){
 				yVelocity = jump;
 				doJump = false;
-				CmdCheckJumping (true);
+				//CmdCheckJumping (true);
+				isJumping = true; //???
 				startTimeJump = Time.time;
 			}
 			if(doJumpCancel){
@@ -161,10 +165,14 @@ public class PlayerController : NetworkBehaviour  {
 				doJumpCancel = false;
 			}
 
+			//*
 			// not the way it should be done
 			if(isDrawing && startTimeDraw+1<Time.time) {
-				CmdCheckDrawing(false);
+				//CmdCheckDrawing(false);
+				isDrawing = false;
 			}
+			//*/
+			//isDrawing = false;
 
 			//Check if player is walking
 			if (Mathf.Abs (moveHorizontal) > 0.1) {
@@ -198,17 +206,72 @@ public class PlayerController : NetworkBehaviour  {
 				StartCoroutine (PlayWalkingSound ());
 			}
 
-			CmdCheckFacing (moveHorizontal);
-			CmdCheckAnimation (moveHorizontal);
+			int nextAnimationID = CalcAnimationID ();
+			if (nextAnimationID != animationID)
+				CmdChangeAnimation (nextAnimationID);
+			CheckAnimation (moveHorizontal);
 			//Debug.Log(isJumping+" "+isInStartJump()+" "+isGrounded);
 			if(debugText!=null)
 			{
 				//debugText.text = "isJumping: "+isJumping+", isInStartJump(): "+isInStartJump()+", isGrounded: "+isGrounded;
 				debugText.text = isJumping+" "+isInStartJump()+" "+isGrounded;
 			}
-			if(isJumping && !isInStartJump() && isGrounded)
-				CmdCheckJumping (false);
+			if (isJumping && !isInStartJump () && isGrounded) {
+				//CmdCheckJumping (false);
+				isJumping = false;//???
+			}
 		}
+	}
+
+	void CheckAnimation(float moveHorizontal) {
+		if (moveHorizontal < 0) {
+			facingRight = -1;
+			isRunning = true;
+		} else if (moveHorizontal == 0) {
+			isRunning = false;
+		} else if (moveHorizontal > 0) {
+			facingRight = 1;
+			isRunning = true;
+		}
+	}
+
+
+	bool isInStartJump() {
+		//Debug.Log ("isInStartJump: "+(Time.time - startTimeJump < 0.3f));
+		return Time.time - startTimeJump < 0.3f;
+	}
+
+
+	int CalcAnimationID() {
+		int res = 0;
+		if (facingRight > 0)
+			res += 1;
+		if (isRunning)
+			res += 2;
+		if (isJumping)
+			res += 4;
+		if (isDrawing)
+			res += 8;
+		return res;
+	}
+
+	[Command]
+	private void CmdChangeAnimation(int nextAnimationID) {
+		animationID = nextAnimationID;
+	}
+
+	void OnAnimationChange(int nextID) {
+		facingRight = nextID % 2 == 1 ? 1 : -1;
+		isRunning = (nextID / 2) % 2 == 1;
+		isJumping =  (nextID / 4) % 2 == 1;
+		isDrawing =  (nextID / 8) % 2 == 1;
+
+		targetRotation = Quaternion.LookRotation(facingRight*Vector3.forward);
+		anim.SetBool ("isRunning", isRunning);
+		anim.SetBool ("isJumping", isJumping);
+		anim.SetBool ("isDrawing", isDrawing);
+
+		animationID = nextID;
 	}
 
 	// invoke at start of update and fixedupdate to set bool isGrounded
@@ -233,61 +296,6 @@ public class PlayerController : NetworkBehaviour  {
 	}
 
 
-	[Command]
-	void CmdCheckFacing(float moveHorizontal) {
-		if (moveHorizontal < 0)
-			facingRight = -1;
-		if (moveHorizontal > 0)
-			facingRight = 1;
-	}
-
-	void OnFacingChange(float facingRight) {
-		/*Vector3 theScale = transform.localScale;
-		theScale.x = facingRight;
-		transform.localScale = theScale;
-		*/
-		this.facingRight = facingRight;
-		targetRotation = Quaternion.LookRotation(facingRight*Vector3.forward);
-	}
-
-	[Command]
-	void CmdCheckAnimation(float moveHorizontal) {
-		if (moveHorizontal == 0)
-			isRunning = false;
-		else
-			isRunning = true;
-	}
-	
-	void OnAnimationChange(bool isRunning) {
-		anim.SetBool ("isRunning", isRunning);
-		this.isRunning = isRunning;
-	}
-
-	bool isInStartJump() {
-		//Debug.Log ("isInStartJump: "+(Time.time - startTimeJump < 0.3f));
-		return Time.time - startTimeJump < 0.3f;
-	}
-	
-	[Command]
-	void CmdCheckJumping(bool isJump) {
-		isJumping = isJump;
-	}
-
-	void OnJumpingChange(bool isJumping) {
-		anim.SetBool ("isJumping", isJumping);
-		this.isJumping = isJumping;
-	}
-
-	[Command]
-	void CmdCheckDrawing(bool isDraw) {
-		isDrawing = isDraw;
-	}
-	
-	void OnDrawingChange(bool isDrawing) {
-		anim.SetBool ("isDrawing", isDrawing);
-		this.isDrawing = isDrawing;
-	}
-	
 	//Trigger player removed event
 	void OnDisable()
 	{
@@ -381,11 +389,11 @@ public class PlayerController : NetworkBehaviour  {
 	}
 
 	void doInteract2() {
-		// Rule: You can't hit with a package
+		// Rule: You can't hit while carrying a package
 		if (hasPackage)
 			return;
 		if (!isDrawing) {
-			CmdCheckDrawing (true);
+			isDrawing = true;
 			startTimeDraw = Time.time;
 		}
 	}
