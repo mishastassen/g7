@@ -297,6 +297,20 @@ public class Eventmanager : NetworkBehaviour {
 	}
 
 	[ClientRpc]
+	void RpcOnPlayerSpotted (){
+		if (EventonPlayerSpotted != null) {
+			EventonPlayerSpotted ();
+		}
+	}
+
+	[ClientRpc]
+	void RpcOnNoPlayerSpotted (){
+		if (EventonNoPlayerSpotted != null) {
+			EventonNoPlayerSpotted ();
+		}
+	}
+
+	[ClientRpc]
 	void RpcOnPackageDestroyed (){
 		if (EventonPackageDestroyed != null) {
 			EventonPackageDestroyed ();

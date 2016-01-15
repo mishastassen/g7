@@ -55,13 +55,13 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 			if (!displayingCanvas) {
 				StartCoroutine (canvasSpotted ());
 			}
-			if (isServer) {
-				bool shouldStrike = IsInStrikingDistance (playerPos);
-				Strike (shouldStrike);
-			}
 		} else {
 			anim.speed = 1f;
 			walk ();
+		}
+		if (isServer) {
+			bool shouldStrike = IsInStrikingDistance (playerPos);
+			Strike (shouldStrike);
 		}
 	}
 
@@ -142,38 +142,36 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 	}
 
 	void OnTriggerStay(Collider other) {
-		if (other.tag == "Player") {
+		if (isServer) {
+			if (other.tag == "Player") {
 
-			direction = other.transform.position + new Vector3(0,3,0) - eyePosition;
+				direction = other.transform.position + new Vector3 (0, 3, 0) - eyePosition;
 
-			if (facingRight) {
-				angle = Vector3.Angle (direction, Vector3.right);
-			} else {
-				angle = Vector3.Angle (direction, Vector3.left);
-			}
-
-			if (angle <= coneDegrees) {
-
-				if (Physics.Raycast (eyePosition, direction, out hitInfo)) {
-					if (hitInfo.collider.tag == "Player") {
-						Debug.DrawRay (eyePosition, direction, Color.red);
-						spotted = true;
-						Eventmanager.Instance.triggerPlayerSpotted();
-						playerPos = other.transform.position;
-					} else {
-						Debug.DrawRay(eyePosition, direction, Color.green);
-						spotted = false;
-						Eventmanager.Instance.triggerNoPlayerSpotted ();
-					}
-				} else {				
-					Debug.DrawRay(eyePosition, direction, Color.green);
-					spotted = false;
-					Eventmanager.Instance.triggerNoPlayerSpotted ();
+				if (facingRight) {
+					angle = Vector3.Angle (direction, Vector3.right);
+				} else {
+					angle = Vector3.Angle (direction, Vector3.left);
 				}
-			} else {
-				Debug.DrawRay(eyePosition, direction, Color.green);
-				spotted = false;
-				Eventmanager.Instance.triggerNoPlayerSpotted ();
+
+				if (angle <= coneDegrees) {
+
+					if (Physics.Raycast (eyePosition, direction, out hitInfo)) {
+						if (hitInfo.collider.tag == "Player") {
+							Debug.DrawRay (eyePosition, direction, Color.red);
+							spotted = true;
+							playerPos = other.transform.position;
+						} else {
+							Debug.DrawRay (eyePosition, direction, Color.green);
+							spotted = false;
+						}
+					} else {				
+						Debug.DrawRay (eyePosition, direction, Color.green);
+						spotted = false;
+					}
+				} else {
+					Debug.DrawRay (eyePosition, direction, Color.green);
+					spotted = false;
+				}
 			}
 		}
 	}

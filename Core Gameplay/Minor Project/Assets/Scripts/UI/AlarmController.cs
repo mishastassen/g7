@@ -11,7 +11,7 @@ public class AlarmController : NetworkBehaviour {
 	private float alarmPercent;
 	private bool finishedIncrease;
 	private bool finishedDecrease;
-	public bool spotted;
+	public bool spotted = false;
 
 	private bool enabled;
 
@@ -21,46 +21,42 @@ public class AlarmController : NetworkBehaviour {
 		//alarmText.text = "Alarm: " + alarmPercent + "%";
 		finishedIncrease = true;
 		finishedDecrease = true;
-		Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
-		Eventmanager.Instance.EventonNoPlayerSpotted += HandleEventonNoPlayerSpotted;
-		enabled = true;
+		if (isServer) {
+			Eventmanager.Instance.EventonPlayerSpotted += HandleEventonPlayerSpotted;
+			Eventmanager.Instance.EventonNoPlayerSpotted += HandleEventonNoPlayerSpotted;
+			Gamemanager.Instance.onDisableEventHandlers += OnDisable;
+			enabled = true;
+		}
 	}			
 
 	void Update(){
 		alarmBar.size = alarmPercent / 100f;
-		if (isServer) {
-			if (spotted) {
-				if (finishedIncrease && alarmPercent != 100) {
-					StartCoroutine (increaseAlarm ());
-					finishedIncrease = false;
-				}
-			} else {
-				if (finishedDecrease && alarmPercent != 0) {
-					StartCoroutine (decreaseAlarm ());
-					finishedDecrease = false;
-				}
-			}
-		}
-	}
-
-	void OnEnable() {
-		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 	}
 
 	void OnDisable() {
-		if (enabled) {
-			Eventmanager.Instance.EventonPlayerSpotted -= HandleEventonPlayerSpotted;
-			Eventmanager.Instance.EventonNoPlayerSpotted -= HandleEventonNoPlayerSpotted;
-			enabled = false;
+		if (isServer) {
+			if (enabled) {
+				Eventmanager.Instance.EventonPlayerSpotted -= HandleEventonPlayerSpotted;
+				Eventmanager.Instance.EventonNoPlayerSpotted -= HandleEventonNoPlayerSpotted;
+				enabled = false;
+			}
 		}
 	}
 
 	void HandleEventonPlayerSpotted() {
 		spotted = true;
+		if (finishedIncrease && alarmPercent != 100) {
+			StartCoroutine (increaseAlarm ());
+			finishedIncrease = false;
+		}
 	}
 
 	void HandleEventonNoPlayerSpotted() {
 		spotted = false;
+		if (finishedDecrease && alarmPercent != 0) {
+			StartCoroutine (decreaseAlarm ());
+			finishedDecrease = false;
+		}
 	}
 
 	IEnumerator increaseAlarm() {

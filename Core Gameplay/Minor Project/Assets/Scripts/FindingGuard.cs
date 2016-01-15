@@ -61,7 +61,7 @@ public class FindingGuard : NetworkBehaviour {
 
 		if (shouldStrike) {
 			//agent.enabled = false;
-			agent.speed = agentSpeed / 5;
+			agent.speed = agentSpeed / 5; // approach slow when striking
 		} else {
 			//agent.enabled = true;
 			playerPos = targetPlayer.transform.position;
@@ -96,8 +96,8 @@ public class FindingGuard : NetworkBehaviour {
 	void UpdateStrength() {
 		float strength = BaseGuard.getStrength ();
 		//Debug.Log("Strength: "+strength);
-		coolDownTime = startCoolDownTime + 3*(1f - strength);
-		float speedFactor =  0.6f + 0.4f*strength;
+		coolDownTime = startCoolDownTime + 6*(1f - strength);
+		float speedFactor =  0.8f + 0.2f*strength;
 		anim.speed = speedFactor * 1.0f;
 		agent.speed = speedFactor * startAgentSpeed;
 		agentSpeed = agent.speed;
