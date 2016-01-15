@@ -27,7 +27,8 @@ public class FindingGuard : NetworkBehaviour {
 	private float coolDownTime = startCoolDownTime;
 	private float lastStrike = -1f;
 
-	private float startAgentSpeed = 3.5f;
+	private static float startAgentSpeed = 3.5f;
+	private float agentSpeed = startAgentSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -40,19 +41,13 @@ public class FindingGuard : NetworkBehaviour {
 		waiting = false;
 	}
 
-	private int tel=0;
-
 	void Update () {
-		if (!isServer) {
-			//Debug.Log ("finding guard is niet op server");
-			return;
-		}
 		TriggerList.RemoveAll(x => x == null);
 
-		tel++;
-		if(tel%100==0)
-			FindPlayers ();
-		targetPlayer = GetClosestPlayer ();
+		if (isServer) {
+			UpdatePlayers ();
+			targetPlayer = GetClosestPlayer ();
+		}
 		// Sometimes there are no players in the scene (for a short moment)
 		if (targetPlayer == null)
 			return;
@@ -64,19 +59,26 @@ public class FindingGuard : NetworkBehaviour {
 			lastStrike = Time.time;
 		Strike (shouldStrike);
 
-		Debug.Log ("De waarde van de shouldstrike bool = " + shouldStrike);
-
 		if (shouldStrike) {
-			agent.enabled = false;
+			//agent.enabled = false;
+			agent.speed = agentSpeed / 5;
 		} else {
-			agent.enabled = true;
+			//agent.enabled = true;
 			playerPos = targetPlayer.transform.position;
 			agent.destination = playerPos;
+			agent.speed = agentSpeed;
 		}
 	}
 
-	void FindPlayers() {
-		players = GameObject.FindGameObjectsWithTag ("Player");
+	void UpdatePlayers() {
+		bool updateNeeded = players==null || players.Length<2;
+		if(players!=null) {
+			foreach (GameObject p in players)
+				if (p==null)
+					updateNeeded = true;
+		}
+		if(updateNeeded)
+			players = GameObject.FindGameObjectsWithTag ("Player");
 	}
 
 	GameObject GetClosestPlayer() {
@@ -98,14 +100,14 @@ public class FindingGuard : NetworkBehaviour {
 		float speedFactor =  0.6f + 0.4f*strength;
 		anim.speed = speedFactor * 1.0f;
 		agent.speed = speedFactor * startAgentSpeed;
-		Debug.Log ("coolDownTime: "+coolDownTime);
-		Debug.Log ("SpeedFactor: "+speedFactor);
-		Debug.Log ("agent.speed: "+agent.speed);
+		agentSpeed = agent.speed;
+		//Debug.Log ("coolDownTime: "+coolDownTime);
+		//Debug.Log ("SpeedFactor: "+speedFactor);
+		//Debug.Log ("agent.speed: "+agent.speed);
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {
 		Vector3 curPos = this.transform.position;
-		//targetPlayer = GameObject.FindGameObjectWithTag ("Player");
 		playerPos = targetPlayer.transform.position;
 		return  Vector3.Distance (curPos, playerPos) < strikingDistance;
 	}
