@@ -81,6 +81,10 @@ public class rotate : NetworkBehaviour {
 		}
 
 		if (isLocalPlayer) {
+			if (Input.GetKeyDown (KeyCode.Escape) && playerControllerId != 2) {
+				GameObject uiManager = GameObject.Find ("LevelManager");
+				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
+			}
 		
 			// if pressed correctly
 			if (erin && Input.GetButtonDown(inputButton)) {
