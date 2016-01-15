@@ -48,6 +48,7 @@ public class messagePopup : MonoBehaviour {
 				startHost ();
 			} else if (message ["Type"].Value == "HostStarted" && state == "gameAccepted") {
 				state = "open";
+				WebManager.Instance.localmultiplayer = false;
 				Debug.Log ("starting");
 				Debug.Log (message ["messageBody"] ["gameIp"]);
 				networkmanager.networkAddress = message ["messageBody"] ["gameIp"];
@@ -137,6 +138,7 @@ public class messagePopup : MonoBehaviour {
 		Debug.Log (messageBody.ToString ());
 		StartCoroutine (webmanager.IEsendMessage (reqUserId, "HostStarted", messageBody));
 		WebManager.Instance.otherPlayer = WebManager.Instance.onlineUsersList.Find(User => User.UserId == reqUserId);
+		WebManager.Instance.localmultiplayer = false;
 		networkmanager.StartHost ();
 	}
 
