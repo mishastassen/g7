@@ -2679,7 +2679,11 @@ MonoBehaviour:
 
     To jump, press arrow up or W
 
-    To interact with the environment, press arrow down or S'
+    To interact with the environment, press arrow down or S
+
+    To throw a package use right shift or left shift
+
+    To attack use right control or Q'
 --- !u!222 &251764695
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3403,7 +3407,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: HELP
+  m_Text: CONTROLS
 --- !u!222 &339645655
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12401,7 +12405,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030518, y: -220}
+  m_AnchoredPosition: {x: 0.000030518, y: -120}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1446373426
@@ -13560,7 +13564,7 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.78916544, y: 0.78916544, z: 0.78916544}
+  m_LocalScale: {x: 0.41874084, y: 0.41874084, z: 0.41874084}
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -13573,7 +13577,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 539, y: 454.5}
+  m_AnchoredPosition: {x: 286, y: 161}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -15542,7 +15546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1833679368
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16347,7 +16351,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 585600855}
   m_HandleRect: {fileID: 585600854}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -16906,7 +16910,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1873781352}
   m_HandleRect: {fileID: 1873781351}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
