@@ -28,15 +28,17 @@ public class AlarmController : NetworkBehaviour {
 
 	void Update(){
 		alarmBar.size = alarmPercent / 100f;
-		if (spotted) {
-			if (finishedIncrease && alarmPercent != 100) {
-				StartCoroutine (increaseAlarm ());
-				finishedIncrease = false;
-			}
-		} else {
-			if (finishedDecrease && alarmPercent != 0) {
-				StartCoroutine (decreaseAlarm());
-				finishedDecrease = false;
+		if (isServer) {
+			if (spotted) {
+				if (finishedIncrease && alarmPercent != 100) {
+					StartCoroutine (increaseAlarm ());
+					finishedIncrease = false;
+				}
+			} else {
+				if (finishedDecrease && alarmPercent != 0) {
+					StartCoroutine (decreaseAlarm ());
+					finishedDecrease = false;
+				}
 			}
 		}
 	}
