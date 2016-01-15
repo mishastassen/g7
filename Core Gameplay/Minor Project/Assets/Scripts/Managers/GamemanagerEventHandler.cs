@@ -111,7 +111,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 	[Server]
 	void HandleEventonPlayerDeath (GameObject player)
 	{	
-		Gamevariables.deathCount++;
+		Gamevariables.playersDeathCount++;
 
 		NetworkConnection conn = player.GetComponent<NetworkIdentity> ().connectionToClient;
 		short playerControllerId = player.GetComponent<NetworkIdentity> ().playerControllerId;

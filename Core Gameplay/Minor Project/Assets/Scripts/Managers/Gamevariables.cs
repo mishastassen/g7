@@ -11,6 +11,6 @@ public class Gamevariables : MonoBehaviour {
 	public static bool magicPackage;
 
 	// Variables for AI: Determines strength guards
-	public static int deathCount;
-	public static int checkPointsReached;
+	public static int playersDeathCount;
+	public static int guardsDeathCount;
 }

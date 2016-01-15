@@ -27,6 +27,8 @@ public class FindingGuard : NetworkBehaviour {
 	private float coolDownTime = startCoolDownTime;
 	private float lastStrike = -1f;
 
+	private float startAgentSpeed = 3.5f;
+
 	// Use this for initialization
 	void Start () {
 		anim = GetComponentInChildren<Animator> ();
@@ -84,12 +86,17 @@ public class FindingGuard : NetworkBehaviour {
 		return closestPlayer;
 	}
 
-	// Strength should be between 0 (really weak) and 1 (strong)
+	// Strength should be between 0 (really weak) and 1 (initially, strong). But could even be higher, so stronger.
 	void UpdateStrength() {
 		float strength = BaseGuard.getStrength ();
-		Debug.Log("Strength: "+strength);
+		//Debug.Log("Strength: "+strength);
 		coolDownTime = startCoolDownTime + 3*(1f - strength);
-		anim.speed = 0.2f + 0.8f*strength;
+		float speedFactor =  0.6f + 0.4f*strength;
+		anim.speed = speedFactor * 1.0f;
+		agent.speed = speedFactor * startAgentSpeed;
+		Debug.Log ("coolDownTime: "+coolDownTime);
+		Debug.Log ("SpeedFactor: "+speedFactor);
+		Debug.Log ("agent.speed: "+agent.speed);
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {

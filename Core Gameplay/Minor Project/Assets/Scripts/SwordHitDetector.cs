@@ -22,10 +22,8 @@ public class SwordHitDetector : NetworkBehaviour {
 	// if script is attached to guard
 	void OnTriggerEnter (Collider other) {
 		if (isServer && other.tag == "Sword") {
-			//Debug.Log ("Destroy this gameobject");
-			// FIXME: should be made multiplayer proof
+			Gamevariables.guardsDeathCount++;
 			//Destroy (this.transform.parent.gameObject);
-			// Network.Destroy works only when object is instantiated in scene. Probably.
 			Destroy(this.gameObject);
 
 		}
