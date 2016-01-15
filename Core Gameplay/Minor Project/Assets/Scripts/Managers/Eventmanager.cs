@@ -181,18 +181,14 @@ public class Eventmanager : NetworkBehaviour {
 	//Trigger when player is spotted
 	public void triggerPlayerSpotted(){
 		if (EventonPlayerSpotted != null) { //Don't execute if noone is listening to event
-			if (isServer) {
-				RpcOnPlayerSpotted ();
-			}
+			EventonPlayerSpotted();
 		}
 	}
 
 	//Trigger when no player is spotted
 	public void triggerNoPlayerSpotted(){
 		if (EventonNoPlayerSpotted != null) { //Don't execute if noone is listening to event
-			if (isServer) {
-				RpcOnNoPlayerSpotted ();
-			}
+			EventonNoPlayerSpotted();
 		}
 	}
 

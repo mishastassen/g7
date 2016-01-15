@@ -1102,12 +1102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.05
+  m_SendInterval: 0.04761905
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 1
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
-  m_SnapThreshold: 1
+  m_SnapThreshold: 2
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
 --- !u!136 &13600874
@@ -1203,11 +1203,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_SendInterval
-      value: 0.05
+      value: 0.04761905
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SnapThreshold
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SyncSpin
