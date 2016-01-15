@@ -55,12 +55,12 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 			if (!displayingCanvas) {
 				StartCoroutine (canvasSpotted ());
 			}
-			CmdPlayerSpotted ();
-			bool shouldStrike = IsInStrikingDistance (playerPos);
-			Strike (shouldStrike);
+			if (isServer) {
+				bool shouldStrike = IsInStrikingDistance (playerPos);
+				Strike (shouldStrike);
+			}
 		} else {
 			anim.speed = 1f;
-			CmdNoPlayerSpotted ();
 			walk ();
 		}
 	}
@@ -158,18 +158,22 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 					if (hitInfo.collider.tag == "Player") {
 						Debug.DrawRay (eyePosition, direction, Color.red);
 						spotted = true;
+						Eventmanager.Instance.triggerPlayerSpotted();
 						playerPos = other.transform.position;
 					} else {
 						Debug.DrawRay(eyePosition, direction, Color.green);
 						spotted = false;
+						Eventmanager.Instance.triggerNoPlayerSpotted ();
 					}
 				} else {				
 					Debug.DrawRay(eyePosition, direction, Color.green);
 					spotted = false;
+					Eventmanager.Instance.triggerNoPlayerSpotted ();
 				}
 			} else {
 				Debug.DrawRay(eyePosition, direction, Color.green);
 				spotted = false;
+				Eventmanager.Instance.triggerNoPlayerSpotted ();
 			}
 		}
 	}
@@ -178,16 +182,6 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 		if (other.tag == "Player") {
 			spotted = false;
 		}
-	}
-
-	[Command]
-	void CmdPlayerSpotted() {
-		Eventmanager.Instance.triggerPlayerSpotted();
-	}
-
-	[Command]
-	void CmdNoPlayerSpotted() {
-		Eventmanager.Instance.triggerNoPlayerSpotted ();
 	}
 
 	[ClientRpc]

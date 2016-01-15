@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using System.Collections;
 
-public class AlarmController : MonoBehaviour {
+public class AlarmController : NetworkBehaviour {
 
 	//public Text alarmText;
 	public Scrollbar alarmBar;
+	[SyncVar]
 	private float alarmPercent;
 	private bool finishedIncrease;
 	private bool finishedDecrease;
+	public bool spotted;
 
 	private bool enabled;
 
@@ -23,14 +26,21 @@ public class AlarmController : MonoBehaviour {
 		enabled = true;
 	}			
 
-	void Update () {		
-		/*
-		if (Gamevariables.alarmPercent == -1) {
-			alarmPercent = 0;
-			Gamevariables.alarmPercent = 0;
+	void Update(){
+		alarmBar.size = alarmPercent / 100f;
+		if (isServer) {
+			if (spotted) {
+				if (finishedIncrease && alarmPercent != 100) {
+					StartCoroutine (increaseAlarm ());
+					finishedIncrease = false;
+				}
+			} else {
+				if (finishedDecrease && alarmPercent != 0) {
+					StartCoroutine (decreaseAlarm ());
+					finishedDecrease = false;
+				}
+			}
 		}
-		Gamevariables.alarmPercent = alarmPercent;
-		*/
 	}
 
 	void OnEnable() {
@@ -46,17 +56,11 @@ public class AlarmController : MonoBehaviour {
 	}
 
 	void HandleEventonPlayerSpotted() {
-		if (finishedIncrease && alarmPercent != 100) {
-			StartCoroutine (increaseAlarm ());
-			finishedIncrease = false;
-		}
+		spotted = true;
 	}
 
 	void HandleEventonNoPlayerSpotted() {
-		if (finishedDecrease && alarmPercent != 0) {
-			StartCoroutine (decreaseAlarm());
-			finishedDecrease = false;
-		}
+		spotted = false;
 	}
 
 	IEnumerator increaseAlarm() {
@@ -65,7 +69,6 @@ public class AlarmController : MonoBehaviour {
 			alarmPercent = 100;
 		}
 		//alarmText.text = "Alarm: " + alarmPercent + "%";
-		alarmBar.size = alarmPercent / 100f;
 		if (alarmPercent == 100) {
 			//alarmText.color = Color.red;
 		}
@@ -78,7 +81,6 @@ public class AlarmController : MonoBehaviour {
 			alarmPercent -= 5;
 		}
 		//alarmText.text = "Alarm: " + alarmPercent + "%";
-		alarmBar.size = alarmPercent / 100f;
 		yield return new WaitForSeconds (1);
 		finishedDecrease = true;
 	}
