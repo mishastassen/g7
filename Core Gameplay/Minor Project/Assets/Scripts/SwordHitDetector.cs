@@ -23,7 +23,6 @@ public class SwordHitDetector : NetworkBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (isServer && other.tag == "Sword") {
 			Gamevariables.guardsDeathCount++;
-			//Destroy (this.transform.parent.gameObject);
 			Destroy(this.gameObject);
 
 		}

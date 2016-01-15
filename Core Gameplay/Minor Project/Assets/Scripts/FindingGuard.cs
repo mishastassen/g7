@@ -40,6 +40,8 @@ public class FindingGuard : NetworkBehaviour {
 		waiting = false;
 	}
 
+	private int tel=0;
+
 	void Update () {
 		if (!isServer) {
 			//Debug.Log ("finding guard is niet op server");
@@ -47,7 +49,9 @@ public class FindingGuard : NetworkBehaviour {
 		}
 		TriggerList.RemoveAll(x => x == null);
 
-		FindPlayers ();
+		tel++;
+		if(tel%100==0)
+			FindPlayers ();
 		targetPlayer = GetClosestPlayer ();
 		// Sometimes there are no players in the scene (for a short moment)
 		if (targetPlayer == null)

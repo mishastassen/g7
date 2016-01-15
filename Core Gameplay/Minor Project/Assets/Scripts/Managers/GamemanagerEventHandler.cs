@@ -144,7 +144,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 		});
 		*/
 		networkmanager.ServerChangeScene (nextLevel);
-		Gamevariables.currentLevel = NetworkManager.networkSceneName;
+		Gamevariables.SetCurrentLevel (NetworkManager.networkSceneName);
 	}
 
 
