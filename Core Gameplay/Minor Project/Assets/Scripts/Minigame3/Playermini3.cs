@@ -134,8 +134,10 @@ public class Playermini3 : NetworkBehaviour
 
 	[ClientRpc]
 	void RpcLoseLife(){
-		minigame3controller.lives -= 1;
-		minigame3controller.SetLives ();
+		if (minigame3controller.lives != 0) {
+			minigame3controller.lives -= 1;
+			minigame3controller.SetLives ();
+		}
 	}
 
 	void OnAnimationChange(int state) {

@@ -10,7 +10,9 @@ public class Spawn : NetworkBehaviour
     private float obstaclesspawnded;
     private bool stop;
 
-    public Text win;
+	public Image winPlank;
+    public Text winText;
+	public Text winInstruction;
     public float obstaclestododge;
     public float SpawnTime; //kan later private
     public Transform[] Spawnlocations;
@@ -22,7 +24,9 @@ public class Spawn : NetworkBehaviour
         b = 3;
         obstaclesspawnded = 0;
         stop = false;
-        win.text = "";
+		winPlank.enabled = false;
+		winText.enabled = false;
+		winInstruction.enabled = false;
     }
 
     void Update()
@@ -45,7 +49,9 @@ public class Spawn : NetworkBehaviour
         //display win
         if (Timer < -7 && stop)
         {
-            win.text = "You Win!";
+			winPlank.enabled = true;
+			winText.enabled = true;
+			winInstruction.enabled = true;
         }
     }
 

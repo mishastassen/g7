@@ -7,11 +7,15 @@ public class miniGame3Controller : NetworkBehaviour {
 
 	public int lives;
 	public Text livestext;
-    public Text lose;
+    public Image losePlank;
+	public Text loseText;
+	public Text loseInstruction;
 
 	void Start(){
 		SetLives ();
-        lose.text = "";
+		losePlank.enabled = false;
+		loseText.enabled = false;
+		loseInstruction.enabled = false;
     }
 
 	public void SetLives()
@@ -20,8 +24,14 @@ public class miniGame3Controller : NetworkBehaviour {
 	}
 
     void Update() { 
-    if (lives==0){
-            lose.text = "You lose";
+		if (lives<=0){
+			losePlank.enabled = true;
+			loseText.enabled = true;
+			loseInstruction.enabled = true;
+
+			if (isServer && Input.GetButtonDown ("Interact1_P1")) {
+				Eventmanager.Instance.triggerLevelSwitch ("Minigame3");
+			}
         }
     }
 }
