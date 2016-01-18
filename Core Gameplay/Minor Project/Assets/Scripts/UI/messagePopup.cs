@@ -7,7 +7,7 @@ using SimpleJSON;
 public class messagePopup : MonoBehaviour {
 
 	public bool requestedgame = false;
-	public GameObject yesButton, noButton, inputPanel, waitText, messageText, okayButton;
+	public GameObject yesButton, noButton, inputPanel, waitText, messageText, okayButton, backButton, logoutButton;
 	string state = "open";
 	int reqUserId;
 
@@ -39,6 +39,8 @@ public class messagePopup : MonoBehaviour {
 			noButton.SetActive (false);
 			waitText.SetActive (false);
 			okayButton.SetActive (false);
+			backButton.GetComponent<Button> ().interactable = false;
+			logoutButton.GetComponent<Button> ().interactable = false;
 			if (message ["Type"].Value == "playGame" && state == "open") {
 				reqUserId = message ["messageBody"] ["reqUserId"].AsInt;
 				string username = message ["messageBody"] ["reqUsername"].Value;
@@ -150,6 +152,8 @@ public class messagePopup : MonoBehaviour {
 	}
 
 	public void closePopup(){
+		backButton.GetComponent<Button> ().interactable = true;
+		logoutButton.GetComponent<Button> ().interactable = true;
 		state = "open";
 		//inputPanel.SetActive (true);
 		gameObject.SetActive (false);

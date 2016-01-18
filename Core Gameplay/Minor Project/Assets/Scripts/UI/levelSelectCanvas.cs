@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ public class levelSelectCanvas : MonoBehaviour {
 	[HideInInspector]
 	public bool offline;
 
-	public GameObject popUpPanel;
+	public GameObject popUpPanel, logoutButton, backButton;
 	public Canvas levelSelect;
 	public Canvas returnCanvas;
 	public Canvas localOnlineCanvas;
@@ -38,6 +39,8 @@ public class levelSelectCanvas : MonoBehaviour {
 			popUpPanel.SetActive (true);
 			popUpPanel.GetComponent<messagePopup> ().sendRequest ();
 			gameObject.GetComponent<Canvas> ().enabled = false;
+			logoutButton.GetComponent<Button> ().interactable = false;
+			backButton.GetComponent<Button> ().interactable = false;
 			returnCanvas.enabled = true;
 			levelSelect.transform.FindChild ("BackButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", false);
 			returnCanvas.transform.FindChild ("LogoutButtonContainer").GetComponent<Animator> ().SetBool ("Enabled", true);

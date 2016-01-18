@@ -32,6 +32,9 @@ public class Gamemanager : NetworkBehaviour {
 	//References
 	private NetworkManager networkmanager;
 
+	//timer
+	private float playercheckTimer;
+
 	//Function to call this object
 	public static Gamemanager Instance{
 		get{
@@ -68,9 +71,15 @@ public class Gamemanager : NetworkBehaviour {
 					Eventmanager.Instance.triggerLevelSwitch (WebManager.Instance.level1);
 				}
 			}
-		}else if (localmultiplayer && ClientScene.localPlayers[2].gameObject == null && ClientScene.ready) {
-			ClientScene.AddPlayer(2);
+		} else if (localmultiplayer && ClientScene.localPlayers [2].gameObject == null && ClientScene.ready) {
+			ClientScene.AddPlayer (2);
+		} else if (!localmultiplayer && ClientScene.ready && playercheckTimer > 3 && !isServer) {
+			if (NetworkManager.singleton.client.connection.playerControllers [0] == null) {
+				ClientScene.AddPlayer (NetworkManager.singleton.client.connection, 0);
+			}
+			playercheckTimer = 0;
 		}
+		playercheckTimer += Time.deltaTime;
 	}
 
 	[ServerCallback]
