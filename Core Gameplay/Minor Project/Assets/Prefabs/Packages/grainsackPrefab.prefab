@@ -47,6 +47,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 401000}
+  - 114: {fileID: 11459010}
   m_Layer: 0
   m_Name: grainsackPrefab
   m_TagString: Untagged
@@ -214,6 +215,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickUp1SpawnPrefab: {fileID: 184214, guid: 9a17d601ca113ab4d965fabb9e215a91, type: 2}
   magicPackage: 0
+--- !u!114 &11459010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 157
+    i1: 255
+    i2: 103
+    i3: 183
+    i4: 245
+    i5: 142
+    i6: 9
+    i7: 68
+    i8: 58
+    i9: 217
+    i10: 237
+    i11: 231
+    i12: 114
+    i13: 7
+    i14: 253
+    i15: 200
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11473068
 MonoBehaviour:
   m_ObjectHideFlags: 1
