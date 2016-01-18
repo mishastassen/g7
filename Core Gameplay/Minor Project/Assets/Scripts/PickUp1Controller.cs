@@ -16,7 +16,7 @@ public class PickUp1Controller : NetworkBehaviour {
 		Gamevariables.magicPackage = magicPackage;
 		if (isServer) {
 			if(GameObject.FindWithTag("PickUp1Spawn") == null){
-				GameObject newSpawn = (GameObject)Instantiate (PickUp1SpawnPrefab, this.transform.position, this.transform.rotation);
+				GameObject newSpawn = (GameObject)Instantiate (PickUp1SpawnPrefab, this.transform.parent.transform.position, this.transform.parent.transform.rotation);
 			}
 		}
 	}
