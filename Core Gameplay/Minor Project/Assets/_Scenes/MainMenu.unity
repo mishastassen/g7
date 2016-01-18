@@ -7328,6 +7328,8 @@ MonoBehaviour:
   - {fileID: 1522513081}
   offline: 0
   popUpPanel: {fileID: 1009562511}
+  logoutButton: {fileID: 1665816043}
+  backButton: {fileID: 1749466839}
   levelSelect: {fileID: 810001519}
   returnCanvas: {fileID: 0}
   localOnlineCanvas: {fileID: 1256001200}
@@ -13564,7 +13566,11 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_LocalScale: {x: 0.6346999, y: 0.6346999, z: 0.6346999}
+=======
+  m_LocalScale: {x: 0.8206442, y: 0.8206442, z: 0.8206442}
+>>>>>>> b6adcdb4c330f5e846f3ee12b8bc4a2ed533ba77
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -13577,7 +13583,11 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
+<<<<<<< HEAD
   m_AnchoredPosition: {x: 433.5, y: 163}
+=======
+  m_AnchoredPosition: {x: 560.5, y: 454.5}
+>>>>>>> b6adcdb4c330f5e846f3ee12b8bc4a2ed533ba77
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -16910,7 +16920,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1873781352}
   m_HandleRect: {fileID: 1873781351}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17195,6 +17205,10 @@ Prefab:
       propertyPath: m_SpawnPrefabs.Array.data[8]
       value: 
       objectReference: {fileID: 145660, guid: 594251db818477046982eda88e049aeb, type: 2}
+    - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
+      propertyPath: m_LogLevel
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
   m_IsPrefabParent: 0
@@ -18295,6 +18309,14 @@ Prefab:
       propertyPath: m_Text
       value: New Text
       objectReference: {fileID: 0}
+    - target: {fileID: 11443864, guid: 2981f5bc5bbaa8949b3a4dc72ade59b2, type: 2}
+      propertyPath: backButton
+      value: 
+      objectReference: {fileID: 1749466839}
+    - target: {fileID: 11443864, guid: 2981f5bc5bbaa8949b3a4dc72ade59b2, type: 2}
+      propertyPath: logoutButton
+      value: 
+      objectReference: {fileID: 1665816043}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2981f5bc5bbaa8949b3a4dc72ade59b2, type: 2}
   m_IsPrefabParent: 0
