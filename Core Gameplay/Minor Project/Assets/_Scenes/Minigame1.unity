@@ -617,7 +617,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1001 &322021468
 Prefab:
   m_ObjectHideFlags: 0
@@ -994,13 +994,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: 0.04
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 10
+  m_SnapThreshold: 0.01
+  m_InterpolateRotation: 50
   m_InterpolateMovement: 1
 --- !u!114 &769781814
 MonoBehaviour:
@@ -1170,13 +1170,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: 0.03846154
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 10
+  m_SnapThreshold: 0.01
+  m_InterpolateRotation: 50
   m_InterpolateMovement: 1
 --- !u!114 &954928046
 MonoBehaviour:
@@ -1860,7 +1860,7 @@ RectTransform:
   - {fileID: 1297534245}
   - {fileID: 114158818}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
