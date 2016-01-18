@@ -19517,7 +19517,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 424640, guid: b41b11cf3337ebd46a08cd210989a7eb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4.39
+      value: 10.19
       objectReference: {fileID: 0}
     - target: {fileID: 109214, guid: b41b11cf3337ebd46a08cd210989a7eb, type: 2}
       propertyPath: m_Icon
@@ -28800,11 +28800,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22489908, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22489908, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22406744, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
       propertyPath: m_LocalScale.x

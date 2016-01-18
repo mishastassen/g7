@@ -27,6 +27,9 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 	private Vector3 playerPos;
 	private float strikingDistance;
 	private bool waiting;
+	private bool GuardSpawned = false;
+
+	public GameObject prefabFindingGuard;
 
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
@@ -47,8 +50,12 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 				if (isServer && !inactiveFindingGuard.activeSelf) {
 					Debug.Log ("Spotted guard should spawn.");
 					//inactiveFindingGuard.SetActive (true);
-					RpcSetActiveGuard ();
-					NetworkServer.Spawn (inactiveFindingGuard);
+					//RpcSetActiveGuard ();
+					if (!GuardSpawned) {
+						GameObject findingGuard = (GameObject)Instantiate (prefabFindingGuard, inactiveFindingGuard.transform.position, inactiveFindingGuard.transform.rotation);
+						NetworkServer.Spawn (findingGuard);
+						GuardSpawned = true;
+					}
 				}
 			}
 
