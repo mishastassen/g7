@@ -60,6 +60,9 @@ public class main : NetworkBehaviour {
 
 		if (instructionsFinished) {
 			if (left == null || right == null) {
+				if (Time.timeSinceLevelLoad > 5) {
+					Eventmanager.Instance.triggerLevelSwitch (Application.loadedLevelName);
+				}
 				return;
 			}
 			// if finished!
