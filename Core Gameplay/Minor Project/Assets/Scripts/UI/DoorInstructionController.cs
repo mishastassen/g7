@@ -5,7 +5,7 @@ using System.Collections;
 public class DoorInstructionController : MonoBehaviour {
 
 	private int playerCount;
-	private bool doorOpen;
+	private bool throughDoor;
 	private bool eventEnabled;
 
 	public Text doorInstruction;
@@ -13,23 +13,19 @@ public class DoorInstructionController : MonoBehaviour {
 
 	void Start () {
 		playerCount = 0;
-		doorOpen = false;
+		throughDoor = false;
 		doorInstruction.enabled = false;
 		instructionPlank.enabled = false;
-		Eventmanager.Instance.EventonSwitchPulled += SwitchPulled;
-		eventEnabled = true;
-		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 	}
 	
 	void Update () {
-		if (playerCount > 0 && !doorOpen) {
+		if (playerCount > 0 && !throughDoor) {
 			doorInstruction.enabled = true;
 			instructionPlank.enabled = true;
+		} else {
+			doorInstruction.enabled = false;
+			instructionPlank.enabled = false;
 		}
-	}
-
-	void SwitchPulled (int id) {
-		doorOpen = true;
 	}
 
 	void OnTriggerEnter (Collider other) {
@@ -42,12 +38,8 @@ public class DoorInstructionController : MonoBehaviour {
 		if (other.tag == "Player") {
 			playerCount -= 1;
 		}
-	}
-
-	void OnDisable(){
-		if (eventEnabled) {
-			Eventmanager.Instance.EventonSwitchPulled -= SwitchPulled;
-			eventEnabled = false;
+		if (other.tag == "Player" && other.transform.position.x > 48) {
+			throughDoor = true;
 		}
 	}
 }
