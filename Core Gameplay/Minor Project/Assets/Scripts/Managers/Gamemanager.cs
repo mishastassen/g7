@@ -75,7 +75,7 @@ public class Gamemanager : NetworkBehaviour {
 			ClientScene.AddPlayer (2);
 		} else if (!localmultiplayer && ClientScene.ready && playercheckTimer > 3 && !isServer) {
 			if (NetworkManager.singleton.client.connection.playerControllers [0] == null) {
-				ClientScene.AddPlayer (NetworkManager.singleton.client.connection, 0);
+			//	ClientScene.AddPlayer (NetworkManager.singleton.client.connection, 0);
 			}
 			playercheckTimer = 0;
 		}

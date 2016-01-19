@@ -221,9 +221,10 @@ public class Eventmanager : NetworkBehaviour {
 
 	public void triggerLevelSwitch(string nextLevel){
 		if (EventonLevelSwitch != null) { //Don't execute if noone is listening to event
-			EventonLevelSwitch(nextLevel);
 			if (isServer) {
 				RpcOnLevelSwitch (nextLevel);
+			} else {
+				EventonLevelSwitch (nextLevel);
 			}
 		}
 	}

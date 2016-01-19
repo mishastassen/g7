@@ -10,6 +10,7 @@ public class rotate : NetworkBehaviour {
 
 	// set the GameObjects
 	private GameObject cirkel;
+	private main Main;
 	
 	// initialize the speed;
 	public int speed;
@@ -40,6 +41,10 @@ public class rotate : NetworkBehaviour {
 	private AudioSource wrongSound;
 
 	 void Start (){
+		Debug.LogError (transform.position.x + " " + transform.position.y + " " + transform.position.z);
+		if (transform.position.x == 0 && transform.position.y == 0 && transform.position.z == 0) {
+			Destroy (this.gameObject);
+		}
 		if (this.transform.position.x < 0) {
 			player = 1;
 			redgreen = "redgreen_left";
@@ -66,15 +71,21 @@ public class rotate : NetworkBehaviour {
 		erin = false;
 		//RandomTurn ();
 		count = 0;
-		setScoreText ();
+		if (isLocalPlayer) {
+			setScoreText ();
+		}
 		finished = false;
 		speed = 150;
 
 		wrongSound = GetComponent<AudioSource> ();
+		Main = GameObject.Find ("main").GetComponent<main>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+		if (Main.left == null || Main.right == null) {
+			return;
+		}
 		// rotate the arrow every frame
 		if (!finished) {
 			gameObject.transform.RotateAround (pos_pijl, Vector3.forward, -speed * way * Time.deltaTime);
@@ -144,12 +155,16 @@ public class rotate : NetworkBehaviour {
 	}
 
 	void setScoreText(){
-		scoreText.text = count.ToString ();
 		CmdSetScoreText (count.ToString ());
 	}
 
 	[Command]
 	void CmdSetScoreText(string score){
+		RpcSetScoreText (score);
+	}
+
+	[ClientRpc]
+	void RpcSetScoreText(string score){
 		Text scoretext = GameObject.Find (scoreTextName).GetComponent<Text>();
 		scoretext.text = score;
 	}
