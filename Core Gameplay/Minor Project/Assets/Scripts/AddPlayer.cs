@@ -5,9 +5,6 @@ using System.Collections;
 public class AddPlayer : NetworkBehaviour {
 
 	public void OnButtonClick(){
-		if(NetworkServer.active){
-			ClientScene.AddPlayer(2);
-			Gamemanager.Instance.localmultiplayer = true;
-		}
+		ClientScene.AddPlayer (NetworkManager.singleton.client.connection, 0);
 	}
 }

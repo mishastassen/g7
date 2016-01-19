@@ -70,7 +70,7 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 			Gamemanager.Instance.triggerDisableEventHandlers ();
 			if(!isServer){
 				levelEnding = false;
-				SendClientReadyMsg();
+				SendClientReadyMsg(nextLevel);
 			}
 			if(Gamemanager.Instance.localmultiplayer){
 				clientEndLevelReady = true;
@@ -148,13 +148,16 @@ public class GamemanagerEventHandler : NetworkBehaviour {
 	}
 
 
-	void SendClientReadyMsg(){
-		var msg = new IntegerMessage(1);
+	void SendClientReadyMsg(string nextlevel){
+		var msg = new StringMessage(nextlevel);
 		m_client.Send (ClientReadyMsg, msg);
 	}
 
 	void onClientReadyMsg(NetworkMessage netMsg){
 		clientEndLevelReady = true;
+		if(!levelEnding){
+			HandleEventonLevelSwitch(netMsg.reader.ReadString());
+		}
 	}
 
 	public void stopManager(){
