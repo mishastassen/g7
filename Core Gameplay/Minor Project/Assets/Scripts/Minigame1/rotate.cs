@@ -49,12 +49,12 @@ public class rotate : NetworkBehaviour {
 			player = 1;
 			redgreen = "redgreen_left";
 			scoreTextName = "Score_left";
-			GameObject.Find("main").GetComponent<main>().right = this;
+			GameObject.Find("LevelManager").GetComponent<main>().right = this;
 		} else {
 			player = 2;
 			redgreen = "redgreen_right";
 			scoreTextName = "Score_right";
-			GameObject.Find("main").GetComponent<main>().left = this;
+			GameObject.Find("LevelManager").GetComponent<main>().left = this;
 		}
 
 		cirkel = transform.FindChild ("Circle").gameObject;
@@ -72,13 +72,12 @@ public class rotate : NetworkBehaviour {
 		//RandomTurn ();
 		count = 0;
 		if (isLocalPlayer) {
-			setScoreText ();
 		}
 		finished = false;
 		speed = 150;
 
 		wrongSound = GetComponent<AudioSource> ();
-		Main = GameObject.Find ("main").GetComponent<main>();
+		Main = GameObject.Find ("LevelManager").GetComponent<main>();
 	}
 
 	// Update is called once per frame
@@ -105,7 +104,6 @@ public class rotate : NetworkBehaviour {
 				}
 				RandomTurn ();
 				count = count + 1;
-				setScoreText ();
 				GetComponent<PlayerAudioManager> ().succesSound.Play ();
 			}
 		
@@ -113,7 +111,6 @@ public class rotate : NetworkBehaviour {
 			if (!erin && Input.GetButtonDown (inputButton)) {
 				CmdPressed(false);
 				count = 0;
-				setScoreText ();
 				GetComponent<PlayerAudioManager> ().failSound.Play ();
 			}
 		}
@@ -122,6 +119,8 @@ public class rotate : NetworkBehaviour {
 			way = 0;
 			finished = true;
 		}
+
+		SetScoreText ();
 	}
 	
 	// what happens when the arrow enters
@@ -141,6 +140,10 @@ public class rotate : NetworkBehaviour {
 			}
 		}
 	}
+
+	void SetScoreText(){
+		scoreText.text = count.ToString ();
+	}
 	
 	// random turn function
 	void RandomTurn (){
@@ -154,21 +157,6 @@ public class rotate : NetworkBehaviour {
 		GameObject.Find(redgreen).transform.RotateAround (pos_cirkel, Vector3.forward, move);
 	}
 
-	void setScoreText(){
-		CmdSetScoreText (count.ToString ());
-	}
-
-	[Command]
-	void CmdSetScoreText(string score){
-		RpcSetScoreText (score);
-	}
-
-	[ClientRpc]
-	void RpcSetScoreText(string score){
-		Text scoretext = GameObject.Find (scoreTextName).GetComponent<Text>();
-		scoretext.text = score;
-	}
-
 	[Command]
 	void CmdPressed(bool erin){
 		if (erin) {
@@ -177,6 +165,5 @@ public class rotate : NetworkBehaviour {
 		} else {
 			count = 0;
 		}
-		setScoreText ();
 	}
 }
