@@ -32,14 +32,14 @@ public class PlayerEventHandler : MonoBehaviour {
 				GameObject other = GameObject.FindWithTag(tag);
 				other.transform.parent.SetParent(gameObject.GetComponent<Rigidbody>().transform);
 				other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-				other.transform.parent.localPosition = new Vector3(2,3,0);
+				other.transform.parent.localPosition = new Vector3(1.75f,3f,0f);
 				this.GetComponent<PlayerController>().carriedPackage = other.transform.parent;
 				this.GetComponent<PlayerController>().hasPackage = true;
 			} else if (tag == "PickUpMagic") {
 				GameObject other = GameObject.FindWithTag(tag);
 				other.transform.parent.SetParent(gameObject.GetComponent<Rigidbody>().transform);
 				other.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
-				other.transform.parent.localPosition = new Vector3(2,3,0);
+				other.transform.parent.localPosition = new Vector3(1.75f,3f,0f);
 				this.GetComponent<PlayerController>().carriedPackage = other.transform.parent;
 				this.GetComponent<PlayerController>().hasPackage = true;
 				this.GetComponent<PlayerController>().hasMagicPackage = true;

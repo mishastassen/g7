@@ -103,14 +103,20 @@ public class rotate : NetworkBehaviour {
 					CmdPressed(true);
 				}
 				RandomTurn ();
-				count = count + 1;
+				count += 1;
 				GetComponent<PlayerAudioManager> ().succesSound.Play ();
 			}
 		
 			// if not pressed correctly
 			if (!erin && Input.GetButtonDown (inputButton)) {
-				CmdPressed(false);
-				count = 0;
+				if (!isServer) {
+					CmdPressed (false);
+				}
+				if (count > 0) {
+					count -= 1;
+				} else {
+					count = 0;
+				}
 				GetComponent<PlayerAudioManager> ().failSound.Play ();
 			}
 		}
@@ -160,10 +166,14 @@ public class rotate : NetworkBehaviour {
 	[Command]
 	void CmdPressed(bool erin){
 		if (erin) {
-			count = count + 1;
+			count += 1;
 			way *= -1;
 		} else {
-			count = 0;
+			if (count > 0) {
+				count -= 1;
+			} else {
+				count = 0;
+			}
 		}
 	}
 }
