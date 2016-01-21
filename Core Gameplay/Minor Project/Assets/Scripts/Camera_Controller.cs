@@ -14,6 +14,7 @@ public class Camera_Controller : MonoBehaviour {
 	private Vector2 windowCenter;
 	private Vector2 previousCenter;
 	private Vector3 newLocation;
+	private Vector3 oldLocation;
 
 	float limitX;
 	float limitY;
@@ -21,9 +22,13 @@ public class Camera_Controller : MonoBehaviour {
 	private Camera cam;
 	private float zoom;
 	private float zoomSensitivity = 15f;
-	private float zoomSpeed = 2f;
-	private float zoomMin = 25f;
-	private float zoomMax = 45f;
+	private float zoomSpeed = 0.5f;
+	private float zoomMin = -25f;
+	private float zoomMax = -70f;
+	private float x;
+	private float y;
+	private float z;
+	private bool zooming = false;
 
 	private string currentLevel;
 	private GameObject deliveryZone;
@@ -46,6 +51,9 @@ public class Camera_Controller : MonoBehaviour {
 		cam = this.GetComponent<Camera> ();
 		zoom = cam.fieldOfView;
 		playerPos = (this.GetComponent<Transform> ().position);
+		newLocation = playerPos;
+		// this.GetComponent<Transform>().position.Set(0f,0f,-60f);
+		z = -60f;
 	}
 
 	void OnEnable(){
@@ -77,6 +85,7 @@ public class Camera_Controller : MonoBehaviour {
 	}
 
 	void updateCameraLocation(){
+		oldLocation = newLocation;
 		Vector3 center = Vector3.zero;
 		foreach (GameObject player in players) {
 			if (player == null) {
@@ -94,38 +103,59 @@ public class Camera_Controller : MonoBehaviour {
 		if (Mathf.Abs (center.y - windowCenter.y) > windowy) {
 			windowCenter.y += center.y + -previousCenter.y;
 		}
-		newLocation.Set(windowCenter.x, windowCenter.y + 5.0f, -60.0f);
+
+		x = windowCenter.x;
+		y = windowCenter.y;
 		previousCenter = new Vector2 (center.x, center.y);
 
 		foreach (GameObject player in players) {
-			if (Mathf.Abs (player.GetComponent<Transform> ().position.x - newLocation.x) > Mathf.Abs (limitX)) {
-				float newFieldofView = updateFoV (cam.fieldOfView);
-
-				if (Mathf.Abs (cam.fieldOfView - newFieldofView) > 0.3f){
-					cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, newFieldofView, Time.deltaTime * zoomSpeed);
-					limitX *= 1.05f;
-				} 
-			} else if (Mathf.Abs (player.GetComponent<Transform> ().position.y - newLocation.y) > Mathf.Abs (limitY)) {
-				float newFieldofView = updateFoV (cam.fieldOfView);
-
-				if (Mathf.Abs (cam.fieldOfView - newFieldofView) > 0.3f){
-					cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, newFieldofView * 1.05f, Time.deltaTime * zoomSpeed);
-					limitY *= 1.05f;
-				} 
+			Debug.LogWarning (Mathf.Abs (player.GetComponent<Transform> ().position.x - oldLocation.x) + " This should be greater than limitX: " + limitX);
+			Debug.LogWarning (Mathf.Abs (player.GetComponent<Transform> ().position.y - oldLocation.y) + " This should be greater than limitY: " + limitY);
+			if (Mathf.Abs (player.GetComponent<Transform> ().position.x - oldLocation.x) > Mathf.Abs (limitX)) {
+				z = oldLocation.z * 1.04f;
+				limitX *= 1.035f;
+				Debug.LogWarning ("Zooming out in x from " + oldLocation.z + " to " + z);
+			} else if (Mathf.Abs (player.GetComponent<Transform> ().position.y - oldLocation.y) > Mathf.Abs (limitY)) {
+				z = oldLocation.z * 1.04f;
+				limitY *= 1.035f;
+				Debug.LogWarning ("Zooming out in y from " + oldLocation.z + " to " + z);
 			} else {
-				limitX = 30f;
-				limitY = 20f;
-				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, 35, Time.deltaTime * (zoomSpeed / 2f));
+				updateLimitX (limitX);
+				updateLimitY (limitY);
+				z = updateZ (oldLocation.z);
+//				z = -60f;
+//				Debug.LogWarning ("Reset limitX and limitY");
 			}
 		}
-		this.GetComponent<Transform> ().position = newLocation;
+
+		newLocation.Set(x,y,z);
+		Debug.LogWarning ("Zooming from: " + oldLocation + " to " + newLocation);
+		this.GetComponent<Transform> ().position = Vector3.Lerp (oldLocation, newLocation, Time.deltaTime * zoomSpeed);
 	}
 
-	float updateFoV (float fov){
-		if (fov * 1.05f > 45f) {
-			return fov ;
+	float updateLimitX (float limitX){
+
+		if ((limitX / 1.005) < 30f) {
+			return 30f;
 		} else {
-			return fov * 1.05f;
+			return (limitX / 1.005f);
+		}
+	}
+
+	float updateLimitY (float limitY){
+
+		if ((limitY / 1.005f) < 20f) {
+			return 20f;
+		} else {
+			return (limitY / 1.005f);
+		}
+	}
+
+	float updateZ (float z){
+		if ((z / 1.005f) > -70f) {
+			return -70f;
+		} else {
+			return (z / 1.005f);
 		}
 	}
 }
