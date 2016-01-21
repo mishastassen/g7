@@ -19,9 +19,8 @@ public class levelFinishScreen : MonoBehaviour {
 		int levelId = GameObject.Find("LevelManager").GetComponent<Levelvariables>().levelId;
 		if (WebManager.Instance.currentUser != null) {
 			if (NetworkServer.active) {
-				WebManager.Instance.updateHighscores (levelId, highscore);
+				WebManager.Instance.updateHighscores (levelId, highscore, this);
 			}
-			WebManager.Instance.getHighscores (levelId, this);
 			if (WebManager.Instance.currentUser.levelProgress < levelId) {
 				WebManager.Instance.updateLevelProgress (levelId);
 			}
@@ -34,6 +33,11 @@ public class levelFinishScreen : MonoBehaviour {
 
 	public void nextLevelButton(){
 		Eventmanager.Instance.triggerLevelSwitch (nextLevel);
+	}
+
+	public void updatedHighscores(string result){
+		int levelId = GameObject.Find("LevelManager").GetComponent<Levelvariables>().levelId;
+		WebManager.Instance.getHighscores (levelId, this);
 	}
 
 	public void displayHighscores(JSONNode highscores){
