@@ -133,15 +133,10 @@ public class PlayerController : NetworkBehaviour  {
 				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
 			}
 		}
+
 		// Smoothly rotate towards the target point
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
-		/*
-		if (Gamevariables.alarmPercent == 100) {
-			Eventmanager.Instance.triggerPlayerDeath (this.gameObject);
-			//Gamevariables.alarmPercent = -1;
-		}
-		*/
 	}
 
 	void FixedUpdate () {
@@ -511,6 +506,18 @@ public class PlayerController : NetworkBehaviour  {
 			{"Time", Gamevariables.timer}
 		});
 		*/
+	}
+
+	[Command]
+	public void CmdResetToLastCheckpoint(){
+		GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+		foreach (GameObject player in players) {
+			if (!player.Equals (gameObject)) {
+				Eventmanager.Instance.triggerPlayerDeath (player);
+			}
+		}
+		Eventmanager.Instance.triggerPackageDestroyed ();
+		Eventmanager.Instance.triggerPlayerDeath (gameObject);
 	}
 
 }
