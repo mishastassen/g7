@@ -95,8 +95,8 @@ public class WebManager : MonoBehaviour {
 		StartCoroutine (IEgetHighscores (levelId, endscreen));
 	}
 
-	public void updateHighscores(int levelId, int highscore){
-		StartCoroutine (IEupdateHighscores (levelId, highscore));
+	public void updateHighscores(int levelId, int highscore, levelFinishScreen endscreen){
+		StartCoroutine (IEupdateHighscores (levelId, highscore, endscreen));
 	}
 
 	public void updateLevelProgress(int levelId){
@@ -241,7 +241,7 @@ public class WebManager : MonoBehaviour {
 		endscreen.displayHighscores (highscores);
 	}
 
-	IEnumerator IEupdateHighscores(int levelId, int highscore){
+	IEnumerator IEupdateHighscores(int levelId, int highscore, levelFinishScreen endscreen){
 		JSONClass message = new JSONClass ();
 		message ["LevelId"].AsInt = levelId;
 		message ["UserId"].AsInt = currentUser.UserId;
@@ -258,6 +258,7 @@ public class WebManager : MonoBehaviour {
 		if (result != "Succes") {
 			Debug.LogError ("Problem updating highscores");
 		}
+		endscreen.updatedHighscores (result);
 	}
 
 	IEnumerator IEupdateLevelProgress(int levelId){
