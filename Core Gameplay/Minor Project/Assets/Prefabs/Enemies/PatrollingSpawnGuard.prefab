@@ -271,7 +271,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 472994}
-  - 136: {fileID: 13689464}
+  - 135: {fileID: 13560478}
   m_Layer: 8
   m_Name: Hand_L
   m_TagString: Naginata
@@ -451,7 +451,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116690}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 58.79107, y: 43.95, z: 0}
+  m_LocalPosition: {x: 69.37594, y: 0.20293212, z: -3.5085335}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 423248}
@@ -944,8 +944,8 @@ MonoBehaviour:
   m_SnapThreshold: 3
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!136 &13689464
-CapsuleCollider:
+--- !u!135 &13560478
+SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -953,10 +953,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.75
-  m_Height: 5
-  m_Direction: 0
-  m_Center: {x: 1.25, y: -1, z: 1.75}
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 1.5, y: -2.25, z: 1.75}
 --- !u!137 &13780128
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
