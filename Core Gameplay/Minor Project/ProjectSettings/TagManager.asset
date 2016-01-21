@@ -30,6 +30,10 @@ TagManager:
   - Sword
   - Naginata
   - startMinigame3
+  - instructionCanvas
+  - redgreen
+  - redgreen_right
+  - winConditionTag
   layers:
   - Default
   - TransparentFX

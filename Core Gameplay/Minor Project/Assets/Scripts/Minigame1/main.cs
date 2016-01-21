@@ -21,6 +21,8 @@ public class main : NetworkBehaviour {
 	public Text loseText;
 	public Text loseInstruction;
 	public Text timeText;
+	private Text winConditionText;
+	private int minigameDifficulty;
 	private float timeLeft;
 	private double time;
 	bool succes;
@@ -53,6 +55,9 @@ public class main : NetworkBehaviour {
 		finished = false;
 		setTimeText ();
 		amountofTries = 1;
+		minigameDifficulty = Gamevariables.minigameDifficulty;
+		winConditionText = GameObject.Find ("WinConditionText").GetComponent<Text> ();
+		setWinConditionText ();
 	}
 	
 	// Update is called once per frame
@@ -130,6 +135,11 @@ public class main : NetworkBehaviour {
 		Time.timeScale = 1.0f;
 		Eventmanager.Instance.triggerChestCompleted ();
 		Debug.Log ("levelload");
+	}
+
+	void setWinConditionText (){
+		int d = minigameDifficulty + 4;
+		winConditionText.text = "Both players need a score of " + d.ToString() + " to win";
 	}
 }
 
