@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -587,15 +587,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 74
+      value: 73.78
       objectReference: {fileID: 0}
     - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 6.02
       objectReference: {fileID: 0}
     - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.39
       objectReference: {fileID: 0}
     - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
       propertyPath: m_LocalRotation.x
@@ -620,14 +620,6 @@ Prefab:
     - target: {fileID: 102126, guid: bf99e760664103840b0b921cf6100e58, type: 2}
       propertyPath: m_Name
       value: light2 (10)
-      objectReference: {fileID: 0}
-    - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.29999977
-      objectReference: {fileID: 0}
-    - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.29999977
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf99e760664103840b0b921cf6100e58, type: 2}
@@ -5965,6 +5957,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 33
       objectReference: {fileID: 0}
+    - target: {fileID: 10846602, guid: 344b45713aacd6e4caea0e571cf106be, type: 2}
+      propertyPath: m_Intensity
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 344b45713aacd6e4caea0e571cf106be, type: 2}
   m_IsPrefabParent: 0
@@ -7660,7 +7656,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.63
       objectReference: {fileID: 0}
     - target: {fileID: 482920, guid: bf99e760664103840b0b921cf6100e58, type: 2}
       propertyPath: m_LocalRotation.x
