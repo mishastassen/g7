@@ -643,15 +643,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6502648, guid: a473c2bb1d68f064f9c025e6e0f559e7, type: 2}
       propertyPath: m_Size.x
-      value: 48.551888
+      value: 46.466858
       objectReference: {fileID: 0}
     - target: {fileID: 6502648, guid: a473c2bb1d68f064f9c025e6e0f559e7, type: 2}
       propertyPath: m_Center.x
-      value: 20.275452
+      value: 19.232544
       objectReference: {fileID: 0}
     - target: {fileID: 6502648, guid: a473c2bb1d68f064f9c025e6e0f559e7, type: 2}
       propertyPath: m_Center.y
       value: -0.30523682
+      objectReference: {fileID: 0}
+    - target: {fileID: 6502648, guid: a473c2bb1d68f064f9c025e6e0f559e7, type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a473c2bb1d68f064f9c025e6e0f559e7, type: 2}
@@ -1032,7 +1036,7 @@ Transform:
   - {fileID: 176202828}
   - {fileID: 759108928}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
 --- !u!1 &191143748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,11 +2323,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 13.3
+      value: 5.92
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.9
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.z
@@ -9874,7 +9878,7 @@ Transform:
   - {fileID: 1205253965}
   - {fileID: 752522192}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1001 &1933595907
 Prefab:
   m_ObjectHideFlags: 0
@@ -10216,11 +10220,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.1
+      value: 13.6
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.9
+      value: 4.11
       objectReference: {fileID: 0}
     - target: {fileID: 485596, guid: f5b943dc82d8b2341bdc24257fd11dbf, type: 2}
       propertyPath: m_LocalPosition.z
@@ -10439,6 +10443,10 @@ Prefab:
     - target: {fileID: 476972, guid: 2c7463535d407334189f3c00d6be942c, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064906, guid: 2c7463535d407334189f3c00d6be942c, type: 2}
+      propertyPath: field of view
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c7463535d407334189f3c00d6be942c, type: 2}
