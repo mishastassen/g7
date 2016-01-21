@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa93e4af6fc63b44f9ea3d9e7eeeecc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standardPlayerPrefab: {fileID: 131608, guid: 01c90ca3ba871504a871226e9aa759a4, type: 2}
 --- !u!114 &11403792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -737,6 +738,10 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 11402376}
+    - target: {fileID: 0}
+      propertyPath: standardPlayerPrefab
+      value: 
+      objectReference: {fileID: 131608, guid: 01c90ca3ba871504a871226e9aa759a4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 101070}

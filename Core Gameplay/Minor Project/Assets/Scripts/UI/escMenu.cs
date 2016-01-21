@@ -4,8 +4,10 @@ using System.Collections;
 
 public class escMenu : MonoBehaviour {
 
+	public GameObject standardPlayerPrefab;
+
 	public void pressQuit(){
-		//Application.Quit();
+		GameNetworkManager.singleton.playerPrefab = standardPlayerPrefab;
 		Gamemanager.Instance.triggerDisableEventHandlers();
 		GameNetworkManager.singleton.StopHost();
 	}
