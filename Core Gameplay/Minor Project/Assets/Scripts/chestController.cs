@@ -7,6 +7,8 @@ public class chestController : NetworkBehaviour {
 	public GameObject minigame1Prefab;
 	//public GameObject startLocation;
 	public string currentLevel;
+	public int difficulty;
+
 	private bool packageNearby;
 	private int playerCount;
 
@@ -23,8 +25,7 @@ public class chestController : NetworkBehaviour {
 	void Start() {
 		playerCount = 0;
 		Gamevariables.returnLevel = currentLevel;
-		//Gamemanager.Instance.currentLevel = currentLevel;
-		//startLocation = GameObject.Find ("Player").GetComponent<Rigidbody> ().transform.position;
+		Gamevariables.minigameDifficulty = difficulty;
 		Eventmanager.Instance.EventonChestActivated += HandleEventonChestActivated;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 		eventEnabled = true;

@@ -31,6 +31,7 @@ public class rotate : NetworkBehaviour {
 	private int count;
 	private Text scoreText;
 	public bool finished;
+	private int minigameDifficulty;
 
 	//Input button
 	private string inputButton = "Interact1_P1";
@@ -41,7 +42,6 @@ public class rotate : NetworkBehaviour {
 	private AudioSource wrongSound;
 
 	 void Start (){
-		Debug.LogError (transform.position.x + " " + transform.position.y + " " + transform.position.z);
 		if (transform.position.x == 0 && transform.position.y == 0 && transform.position.z == 0) {
 			Destroy (this.gameObject);
 		}
@@ -74,7 +74,13 @@ public class rotate : NetworkBehaviour {
 		if (isLocalPlayer) {
 		}
 		finished = false;
-		speed = 150;
+
+		minigameDifficulty = Gamevariables.minigameDifficulty;
+		if (minigameDifficulty > 3) {
+			speed = 180;
+		} else {
+			speed = 150;
+		}
 
 		wrongSound = GetComponent<AudioSource> ();
 		Main = GameObject.Find ("LevelManager").GetComponent<main>();
@@ -121,7 +127,7 @@ public class rotate : NetworkBehaviour {
 			}
 		}
 
-		if (count > 7) {
+		if (count > (3 + minigameDifficulty)) {
 			way = 0;
 			finished = true;
 		}

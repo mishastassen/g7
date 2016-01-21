@@ -4356,6 +4356,10 @@ Prefab:
       propertyPath: currentLevel
       value: Level2B
       objectReference: {fileID: 0}
+    - target: {fileID: 11479446, guid: d85bc8c26fce11c41a8c49a1b59f1e2e, type: 2}
+      propertyPath: difficulty
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d85bc8c26fce11c41a8c49a1b59f1e2e, type: 2}
   m_IsPrefabParent: 0
@@ -7852,42 +7856,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1977226667 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 105748, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
-  m_PrefabInternal: {fileID: 1977226666}
---- !u!114 &1977226668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1977226667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 109
-    i1: 101
-    i2: 208
-    i3: 232
-    i4: 219
-    i5: 239
-    i6: 94
-    i7: 100
-    i8: 169
-    i9: 57
-    i10: 129
-    i11: 172
-    i12: 161
-    i13: 140
-    i14: 74
-    i15: 72
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1 &1988559835
 GameObject:
   m_ObjectHideFlags: 0

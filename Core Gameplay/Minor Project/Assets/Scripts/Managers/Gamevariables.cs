@@ -7,6 +7,7 @@ public class Gamevariables : MonoBehaviour {
 	public static string currentLevel;
 	public static string returnLevel;
 	public static float alarmPercent;
+	public static int minigameDifficulty;
 
 	public static bool magicPackage;
 
