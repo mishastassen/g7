@@ -24,6 +24,13 @@ public class levelFinishScreen : MonoBehaviour {
 			if (WebManager.Instance.currentUser.levelProgress < levelId) {
 				WebManager.Instance.updateLevelProgress (levelId);
 			}
+		} else {
+			string scoreText = "";
+			string highscoreText = "Login to see highscores";
+			GameObject highscoreEntry = Instantiate (highscoreEntryPrefab) as GameObject;
+			highscoreEntry.transform.SetParent (highscorePanel.transform, false);
+			string spot = "";
+			highscoreEntry.GetComponent<highScoreDisplay> ().displayHighscore (spot, highscoreText, scoreText);
 		}
 		if (PlayerPrefs.GetInt("levelProgress") == null || PlayerPrefs.GetInt("levelProgress") < levelId) {
 			PlayerPrefs.SetInt ("levelProgress", levelId);
