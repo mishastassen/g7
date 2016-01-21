@@ -89,7 +89,7 @@ public class rotate : NetworkBehaviour {
 		if (!finished) {
 			gameObject.transform.RotateAround (pos_pijl, Vector3.forward, -speed * way * Time.deltaTime);
 		}
-
+			
 		if (isLocalPlayer) {
 			if (Input.GetKeyDown (KeyCode.Escape) && playerControllerId != 2) {
 				GameObject uiManager = GameObject.Find ("LevelManager");
