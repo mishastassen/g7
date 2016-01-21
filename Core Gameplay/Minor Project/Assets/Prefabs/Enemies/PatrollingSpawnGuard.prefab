@@ -233,6 +233,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &133162
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 456150}
+  m_Layer: 8
+  m_Name: Front
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &134024
 GameObject:
   m_ObjectHideFlags: 1
@@ -256,7 +271,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 472994}
-  - 136: {fileID: 13689464}
+  - 135: {fileID: 13560478}
   m_Layer: 8
   m_Name: Hand_L
   m_TagString: Naginata
@@ -291,6 +306,21 @@ GameObject:
   m_Name: Hip_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &166288
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 474766}
+  m_Layer: 8
+  m_Name: Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -421,7 +451,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116690}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 58.79107, y: 43.95, z: 0}
+  m_LocalPosition: {x: 69.37594, y: 0.20293212, z: -3.5085335}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 423248}
@@ -521,11 +551,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 117168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470834}
   - {fileID: 421376}
+  - {fileID: 456150}
+  - {fileID: 474766}
   m_Father: {fileID: 404610}
   m_RootOrder: 0
 --- !u!4 &425290
@@ -592,6 +624,18 @@ Transform:
   - {fileID: 412268}
   m_Father: {fileID: 420372}
   m_RootOrder: 0
+--- !u!4 &456150
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133162}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 423248}
+  m_RootOrder: 2
 --- !u!4 &460202
 Transform:
   m_ObjectHideFlags: 1
@@ -660,6 +704,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 451438}
   m_RootOrder: 0
+--- !u!4 &474766
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: -2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 423248}
+  m_RootOrder: 3
 --- !u!4 &474854
 Transform:
   m_ObjectHideFlags: 1
@@ -832,7 +888,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inactiveFindingGuard: {fileID: 0}
-  spottedCanvas: {fileID: 22359378, guid: 2553e5a98eb7d854cb6f42955c79d216, type: 2}
+  spottedCanvas: {fileID: 0}
+  prefabFindingGuard: {fileID: 133530, guid: 772e489eed4c1fb498dd463deb93b689, type: 2}
+  front: {fileID: 133162}
+  back: {fileID: 166288}
 --- !u!114 &11474390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -876,7 +935,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
+  m_TransformSyncMode: 1
   m_SendInterval: 0.083333336
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -885,8 +944,8 @@ MonoBehaviour:
   m_SnapThreshold: 3
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!136 &13689464
-CapsuleCollider:
+--- !u!135 &13560478
+SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -894,10 +953,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.75
-  m_Height: 5
-  m_Direction: 0
-  m_Center: {x: 1.25, y: -1, z: 1.75}
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 1.5, y: -2.25, z: 1.75}
 --- !u!137 &13780128
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -975,6 +1033,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SendInterval
       value: 0.083333336
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TransformSyncMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
