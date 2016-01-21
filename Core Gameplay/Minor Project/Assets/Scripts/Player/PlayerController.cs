@@ -101,6 +101,8 @@ public class PlayerController : NetworkBehaviour  {
 				changeColour (WebManager.Instance.currentUser.playerColor);
 			} else if (!isLocalPlayer && WebManager.Instance.otherPlayer != null) {
 				changeColour (WebManager.Instance.otherPlayer.playerColor);
+			} else if (playerID == 1) {
+				changeColour (WebManager.Instance.currentUser.playerColor);
 			}
 		}
 	}

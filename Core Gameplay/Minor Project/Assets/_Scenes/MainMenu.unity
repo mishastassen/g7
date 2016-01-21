@@ -20098,7 +20098,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Click on a friend to send
+  m_Text: 'Click on a user to send
 
     a game invitation'
 --- !u!222 &2072913129
