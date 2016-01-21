@@ -46,8 +46,8 @@ public class Camera_Controller : MonoBehaviour {
 		windowCenter.x = this.GetComponent<Transform> ().position.x;
 		windowCenter.y = this.GetComponent<Transform> ().position.y;
 		previousCenter = windowCenter;
-		limitX = 30f;
-		limitY = 15f;
+		limitX = 22f;
+		limitY = 10f;
 		cam = this.GetComponent<Camera> ();
 		zoom = cam.fieldOfView;
 		playerPos = (this.GetComponent<Transform> ().position);
@@ -107,33 +107,29 @@ public class Camera_Controller : MonoBehaviour {
 		x = windowCenter.x;
 		y = windowCenter.y;
 		previousCenter = new Vector2 (center.x, center.y);
-
+		Debug.LogWarning (players.Count);
 		foreach (GameObject player in players) {
-			Debug.LogWarning (Mathf.Abs (player.GetComponent<Transform> ().position.x - oldLocation.x) + " This should be greater than limitX: " + limitX);
-			Debug.LogWarning (Mathf.Abs (player.GetComponent<Transform> ().position.y - oldLocation.y) + " This should be greater than limitY: " + limitY);
 			if (Mathf.Abs (player.GetComponent<Transform> ().position.x - oldLocation.x) > Mathf.Abs (limitX)) {
 				float newFieldofView = updateFoV (cam.fieldOfView);
 				if (Mathf.Abs (cam.fieldOfView - newFieldofView) > 0.3f){
 					cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, newFieldofView, Time.deltaTime * zoomSpeed);
 				} 
-				z = oldLocation.z * 1.005f;
-				limitX *= 1.00499f;
-//				z = oldLocation.z * 1.001f;
-//				limitX *= 1.00099f;
-				Debug.LogWarning ("Zooming out in x from " + oldLocation.z + " to " + z);
+				//z = oldLocation.z * 1.005f;
+				//limitX *= 1.00499f;
+				z = oldLocation.z * 1.003f;
+				limitX *= 1.00305f;
 			} else if (Mathf.Abs (player.GetComponent<Transform> ().position.y - oldLocation.y) > Mathf.Abs (limitY)) {
 				float newFieldofView = updateFoV (cam.fieldOfView);
 				if (Mathf.Abs (cam.fieldOfView - newFieldofView) > 0.3f){
-					cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, newFieldofView * 1.02f, Time.deltaTime * zoomSpeed);
+					cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, newFieldofView * 1.002f, Time.deltaTime * zoomSpeed);
 				} 
 				z = oldLocation.z * 1.005f;
-				limitY *= 1.00499f;
-				Debug.LogWarning ("Zooming out in y from " + oldLocation.z + " to " + z);
+				limitY *= 1.00505f;
 			} else {
 				updateLimitX (limitX);
 				updateLimitY (limitY);
 				z = updateZ (oldLocation.z);
-				cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, 35, Time.deltaTime * (zoomSpeed / 2f));
+				// cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, 35, Time.deltaTime * (zoomSpeed / 20f));
 //				z = -60f;
 //				Debug.LogWarning ("Reset limitX and limitY");
 			}
@@ -148,25 +144,25 @@ public class Camera_Controller : MonoBehaviour {
 		if (fov * 1.02f > zoomMax) {
 			return fov ;
 		} else {
-			return fov * 1.05f;
+			return fov * 1.08f;
 		}
 	}
 
 	float updateLimitX (float limitX){
 
-		if ((limitX / 1.005) < 30f) {
+		if ((limitX / 1.0005) < 30f) {
 			return 30f;
 		} else {
-			return (limitX / 1.005f);
+			return (limitX / 1.0005f);
 		}
 	}
 
 	float updateLimitY (float limitY){
 
-		if ((limitY / 1.005f) < 15f) {
+		if ((limitY / 1.0005f) < 15f) {
 			return 15f;
 		} else {
-			return (limitY / 1.005f);
+			return (limitY / 1.0005f);
 		}
 	}
 
