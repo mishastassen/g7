@@ -31,6 +31,10 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 
 	public GameObject prefabFindingGuard;
 
+	// attributen voor het zorgen dat hij niet meer moonwalkt
+	public GameObject front;
+	public GameObject back;
+
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
@@ -70,6 +74,19 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 			bool shouldStrike = IsInStrikingDistance (playerPos);
 			Strike (shouldStrike);
 		}
+		// Debug.LogWarning ("The velocity in x = " + this.GetComponent<Rigidbody> ().velocity.x + " en facingRight = " + facingRight);
+
+
+		if (this.GetComponent<Rigidbody> ().velocity.x > 0) {
+			if (front.transform.position.x < back.transform.position.x) {
+				flip ();
+			}
+		} else if (this.GetComponent<Rigidbody> ().velocity.x < 0) {
+			if (front.transform.position.x > back.transform.position.x) {
+				flip ();
+			}
+		}
+
 	}
 
 	bool IsInStrikingDistance(Vector3 playerPos) {

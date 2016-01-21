@@ -22,6 +22,10 @@ public class PatrollingGuard: NetworkBehaviour {
 	private float strikingDistance;
 	private bool waiting;
 
+	// attributen voor het zorgen dat hij niet meer moonwalkt
+	public GameObject front;
+	public GameObject back;
+
 	void Start () {
 		enemy = GetComponent<Rigidbody>();
 		speed = 4;
@@ -42,6 +46,16 @@ public class PatrollingGuard: NetworkBehaviour {
 			anim.speed = 1f;
 			CmdNoPlayerSpotted ();
 			walk ();
+		}
+
+		if (this.GetComponent<Rigidbody> ().velocity.x > 0) {
+			if (front.transform.position.x < back.transform.position.x) {
+				flip ();
+			}
+		} else if (this.GetComponent<Rigidbody> ().velocity.x < 0) {
+			if (front.transform.position.x > back.transform.position.x) {
+				flip ();
+			}
 		}
 	}
 
