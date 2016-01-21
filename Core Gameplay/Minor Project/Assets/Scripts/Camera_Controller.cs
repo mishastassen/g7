@@ -39,6 +39,9 @@ public class Camera_Controller : MonoBehaviour {
 	private float currentLerpTime;
 	Vector3 playerPos;
 
+	private float fovR;
+	private float zoomDistance = 60f;
+
 	// Use this for initialization
 	void Start () {
 		currentLevel = Gamevariables.currentLevel;
@@ -49,10 +52,12 @@ public class Camera_Controller : MonoBehaviour {
 		limitX = 22f;
 		limitY = 10f;
 		cam = this.GetComponent<Camera> ();
+		cam.fieldOfView = 35f;
+		fovR = Mathf.Deg2Rad * cam.fieldOfView;
 		zoom = cam.fieldOfView;
 		playerPos = (this.GetComponent<Transform> ().position);
 		newLocation = playerPos;
-		// this.GetComponent<Transform>().position.Set(0f,0f,-60f);
+		this.GetComponent<Transform>().position.Set(playerPos.x,playerPos.y,-60f);
 		z = -60f;
 	}
 
@@ -85,59 +90,37 @@ public class Camera_Controller : MonoBehaviour {
 	}
 
 	void updateCameraLocation(){
-		oldLocation = newLocation;
-		Vector3 center = Vector3.zero;
-		foreach (GameObject player in players) {
-			if (player == null) {
-				removeplayer (player);
-				return;
-			} else {
-				center += player.GetComponent<Transform> ().position;
-			}
+		float z = this.GetComponent<Transform> ().position.z;
+
+		float x0 = players [0].GetComponent<Transform> ().position.x;
+		float x1 = players [1].GetComponent<Transform> ().position.x;
+		float xC = (x0 + x1) / 2f;
+
+		float y0 = players [0].GetComponent<Transform> ().position.y;
+		float y1 = players [1].GetComponent<Transform> ().position.y;
+		float yC = (y0 + y1) / 2f;
+
+		float distanceX = Mathf.Abs (x0 - x1);
+		float distanceY = Mathf.Abs (y0 - y1);
+
+		float zC;
+
+		if (distanceY > distanceX * (9f / 16f)) {
+			zC = 1.4f * (distanceY / (Mathf.Tan (fovR))) / 1.0f;
+			Debug.Log ("should zoom out due to Y now");
+		} else{
+			zC = (distanceX / (Mathf.Tan (fovR))) / 1.4f;
 		}
-		center /= (float)players.Count;
-		//newLocation.z = -40.0f;
-		if (Mathf.Abs (center.x - windowCenter.x) > windowx) {
-			windowCenter.x += center.x - previousCenter.x;
-		}
-		if (Mathf.Abs (center.y - windowCenter.y) > windowy) {
-			windowCenter.y += center.y + -previousCenter.y;
+			
+		if (zC < 60f) {
+			zC = 60f;
 		}
 
-		x = windowCenter.x;
-		y = windowCenter.y;
-		previousCenter = new Vector2 (center.x, center.y);
-		Debug.LogWarning (players.Count);
-		foreach (GameObject player in players) {
-			if (Mathf.Abs (player.GetComponent<Transform> ().position.x - oldLocation.x) > Mathf.Abs (limitX)) {
-				float newFieldofView = updateFoV (cam.fieldOfView);
-				if (Mathf.Abs (cam.fieldOfView - newFieldofView) > 0.3f){
-					cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, newFieldofView, Time.deltaTime * zoomSpeed);
-				} 
-				//z = oldLocation.z * 1.005f;
-				//limitX *= 1.00499f;
-				z = oldLocation.z * 1.003f;
-				limitX *= 1.00305f;
-			} else if (Mathf.Abs (player.GetComponent<Transform> ().position.y - oldLocation.y) > Mathf.Abs (limitY)) {
-				float newFieldofView = updateFoV (cam.fieldOfView);
-				if (Mathf.Abs (cam.fieldOfView - newFieldofView) > 0.3f){
-					cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, newFieldofView * 1.002f, Time.deltaTime * zoomSpeed);
-				} 
-				z = oldLocation.z * 1.005f;
-				limitY *= 1.00505f;
-			} else {
-				updateLimitX (limitX);
-				updateLimitY (limitY);
-				z = updateZ (oldLocation.z);
-				// cam.fieldOfView = Mathf.Lerp (cam.fieldOfView, 35, Time.deltaTime * (zoomSpeed / 20f));
-//				z = -60f;
-//				Debug.LogWarning ("Reset limitX and limitY");
-			}
-		}
+		Debug.Log (distanceY);
 
-		newLocation.Set(x,y,z);
-		Debug.LogWarning ("Zooming from: " + oldLocation + " to " + newLocation);
-		this.GetComponent<Transform> ().position = Vector3.Lerp (oldLocation, newLocation, Time.deltaTime * zoomSpeed);
+		newLocation.Set (xC, yC, -zC);
+
+		this.GetComponent<Transform> ().position = newLocation;
 	}
 
 	float updateFoV (float fov){
