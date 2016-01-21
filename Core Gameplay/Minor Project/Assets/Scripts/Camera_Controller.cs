@@ -6,11 +6,6 @@ public class Camera_Controller : MonoBehaviour {
 
 	private List<GameObject> players;
 
-	public float minzoom;
-	public float maxzoom;
-	public float windowx;
-	public float windowy;
-
 	private Vector2 windowCenter;
 	private Vector2 previousCenter;
 	private Vector3 newLocation;
@@ -21,22 +16,10 @@ public class Camera_Controller : MonoBehaviour {
 
 	private Camera cam;
 	private float zoom;
-	private float zoomSensitivity = 15f;
-	private float zoomSpeed = 0.5f;
-	private float zoomMin = -25f;
-	private float zoomMax = 42.5f;
-	private float x;
-	private float y;
-	private float z;
-	private bool zooming = false;
 
 	private string currentLevel;
-	private GameObject deliveryZone;
 	private bool ready = true;
-	private bool isStarted = false;
 
-	private float lerpTime;
-	private float currentLerpTime;
 	Vector3 playerPos;
 
 	private float fovR;
@@ -49,16 +32,10 @@ public class Camera_Controller : MonoBehaviour {
 		windowCenter.x = this.GetComponent<Transform> ().position.x;
 		windowCenter.y = this.GetComponent<Transform> ().position.y;
 		previousCenter = windowCenter;
-		limitX = 22f;
-		limitY = 10f;
 		cam = this.GetComponent<Camera> ();
 		cam.fieldOfView = 35f;
 		fovR = Mathf.Deg2Rad * cam.fieldOfView;
 		zoom = cam.fieldOfView;
-		playerPos = (this.GetComponent<Transform> ().position);
-		newLocation = playerPos;
-		this.GetComponent<Transform>().position.Set(playerPos.x,playerPos.y,-60f);
-		z = -60f;
 	}
 
 	void OnEnable(){
@@ -72,13 +49,32 @@ public class Camera_Controller : MonoBehaviour {
 	}
 
 	void Update(){
-		if (players.Count > 0) {
+		// als er twee spelers zijn
+		if (players.Count == 2) {
+			if (ready) {
+				updateCameraLocation ();
+			}
+			// als er (nog maar) 1 speler is, dan volgt de camera altijd deze 
+		} else if (players.Count == 1) {
+			if (ready) {
+				float x = players [0].GetComponent<Transform> ().position.x;
+				float y = players [0].GetComponent<Transform> ().position.y;
+				float z = -60f;
+				newLocation.Set (x, y, z);
+				this.GetComponent<Transform> ().position = newLocation;
+			}
+		// als er geen spelers zijn, focussen op het 0 punt
+		} else if (players.Count == 0) {
+			if (ready) {
+				newLocation.Set (0f, 0f, -60f);
+				this.GetComponent<Transform> ().position = newLocation;
+			}
+		// het laatste geval voor als er 3 of meer spelers zijn. 
+		} else {
 			if (ready) {
 				updateCameraLocation ();
 			}
 		}
-		// Debug.Log ("The current field of view is " + cam.fieldOfView);
-		// Debug.Log(players.Count);
 	}
 
 	void addplayer(GameObject player){	//Add new player to list of player objects
@@ -94,17 +90,21 @@ public class Camera_Controller : MonoBehaviour {
 
 		float x0 = players [0].GetComponent<Transform> ().position.x;
 		float x1 = players [1].GetComponent<Transform> ().position.x;
+		// reken het gemiddelde uit in de X richting
 		float xC = (x0 + x1) / 2f;
 
 		float y0 = players [0].GetComponent<Transform> ().position.y;
 		float y1 = players [1].GetComponent<Transform> ().position.y;
+		// reken het gemiddelde uit in de Y richting
 		float yC = (y0 + y1) / 2f;
 
+		// afstanden tussen de spelers in X en Y
 		float distanceX = Mathf.Abs (x0 - x1);
 		float distanceY = Mathf.Abs (y0 - y1);
 
 		float zC;
 
+		// de regels hieronder bepalen wat leidend is: de X richting of de Y richting
 		if (distanceY > distanceX * (9f / 16f)) {
 			zC = 1.4f * (distanceY / (Mathf.Tan (fovR))) / 1.0f;
 			Debug.Log ("should zoom out due to Y now");
@@ -116,44 +116,8 @@ public class Camera_Controller : MonoBehaviour {
 			zC = 60f;
 		}
 
-		Debug.Log (distanceY);
-
+		// geef de camera de goede positie mee
 		newLocation.Set (xC, yC, -zC);
-
 		this.GetComponent<Transform> ().position = newLocation;
-	}
-
-	float updateFoV (float fov){
-		if (fov * 1.02f > zoomMax) {
-			return fov ;
-		} else {
-			return fov * 1.08f;
-		}
-	}
-
-	float updateLimitX (float limitX){
-
-		if ((limitX / 1.0005) < 30f) {
-			return 30f;
-		} else {
-			return (limitX / 1.0005f);
-		}
-	}
-
-	float updateLimitY (float limitY){
-
-		if ((limitY / 1.0005f) < 15f) {
-			return 15f;
-		} else {
-			return (limitY / 1.0005f);
-		}
-	}
-
-	float updateZ (float z){
-		if ((z / 1.005f) > -70f) {
-			return -70f;
-		} else {
-			return (z / 1.005f);
-		}
 	}
 }
