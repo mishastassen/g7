@@ -114,7 +114,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 462266}
   - 65: {fileID: 6502648}
-  - 114: {fileID: 11437638}
   m_Layer: 0
   m_Name: platformMedium (2)
   m_TagString: Untagged
@@ -555,38 +554,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11437638
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 192380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 164
-    i1: 115
-    i2: 194
-    i3: 187
-    i4: 29
-    i5: 104
-    i6: 240
-    i7: 100
-    i8: 249
-    i9: 192
-    i10: 37
-    i11: 230
-    i12: 224
-    i13: 245
-    i14: 89
-    i15: 231
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
