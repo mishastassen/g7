@@ -2672,7 +2672,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 22.44011
+      value: 24.08
       objectReference: {fileID: 0}
     - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2696,7 +2696,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 443680, guid: 3df622472ae51db489b5557442607219, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11424268, guid: 3df622472ae51db489b5557442607219, type: 2}
       propertyPath: checkpointNum
@@ -5607,7 +5607,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 456418, guid: 5e38c7053ee5d304aa2eb74c3ff9043f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 22.3
+      value: 23.94
       objectReference: {fileID: 0}
     - target: {fileID: 456418, guid: 5e38c7053ee5d304aa2eb74c3ff9043f, type: 2}
       propertyPath: m_LocalPosition.z
