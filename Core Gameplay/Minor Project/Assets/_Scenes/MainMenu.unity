@@ -5049,11 +5049,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11460432, guid: 8f79b84efad760242b195b03f261cab4, type: 2}
       propertyPath: levelId
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11460432, guid: 8f79b84efad760242b195b03f261cab4, type: 2}
       propertyPath: levelName
-      value: Level7
+      value: Level6
       objectReference: {fileID: 0}
     - target: {fileID: 11476358, guid: 8f79b84efad760242b195b03f261cab4, type: 2}
       propertyPath: m_Text
