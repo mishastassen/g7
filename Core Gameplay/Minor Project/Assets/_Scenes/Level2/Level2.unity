@@ -1842,6 +1842,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11404998, guid: 9d531f7b16dcd2149ab64ac5027a940d, type: 2}
+      propertyPath: spottedImage
+      value: 
+      objectReference: {fileID: 1331105203}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d531f7b16dcd2149ab64ac5027a940d, type: 2}
   m_IsPrefabParent: 0
@@ -4863,11 +4867,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 133382, guid: 2553e5a98eb7d854cb6f42955c79d216, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440184, guid: 2553e5a98eb7d854cb6f42955c79d216, type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2553e5a98eb7d854cb6f42955c79d216, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1331105203 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11440184, guid: 2553e5a98eb7d854cb6f42955c79d216,
+    type: 2}
+  m_PrefabInternal: {fileID: 1331105202}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!223 &1331105204 stripped
 Canvas:
   m_PrefabParentObject: {fileID: 22355584, guid: 2553e5a98eb7d854cb6f42955c79d216,
