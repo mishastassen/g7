@@ -11,7 +11,6 @@ GameObject:
   - 33: {fileID: 3334386}
   - 23: {fileID: 2355834}
   - 95: {fileID: 9576038}
-  - 114: {fileID: 11403794}
   - 65: {fileID: 6564218}
   m_Layer: 8
   m_Name: FenceWithTorch
@@ -267,38 +266,6 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
---- !u!114 &11403794
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 240
-    i1: 44
-    i2: 60
-    i3: 56
-    i4: 247
-    i5: 218
-    i6: 151
-    i7: 100
-    i8: 25
-    i9: 231
-    i10: 15
-    i11: 12
-    i12: 183
-    i13: 108
-    i14: 208
-    i15: 39
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!198 &19805300
 ParticleSystem:
   m_ObjectHideFlags: 1

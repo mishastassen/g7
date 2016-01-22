@@ -11,7 +11,6 @@ GameObject:
   - 33: {fileID: 3338230}
   - 23: {fileID: 2397392}
   - 95: {fileID: 9540302}
-  - 114: {fileID: 11492786}
   - 65: {fileID: 6567562}
   m_Layer: 8
   m_Name: fence_large
@@ -94,38 +93,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11492786
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 175118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 214
-    i1: 173
-    i2: 142
-    i3: 163
-    i4: 24
-    i5: 235
-    i6: 46
-    i7: 36
-    i8: 233
-    i9: 250
-    i10: 226
-    i11: 108
-    i12: 81
-    i13: 73
-    i14: 76
-    i15: 17
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

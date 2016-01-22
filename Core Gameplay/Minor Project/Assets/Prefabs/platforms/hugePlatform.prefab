@@ -45,7 +45,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 435046}
   - 65: {fileID: 6570454}
-  - 114: {fileID: 11489876}
   m_Layer: 0
   m_Name: hugePlatform
   m_TagString: Untagged
@@ -527,38 +526,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11489876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 162
-    i1: 32
-    i2: 57
-    i3: 94
-    i4: 53
-    i5: 25
-    i6: 94
-    i7: 116
-    i8: 122
-    i9: 141
-    i10: 87
-    i11: 98
-    i12: 228
-    i13: 108
-    i14: 53
-    i15: 103
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

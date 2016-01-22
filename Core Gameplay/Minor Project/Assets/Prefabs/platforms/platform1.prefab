@@ -11,7 +11,6 @@ GameObject:
   - 33: {fileID: 3308128}
   - 23: {fileID: 2351506}
   - 95: {fileID: 9549980}
-  - 114: {fileID: 11491640}
   - 65: {fileID: 6545954}
   m_Layer: 0
   m_Name: platform1
@@ -94,38 +93,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11491640
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 158542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 68
-    i1: 9
-    i2: 65
-    i3: 200
-    i4: 140
-    i5: 167
-    i6: 127
-    i7: 36
-    i8: 184
-    i9: 252
-    i10: 205
-    i11: 69
-    i12: 201
-    i13: 76
-    i14: 84
-    i15: 58
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
