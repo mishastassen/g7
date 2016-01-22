@@ -53,7 +53,10 @@ public class Playermini3 : NetworkBehaviour
 				jumping = false;
 			}
 
-        
+			if (Input.GetKeyDown (KeyCode.Escape) && playerID == 1) {
+				GameObject uiManager = GameObject.Find ("LevelManager");
+				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
+			}
 
 			//duck
 			if (Input.GetButtonDown(interact1Button) && !ducking) {
