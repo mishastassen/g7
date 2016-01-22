@@ -374,7 +374,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11499116, guid: b88a02e05c0870142a27cdfd1db3f8cd, type: 2}
       propertyPath: nextLevel
-      value: Level7
+      value: Level6
       objectReference: {fileID: 0}
     - target: {fileID: 6590742, guid: b88a02e05c0870142a27cdfd1db3f8cd, type: 2}
       propertyPath: m_Size.y
