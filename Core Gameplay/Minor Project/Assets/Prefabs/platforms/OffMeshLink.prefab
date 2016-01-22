@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 448354}
-  - 114: {fileID: 11487224}
   - 191: {fileID: 19127482}
   m_Layer: 8
   m_Name: GameObject (1)
@@ -25,7 +24,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 421218}
-  - 114: {fileID: 11460484}
   - 191: {fileID: 19195006}
   m_Layer: 8
   m_Name: GameObject
@@ -87,70 +85,6 @@ Transform:
   - {fileID: 448354}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11460484
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 194498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 158
-    i1: 226
-    i2: 217
-    i3: 225
-    i4: 8
-    i5: 67
-    i6: 98
-    i7: 148
-    i8: 201
-    i9: 149
-    i10: 90
-    i11: 95
-    i12: 240
-    i13: 37
-    i14: 251
-    i15: 36
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
---- !u!114 &11487224
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 158
-    i1: 226
-    i2: 217
-    i3: 225
-    i4: 8
-    i5: 67
-    i6: 98
-    i7: 148
-    i8: 201
-    i9: 149
-    i10: 90
-    i11: 95
-    i12: 240
-    i13: 37
-    i14: 251
-    i15: 36
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!191 &19127482
 OffMeshLink:
   m_ObjectHideFlags: 1

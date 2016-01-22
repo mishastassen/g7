@@ -46,10 +46,10 @@ public class minigame3Start : NetworkBehaviour {
 	[Server]
 	void HandleEventonMinigame3Activated(){
 		Debug.Log ("Starting minigame3");
-		//if (playerCount == 2) {
+		if (playerCount == 2) {
 			GameNetworkManager.singleton.playerPrefab = minigame3Player;
 			Eventmanager.Instance.triggerLevelSwitch (minigame3SceneName);
-		//}
+		}
 	}
 
    
