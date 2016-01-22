@@ -20,7 +20,7 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 
 	// attributen voor het spawnen van een finding guard staan below. 
 	public GameObject inactiveFindingGuard;
-	public Canvas spottedCanvas;
+	public Image spottedImage;
 	private bool displayingCanvas;
 
 	private GameObject targetPlayer;
@@ -42,7 +42,7 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 		coneDegrees = 60;
 		spotted = false;
 		anim = GetComponent<Animator> ();
-		spottedCanvas.enabled = false;
+		spottedImage.enabled = false;
 		displayingCanvas = false;
 	}
 
@@ -214,10 +214,10 @@ public class PatrollingSpawnGuard: NetworkBehaviour {
 	IEnumerator canvasSpotted (){
 		displayingCanvas = true;
 		Debug.Log ("Canvas moet nu aan staan");
-		spottedCanvas.enabled = true;
+		spottedImage.enabled = true;
 		yield return new WaitForSeconds (2f);
 
-		spottedCanvas.enabled = false;
+		spottedImage.enabled = false;
 		displayingCanvas = true;
 	}
 
