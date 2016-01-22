@@ -2160,7 +2160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &191143749
 Transform:
   m_ObjectHideFlags: 0
@@ -4280,7 +4280,7 @@ Transform:
   - {fileID: 2122766573}
   - {fileID: 1659790948}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1001 &395522205
 Prefab:
   m_ObjectHideFlags: 0
@@ -5654,7 +5654,7 @@ Transform:
   - {fileID: 958462882}
   - {fileID: 401145911}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1001 &510180170
 Prefab:
   m_ObjectHideFlags: 0
