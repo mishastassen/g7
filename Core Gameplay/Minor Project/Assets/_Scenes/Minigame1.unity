@@ -692,6 +692,7 @@ MonoBehaviour:
   loseText: {fileID: 258658235}
   loseInstruction: {fileID: 1457443005}
   timeText: {fileID: 969980816}
+  winConditionText: {fileID: 0}
   instructions: {fileID: 1405183483}
   moneySound: {fileID: 288260670}
 --- !u!1 &483415318
@@ -736,7 +737,7 @@ GameObject:
   - 114: {fileID: 492793202}
   m_Layer: 0
   m_Name: WinConditionText
-  m_TagString: Untagged
+  m_TagString: winConditionTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1603,7 +1604,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_AnchoredPosition.x

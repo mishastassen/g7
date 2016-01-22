@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -243,78 +243,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 821515616}
     m_Modifications:
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.0000030994415
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.000006198883
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 411
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22472438, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 101070, guid: e6d7dc59fb467a747a540471625f8972, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -2288,42 +2216,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1531147251}
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
---- !u!1 &1531147253 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 105748, guid: 6d65d0e8dbef5e64a93981aca18c4a48, type: 2}
-  m_PrefabInternal: {fileID: 1531147251}
---- !u!114 &1531147254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1531147253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 109
-    i1: 101
-    i2: 208
-    i3: 232
-    i4: 219
-    i5: 239
-    i6: 94
-    i7: 100
-    i8: 169
-    i9: 57
-    i10: 129
-    i11: 172
-    i12: 161
-    i13: 140
-    i14: 74
-    i15: 72
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1001 &1543160957
 Prefab:
   m_ObjectHideFlags: 0

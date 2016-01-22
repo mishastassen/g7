@@ -2870,7 +2870,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0.000022888184}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &277993400
@@ -14716,7 +14716,7 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3931186, y: 0.3931186, z: 0.3931186}
+  m_LocalScale: {x: 0.58931184, y: 0.58931184, z: 0.58931184}
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -14729,7 +14729,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 268.5, y: 151}
+  m_AnchoredPosition: {x: 402.5, y: 226.5}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -17989,7 +17989,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 585600855}
   m_HandleRect: {fileID: 585600854}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -18903,7 +18903,7 @@ Prefab:
       objectReference: {fileID: 172430, guid: 921eb6a59ba7dc8468c983153ef60926, type: 2}
     - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_LogLevel
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11469742, guid: a9eddb7ca40e7024c9ee935e089563dd, type: 2}
       propertyPath: m_SpawnPrefabs.Array.data[9]
@@ -20098,7 +20098,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Click on a friend to send
+  m_Text: 'Click on a user to send
 
     a game invitation'
 --- !u!222 &2072913129

@@ -69,7 +69,7 @@ public class rotate : NetworkBehaviour {
 		// Set initial variables and a random turn
 		way = 1;
 		erin = false;
-		//RandomTurn ();
+		RandomTurn ();
 		count = 0;
 		if (isLocalPlayer) {
 		}
@@ -119,7 +119,11 @@ public class rotate : NetworkBehaviour {
 					CmdPressed (false);
 				}
 				if (count > 0) {
-					count -= 1;
+					if (!finished) {
+						count -= 1;
+					} else {
+						// do not change when finished
+					}
 				} else {
 					count = 0;
 				}
@@ -159,9 +163,11 @@ public class rotate : NetworkBehaviour {
 	
 	// random turn function
 	void RandomTurn (){
-		int move = Random.Range (0, 360);
-		GameObject.Find (redgreen).transform.RotateAround (pos_cirkel, Vector3.forward, move );
-		CmdRandomTurn (move);
+		if (!finished) {
+			int move = Random.Range (0, 360);
+			GameObject.Find (redgreen).transform.RotateAround (pos_cirkel, Vector3.forward, move);
+			CmdRandomTurn (move);
+		}
 	}
 
 	[Command]
