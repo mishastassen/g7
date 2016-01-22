@@ -16,6 +16,7 @@ public class minigame3Start : NetworkBehaviour {
 		Eventmanager.Instance.EventonMinigame3Activated += HandleEventonMinigame3Activated;
 		Gamemanager.Instance.onDisableEventHandlers += OnDisable;
 		eventEnabled = true;
+		playerCount = 0;
 	}
 
 	void OnDisable(){
@@ -26,18 +27,12 @@ public class minigame3Start : NetworkBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.tag == "PickUp1" || other.tag == "PickUpMagic") {
-			packageNearby = true;
-		}
 		if (other.tag == "Player") {
 			playerCount += 1;
 		}
 	}
 
 	void OnTriggerExit(Collider other) {
-		if (other.tag == "PickUp1" || other.tag == "PickUpMagic") {
-			packageNearby = false;
-		}
 		if (other.tag == "Player") {
 			playerCount -= 1;
 		}
@@ -45,8 +40,7 @@ public class minigame3Start : NetworkBehaviour {
 
 	[Server]
 	void HandleEventonMinigame3Activated(){
-		Debug.Log ("Starting minigame3");
-		if (playerCount == 2) {
+		if (playerCount >= 2) {
 			GameNetworkManager.singleton.playerPrefab = minigame3Player;
 			Eventmanager.Instance.triggerLevelSwitch (minigame3SceneName);
 		}
