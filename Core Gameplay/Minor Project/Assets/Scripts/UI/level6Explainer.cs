@@ -13,7 +13,7 @@ public class level6Explainer : MonoBehaviour {
 	}
 
 	void Update () {
-		if (playerCount > 0) {
+		if (playerCount == 2) {
 			levelInstruction.SetActive (true);
 		} else {
 			levelInstruction.SetActive (false);
