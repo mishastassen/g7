@@ -27,8 +27,11 @@ public class FindingGuard : NetworkBehaviour {
 	private float coolDownTime = startCoolDownTime;
 	private float lastStrike = -1f;
 
-	private static float startAgentSpeed = 3.5f;
+	private static float startAgentSpeed;
 	private float agentSpeed = startAgentSpeed;
+
+	// speed verhogen in level 6
+	private string currentLevel;
 
 	// Use this for initialization
 	void Start () {
@@ -39,9 +42,18 @@ public class FindingGuard : NetworkBehaviour {
 		}
 		strikingDistance = 12f;
 		waiting = false;
+
+		// speed verhogen in level 6
+		currentLevel = Gamevariables.currentLevel;
+		if (currentLevel == "Level6") {
+			startAgentSpeed = 5.5f;
+		} else {
+			startAgentSpeed = 3.5f;
+		}
 	}
 
 	void Update () {
+		Debug.Log (agent.speed);
 		TriggerList.RemoveAll(x => x == null);
 
 		if (isServer) {
