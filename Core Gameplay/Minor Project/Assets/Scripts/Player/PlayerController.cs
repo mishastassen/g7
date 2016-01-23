@@ -130,7 +130,7 @@ public class PlayerController : NetworkBehaviour  {
 				doInteract2();
 			}
 
-			if (Input.GetKeyDown (KeyCode.Escape) && playerID == 1) {
+			if ((Input.GetKeyDown (KeyCode.Escape)||Input.GetKeyDown("joystick button 7")) && playerID == 1) {
 				GameObject uiManager = GameObject.Find ("LevelManager");
 				uiManager.GetComponent<openEscMenu> ().triggerEscMenu ();
 			}
