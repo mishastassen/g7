@@ -3405,6 +3405,14 @@ Prefab:
       propertyPath: m_Size.x
       value: 4.9597616
       objectReference: {fileID: 0}
+    - target: {fileID: 193536, guid: f7652014bddfa55469abc0b352d8ca50, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 101782, guid: f7652014bddfa55469abc0b352d8ca50, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f7652014bddfa55469abc0b352d8ca50, type: 2}
   m_IsPrefabParent: 0
