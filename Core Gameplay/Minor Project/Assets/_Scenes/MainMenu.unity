@@ -14717,7 +14717,7 @@ RectTransform:
   m_GameObject: {fileID: 1506744778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0424597, y: 1.0424597, z: 1.0424597}
+  m_LocalScale: {x: 0.96412885, y: 0.96412885, z: 0.96412885}
   m_Children:
   - {fileID: 933536238}
   - {fileID: 537332813}
@@ -14730,7 +14730,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 712, y: 319}
+  m_AnchoredPosition: {x: 658.5, y: 319}
   m_SizeDelta: {x: 1366, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506744784
@@ -17003,11 +17003,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11460432, guid: 8f79b84efad760242b195b03f261cab4, type: 2}
       propertyPath: levelId
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11460432, guid: 8f79b84efad760242b195b03f261cab4, type: 2}
       propertyPath: levelName
-      value: Level7
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 11476358, guid: 8f79b84efad760242b195b03f261cab4, type: 2}
       propertyPath: m_Text

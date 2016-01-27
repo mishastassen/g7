@@ -1004,7 +1004,7 @@ MonoBehaviour:
   winPlank: {fileID: 1782387963}
   winText: {fileID: 177509666}
   winInstruction: {fileID: 1634467627}
-  obstaclestododge: 50
+  obstaclestododge: 25
   SpawnTime: 1
   Spawnlocations:
   - {fileID: 750196331}
