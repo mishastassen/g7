@@ -40,14 +40,14 @@ public class Spawn : NetworkBehaviour
 
         if (Timer < 0 && !stop)
         {
-            Timer = SpawnTime;
+			Timer = (1.5f- obstaclesspawnded / obstaclestododge) * SpawnTime;
             SpawnObject(spawn, spawn2);
             obstaclesspawnded = obstaclesspawnded + 1;
             stopspawn();
         }
 
         //display win
-        if (Timer < -7 && stop)
+        if (Timer < -5 && stop)
         {
 			winPlank.enabled = true;
 			winText.enabled = true;

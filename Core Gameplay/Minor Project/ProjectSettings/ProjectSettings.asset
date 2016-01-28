@@ -10,7 +10,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Minor Project
+  productName: As Daylight Dies
   defaultCursor: {fileID: 2800000, guid: dc284885baa9d364e8c604d4ef3e9084, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 1
